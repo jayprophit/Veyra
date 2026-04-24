@@ -1,0 +1,278 @@
+================================================================================
+EQUIPMENT ACQUISITION SUMMARY - QUICK REFERENCE
+================================================================================
+
+YOUR MANUFACTURING EMPIRE: OUTRIGHT OWNERSHIP PLAN
+For: 42-year-old zero-hour agency worker | Timeline: 10-12 years
+
+================================================================================
+EQUIPMENT WISHLIST - PRICED
+================================================================================
+
+TIER 1 (Entry - Year 3): £7,600 - £11,900
+• Creality Sermoon S1 3D Scanner: £1,900-2,200
+• CO2 Laser Cutter (50W): £1,500-3,000
+• Fiber Laser Engraver (20W): £800-1,500
+• Entry CNC Router: £1,200-1,600
+• Entry CNC (metal): £1,200-1,600
+• Post-processing/tools: £1,000-2,000
+
+TIER 2 (Professional - Year 5): £19,500 - £27,900
+• Formlabs Form 4L SLA Printer: £7,000-10,000
+• Mid-range CNC (32x32): £2,500-3,200
+• Mid-range CNC Mill: £2,500-3,200
+• Advanced Laser (80W+): £3,000-5,000
+• Large CNC (48x48): £3,200-4,000
+• Software + extraction: £1,300-2,500
+
+TIER 3 (Metal AM - Year 7): £90,000 - £140,000
+• Desktop Metal Studio System 2: £80,000-120,000
+• Post-processing: £5,000-10,000
+• Powder storage: £2,000-5,000
+• Safety equipment: £3,000-5,000
+
+TIER 4 (Industrial - Year 10): £765,000 - £965,000
+• EOS EOSINT M 290 DMLS: £560,000+
+• Industrial facility: £150,000-300,000
+• Power upgrades: £10,000-20,000
+• Climate control: £15,000-25,000
+• QC equipment: £10,000-20,000
+• Material storage: £20,000-40,000
+
+GRAND TOTAL: £882,600 - £1,145,800 (~£900k-£1.15m)
+
+
+================================================================================
+10-YEAR ACQUISITION ROADMAP
+================================================================================
+
+YEAR 1-2: FOUNDATION
+---------------------
+Personal Focus:
+• Build £6,087 Emergency Fund
+• Clear £1,910 debt
+• Start £135/month investments
+• Learn CAD/CAM (Fusion 360)
+
+Capital Accumulated:
+• Personal savings: £7,752 (24mo × £323)
+• Extra days: £5,040 (24mo × £210)
+• Total: £12,792 + investments growing
+
+
+YEAR 3: TIER 1 ACQUISITION
+--------------------------
+Action: Launch service business
+Funding: UK Start Up Loan (£10k) + Savings (£2k)
+Equipment: 3D Scanner + Laser + Entry CNC (£10,000)
+Target Revenue: £1,500/month
+
+
+YEAR 4: GROWTH
+--------------
+Action: Scale services
+Revenue: £3,500/month average
+Reinvest: 70% into business
+Capital: £25,000-42,000 accumulated
+
+
+YEAR 5: TIER 2 ACQUISITION
+--------------------------
+Action: Apply for Made Smarter Grant (£20k match)
+Funding: Grant (£20k) + Business profits (£15k)
+Equipment: Formlabs 4L + Mid-range CNC (£25,000)
+Revenue Target: £5,000/month
+
+
+YEAR 6: CONTINUED GROWTH
+------------------------
+Action: Incorporate as Ltd
+Revenue: £8,000/month
+Reinvest: 60%
+R&D Tax Credits: £5,000-15,000
+Capital: £72,000-127,000 accumulated
+
+
+YEAR 7: TIER 3 ACQUISITION
+--------------------------
+Action: Major leap into metal AM
+Funding: Accumulated capital (£120,000)
+Equipment: Desktop Metal Studio System 2
+Revenue Target: £12,000/month
+Note: May use short-term bridge finance
+
+
+YEAR 8-9: SCALING
+-----------------
+Action: Industrial contracts
+Revenue: £20,000-35,000/month
+Grants: Innovate UK (£50-100k)
+Capital: £270,000-470,000 accumulated
+
+
+YEAR 10+: TIER 4 ACQUISITION
+----------------------------
+Action: Complete outright ownership
+Funding: Business profits + Grants + Investor (optional)
+Equipment: EOS M 290 + Industrial facility
+Target: £760,000-965,000 total investment
+Revenue: £45,000+/month
+
+
+================================================================================
+GRANT OPPORTUNITIES
+================================================================================
+
+1. Made Smarter Programme
+   • £20,000 match-funding (Year 5)
+   • 50% contribution required
+   • For: Digital tech adoption
+
+2. Innovate UK Smart Grants
+   • £25,000-2,000,000 (Year 8-9)
+   • For: R&D with commercial potential
+
+3. R&D Tax Credits
+   • 20-27% of R&D costs (Ongoing)
+   • Via: HMRC Corporation Tax
+
+4. UK Start Up Loan
+   • £25,000 at 6% fixed (Year 3)
+   • Government-backed
+
+5. Regional Growth Funds
+   • £10,000-40,000 (Various years)
+   • Location-dependent
+
+
+================================================================================
+MONTHLY REVENUE PROGRESSION
+================================================================================
+
+Year 1:   £0      (Learning phase)
+Year 2:   £0      (Preparation)
+Year 3:   £1,500  (Service launch)
+Year 4:   £3,500  (Growth)
+Year 5:   £5,000  (Professional)
+Year 6:   £8,000  (Scaling)
+Year 7:   £12,000 (Metal AM added)
+Year 8:   £20,000 (B2B contracts)
+Year 9:   £30,000 (Industrial)
+Year 10:  £45,000 (Full capacity)
+
+
+================================================================================
+FUNDING SOURCES BREAKDOWN
+================================================================================
+
+PERSONAL CAPITAL (Years 1-2):
+• Base income surplus: £323/month
+• Extra day income: £210/month (2 days)
+• Total: £533/month = £12,792 over 24 months
+
+BUSINESS REINVESTMENT:
+• Year 3-5: 70% of profits
+• Year 6-7: 60% of profits
+• Year 8-10: 50% of profits
+
+GRANTS & SUPPORT:
+• Made Smarter: £20,000 (Year 5)
+• Innovate UK: £50,000-100,000 (Year 8-9)
+• R&D Tax Credits: Ongoing 20-27%
+• Start Up Loan: £25,000 (Year 3, if needed)
+
+TOTAL AVAILABLE OVER 10 YEARS:
+• Personal: £50,000+
+• Business reinvestment: £400,000+
+• Grants: £100,000+
+• TOTAL: £550,000+
+
+Bridge to £900,000-1,150,000:
+• Years 10-12 additional profits
+• Potential minority investor
+• Equipment sale/leaseback strategies
+
+
+================================================================================
+CRITICAL SUCCESS FACTORS
+================================================================================
+
+1. CONSISTENT EXTRA DAYS
+   • Work 2-4 weekend days every month
+   • £210-420/month additional income
+   • Critical for initial capital
+
+2. SKILL MASTERY (Parallel)
+   • Fusion 360 (free hobbyist)
+   • 3D printing technologies
+   • CNC programming
+   • Business management
+
+3. GRANT APPLICATIONS
+   • Apply early, apply often
+   • Keep detailed records
+   • Meet all deadlines
+
+4. HIGH REINVESTMENT RATE
+   • Live modestly early years
+   • Build business equity
+   • Delay large personal spending
+
+5. RISK MANAGEMENT
+   • Never touch personal EF
+   • Insure all equipment
+   • Maintain safety reserves
+   • Diversify revenue
+
+
+================================================================================
+YOUR IMMEDIATE NEXT STEPS
+================================================================================
+
+THIS WEEK:
+☐ Download Fusion 360 (free hobbyist license)
+☐ Complete Week 1 financial actions from main guide
+☐ Start learning CAD basics (YouTube tutorials)
+
+THIS MONTH:
+☐ Build Emergency Fund to £1,000
+☐ Research local manufacturing market
+☐ Identify potential first customers
+☐ Study 3D printing technologies
+
+THIS YEAR:
+☐ Complete £6,087 Emergency Fund
+☐ Clear all £1,910 debt
+☐ Master Fusion 360 basics
+☐ Write initial business plan
+☐ Research grants thoroughly
+
+
+================================================================================
+THE BOTTOM LINE
+================================================================================
+
+VISION: Own £900k-£1.15m manufacturing facility outright
+TIMELINE: 10-12 years
+STRATEGY: Build personal foundation → Launch business → Reinvest profits → Scale → Own everything
+
+IS IT POSSIBLE? YES
+- £145/day agency rate is good income
+- Extra days = £210-420/month additional
+- 26 years to retirement = plenty of time
+- UK grants support manufacturing SMEs
+- Business reinvestment compounds over time
+
+THE PATH:
+1. Years 1-2: Personal foundation (£12k saved)
+2. Years 3-4: Business launch (£10k equipment)
+3. Years 5-6: Growth with grants (£25k equipment)
+4. Year 7: Metal 3D printing (£120k equipment)
+5. Years 8-10: Scale to industrial
+6. Years 10-12: Complete ownership
+
+YOU CAN DO THIS. START TODAY.
+
+================================================================================
+END OF EQUIPMENT ACQUISITION SUMMARY
+================================================================================

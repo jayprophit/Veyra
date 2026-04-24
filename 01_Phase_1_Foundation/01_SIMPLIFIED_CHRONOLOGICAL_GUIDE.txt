@@ -1,0 +1,290 @@
+================================================================================
+SIMPLIFIED CHRONOLOGICAL WALKTHROUGH GUIDE
+================================================================================
+
+YOUR SITUATION AT A GLANCE:
+• Age 42, single, zero-hour agency worker
+• £145/day base rate (~£116 net after tax)
+• £1,910 total debt (Resolve/Terry/HMV/Jason)
+• £2,029/month essential outgoings
+• Emergency fund target: £6,087 (3 months)
+
+================================================================================
+PHASE 1: FOUNDATION (Months 1-12)
+GOAL: £6,087 Emergency Fund + Debt Free + Protection
+================================================================================
+
+WEEK 1 - IMMEDIATE ACTIONS:
+---------------------------
+[ ] Set up Monzo Pots: Bills (£419.75), Debt (£40), Food (£40), Fuel (£53.70), EF (variable)
+[ ] Capital One auto-pay: £20 fuel monthly, full balance
+[ ] Start Emergency Fund: £100-200 to Coinbase
+[ ] Download Moneyhub/Emma: Connect all accounts
+[ ] Credit monitoring: Sign up ClearScore
+[ ] Ask agency: "Is holiday pay rolled up or accrued?"
+[ ] Check pension: Confirm auto-enrolment status
+[ ] Keep Santander ISA open: Do not close!
+
+MONTH 1-3: BUILD EMERGENCY FUND FOUNDATION:
+------------------------------------------
+[ ] Income Protection quote: LifeSearch 0800 644 4468 (specify zero-hour)
+[ ] PURCHASE Income Protection (within 30 days) - MANDATORY
+[ ] 30-day spending audit in Moneyhub
+[ ] Bank switching bonus: Use Metro, add to EF
+[ ] State Pension forecast: gov.uk/check-state-pension
+[ ] Pay all debt minimums (£160/month)
+[ ] All surplus → Emergency Fund
+[ ] Target: £1,000 by Month 3
+
+MONTH 4-9: COMPLETE EMERGENCY FUND:
+----------------------------------
+[ ] Continue debt minimums
+[ ] Work extra days during feast periods
+[ ] All surplus → Emergency Fund
+[ ] Target: £6,087 by Month 9
+[ ] Draw from EF only during famine periods (low work)
+
+MONTH 10-13: DEBT SNOWBALL (Once EF = £6,087):
+----------------------------------------------
+[ ] Month 10: Clear Resolve (£160) - pay £30 min + £130 surplus
+[ ] Month 11: Clear Terry (£250) - flexible payment
+[ ] Month 12: Clear HMV (£700) - pay £30 min + £670 surplus
+[ ] Month 13: Clear Jason (£800) - pay £100 min + £700 surplus
+[ ] Result: All debt cleared ✅
+
+MONTH 12+: LEGAL PROTECTIONS:
+----------------------------
+[ ] Sign Will: Include digital assets, children as beneficiaries
+[ ] Apply for LPA: Property & Financial Affairs (£82)
+[ ] Business insurance: If side business active
+
+PHASE 1 COMPLETE CHECKLIST:
+---------------------------
+[ ] Emergency Fund: £6,087 ✅
+[ ] All Debt: £0 ✅
+[ ] Income Protection: Active ✅
+[ ] Will: Signed ✅
+[ ] LPA: Applied ✅
+
+
+================================================================================
+PHASE 2: CORE INVESTMENT ENGINES (Months 14-19)
+GOAL: Activate 7 Investment Engines (£135/month total)
+================================================================================
+
+⚠️ ONLY START AFTER: EF = £6,087 AND DEBT = £0
+
+MONTH 14: CRYPTO DCA ENGINE:
+-----------------------------
+[ ] Open/Upgrade Pionex
+[ ] Deposit £35
+[ ] Set DCA Bot: £1/day BTC
+[ ] Automation: Active
+
+MONTH 15: STOCKS & SHARES ISA:
+-------------------------------
+[ ] Open Trading 212 ISA
+[ ] Buy £10 VWRP (Vanguard FTSE All-World)
+[ ] Set recurring: £35/month (£25 VWRP + £5 Infrastructure + £5 buffer)
+
+MONTH 16: PHYSICAL GOLD ENGINE:
+--------------------------------
+[ ] Open Goldwise
+[ ] Buy £5 gold
+[ ] Set recurring: £10/month (alternate gold/silver)
+
+MONTH 17: PENSION (SIPP):
+-------------------------
+[ ] Open SIPP (AJ Bell or Vanguard)
+[ ] Set £20/month direct debit
+[ ] Government adds 20% tax relief (£20 → £25)
+[ ] Invest in global index fund
+[ ] Check workplace pension: Ensure full employer match
+
+MONTH 18: CRYPTO STAKING:
+--------------------------
+[ ] Open Bitget or Gemini
+[ ] Buy £10 ETH
+[ ] Stake for 3-4% APY
+[ ] Set £10/month recurring
+
+MONTH 19: TAX PREPARATION:
+-------------------------
+[ ] Create Monzo Tax Pot
+[ ] Set £20/month recurring
+[ ] Set up Koinly: Connect all crypto accounts
+
+MONTH 19: SECURITY & TRACKING:
+-----------------------------
+[ ] Set up Multi-Sig wallet (Safe or Casa)
+[ ] First net worth snapshot: Google Sheets
+[ ] Monthly review reminder
+
+PHASE 2 COMPLETE CHECKLIST:
+---------------------------
+[ ] Pionex DCA: £35/month ✅
+[ ] Trading 212 ISA: £35/month ✅
+[ ] Goldwise: £10/month ✅
+[ ] SIPP: £20/month ✅
+[ ] Bitget/Gemini: £10/month ✅
+[ ] Tax Pot: £20/month ✅
+[ ] Multi-Sig wallet: Active ✅
+[ ] Total: £135/month invested ✅
+
+
+================================================================================
+PHASE 3: ADVANCED STRATEGIES (Year 2+)
+GOAL: Sophisticated Techniques While Maintaining Core
+================================================================================
+
+YEAR 2: ADVANCED AUTOMATION:
+-----------------------------
+[ ] Bitsgap LOOP Bot: 0.05 BTC allocation
+[ ] Spot-Futures Arbitrage: £50 capital on Pionex
+[ ] Trade tracking: Koinly or detailed spreadsheet
+[ ] UK dividend stocks: £10-20/month in ISA
+[ ] AutoInvest: Enable dividend reinvestment
+[ ] MT5 demo: Learn MQL5 programming
+
+ONGOING: THRESHOLD MONITORING:
+-------------------------------
+[ ] Sole Trader: Register if income >£1,000/year
+[ ] Ltd Company: Incorporate if profits >£50,000/year
+[ ] VAT: Register if turnover >£90,000/year
+[ ] MTD: Software required if income >£50,000/year
+[ ] Quarterly FCA register check
+
+
+================================================================================
+PHASE 4: INCORPORATION (Year 3+)
+GOAL: Business Structure & Speculation
+================================================================================
+
+TRIGGER: Consistent profits >£50,000/year
+
+[ ] Incorporate as Ltd: Companies House (£12)
+[ ] Open business bank account: Separate from personal
+[ ] Corporation Tax registration: HMRC
+[ ] VAT monitoring: Track 12-month rolling turnover
+[ ] Advanced speculation (max 5% each):
+   - Penny Stocks (AIM)
+   - DEX/Micro-cap Altcoins
+   - Airdrop Farming
+[ ] Family Investment Company: If portfolio >£2m
+
+
+================================================================================
+PHASE 5: BUSINESS EMPIRE (Years 5-10+)
+GOAL: Product Business & Property Portfolio
+================================================================================
+
+FUNDING & DEVELOPMENT:
+-----------------------
+[ ] Lombard Loan: Use ISA/GIA as collateral
+[ ] UK Startup Loan: Up to £25,000 at 6%
+[ ] R&D Tax Credits: Up to 27% cash credit
+[ ] IP Protection: Trademarks, patents
+
+PROPERTY & STRUCTURE:
+---------------------
+[ ] Manufacturing facility: Commercial mortgage
+[ ] Property investment: SPV Ltd structure
+[ ] Holding Company (HoldCo): Owns OpCo + PropCo
+[ ] IHT Planning: Professional advice
+
+HELP TO BUY ISA USAGE:
+----------------------
+[ ] Claim bonus: 25% on up to £12,000 savings
+[ ] Must buy by: 1 December 2030
+[ ] Property cap: £250,000 (£450,000 London)
+[ ] First home only
+
+
+================================================================================
+WEEKLY ROUTINE (Every Payday)
+================================================================================
+
+STEP 1: Calculate actual net pay (varies by days worked)
+
+STEP 2: Transfer essentials to Pots:
+   [ ] Bills: £419.75 (or pro-rata if short week)
+   [ ] Debt Minimums: £40
+   [ ] Food: £40 (or £35 if low income)
+   [ ] Fuel: Adjust to actual work days (£10.74/day)
+
+STEP 3: Remaining balance priority:
+   • If EF < £6,087: 100% to Emergency Fund
+   • If EF = £6,087 AND debt > £0: 100% to debt overpayment
+   • If EF = £6,087 AND debt = £0: 50% London Fund, 50% Investments
+
+STEP 4: Track in Moneyhub/Emma
+
+
+================================================================================
+LONDON TRIPS TO SEE SON
+================================================================================
+
+COST PER TRIP:
+• Fuel: £50.12 (280 miles round trip)
+• Income lost (if unpaid): £232 (2 days)
+• Total: £282
+
+SOLUTION (if unpaid leave):
+• Work 2 extra weekend days BEFORE trip
+• +£232 income covers lost wages + fuel
+• +£182 remaining for spending with son
+
+CRITICAL: Ask agency about holiday pay method (rolled up vs accrued)
+
+
+================================================================================
+THE NEVER BREAK RULES
+================================================================================
+
+1. NEVER touch Emergency Fund except genuine emergencies
+2. NEVER use overdrafts/credit cards for investments
+3. NEVER use leverage/margin with real money
+4. NEVER share private keys or seed phrases
+5. NEVER skip Income Protection (no sick pay!)
+6. NEVER invest until EF = £6,087 AND debt = £0
+7. NEVER close Santander Help to Buy ISA
+8. NEVER invest >5% in NFTs/penny stocks/DEX tokens
+9. NEVER enable withdrawal permissions on API keys
+10. NEVER skip ISA wrapper for stocks
+11. NEVER pay tax late (use Monzo Tax Pot)
+12. NEVER operate business without insurance
+13. NEVER forget to review beneficiaries (children)
+14. NEVER miss 5 October Self Assessment deadline
+15. NEVER exceed £90,000 VAT threshold unregistered
+16. NEVER forget digital assets are legal property (include in Will)
+
+
+================================================================================
+SUMMARY TIMELINE
+================================================================================
+
+MONTHS 1-9:     Build £6,087 Emergency Fund (work extra days!)
+MONTHS 10-13:   Clear £1,910 debt (snowball method)
+MONTH 14+:      Activate 7 investment engines (£135/month)
+YEAR 2+:        Advanced strategies
+YEAR 3+:        Incorporation if business grows
+YEARS 5-10+:    Business empire & property
+
+WITH CONSISTENT EXTRA DAYS: 12-14 months to investment phase
+WITH FREQUENT SLOW PERIODS: 18-24 months
+
+
+================================================================================
+YOUR NEXT 3 ACTIONS (THIS WEEK)
+================================================================================
+
+1. [ ] Contact agency: "Is holiday pay rolled up or accrued?"
+2. [ ] Get Income Protection quote: LifeSearch 0800 644 4468
+3. [ ] Set up Monzo Pots with correct amounts
+
+Start today. Your son is worth every mile. Your future is worth the discipline.
+See you at financial freedom. 🚀
+
+================================================================================
+END OF SIMPLIFIED CHRONOLOGICAL GUIDE
+================================================================================

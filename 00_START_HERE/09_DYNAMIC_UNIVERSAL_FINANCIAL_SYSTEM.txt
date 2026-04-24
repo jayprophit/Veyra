@@ -1,0 +1,743 @@
+================================================================================
+DYNAMIC UNIVERSAL FINANCIAL SYSTEM
+================================================================================
+
+Location-Agnostic, Employment-Adaptive Wealth Building Platform
+Version: 1.0 | Date: April 2026
+Status: Universal Framework - Works for Any User, Anywhere
+
+================================================================================
+EXECUTIVE SUMMARY
+================================================================================
+
+PURPOSE:
+--------
+Transform your Financial Master system into a **universal platform** that 
+automatically adapts to:
+
+• ANY country of residence (UK, Portugal, Nigeria, USA, etc.)
+• ANY employment status (full-time, part-time, contract, business owner, 
+  unemployed, under 16, retired)
+• ANY currency (GBP, EUR, USD, NGN, etc.)
+• ANY risk tolerance (conservative, moderate, aggressive)
+
+CORE INNOVATION:
+----------------
+**Two dropdown menus change everything.**
+
+User selects:
+1. Country of Residence [Dropdown]
+2. Employment Status [Dropdown]
+
+System automatically adjusts:
+• Tax rates and allowances
+• Currency and conversions
+• Recommended asset allocation
+• Emergency fund targets
+• Available investment vehicles
+• Benefits eligibility
+• Compliance requirements
+
+UNIVERSAL PRINCIPLE:
+--------------------
+"One system. Any user. Anywhere. Fully automatic."
+
+
+================================================================================
+PART 1: THE DYNAMIC CONFIGURATION LAYER
+================================================================================
+
+Create this file: 00_User_Configuration/User_Profile.xlsx
+
+SHEET: 00_USER_PROFILE
+-----------------------
+This is the "brain" of personalization. User sets parameters here.
+
+| Field | Type | Options / Example | Purpose |
+|-------|------|-------------------|---------|
+| Country of Residence | Dropdown | United Kingdom, Portugal, Belgium, Nigeria, United States, UAE, Spain, France, Germany, Canada, Australia, Singapore, etc. | Determines tax rates, allowances, currency, ISA equivalents, visa rules |
+| Employment Status | Dropdown | Full-Time Employed, Part-Time Employed, Contract/Freelance, Business Owner, Unemployed, Under 16, Retired | Determines income structure, benefits eligibility, contribution limits |
+| Tax Residency | Dropdown | Same as Residence, Different (specify) | For expats/digital nomads with split tax situations |
+| Primary Currency | Dropdown | GBP, EUR, USD, NGN, AED, etc. | Converts all monetary values automatically |
+| Secondary Currency | Dropdown | (Optional second currency for tracking) | For dual-currency situations |
+| Age | Number | e.g., 42 | Determines pension access age, LISA eligibility, retirement planning |
+| Risk Tolerance | Dropdown | Conservative, Moderate, Aggressive | Adjusts recommended asset allocation percentages |
+| Monthly Net Income | Currency | User enters actual | Basis for all surplus calculations |
+| Essential Monthly Expenses | Currency | User enters actual | Calculates emergency fund target |
+| Current Tax Year | Dropdown | 2025-26, 2026-27, etc. | Determines which tax rules apply |
+| Passport/Citizenship | Dropdown | Same as residence, or specify | For digital nomad visa eligibility |
+| Language Preference | Dropdown | English, Portuguese, French, etc. | For documentation and interface |
+
+HOW IT WORKS:
+-------------
+1. User opens User_Profile.xlsx
+2. Selects country from dropdown (data validation from list)
+3. Selects employment status from dropdown
+4. Enters age, income, expenses
+5. ALL other spreadsheets automatically update using VLOOKUP formulas
+
+
+================================================================================
+PART 2: THE GLOBAL TAX & ALLOWANCE DATABASE
+================================================================================
+
+Create this file: 00_User_Configuration/Global_Tax_Database.xlsx
+
+SHEET: COUNTRY_PARAMETERS
+--------------------------
+This database stores country-specific financial parameters.
+User's selection pulls the relevant row automatically.
+
+| Country | Code | Currency | CGT_Rate_Basic | CGT_Allowance | Income_Tax_Basic | Personal_Allowance | ISA_Equivalent | ISA_Allowance | Pension_Access_Age | VAT_GST_Rate | Digital_Nomad_Visa | NHR_Available |
+|---------|------|----------|----------------|---------------|------------------|--------------------|----------------|---------------|-------------------|--------------|-------------------|---------------|
+| United Kingdom | GBR | GBP (£) | 14% | £3,000 | 20% | £12,570 | ISA | £20,000 | 57 (58 from 2028) | 20% | No | N/A |
+| Portugal | PRT | EUR (€) | 28% (or income scale) | None | 14.5-48% | €4,104 (minimum) | PPR (similar) | N/A | 66 | 23% | Yes (D8 Visa) | Yes (NHR regime) |
+| Belgium | BEL | EUR (€) | 0% (no CGT on private assets) | N/A | 25-50% | €10,160 | N/A | N/A | 65 (67 from 2025) | 21% | No (Professional Card) | No |
+| Nigeria | NGA | NGN (₦) | 10% | None | 7-24% | ₦300,000 + 20% earned income | N/A | N/A | 50 (contributory) | 7.5% | No | No |
+| United States | USA | USD ($) | 0/15/20% | $0 (short-term)/$44,625 (long-term) | 10-37% | $14,600 (single 2025) | Roth IRA | $7,000 (<50) | 59½ | Varies by state | No (O-1, E-2 visas) | No |
+| UAE (Dubai) | ARE | AED (د.إ) | 0% | N/A | 0% | N/A | N/A | N/A | N/A (expat pension) | 5% | Yes (Remote Work Visa) | No |
+| Spain | ESP | EUR (€) | 19-26% | None | 19-47% | €5,550 | Plan de Pensiones | €1,500 (deduction) | 65 | 21% | Yes (Digital Nomad Visa) | Yes (Beckham Law) |
+| France | FRA | EUR (€) | 30% (flat tax) | None | 0-45% | €11,294 | PEA | €150,000 max | 64 (67 full rate) | 20% | No (Talent Passport) | No |
+| Germany | DEU | EUR (€) | 26.375% (incl. solidarity) | €1,000 | 14-45% | €11,784 | N/A | N/A | 67 | 19% | No (Freelance visa) | No |
+| Canada | CAN | CAD ($) | 50% inclusion | None | 15-33% fed + provincial | ~$15,000 | TFSA | CAD $7,000 | 65 (67 max CPP) | 5-15% | No (Start-up Visa) | No |
+| Australia | AUS | AUD ($) | 50% discount if held >1yr | None | 0-45% | AUD $18,200 | N/A | N/A | 60-67 | 10% | No (Working Holiday) | No |
+| Singapore | SGP | SGD ($) | 0% (no CGT) | N/A | 0-24% | N/A | SRS | SGD $15,300 | 62-65 | 9% | Yes (ONE Pass) | No |
+
+KEY FORMULAS FOR DYNAMIC LOOKUP:
+---------------------------------
+
+1. GET CGT RATE FOR USER'S COUNTRY:
+```excel
+=VLOOKUP('00_User_Profile'!B2, Global_Tax_Database!A:Z, 
+         MATCH("CGT_Rate_Basic", Global_Tax_Database!1:1, 0), FALSE)
+```
+Returns 14% for UK, 28% for Portugal, 0% for Belgium, etc.
+
+2. GET ISA/TAX-FREE WRAPPER ALLOWANCE:
+```excel
+=IF(ISNUMBER(VLOOKUP('00_User_Profile'!B2, Global_Tax_Database!A:Z, 
+         MATCH("ISA_Allowance", Global_Tax_Database!1:1, 0), FALSE)), 
+    VLOOKUP('00_User_Profile'!B2, Global_Tax_Database!A:Z, 
+         MATCH("ISA_Allowance", Global_Tax_Database!1:1, 0), FALSE), 
+    "No tax-free wrapper available")
+```
+Returns £20,000 for UK, "No tax-free wrapper" for Portugal.
+
+3. GET PENSION ACCESS AGE:
+```excel
+=VLOOKUP('00_User_Profile'!B2, Global_Tax_Database!A:Z, 
+         MATCH("Pension_Access_Age", Global_Tax_Database!1:1, 0), FALSE)
+```
+Returns 57 for UK, 66 for Portugal, 59½ for US.
+
+4. CHECK IF DIGITAL NOMAD VISA AVAILABLE:
+```excel
+=IF(VLOOKUP('00_User_Profile'!B2, Global_Tax_Database!A:Z, 
+         MATCH("Digital_Nomad_Visa", Global_Tax_Database!1:1, 0), FALSE)="Yes", 
+    "Digital nomad visa available", "No digital nomad visa")
+```
+
+
+================================================================================
+PART 3: EMPLOYMENT STATUS CONFIGURATION
+================================================================================
+
+Create this file: 00_User_Configuration/Employment_Status_Config.xlsx
+
+SHEET: EMPLOYMENT_RULES
+------------------------
+| Employment_Status | Has_Employer_Pension | Can_Claim_Trading_Allowance | NICs_Equivalent_Due | Benefits_Eligibility | Suggested_Emergency_Fund_Months | Investment_Contribution_Limit_Pct | Key_Characteristics |
+|-------------------|----------------------|----------------------------|---------------------|----------------------|----------------------------------|-----------------------------------|---------------------|
+| Full-Time Employed | Yes (auto-enrolment) | Yes (side hustle only) | Yes (PAYE deducted) | Limited (JSA only if lose job) | 3-6 months | 15-25% | Stable income, employer benefits, limited side hustle time |
+| Part-Time Employed | Yes (if earning >£10k) | Yes | Yes (PAYE deducted) | May qualify for Universal Credit top-up | 6 months | 10-20% | Variable income, may need benefits supplement |
+| Contract/Freelance | No (self-funded) | Yes | Yes (Self Assessment) | Limited (Universal Credit if low income) | 6-12 months | 20-30% | Irregular income, tax planning critical, time flexibility |
+| Business Owner | No (self-funded via Ltd) | N/A (replaced by expenses) | Yes (via Ltd/Sole Trader) | Limited | 6-12 months | 25-50% (reinvestment) | Full control, tax optimization options, higher risk/reward |
+| Unemployed | No | Yes (if any income) | No (unless income) | Yes (Universal Credit, JSA) | 12+ months | 0-5% | Focus on survival, skill building, minimal risk |
+| Under 16 | No | Limited | No | Yes (Child Benefit, CTC) | N/A (parental support) | 0% | Education focus, savings only, no debt |
+| Retired | No (drawing pension) | Yes | No (unless income) | Yes (State Pension, Pension Credit) | 12-24 months | 5-15% | Preservation focus, withdrawal phase, healthcare priority |
+| Student | No | Limited | No (unless working) | Yes (Student Finance, grants) | N/A (parental/loan) | 0-5% | Education investment, low income, future earning potential |
+| Digital Nomad | No (self-funded) | Depends on tax residency | Yes (varies by country) | Limited | 6-12 months | 20-30% | Location flexibility, multi-currency, visa complexity |
+
+DYNAMIC CALCULATION EXAMPLES:
+-----------------------------
+
+1. EMERGENCY FUND TARGET (Auto-Calculated):
+```excel
+='00_User_Profile'!B9 * VLOOKUP('00_User_Profile'!B3, 
+   Employment_Status_Config!A:Z, 
+   MATCH("Suggested_Emergency_Fund_Months", Employment_Status_Config!1:1, 0), FALSE)
+```
+
+If user is "Contract/Freelance" with £2,000 monthly expenses:
+£2,000 × 9 months = £18,000 target
+
+2. MAX RECOMMENDED INVESTMENT CONTRIBUTION:
+```excel
+='00_User_Profile'!B8 * VLOOKUP('00_User_Profile'!B3, 
+   Employment_Status_Config!A:Z, 
+   MATCH("Investment_Contribution_Limit_Pct", Employment_Status_Config!1:1, 0), FALSE)
+```
+
+If user is "Full-Time Employed" with £3,000 monthly income:
+£3,000 × 20% = £600/month recommended investment
+
+3. PENSION REMINDER (Conditional Display):
+```excel
+=IF(VLOOKUP('00_User_Profile'!B3, Employment_Status_Config!A:Z, 
+         MATCH("Has_Employer_Pension", Employment_Status_Config!1:1, 0), FALSE)="Yes", 
+    "Remember to check your employer pension contribution match", 
+    "You need to set up a self-invested personal pension (SIPP)")
+```
+
+
+================================================================================
+PART 4: THE ALLOCATION MATRIX
+================================================================================
+
+Create this file: 00_User_Configuration/Allocation_Matrix.xlsx
+
+SHEET: RECOMMENDED_ALLOCATIONS
+-----------------------------
+| Risk_Profile | Employment_Status | Crypto_Pct | Stocks_Pct | Bonds_Cash_Pct | Property_Pct | Alternatives_Pct | Rationale |
+|--------------|-------------------|------------|------------|----------------|--------------|-------------------|-----------|
+| Conservative | Full-Time Employed | 5% | 40% | 40% | 10% | 5% | Stable job allows moderate risk; preserve capital |
+| Moderate | Full-Time Employed | 10% | 50% | 20% | 15% | 5% | Stable income supports balanced growth |
+| Aggressive | Full-Time Employed | 20% | 55% | 5% | 15% | 5% | Long time horizon, stable income enables high growth |
+| Conservative | Part-Time Employed | 5% | 30% | 50% | 10% | 5% | Variable income requires higher cash buffer |
+| Moderate | Part-Time Employed | 10% | 45% | 25% | 15% | 5% | Balanced approach for uncertain income |
+| Aggressive | Part-Time Employed | 15% | 50% | 15% | 15% | 5% | Some risk acceptable if young and skilled |
+| Conservative | Contract/Freelance | 5% | 30% | 50% | 10% | 5% | Irregular income demands liquidity |
+| Moderate | Contract/Freelance | 15% | 45% | 20% | 15% | 5% | Time flexibility allows moderate risk |
+| Aggressive | Contract/Freelance | 25% | 50% | 5% | 15% | 5% | High earning potential justifies high allocation |
+| Conservative | Business Owner | 10% | 30% | 40% | 15% | 5% | Business is primary "risk asset"; portfolio conservative |
+| Moderate | Business Owner | 15% | 40% | 20% | 20% | 5% | Business + moderate portfolio for diversification |
+| Aggressive | Business Owner | 25% | 45% | 5% | 20% | 5% | High risk tolerance across business and investments |
+| Conservative | Unemployed | 0% | 20% | 70% | 10% | 0% | Survival mode; capital preservation critical |
+| Moderate | Unemployed | 5% | 25% | 60% | 10% | 0% | Minimal risk while seeking employment |
+| Aggressive | Unemployed | 10% | 30% | 50% | 10% | 0% | Only if confident of quick re-employment |
+| Conservative | Under 16 | 0% | 20% | 70% (cash savings) | 10% | 0% | Education focus; capital preservation |
+| Moderate | Under 16 | 5% | 30% | 60% | 5% | 0% | Junior ISA allocation; learn investing |
+| Aggressive | Under 16 | 10% | 40% | 45% | 5% | 0% | Only with parental guidance and long timeline |
+| Conservative | Retired | 0% | 20% | 60% | 15% | 5% | Capital preservation, income generation |
+| Moderate | Retired | 5% | 30% | 45% | 15% | 5% | Balanced for 20-30 year retirement |
+| Aggressive | Retired | 10% | 40% | 30% | 15% | 5% | Only if significant wealth and late retirement |
+
+FORMULA TO PULL ALLOCATION:
+---------------------------
+```excel
+=INDEX(Allocation_Matrix!C:G, 
+       MATCH(1, (Allocation_Matrix!A:A='00_User_Profile'!B6) * 
+                 (Allocation_Matrix!B:B='00_User_Profile'!B3), 0), 
+       COLUMN()-2)
+```
+
+Example: User selects "Moderate" + "Contract/Freelance"
+Returns: 15% Crypto, 45% Stocks, 20% Bonds/Cash, 15% Property, 5% Alternatives
+
+
+================================================================================
+PART 5: UPDATED VAULT STRUCTURE WITH DYNAMIC MODULES
+================================================================================
+
+Add this new top-level folder: 📁 00_User_Configuration/
+
+FINANCIAL_VAULT/ (Updated Structure)
+│
+├── 📁 00_User_Configuration/   <-- NEW: Dynamic personalization layer
+│   ├── 📊 User_Profile.xlsx
+│   │   └── Dropdowns for country, employment, age, risk
+│   ├── 📊 Global_Tax_Database.xlsx
+│   │   └── Country-specific tax and allowance data (12+ countries)
+│   ├── 📊 Employment_Status_Config.xlsx
+│   │   └── Rules per employment type (8 categories)
+│   ├── 📊 Allocation_Matrix.xlsx
+│   │   └── Recommended asset allocations (36 combinations)
+│   ├── 📊 Currency_Converter.xlsx
+│   │   └── Live FX rates via =GOOGLEFINANCE()
+│   └── 📄 User_Configuration_Guide.docx
+│       └── How to set up and customize your profile
+│
+├── 📁 00_Core_System/
+│   ├── 📊 Master_Dashboard.xlsx
+│   │   └── NOW DYNAMIC: Pulls from User_Profile for personalized views
+│   ├── 📊 Module_Control_Panel.xlsx
+│   │   └── Enable/disable modules
+│   └── 📄 README_First.txt
+│
+├── ... (rest of structure as previously defined)
+│
+└── 📁 15_International_Remote_Business/   <-- NEW MODULE
+    ├── 📊 Digital_Nomad_Visa_Checker.xlsx
+    │   └── 60+ countries, eligibility based on passport + residence
+    ├── 📊 Cross_Border_Tax_Treaty_Matrix.xlsx
+    │   └── Withholding tax rates between all country pairs
+    ├── 📄 Remote_Client_Invoice_Template.docx
+    │   └── Multi-currency with automatic VAT/GST calculation
+    ├── 📄 Global_Banking_Setup_Guide.docx
+    │   └── Wise/Revolut/Airwallex accessible from any country
+    └── 📄 Location_Agnostic_Business_Models.docx
+        └── Works regardless of where you live
+
+
+================================================================================
+PART 6: CROSS-BORDER TAX CALCULATOR
+================================================================================
+
+Create this file: 00_User_Configuration/Cross_Border_Tax_Calculator.xlsx
+
+EXAMPLE SCENARIO: UK Freelancer with US Client
+-----------------------------------------------
+
+USER PROFILE:
+- Residence: United Kingdom
+- Employment: Contract/Freelance
+- Client Location: United States
+- Invoice Amount: $10,000 USD
+
+DYNAMIC CALCULATION:
+
+| Line Item | Formula / Lookup | Result |
+|-----------|------------------|--------|
+| Gross Income (USD) | User enters | $10,000 |
+| Exchange Rate (USD to GBP) | =GOOGLEFINANCE("CURRENCY:USDGBP") | 0.78 |
+| Convert to GBP | =B2 * B3 | £7,800 |
+| US Withholding Tax Rate | =VLOOKUP("United States", Tax_Treaty_Matrix, MATCH("UK", Headers, 0), FALSE) | 0% (treaty exempts services) |
+| UK Income Tax Rate | =VLOOKUP("United Kingdom", Global_Tax_Database, MATCH("Income_Tax_Basic", Headers, 0), FALSE) | 20% |
+| UK Income Tax Due | =B4 * B7 | £1,560 |
+| UK NICs Class 2 Flat Rate | £179.40/year | £179.40 |
+| UK NICs Class 4 (9% over £12,570) | =IF(B4>12570, (B4-12570)*0.09, 0) | £0 (income below threshold) |
+| Total UK Tax/NICs | =SUM(B9:B11) | £1,739.40 |
+| Net After Tax | =B4 - B12 | £6,060.60 |
+| Effective Tax Rate | =B12/B4 | 22.3% |
+
+CHANGE COUNTRY TO PORTUGAL - AUTO-UPDATE:
+------------------------------------------
+| Line Item | Formula | Result |
+|-----------|---------|--------|
+| Gross Income (EUR) | €10,000 | €10,000 |
+| Exchange Rate (USD to EUR) | 0.92 | 0.92 |
+| Portuguese Income Tax | Lookup 14.5-48% scale | €1,450 (14.5% on first €10,000) |
+| Portuguese Social Security | 21.4% (if sole trader) | €2,140 |
+| NHR Regime (if applicable) | 0% for foreign-sourced | €0 |
+| Net After Tax | | €6,410 |
+
+Same invoice, different country = entirely different tax outcome. All automatic.
+
+
+================================================================================
+PART 7: THE MASTER DASHBOARD WITH DYNAMIC VIEWS
+================================================================================
+
+Update Master_Dashboard.xlsx with conditional sections:
+
+SECTION 1: TAX-FREE WRAPPER TRACKER (Conditional)
+------------------------------------------------
+```excel
+=IF(ISNUMBER(VLOOKUP('00_User_Profile'!B2, Global_Tax_Database!A:Z, 
+         MATCH("ISA_Allowance", Global_Tax_Database!1:1, 0), FALSE)), 
+    "SHOW ISA SECTION", "HIDE ISA SECTION")
+```
+
+- UK user: Shows ISA allowance progress bar (£20,000 limit)
+- Portugal user: Hides ISA section (no equivalent)
+- US user: Shows Roth IRA tracker ($7,000 limit)
+
+
+SECTION 2: PENSION AUTO-ENROLMENT REMINDER (Conditional)
+---------------------------------------------------------
+```excel
+=IF(VLOOKUP('00_User_Profile'!B3, Employment_Status_Config!A:Z, 
+         MATCH("Has_Employer_Pension", Employment_Status_Config!1:1, 0), FALSE)="Yes", 
+    "SHOW: Check your employer pension match", "HIDE")
+```
+
+- Full-time employee: Reminder to check employer match
+- Freelancer: Shows "Set up SIPP" reminder instead
+
+
+SECTION 3: DIGITAL NOMAD VISA OPPORTUNITIES (Conditional)
+----------------------------------------------------------
+```excel
+=IF(VLOOKUP('00_User_Profile'!B2, Global_Tax_Database!A:Z, 
+         MATCH("Digital_Nomad_Visa", Global_Tax_Database!1:1, 0), FALSE)="Yes", 
+    "Digital nomad visa available - see details", "")
+```
+
+- Portugal user: Shows D8 visa requirements
+- UAE user: Shows Remote Work visa
+- UK user: Blank (no nomad visa available)
+
+
+SECTION 4: BENEFITS ELIGIBILITY CHECKER (Conditional)
+------------------------------------------------------
+```excel
+=IF(VLOOKUP('00_User_Profile'!B3, Employment_Status_Config!A:Z, 
+         MATCH("Benefits_Eligibility", Employment_Status_Config!1:1, 0), FALSE)="Yes", 
+    "SHOW benefits checker", "HIDE")
+```
+
+- Unemployed user: Shows Universal Credit/JSA links (UK) or equivalent
+- Full-time employed: Hides benefits section
+
+
+SECTION 5: COUNTRY-SPECIFIC OPPORTUNITIES
+------------------------------------------
+
+UK-Specific (shows only if country = UK):
+- SEIS/EIS/VCT opportunities
+- ISA wrapper progress
+- Help to Buy/LISA bonuses
+
+Portugal-Specific (shows only if country = Portugal):
+- NHR (Non-Habitual Resident) tax regime info
+- D8 Digital Nomad visa pathway
+- PPR (Plano Poupança Reforma) equivalent
+
+Nigeria-Specific (shows only if country = Nigeria):
+- Diaspora bond current offerings
+- Agricultural investment funds
+- BII co-financing opportunities
+
+US-Specific (shows only if country = US):
+- Roth IRA vs Traditional IRA comparison
+- 401(k) employer match reminder
+- HSA eligibility (if high-deductible health plan)
+
+
+================================================================================
+PART 8: HOW THE SYSTEM SELF-ADJUSTS
+================================================================================
+
+SCENARIO: User moves from UK to Portugal
+
+CHANGE 1: Country Dropdown Update
+-----------------------------------
+- Old: United Kingdom
+- New: Portugal
+
+AUTO-ADJUSTMENTS:
+• CGT rate: 14% → 28% (or income scale)
+• ISA allowance: £20,000 → N/A (no equivalent)
+• Currency: GBP → EUR (live conversion)
+• Pension age: 57 → 66
+• VAT rate: 20% → 23%
+• Digital nomad: No → Yes (D8 visa available)
+• NHR section appears: Yes (new regime available)
+
+
+CHANGE 2: Employment Dropdown Update
+-------------------------------------
+- Old: Full-Time Employed
+- New: Contract/Freelance
+
+AUTO-ADJUSTMENTS:
+• Emergency fund target: 3-6 months → 6-12 months
+• Pension reminder: "Check employer match" → "Set up private pension"
+• Digital nomad section: Appears (contractors can work remotely)
+• Investment limit: 15-25% → 20-30%
+• Benefits section: Hides (limited eligibility)
+
+
+CHANGE 3: Age Update
+--------------------
+- Old: 35
+- New: 42
+
+AUTO-ADJUSTMENTS:
+• Pension access countdown: 22 years → 24 years (Portugal age 66)
+• Risk profile adjustment: May suggest more conservative allocation
+• LISA eligibility: Remains (under 40 for UK) or hides (Portugal N/A)
+
+
+RESULT: Two dropdown changes = Complete system reconfiguration.
+No manual updates needed. Everything automatic.
+
+
+================================================================================
+PART 9: UNIVERSAL USE CASES
+================================================================================
+
+USE CASE 1: You (Current) - UK Full-Time Employee
+--------------------------------------------------
+PROFILE:
+- Country: United Kingdom
+- Employment: Full-Time Employed
+- Age: 35
+- Risk: Moderate
+
+SYSTEM SHOWS:
+✓ ISA allowance: £20,000/year
+✓ Pension: Auto-enrolment reminder (5% employee, 3% employer minimum)
+✓ CGT allowance: £3,000/year
+✓ Personal allowance: £12,570
+✓ Emergency fund: 3-6 months target
+✓ Recommended allocation: 10% crypto, 50% stocks, 20% bonds, 15% property, 5% alternatives
+✓ SEIS/EIS/VCT opportunities visible
+✓ Trading allowance: £1,000 for side hustle
+
+
+USE CASE 2: You (Future) - Portugal Contract Freelancer
+--------------------------------------------------------
+PROFILE:
+- Country: Portugal
+- Employment: Contract/Freelance
+- Age: 40
+- Risk: Moderate
+
+SYSTEM SHOWS:
+✓ No ISA equivalent (N/A)
+✓ NHR regime: Potential 0% tax on foreign-sourced income for 10 years
+✓ D8 Digital Nomad visa: Available (€2,800/month income requirement)
+✓ CGT: 28% (or income scale 14.5-48%)
+✓ Social security: 21.4% (if sole trader)
+✓ Emergency fund: 6-12 months target (higher for irregular income)
+✓ Recommended allocation: 15% crypto, 45% stocks, 20% bonds, 15% property, 5% alternatives
+✓ PPR (Plano Poupança Reforma): Tax-advantaged retirement savings
+✓ Cross-border tax treaty: Portugal-UK double taxation agreement
+
+
+USE CASE 3: Nigerian Business Owner
+------------------------------------
+PROFILE:
+- Country: Nigeria
+- Employment: Business Owner
+- Age: 38
+- Risk: Aggressive
+
+SYSTEM SHOWS:
+✓ No ISA equivalent (N/A)
+✓ CGT: 10%
+✓ Personal allowance: ₦300,000 + 20% of earned income
+✓ Pension access: 50 (contributory)
+✓ Diaspora bonds: Available for Nigerians abroad
+✓ BII opportunities: UK government co-investment
+✓ Agricultural funds: AgDevCo, others
+✓ Emergency fund: 6-12 months (business volatility)
+✓ Recommended allocation: 25% crypto, 45% stocks, 5% bonds, 20% property, 5% alternatives
+✓ VAT: 7.5%
+
+
+USE CASE 4: Retired UK Citizen in Spain
+----------------------------------------
+PROFILE:
+- Country: Spain
+- Employment: Retired
+- Age: 68
+- Risk: Conservative
+
+SYSTEM SHOWS:
+✓ No ISA equivalent (Plan de Pensiones max €1,500 deduction)
+✓ Beckham Law: Potential tax benefits if new resident
+✓ Digital nomad visa: Not applicable (retired)
+✓ State pension: UK payable in Spain
+✓ Healthcare: S1 form for NHS coverage
+✓ CGT: 19-26%
+✓ Emergency fund: 12-24 months target (retirement preservation)
+✓ Recommended allocation: 0% crypto, 20% stocks, 60% bonds, 15% property, 5% alternatives
+✓ Wealth tax: May apply (varies by region)
+
+
+USE CASE 5: Under 16 Student in Belgium
+-----------------------------------------
+PROFILE:
+- Country: Belgium
+- Employment: Under 16
+- Age: 15
+- Risk: Conservative
+
+SYSTEM SHOWS:
+✓ No ISA equivalent (N/A)
+✓ No CGT on private assets (Belgium)
+✓ Education focus: Savings for university
+✓ Emergency fund: N/A (parental support)
+✓ Recommended allocation: 0% crypto, 20% stocks, 70% cash savings, 10% bonds, 0% alternatives
+✓ Child benefits: Available
+✓ No investing: Focus on education and skills
+
+
+USE CASE 6: Unemployed US Resident
+-----------------------------------
+PROFILE:
+- Country: United States
+- Employment: Unemployed
+- Age: 45
+- Risk: Conservative
+
+SYSTEM SHOWS:
+✓ Roth IRA: $7,000 limit (if earned income)
+✓ 401(k): Previous employer rollover options
+✓ Unemployment benefits: State-dependent
+✓ COBRA: Health insurance continuation
+✓ Emergency fund: 12+ months target (survival mode)
+✓ Recommended allocation: 0% crypto, 20% stocks, 70% cash/bonds, 10% alternatives
+✓ Job seeking: Skills training resources
+✓ Tax: May qualify for earned income credit
+
+
+================================================================================
+PART 10: IMPLEMENTATION ROADMAP
+================================================================================
+
+PHASE 1: CREATE CONFIGURATION LAYER (Week 1)
+-------------------------------------------
+☐ Create folder: 00_User_Configuration/
+☐ Create User_Profile.xlsx with all dropdowns
+☐ Create Global_Tax_Database.xlsx with 12 countries
+☐ Create Employment_Status_Config.xlsx with 8 statuses
+☐ Create Allocation_Matrix.xlsx with 36 combinations
+☐ Create Currency_Converter.xlsx with GOOGLEFINANCE formulas
+☐ Test all VLOOKUP formulas
+
+PHASE 2: UPDATE EXISTING SPREADSHEETS (Week 2)
+----------------------------------------------
+☐ Update Net_Worth_Tracker.xlsx with dynamic tax lookups
+☐ Update Budget_Spending_Tracker.xlsx with currency conversion
+☐ Update Master_Dashboard.xlsx with conditional sections
+☐ Add IF statements for country-specific opportunities
+☐ Test with multiple profile combinations
+
+PHASE 3: BUILD INTERNATIONAL MODULE (Week 3)
+---------------------------------------------
+☐ Create folder: 15_International_Remote_Business/
+☐ Build Digital_Nomad_Visa_Checker.xlsx (60+ countries)
+☐ Build Cross_Border_Tax_Treaty_Matrix.xlsx
+☐ Create Remote_Client_Invoice_Template.docx
+☐ Write Global_Banking_Setup_Guide.docx
+☐ Write Location_Agnostic_Business_Models.docx
+
+PHASE 4: TESTING & VALIDATION (Week 4)
+---------------------------------------
+☐ Test Profile 1: UK Full-Time Employed (you currently)
+☐ Test Profile 2: Portugal Contract/Freelance (you potentially)
+☐ Test Profile 3: Nigeria Business Owner
+☐ Test Profile 4: US Unemployed
+☐ Test Profile 5: Spain Retired
+☐ Test Profile 6: Belgium Under 16
+☐ Verify all formulas update correctly
+☐ Check currency conversions
+☐ Validate tax calculations
+
+PHASE 5: DOCUMENTATION (Week 5)
+--------------------------------
+☐ Write User_Configuration_Guide.docx
+☐ Create video/text tutorial: "How to change your country"
+☐ Create video/text tutorial: "How to change employment status"
+☐ Document all 36 allocation combinations
+☐ Add FAQ for common scenarios
+☐ Write troubleshooting guide
+
+ONGOING: EXPANSION
+------------------
+☐ Add new countries to Global_Tax_Database (target: 50+ countries)
+☐ Add new employment statuses (e.g., "Part-Time Student", "Sabbatical")
+☐ Update tax rates annually for all countries
+☐ Add new digital nomad visas as countries launch them
+☐ Expand allocation matrix based on user feedback
+
+
+================================================================================
+PART 11: KEY FORMULAS REFERENCE
+================================================================================
+
+1. VLOOKUP COUNTRY PARAMETER:
+```excel
+=VLOOKUP($User_Country, Global_Tax_Database!$A:$Z, 
+         MATCH($Parameter_Name, Global_Tax_Database!$1:$1, 0), FALSE)
+```
+
+2. VLOOKUP EMPLOYMENT PARAMETER:
+```excel
+=VLOOKUP($Employment_Status, Employment_Config!$A:$Z, 
+         MATCH($Parameter_Name, Employment_Config!$1:$1, 0), FALSE)
+```
+
+3. INDEX-MATCH ALLOCATION:
+```excel
+=INDEX(Allocation_Matrix!$C:$G, 
+       MATCH(1, (Allocation_Matrix!$A:$A=$Risk_Profile) * 
+                 (Allocation_Matrix!$B:$B=$Employment_Status), 0), 
+       COLUMN()-2)
+```
+
+4. LIVE CURRENCY CONVERSION:
+```excel
+=Amount * GOOGLEFINANCE("CURRENCY:" & Source_Currency & Target_Currency)
+```
+
+5. CONDITIONAL SECTION DISPLAY:
+```excel
+=IF(ISNUMBER(VLOOKUP($Country, Database, MATCH($Param, Headers, 0), FALSE)), 
+    "SHOW SECTION", "HIDE SECTION")
+```
+
+6. EMERGENCY FUND CALCULATION:
+```excel
+=Monthly_Expenses * VLOOKUP($Employment, Employment_Config, 
+                            MATCH("Emergency_Months", Headers, 0), FALSE)
+```
+
+7. INVESTMENT LIMIT CALCULATION:
+```excel
+=Monthly_Income * VLOOKUP($Employment, Employment_Config, 
+                          MATCH("Investment_Limit_Pct", Headers, 0), FALSE)
+```
+
+8. TAX CALCULATION (CROSS-BORDER):
+```excel
+=Gross_Income * VLOOKUP($Country, Tax_Database, 
+                        MATCH("Income_Tax_Rate", Headers, 0), FALSE)
+```
+
+
+================================================================================
+FINAL SUMMARY
+================================================================================
+
+YOUR SYSTEM NOW PROVIDES:
+-------------------------
+✅ Universal framework (works for anyone, anywhere)
+✅ 12+ countries in Global Tax Database (expandable to 50+)
+✅ 8 employment statuses (customizable)
+✅ 3 risk profiles × 8 employments = 36 allocation combinations
+✅ Automatic tax rate lookup by country
+✅ Automatic allowance lookup by country
+✅ Automatic currency conversion (live rates)
+✅ Automatic emergency fund adjustment by employment
+✅ Automatic investment limit by employment
+✅ Conditional dashboard sections (show/hide by profile)
+✅ Cross-border tax calculator
+✅ Digital nomad visa checker (60+ countries)
+✅ Cross-border tax treaty matrix
+✅ Location-agnostic business models
+
+DROPDOWNS THAT CHANGE EVERYTHING:
+----------------------------------
+1. Country of Residence [Dropdown: 12+ countries]
+2. Employment Status [Dropdown: 8 statuses]
+
+AUTO-ADJUSTS:
+• Tax rates and allowances
+• Available investment vehicles
+• Recommended asset allocation
+• Emergency fund targets
+• Benefits eligibility
+• Compliance requirements
+• Currency and conversions
+
+UNIVERSAL PRINCIPLE ACHIEVED:
+------------------------------
+"One system. Any user. Anywhere. Fully automatic."
+
+You can use it today as a UK full-time employee.
+You can use it tomorrow as a Portugal contract freelancer.
+You can share it with a Nigerian business owner.
+You can share it with a retired person in Spain.
+You can share it with an unemployed person in the US.
+You can share it with a student in Belgium.
+
+**Two dropdowns. Complete personalization. Universal wealth building.** 🌍🎯
+
+
+================================================================================
+END OF DYNAMIC UNIVERSAL FINANCIAL SYSTEM
+================================================================================

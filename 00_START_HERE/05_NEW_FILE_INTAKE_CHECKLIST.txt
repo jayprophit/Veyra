@@ -1,0 +1,326 @@
+================================================================================
+NEW FILE INTAKE CHECKLIST
+================================================================================
+
+Use This Every Time You Add a File to Financial Master
+One-Page Quick Checklist for Proper Organization
+
+================================================================================
+BEFORE YOU SAVE - CHECK THESE 5 ITEMS
+================================================================================
+
+□ ITEM 1: IDENTIFY FILE TYPE
+  What kind of file is this?
+  □ Strategy/Plan/Guide (goes to Phase folder 01-05)
+  □ Working Data/Tracking (goes to 07_Working_Files\)
+  □ Reference Material (goes to 06_Reference\)
+  □ Technical Guide DOCX (goes to 08_System_Guides\)
+  □ Replacing Existing File (requires archiving)
+
+□ ITEM 2: DETERMINE CORRECT FOLDER
+  Based on file type above:
+  
+  If Strategy/Plan:
+    □ Months 1-12 → 01_Phase_1_Foundation\
+    □ Years 2-3 → 02_Phase_2_Launch\
+    □ Years 4-5 → 03_Phase_3_Expansion\
+    □ Years 6-7 → 04_Phase_4_Scaling\
+    □ Years 8+ → 05_Phase_5_Empire\
+    □ Quick Reference → 06_Reference\
+  
+  If Working Data:
+    □ Net worth tracking → 07_Working_Files\01_Net_Worth\
+    □ Income/expenses → 07_Working_Files\02_Income_Expenses\
+    □ Investment records → 07_Working_Files\03_Investments\
+    □ Tax documents → 07_Working_Files\04_Tax_Records\
+    □ Legal docs → 07_Working_Files\05_Legal_Documents\
+    □ Trading logs → 07_Working_Files\06_Trading_Logs\
+    □ CAD/designs → 07_Working_Files\07_Business_Designs\
+  
+  If Technical Guide (DOCX):
+    □ 08_System_Guides\
+
+□ ITEM 3: CHECK NAMING CONVENTION
+  Does your filename follow the rules?
+  
+  For Phase folders:
+    Format: [XX]_[TOPIC]_[TYPE].txt
+    Example: 04_PROPERTY_INVESTMENT_GUIDE.txt
+    ✓ Two-digit number
+    ✓ Descriptive topic
+    ✓ Document type
+    ✓ NO spaces (use underscores)
+    ✓ NO version numbers (v2, final, etc.)
+  
+  For Working Files:
+    Format: YYYYMMDD_[Description].[ext]
+    Example: 20260421_April_Net_Worth.xlsx
+    ✓ Date first (8 digits)
+    ✓ Descriptive name
+    ✓ Appropriate extension
+  
+  For System Guides:
+    Format: [XX]_[TOPIC]_[SUBTOPIC].docx
+    Example: 19_ADVANCED_TAX_STRATEGIES.docx
+    ✓ Two-digit number
+    ✓ Topic and subtopic
+
+□ ITEM 4: VERIFY NO DUPLICATES
+  □ Check target folder for existing file with same name
+  □ If updating existing file:
+    → Archive old version first (see ITEM 5)
+    → Keep same filename for new version
+  □ If different content but similar name:
+    → Use next available number
+
+□ ITEM 5: ARCHIVE IF REPLACING (Skip if new file)
+  If this replaces an existing file:
+  
+  □ Open old file location
+  □ Copy old file to: 09_Archive\Consolidated_Files\
+  □ Rename archived file: OLD_YYYYMMDD_[original_name].[ext]
+    Example: OLD_20260421_01_SIMPLIFIED_CHRONOLOGICAL_GUIDE.txt
+  □ Verify old file is safely archived
+  □ Now save new file to original location with original name
+
+
+================================================================================
+AFTER YOU SAVE - CHECK THESE 3 ITEMS
+================================================================================
+
+□ ITEM 6: UPDATE INDEX (if Phase folder or Reference)
+  □ Open: 00_START_HERE\03_COMPLETE_MASTER_INDEX.txt
+  □ Find appropriate section
+  □ Add entry for new file:
+    Format: [XX] [FILENAME] - Brief description
+    Example: [16] 04_PROPERTY_INVESTMENT_GUIDE.txt - Buy-to-let strategy
+  □ Save and close index
+  □ Do within 24 hours
+
+□ ITEM 7: VERIFY FILE LOCATION
+  □ Navigate to saved location
+  □ Confirm file appears in correct folder
+  □ Open file to verify it saved correctly
+  □ Check filename displays properly
+
+□ ITEM 8: DELETE ANY TEMP COPIES
+  □ Check Downloads folder
+  □ Check Desktop
+  □ Check Documents folder
+  □ Delete any duplicate/temporary copies
+  □ Only keep file in Financial Master location
+
+
+================================================================================
+QUICK DECISION TREE
+================================================================================
+
+START HERE
+    ↓
+What type of file?
+    ↓
+┌─────────────┬─────────────┬─────────────┬─────────────┐
+│ Strategy/   │ Working     │ Reference   │ Technical   │
+│ Plan        │ Data        │ Material    │ Guide DOCX  │
+└──────┬──────┴──────┬──────┴──────┬──────┴──────┬──────┘
+       ↓             ↓             ↓             ↓
+Which phase?   Which type?    Quick ref?   Next number
+       ↓             ↓             ↓             ↓
+01-05 folder   07 subfolder   06 folder    08 folder
+       ↓             ↓             ↓             ↓
+Name format:   Name format:   Name format:  Name format:
+[XX]_[TOPIC]   YYYYMMDD_      [XX]_[TYPE]   [XX]_[TOPIC]
+       ↓             ↓             ↓             ↓
+Save file      Save file      Save file     Save file
+       ↓             ↓             ↓             ↓
+Update index   (No index)     Update index  (No index)
+
+
+================================================================================
+COMMON SCENARIOS - WHAT TO DO
+================================================================================
+
+SCENARIO 1: New strategy guide for Year 3 business
+--------------------------------------------------
+□ File type: Strategy/Plan
+□ Folder: 02_Phase_2_Launch\
+□ Check existing files: 01-05 exist
+□ Next number: 06
+□ Filename: 06_MARKETING_STRATEGY_GUIDE.txt
+□ Save to: 02_Phase_2_Launch\
+□ Update index: Yes
+□ Timeline: Within 24 hours
+
+SCENARIO 2: April 2026 net worth spreadsheet
+----------------------------------------------
+□ File type: Working Data
+□ Subfolder: 07_Working_Files\01_Net_Worth\
+□ Filename: 20260421_April_Net_Worth.xlsx
+□ Save to: 07_Working_Files\01_Net_Worth\
+□ Update index: No (working files self-organize)
+□ Archive old: Yes, if replacing monthly tracker
+
+SCENARIO 3: Updating existing master guide
+------------------------------------------
+□ File type: Replacing existing
+□ Old file location: 01_Phase_1_Foundation\01_SIMPLIFIED_CHRONOLOGICAL_GUIDE.txt
+□ Archive old: Copy to 09_Archive\Consolidated_Files\
+□ Rename old: OLD_20260421_01_SIMPLIFIED_CHRONOLOGICAL_GUIDE.txt
+□ New file: Save to 01_Phase_1_Foundation\ (same name)
+□ Update index: Yes, if description changed
+
+SCENARIO 4: New technical guide (Word doc)
+------------------------------------------
+□ File type: Technical Guide
+□ Folder: 08_System_Guides\
+□ Check existing: 01-18 exist
+□ Next number: 19
+□ Filename: 19_ADVANCED_CRYPTO_STRATEGY.docx
+□ Save to: 08_System_Guides\
+□ Update index: No (System Guides self-contained)
+
+SCENARIO 5: Equipment purchase receipt for taxes
+-------------------------------------------------
+□ File type: Working Data (Tax record)
+□ Subfolder: 07_Working_Files\04_Tax_Records\
+□ Filename: 2026_Tax_Equipment_Purchase_3D_Printer.pdf
+□ Save to: 07_Working_Files\04_Tax_Records\
+□ Update index: No
+
+SCENARIO 6: New quick reference cheat sheet
+-------------------------------------------
+□ File type: Reference Material
+□ Folder: 06_Reference\
+□ Check existing: 01 exists
+□ Next number: 02
+□ Filename: 02_TAX_DEADLINES_CHEAT_SHEET.txt
+□ Save to: 06_Reference\
+□ Update index: Yes
+
+
+================================================================================
+CHECKLIST TEMPLATES (Print & Use)
+================================================================================
+
+TEMPLATE 1: NEW STRATEGY FILE
+------------------------------
+Date: ___________
+File name: _______________________________________
+
+□ Phase folder selected: 0__Phase___
+□ Number checked: Next is ___
+□ Filename format correct: [  ]
+□ No duplicates found: [  ]
+□ Saved to correct folder: [  ]
+□ Index updated within 24hrs: [  ]
+Completed by: ___________
+
+
+TEMPLATE 2: NEW WORKING DATA FILE
+----------------------------------
+Date: ___________
+File name: _______________________________________
+
+□ Subfolder selected: 07_Working_Files\_____
+□ Date format (YYYYMMDD): [  ]
+□ Filename descriptive: [  ]
+□ Saved to correct subfolder: [  ]
+□ Old version archived (if replacing): [  ]
+Completed by: ___________
+
+
+TEMPLATE 3: REPLACING EXISTING FILE
+------------------------------------
+Date: ___________
+Old file: _______________________________________
+
+□ Old file copied to archive: [  ]
+□ Old file renamed with date: [  ]
+□ New file saved with original name: [  ]
+□ Location unchanged: [  ]
+□ Index updated (if needed): [  ]
+Completed by: ___________
+
+
+================================================================================
+REMEMBER THE RULES
+================================================================================
+
+1. NO LOOSE FILES IN MAIN DIRECTORY
+   Main Financial Master folder = FOLDERS ONLY
+
+2. FOLLOW NAMING CONVENTIONS RELIGIOUSLY
+   Inconsistent naming = chaos within months
+
+3. ARCHIVE IMMEDIATELY
+   Don't wait. Don't accumulate. Archive within 24 hours.
+
+4. UPDATE INDEX PROMPTLY
+   Index out of date = can't find files = wasted time
+
+5. WHEN IN DOUBT
+   Check: 04_FOLDER_MAINTENANCE_PROTOCOL.txt
+   Or ask: "What phase am I in?"
+
+
+================================================================================
+TROUBLESHOOTING QUICK FIXES
+================================================================================
+
+Can't find where to save?
+→ Check the decision tree above
+→ Reference: 04_FOLDER_MAINTENANCE_PROTOCOL.txt Section "Quick Reference"
+
+Not sure about filename?
+→ Look at existing files in target folder
+→ Match their format exactly
+→ Ask: "Does this look like the others?"
+
+Forgot to update index?
+→ Do it NOW (before you forget)
+→ Set phone reminder for "Update Financial Master Index"
+
+Saved to wrong folder?
+→ Move it immediately
+→ Delete any duplicates created
+→ Update any references
+
+File name conflict?
+→ If updating: Archive old, keep name
+→ If different: Use next number
+→ Never use "v2", "final", "new"
+
+
+================================================================================
+SUMMARY
+================================================================================
+
+EVERY FILE MUST:
+✓ Go to correct folder (01-09)
+✓ Follow naming convention
+✓ Be unique (no conflicts)
+✓ Be indexed (if in Phase or Reference)
+✓ Be the only copy (no duplicates elsewhere)
+
+IF REPLACING:
+✓ Archive old version first
+✓ Keep same filename for new
+✓ Update index if description changed
+
+TIME COMMITMENT:
+• New file: 2 minutes (save + index update)
+• Replacing: 5 minutes (archive + save + index)
+• ROI: Hours saved later when finding files
+
+
+================================================================================
+PRINT THIS PAGE AND KEEP IT VISIBLE
+================================================================================
+
+Tape this checklist next to your computer.
+Use it every single time you save a file.
+Your future self will thank you.
+
+================================================================================
+END OF NEW FILE INTAKE CHECKLIST
+================================================================================

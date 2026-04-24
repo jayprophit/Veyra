@@ -1,0 +1,34 @@
+Tax_Year,2025/26,2026/27,2027/28,Notes
+Personal_Allowance,12570,12570,12570,Standard UK personal allowance
+CGT_Allowance,3000,3000,3000,Annual exempt amount
+CGT_Rate_Basic,0.18,0.18,0.18,Basic rate taxpayer
+CGT_Rate_Higher,0.24,0.24,0.24,Higher rate taxpayer
+Trading_Allowance,1000,1000,1000,Trading/Casual income
+Dividend_Allowance,500,500,500,Dividend income allowance
+Dividend_Rate_Basic,0.0875,0.0875,0.0875,Basic rate
+Dividend_Rate_Higher,0.3375,0.3375,0.3375,Higher rate
+Income_Tax_Basic,0.20,0.20,0.20,20% basic rate
+Income_Tax_Higher,0.40,0.40,0.40,40% higher rate
+ISA_Annual_Limit,20000,20000,20000,Stocks & Shares ISA
+LISA_Annual_Limit,4000,4000,4000,Lifetime ISA max
+LISA_Govt_Bonus,0.25,0.25,0.25,25% government bonus
+LISA_Max_Bonus,1000,1000,1000,Max £1k/year bonus
+,,,,
+Calculation_Methods,,,,
+CGT_Calculation,"=MAX(0|Crypto_Gains - CGT_Allowance) * CGT_Rate",,,Tax on crypto sales/swaps
+Income_Tax_Calculation,"=MAX(0|Trading_Profit - Trading_Allowance) * Income_Tax_Rate",,,Tax on active trading
+Staking_Tax_Calculation,"=Staking_Rewards * Income_Tax_Rate",,,Staking = income not CGT
+Dividend_Tax_Calculation,"=MAX(0|Dividends - Dividend_Allowance) * Dividend_Rate",,,Dividend tax calculation
+Total_Tax_Due,"=CGT_Tax + Income_Tax + Dividend_Tax",,,Sum all tax liabilities
+Tax_Sinking_Target,"=Total_Tax_Due * 1.2",,,20% buffer for tax
+,,,,
+Key_Deadlines,,,,
+Tax_Year_Start,06-Apr,06-Apr,06-Apr,April 6th
+Tax_Year_End,05-Apr,05-Apr,05-Apr,April 5th
+Self_Assess_Registration,05-Oct,05-Oct,05-Oct,Oct 5th following year
+Filing_Deadline,31-Jan,31-Jan,31-Jan,January 31st
+Payment_Deadline,31-Jan,31-Jan,31-Jan,January 31st
+,,,,
+CARF_Reporting,,,,
+Exchanges_Report_HMRC,01-Jan-2026,01-Jan-2026,01-Jan-2026,Crypto Asset Reporting Framework
+FCA_Regime_Start,01-Oct-2027,01-Oct-2027,01-Oct-2027,Full FCA crypto regime

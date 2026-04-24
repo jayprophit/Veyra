@@ -1,0 +1,13 @@
+Month,Starting_Balance,Payment,Interest_Rate,Interest_Amount,Principal_Paid,Ending_Balance,Cumulative_Interest,Months_Remaining,Status
+1,"=Dashboard!B13","=Dashboard!B15+Dashboard!B16","=Dashboard!B14","=A2*C2","=B2-D2","=B2-E2","=D2","=Dashboard!B17","Active"
+2,"=F2","=Dashboard!B15+Dashboard!B16","=Dashboard!B14","=A3*C3","=B3-D3","=B3-E3","=G2+D3","=Dashboard!B17-1","IF(H3>0|\"Active\"|\"COMPLETE\")"
+3,"=F3","=Dashboard!B15+Dashboard!B16","=Dashboard!B14","=A4*C4","=B4-D4","=B4-E4","=G3+D4","=Dashboard!B17-2","IF(H4>0|\"Active\"|\"COMPLETE\")"
+4,"=F4","=Dashboard!B15+Dashboard!B16","=Dashboard!B14","=A5*C5","=B5-D5","=B5-E5","=G4+D5","=Dashboard!B17-3","IF(H5>0|\"Active\"|\"COMPLETE\")"
+5,"=F5","=Dashboard!B15+Dashboard!B16","=Dashboard!B14","=A6*C6","=B6-D6","=B6-E6","=G5+D6","=Dashboard!B17-4","IF(H6>0|\"Active\"|\"COMPLETE\")"
+6,"=F6","=Dashboard!B15+Dashboard!B16","=Dashboard!B14","=A7*C7","=B7-D7","=B7-E7","=G6+D7","=Dashboard!B17-5","IF(H7>0|\"Active\"|\"COMPLETE\")"
+7,"=F7","=Dashboard!B15+Dashboard!B16","=Dashboard!B14","=A8*C8","=B8-D8","=B8-E8","=G7+D8","=Dashboard!B17-6","IF(H8>0|\"Active\"|\"COMPLETE\")"
+8,"=F8","=Dashboard!B15+Dashboard!B16","=Dashboard!B14","=A9*C9","=B9-D9","=B9-E9","=G8+D9","=Dashboard!B17-7","IF(H9>0|\"Active\"|\"COMPLETE\")"
+9,"=F9","=Dashboard!B15+Dashboard!B16","=Dashboard!B14","=A10*C10","=B10-D10","=B10-E10","=G9+D10","=Dashboard!B17-8","IF(H10>0|\"Active\"|\"COMPLETE\")"
+10,"=F10","=Dashboard!B15+Dashboard!B16","=Dashboard!B14","=A11*C11","=B11-D11","=B11-E11","=G10+D11","=Dashboard!B17-9","IF(H11>0|\"Active\"|\"COMPLETE\")"
+11,"=F11","=Dashboard!B15+Dashboard!B16","=Dashboard!B14","=A12*C12","=B12-D12","=B12-E12","=G11+D12","=Dashboard!B17-10","IF(H12>0|\"Active\"|\"COMPLETE\")"
+12,"=F12","=Dashboard!B15+Dashboard!B16","=Dashboard!B14","=A13*C13","=B13-D13","=B13-E13","=G12+D13","=Dashboard!B17-11","IF(H13>0|\"Active\"|\"COMPLETE\")"

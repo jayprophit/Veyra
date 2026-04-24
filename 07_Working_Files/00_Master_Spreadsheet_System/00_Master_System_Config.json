@@ -1,0 +1,328 @@
+{
+  "system_metadata": {
+    "name": "Financial Master Autonomous System",
+    "version": "1.0",
+    "created_date": "2025-01-01",
+    "last_updated": "2025-01-01",
+    "author": "AI Engine",
+    "description": "Complete autonomous financial management system with AI/ML capabilities"
+  },
+  "user_financial_profile": {
+    "income": {
+      "daily_rate_gbp": 145,
+      "days_per_month": 22,
+      "tax_rate": 0.20,
+      "additional_monthly_income": 0,
+      "monthly_net_income_formula": "=B2*B3*(1-B4)+B5"
+    },
+    "expenses": {
+      "rent_mortgage": 1125,
+      "insurance": 188,
+      "car_tax": 24,
+      "fuel": 200,
+      "electric": 80,
+      "food": 110,
+      "debt_minimum": 160,
+      "total_essential_outgoings_formula": "=SUM(C2:C8)"
+    },
+    "monthly_surplus": {
+      "formula": "=B6-B7",
+      "current_value": 668
+    }
+  },
+  "phase_configuration": {
+    "phase_1_foundation": {
+      "duration_months": 3,
+      "emergency_fund_target": 1000,
+      "monthly_deposit": 200,
+      "key_actions": [
+        "Open emergency fund account",
+        "Set £200/month standing order",
+        "Get Income Protection insurance",
+        "Open Pionex Grid Bot with £20",
+        "Sign Will and LPA"
+      ],
+      "completion_criteria": "emergency_fund >= 1000"
+    },
+    "phase_2_debt_elimination": {
+      "duration_months": 3,
+      "debt_balance": 1200,
+      "monthly_overpayment": 200,
+      "minimum_payment": 160,
+      "total_monthly_payment_formula": "=B15+B16",
+      "key_actions": [
+        "Pause new investments",
+        "Aggressive debt overpayment",
+        "Months to debt freedom formula: =B13/(B15+B16)"
+      ],
+      "completion_criteria": "debt_balance == 0"
+    },
+    "phase_3_core_engines": {
+      "duration_months": 6,
+      "investment_engines": [
+        {
+          "id": "ENG001",
+          "name": "Crypto_DCA",
+          "platform": "Pionex",
+          "monthly_amount": 35,
+          "allocation_pct": 0.35,
+          "tax_treatment": "CGT"
+        },
+        {
+          "id": "ENG002",
+          "name": "Stocks_ISA",
+          "platform": "Trading_212",
+          "monthly_amount": 20,
+          "allocation_pct": 0.25,
+          "tax_treatment": "Tax_Free"
+        },
+        {
+          "id": "ENG004",
+          "name": "Physical_Gold",
+          "platform": "Goldwise",
+          "monthly_amount": 10,
+          "allocation_pct": 0.10,
+          "tax_treatment": "CGT"
+        },
+        {
+          "id": "ENG005",
+          "name": "Lifetime_ISA",
+          "platform": "Moneybox",
+          "monthly_amount": 20,
+          "allocation_pct": 0.20,
+          "tax_treatment": "Tax_Free_Govt_Bonus"
+        },
+        {
+          "id": "ENG006",
+          "name": "Crypto_Staking",
+          "platform": "Bitget",
+          "monthly_amount": 10,
+          "allocation_pct": 0.10,
+          "tax_treatment": "Income_Tax"
+        }
+      ],
+      "key_actions": [
+        "Upgrade Pionex to £1/day DCA Bot",
+        "Buy VWRP ETF monthly",
+        "Build LISA for 25% bonus",
+        "Stake ETH for passive yield"
+      ]
+    },
+    "phase_4_advanced": {
+      "duration_months": 12,
+      "engines": [
+        "ENG007_Spot_Futures_Arb",
+        "ENG008_BTC_Loop_Trading",
+        "ENG010_Stock_Equities"
+      ],
+      "key_actions": [
+        "Activate Bitsgap LOOP Bot",
+        "Pionex Spot-Futures Arbitrage",
+        "Add individual dividend stocks",
+        "Learn MQL5 for custom bots"
+      ]
+    },
+    "phase_5_speculative": {
+      "duration_months": "ongoing",
+      "activities": [
+        "Penny stocks (max 5%)",
+        "DEX trading (max 5%)",
+        "Flash loans (after learning Solidity)",
+        "VCT/EIS investments"
+      ],
+      "risk_limits": {
+        "max_speculative_pct": 0.10,
+        "per_asset_max_pct": 0.05
+      }
+    }
+  },
+  "platform_inventory": {
+    "crypto_trading": {
+      "pionex": {
+        "fees": "0.05%",
+        "minimum_deposit": 10,
+        "recommended_bots": ["DCA", "Grid"],
+        "api_available": false,
+        "uk_regulated": false
+      },
+      "bitsgap": {
+        "monthly_cost_usd": 24,
+        "trial_days": 7,
+        "features": ["LOOP_Bot", "Arbitrage", "Grid"],
+        "api_available": true
+      },
+      "3commas": {
+        "monthly_cost_usd": 47,
+        "trial_days": 3,
+        "features": ["SmartTrade", "DCA", "Grid"],
+        "api_available": true
+      }
+    },
+    "stock_trading": {
+      "trading_212": {
+        "commission": 0,
+        "isa_available": true,
+        "fractional_shares": true,
+        "recommended_etfs": ["VWRP", "IGF", "GII"]
+      },
+      "freetrade": {
+        "commission": 0,
+        "basic_tier": "Free",
+        "plus_tier": "£4.99/month"
+      }
+    },
+    "crypto_interest": {
+      "coinbase_savings": {
+        "apy": "3.75%",
+        "fscs_protected": true,
+        "minimum": 0
+      },
+      "clapp": {
+        "flexible_apy": "5%",
+        "fixed_apr": "8.2%",
+        "minimum": 8
+      },
+      "nexo": {
+        "flexible_apy": "5.2%",
+        "fixed_apr": "8.2%",
+        "minimum": 10
+      }
+    }
+  },
+  "tax_configuration_2025_26": {
+    "personal_allowance": 12570,
+    "cgt_allowance": 3000,
+    "cgt_rate_basic": 0.18,
+    "cgt_rate_higher": 0.24,
+    "trading_allowance": 1000,
+    "dividend_allowance": 500,
+    "dividend_rate_basic": 0.0875,
+    "dividend_rate_higher": 0.3375,
+    "income_tax_basic": 0.20,
+    "income_tax_higher": 0.40,
+    "isa_annual_limit": 20000,
+    "lisa_annual_limit": 4000,
+    "lisa_govt_bonus_rate": 0.25,
+    "calculation_formulas": {
+      "cgt_tax": "=MAX(0, gains - 3000) * 0.18",
+      "trading_tax": "=MAX(0, profit - 1000) * 0.20",
+      "staking_tax": "=rewards * 0.20",
+      "dividend_tax": "=MAX(0, dividends - 500) * 0.0875"
+    },
+    "key_deadlines": {
+      "tax_year_start": "06-Apr",
+      "tax_year_end": "05-Apr",
+      "self_assess_registration": "05-Oct",
+      "filing_deadline": "31-Jan",
+      "payment_deadline": "31-Jan",
+      "carf_reporting_start": "01-Jan-2026",
+      "fca_regime_start": "01-Oct-2027"
+    }
+  },
+  "automation_settings": {
+    "rebalance_threshold": 0.05,
+    "risk_tolerance": "medium",
+    "max_daily_loss_pct": 2.0,
+    "min_confidence_for_trade": 0.65,
+    "enable_live_trading": false,
+    "simulation_mode": true
+  },
+  "schedule_configuration": {
+    "daily": {
+      "09:00": "check_pionex_bot",
+      "18:00": "update_portfolio_prices"
+    },
+    "weekly": {
+      "sunday_10:00": "weekly_review"
+    },
+    "monthly": {
+      "1st_09:00": "execute_deposits",
+      "15th_10:00": "buy_etfs_metals"
+    },
+    "quarterly": {
+      "review": [
+        "export_koinly",
+        "rebalance_check",
+        "fca_register_check",
+        "tax_estimate"
+      ]
+    }
+  },
+  "spreadsheet_formulas": {
+    "dashboard": {
+      "monthly_net_income": "=B2*B3*(1-B4)+B5",
+      "monthly_surplus": "=B6-B7",
+      "months_to_emergency": "=B9/B8",
+      "months_to_debt_freedom": "=B13/(B15+B16)",
+      "available_for_investments": "=B8-B20-B21-B16",
+      "investment_amounts": "=B22*B23 (for each allocation %)",
+      "total_allocation_check": "=SUM(B23:B27) (must = 1.0)"
+    },
+    "portfolio_tracking": {
+      "asset_value": "=Units * Price",
+      "total_value": "=SUM(D2:D6)",
+      "allocation_pct": "=Asset_Value / Total_Value"
+    },
+    "debt_schedule": {
+      "interest_amount": "=Starting_Balance * Interest_Rate",
+      "principal_paid": "=Payment - Interest",
+      "ending_balance": "=Starting_Balance - Principal_Paid"
+    }
+  },
+  "ai_ml_configuration": {
+    "price_prediction": {
+      "model_type": "ensemble",
+      "features": [
+        "returns",
+        "log_returns",
+        "ma_7",
+        "ma_30",
+        "volatility_7",
+        "volatility_30",
+        "momentum_7",
+        "momentum_30",
+        "rsi",
+        "bb_position"
+      ],
+      "forecast_horizon_days": 7,
+      "retrain_frequency_days": 30
+    },
+    "risk_assessment": {
+      "var_confidence": 0.95,
+      "metrics": [
+        "volatility_annual",
+        "var_95",
+        "cvar_95",
+        "sharpe_ratio",
+        "max_drawdown"
+      ]
+    },
+    "signal_generation": {
+      "thresholds": {
+        "buy_confidence": 0.65,
+        "sell_confidence": 0.65,
+        "rebalance_deviation": 0.05
+      }
+    }
+  },
+  "file_structure": {
+    "spreadsheets": [
+      "01_Platform_Inventory_Master.csv",
+      "02_Financial_Dashboard_Template.csv",
+      "03_Debt_Paydown_Scheduler.csv",
+      "04_Investment_Engine_Master.csv",
+      "05_Tax_Calculation_Engine.csv"
+    ],
+    "python_modules": [
+      "06_AI_Automation_Engine.py",
+      "07_ML_Prediction_Model.py",
+      "08_Data_Ingestion_Engine.py",
+      "09_Autonomous_Master_Controller.py"
+    ],
+    "config_files": [
+      "00_Master_System_Config.json",
+      "engine_config.json",
+      "system_config.json"
+    ]
+  }
+}

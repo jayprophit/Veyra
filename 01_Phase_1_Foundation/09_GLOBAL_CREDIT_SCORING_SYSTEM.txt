@@ -1,0 +1,921 @@
+================================================================================
+GLOBAL CREDIT SCORING & FINANCIAL HEALTH SYSTEM
+================================================================================
+
+Comprehensive Multi-Country Credit, Business & Risk Scoring Framework
+Version: 1.0 | Date: April 2026
+Status: Global Framework - All Major Countries, Auto-Region Detection
+
+================================================================================
+EXECUTIVE SUMMARY
+================================================================================
+
+PURPOSE:
+--------
+Expand credit tracking beyond UK to cover **all major countries** with 
+**automatic region detection** and adjustment. Includes:
+
+• Personal credit scores (UK, US, China, Canada, Australia, EU, Asia, Africa)
+• Business credit scores
+• Crypto/Web3 risk scores
+• Social credit systems (where applicable)
+• Alternative scoring (Open Banking, rental payments)
+• Automatic region detection formulas
+
+CORE INNOVATION:
+----------------
+**One dropdown = Complete system reconfiguration.**
+
+User selects country → System automatically shows:
+- Relevant credit bureaus
+- Score ranges
+- Good/excellent thresholds
+- Free monitoring platforms
+- Improvement strategies
+- 2026 updates specific to that region
+
+UNIVERSAL PRINCIPLE:
+--------------------
+"One credit system. Any country. Automatic configuration."
+
+
+================================================================================
+PART 1: GLOBAL PERSONAL CREDIT SCORING SYSTEMS
+================================================================================
+
+🇬🇧 UNITED KINGDOM
+------------------
+| Bureau | Score Range | Good | Excellent | Free Monitoring | Key 2026 Updates |
+|--------|-------------|------|-----------|-----------------|------------------|
+| Experian | 0-999 | 721+ | 881+ | MSE Credit Club | Rent payments boost scores |
+| Equifax | 0-1,000 | 531+ | 811+ | ClearScore | Real-time updates launched |
+| TransUnion | 0-710 | 566+ | 628+ | Credit Karma | BNPL data now included |
+
+UK-Specific Features:
+- Electoral Roll registration critical
+- CCJs stay 6 years
+- Soft checks don't affect score
+- Statutory report: £2 by post
+
+
+🇺🇸 UNITED STATES
+-----------------
+| Scoring Model | Score Range | Good | Excellent | Free Monitoring | Key 2026 Updates |
+|---------------|-------------|------|-----------|-----------------|------------------|
+| FICO Score 8 | 300-850 | 670-739 | 800+ | Experian.com/free | Avg score: 715 (2026) |
+| FICO Auto | 250-900 | 661+ | 800+ | myFICO.com | Industry-specific |
+| FICO Bankcard | 250-900 | 661+ | 800+ | myFICO.com | Credit card optimized |
+| VantageScore 3.0 | 300-850 | 661-780 | 781+ | Credit Karma | 4 categories (not 5) |
+| VantageScore 4.0 | 300-850 | 661-780 | 781+ | Credit Sesame | Trended data included |
+
+US-Specific Features:
+- 3 bureaus: Experian, Equifax, TransUnion
+- FICO has 28+ different scores
+- Credit mix: 10% of score
+- Hard inquiries: 2 years impact
+- Authorized user tradelines help
+
+
+🇨🇳 CHINA
+----------
+| System | Score Range | Good | Excellent | Platform | Type |
+|--------|-------------|------|-----------|----------|------|
+| Sesame Credit (Zhima) | 350-950 | 600+ | 750+ | Alipay | Private Financial |
+| WeChat Credit | Similar range | 600+ | 750+ | WeChat Pay | Private Financial |
+| PBOC Credit Center | No public score | N/A | N/A | pbccrc.org.cn | Government Database |
+| Social Credit System | N/A | N/A | N/A | Various | Regulatory Framework |
+
+CHINA SYSTEM EXPLANATION:
+-------------------------
+**Private Financial Scoring (What most people use):**
+- Sesame Credit (Ant Group/Alipay): 350-950
+- Based on: Shopping history, payments, credit usage
+- Benefits: Hotel deposits waived, bike rentals, express airport security
+- Not government-run, not punishment-based
+
+**Government PBOC System:**
+- Central bank credit database
+- No public score number
+- Records: Loans, credit cards, defaults
+- Used by banks for lending decisions
+- 2026 focus: Corporate credit expansion
+
+**Social Credit (Misunderstood):**
+- NOT a single score for citizens
+- TWO systems: Corporate compliance + Individual court judgments
+- Most people never affected
+- Punishments: For serious legal violations only
+
+Key 2026 Updates:
+- Sesame Credit expanded to more services
+- Corporate social credit: Stricter enforcement
+- Personal PBOC: Better data integration
+
+
+🇨🇦 CANADA
+-----------
+| Bureau | Score Range | Good | Excellent | Free Monitoring | Key 2026 Updates |
+|--------|-------------|------|-----------|-----------------|------------------|
+| Equifax Canada | 300-900 | 660-724 | 760+ | Some banks free | Most score 650-750 |
+| TransUnion Canada | 300-900 | 660-724 | 760+ | Free in Quebec | Fee elsewhere |
+
+Canada-Specific Features:
+- Credit utilization: Major factor (keep <30%)
+- Payment history: 35% weight
+- Length of credit: 15% weight
+- Soft checks: Don't affect score
+- Mortgage shopping: Multiple inquiries counted as one (14-day window)
+
+
+🇦🇺 AUSTRALIA
+-------------
+| Bureau | Score Range | Good | Excellent | Free Monitoring | Key 2026 Updates |
+|--------|-------------|------|-----------|-----------------|------------------|
+| Equifax (primary) | 0-1,200 | 661-734 | 853+ | Equifax Score | Most widely used |
+| Experian | 0-1,000 | 625-699 | 800+ | Experian app | CCR rewards positive history |
+| Illion (ex-D&B) | 0-1,000 | 700-799 | 800+ | Illion app | Business-focused |
+
+Australia-Specific Features:
+- Comprehensive Credit Reporting (CCR): Positive repayment history rewarded
+- Average score: 711 (Feb 2026)
+- Credit cards: Major factor
+- Defaults: Stay 5 years
+- Serious credit infringements: 7 years
+
+
+🇩🇪 GERMANY
+------------
+| System | Score Range | Rating | Good Threshold | Platform | Key 2026 Updates |
+|--------|-------------|--------|----------------|----------|------------------|
+| SCHUFA | 100-999 | Higher=better | 90+ percentile | schufa.de | Major 2026 reform |
+
+Germany-Specific Features:
+- 2026 Reform: Simplified score (12 criteria only)
+- Free online access: Now available
+- Renting: SCHUFA required for most apartments
+- Negative entries: Stay 3 years
+- No "credit building" cards like UK/US
+- Data protection: Strict GDPR compliance
+
+SCHUFA Score Interpretation:
+- 100-199: Very high risk
+- 200-499: High risk
+- 500-699: Elevated risk
+- 700-799: Satisfactory
+- 800-899: Good
+- 900-999: Very good
+
+
+🇮🇳 INDIA
+----------
+| Bureau | Score Range | Good | Excellent | Free Monitoring | Key 2026 Updates |
+|--------|-------------|------|-----------|-----------------|------------------|
+| CIBIL (TransUnion) | 300-900 | 650-749 | 750+ | cibil.com | Most referenced |
+| CRIF High Mark | 300-900 | 650+ | 750+ | crifhighmark.com | MSME specialist |
+| Experian India | 300-900 | 650+ | 750+ | experian.in | Growing usage |
+| Equifax India | 300-900 | 650+ | 750+ | equifax.co.in | RBI regulated |
+
+India-Specific Features:
+- RBI regulates all 4 bureaus
+- Payment history: 35% weight (CIBIL)
+- Credit utilization: 30% weight
+- All 4 scores may differ
+- NBFCs: Check CIBIL most
+- Business loans: CRIF High Mark popular
+
+
+🇯🇵 JAPAN
+----------
+| System | Score Range | Type | Purpose | Notes |
+|--------|-------------|------|---------|-------|
+| CIC (Credit Information Center) | 200-800 (reference only) | Consumer Guidance | Reference only | Not FICO-style score |
+| JICC | No public score | Registry | Consumer finance tracking | Cash loans, leases |
+| KSC/PCIC | No public score | Banking Registry | Bank credit only | Housing, card loans |
+
+Japan-Specific Features:
+- NO universal credit score like US/UK
+- CIC provides "Credit Guidance" (200-800) but banks don't use it for decisions
+- Credit decisions: Based on income, employment, existing relationship
+- Banking relationships: More important than scores
+- Multiple registries: Fragmented system
+- Foreigners: Harder to get credit without permanent residency
+
+
+🇫🇷 FRANCE
+-----------
+| System | Score Range | Type | Purpose | Notes |
+|--------|-------------|------|---------|-------|
+| FICP (Banque de France) | No score | Negative Registry | Records defaults only | No positive scoring |
+| Central Credit Register | No score | Banking Database | All loans >€500 | For bank risk assessment |
+
+France-Specific Features:
+- NO personal credit scores
+- Only records negative incidents (defaults, late payments)
+- Lenders: Assess individually based on income, employment
+- FICP: 8 years retention for defaults
+- Credit cards: Less common than debit cards
+- "Fiché FICP": Major stigma
+
+
+🇳🇱 NETHERLANDS
+----------------
+| System | Score Range | Type | Purpose | Notes |
+|--------|-------------|------|---------|-------|
+| BKR (Bureau Krediet Registratie) | Registration only | Credit Registry | All loans >€250 | Transparent reporting |
+
+Netherlands-Specific Features:
+- NO credit scores, only registration
+- All credit agreements >€250 reported
+- Positive data: Included (unlike France)
+- Types: A (normal), H (late payment), 1-5 (increasing severity)
+- Code A: Standard, no issues
+- Code 1-5: Severity of arrears
+- Code H: Herstel (recovery) after code 1-5
+- Renting: BKR check common
+- Mortgages: BKR mandatory check
+
+
+🇮🇹 ITALY
+----------
+| System | Score Range | Good | Excellent | Platform | Key 2026 Updates |
+|--------|-------------|------|-----------|----------|------------------|
+| CRIF | 300-900 | 650+ | 750+ | crif.com | Post-6 month residency |
+
+Italy-Specific Features:
+- CRIF: Primary credit bureau
+- Score builds after 6 months residency (Permesso di Soggiorno)
+- Foreigners: Harder initially, improves with time
+- Bank relationships: Important
+- POS (Public Payment System): Can affect credit
+
+
+🇪🇸 SPAIN
+----------
+| System | Score Range | Type | Purpose | Notes |
+|--------|-------------|------|---------|-------|
+| ASNEF | Negative list only | Default Registry | Unpaid debts only | No positive scoring |
+| RAI | Negative list only | Default Registry | Unpaid debts only | No positive scoring |
+| CIRBE (Bank of Spain) | Internal only | Banking Database | All loans | Banks only, not public |
+
+Spain-Specific Features:
+- NO positive credit scores for individuals
+- Only records defaults and unpaid debts
+- ASNEF: Private defaults
+- RAI: Registered with court
+- CIRBE: Bank of Spain database (banks only)
+- Getting credit: Based on income, employment, bank relationship
+- Mortgages: Extensive documentation required
+
+
+🇸🇬 SINGAPORE
+---------------
+| System | Score Range | Good | Excellent | Platform | Key 2026 Updates |
+|--------|-------------|------|-----------|----------|------------------|
+| Credit Bureau Singapore | 1,000-2,000 | 1,800+ | 1,900+ | cbs.com.sg | Now includes rent |
+| Experian Singapore | 300-850 | 670+ | 800+ | experian.sg | Growing usage |
+
+Singapore-Specific Features:
+- CBS: Monopoly bureau (all banks must report)
+- Score range: 1,000-2,000 (unique system)
+- 2026 update: Rental payment data included
+- Risk grades: AA to HH
+- CX grade: No credit history
+- Foreigners: Can get credit cards with EP/SPass
+- Credit cards: Easiest entry to credit system
+
+
+🇧🇷 BRAZIL
+-----------
+| System | Score Range | Good | Excellent | Platform | Key 2026 Updates |
+|--------|-------------|------|-----------|----------|------------------|
+| Serasa Experian | 0-1,000 | 700+ | 900+ | serasa.com.br | Most used |
+| Boa Vista SCPC | 0-1,000 | 700+ | 900+ | boavistasc.com.br | Retail-focused |
+| SPC Brasil | 0-1,000 | 700+ | 900+ | spcbrasil.org.br | Commercial |
+| Quod | 0-1,000 | 700+ | 900+ | quod.com.br | Newest bureau |
+
+Brazil-Specific Features:
+- 4 competing bureaus
+- Serasa: Most comprehensive
+- Positive registry: SPC Positive, Boa Vista Positive
+- CPF number: Required for all credit
+- Credit cards: Easier for higher income
+- Installment culture: Very common (parcelado)
+- Score updates: Monthly
+
+
+🇿🇦 SOUTH AFRICA
+-----------------
+| System | Score Range | Good | Excellent | Platform | Key 2026 Updates |
+|--------|-------------|------|-----------|----------|------------------|
+| Experian South Africa | 0-705 | 650+ | 750+ | experian.co.za | Most comprehensive |
+| TransUnion South Africa | 0-705 | 650+ | 750+ | transunion.co.za | Alternative |
+| Compuscan (Experian) | 0-705 | 650+ | 750+ | compuscan.co.za | Specialized |
+| XDS | 0-705 | 650+ | 750+ | xds.co.za | Bureau alternative |
+
+South Africa-Specific Features:
+- 4 active credit bureaus
+- National Credit Act: Regulates all
+- Clearance certificate: Required after settling defaults
+- Credit amnesty: Periodically declared
+- Blacklisting: Stays 5 years
+- ITC check: Common term for credit check
+- Affordability assessment: Required by law
+
+
+🇳🇬 NIGERIA
+------------
+| System | Score Range | Good | Excellent | Platform | Key 2026 Updates |
+|--------|-------------|------|-----------|----------|------------------|
+| CRC Credit Bureau | 300-850 | 650+ | 750+ | crccreditbureau.com | Growing rapidly |
+| Credit Registry (CBN) | Internal | N/A | N/A | CBN | Central Bank database |
+| XDS Credit Bureau | 300-850 | 650+ | 750+ | xdscreditbureau.com | Alternative |
+
+Nigeria-Specific Features:
+- CRC: Largest private bureau
+- CBN Credit Registry: Mandatory for banks
+- Credit scoring: Still developing (low penetration)
+- BVN (Bank Verification Number): Required for all accounts
+- Credit culture: Growing but cash still dominant
+- Fintechs: Leading credit innovation
+
+
+🇷🇺 RUSSIA
+-----------
+| System | Score Range | Good | Excellent | Platform | Key 2026 Updates |
+|--------|-------------|------|-----------|----------|------------------|
+| NBCH (National Bureau) | 300-850 | 650+ | 750+ | nbki.ru | Largest bureau |
+| Equifax Russia | 300-850 | 650+ | 750+ | equifax.ru | Western style |
+| United Credit Bureau | 300-850 | 650+ | 750+ | okb.ru | Bank-owned |
+
+Russia-Specific Features:
+- NBCH: Central Bank supervised
+- Credit history: 10 years retention
+- Scoring: FICO-style models adopted
+- 2026 context: Western sanctions impact some services
+- Domestic focus: More reliance on local bureaus
+
+
+🇲🇽 MEXICO
+-----------
+| System | Score Range | Good | Excellent | Platform | Key 2026 Updates |
+|--------|-------------|------|-----------|----------|------------------|
+| Buró de Crédito | 300-850 | 650+ | 750+ | burodecredito.com.mx | Monopoly bureau |
+| Círculo de Crédito | 300-850 | 650+ | 750+ | circulodecredito.com.mx | Alternative |
+
+Mexico-Specific Features:
+- Buró de Crédito: Market leader
+- Círculo de Crédito: Growing competitor
+- Consent required: For credit checks
+- Score con leyenda: "Leyenda" shows special conditions
+- Buró de Crédito especial: Problematic history
+- Buró de Crédito buro: Clean history
+- Credit culture: Growing rapidly
+
+
+🇦🇪 UAE (DUBAI/ABU DHABI)
+--------------------------
+| System | Score Range | Good | Excellent | Platform | Key 2026 Updates |
+|--------|-------------|------|-----------|----------|------------------|
+| Al Etihad Credit Bureau | 300-900 | 650+ | 750+ | aecb.gov.ae | Government bureau |
+| Emirates Credit Information Company | Varies | Varies | Varies | ecic.ae | Alternative |
+
+UAE-Specific Features:
+- AECB: Federal government bureau
+- Score: 300-900 (AECB Score)
+- Established: 2014 (relatively new)
+- Population coverage: Growing
+- Expats: Can build credit history
+- Mortgages: AECB check mandatory
+- Credit cards: Main credit building tool
+
+
+================================================================================
+PART 2: BUSINESS CREDIT SCORING SYSTEMS
+================================================================================
+
+🇬🇧 UNITED KINGDOM - BUSINESS CREDIT
+------------------------------------
+| System | Provider | Score Range | Purpose | Prediction |
+|--------|----------|-------------|---------|------------|
+| Experian Business Credit Score | Experian | 0-100 | Likelihood of failure | 12 months ahead |
+| CreditSafe | Creditsafe | 0-100 | Business default risk | 70% of failures predicted |
+| Dun & Bradstreet | D&B | 1-100 | Payment performance | Global coverage |
+| Red Flag Alert | Begbies Traynor | Risk categories | Insolvency prediction | 91% accuracy |
+
+Key Features:
+- Experian 0-100: 80+ = good, 90+ = excellent
+- Creditsafe: Identifies 70% of UK failures 12 months ahead
+- No personal guarantee: Limited data for small businesses
+- Payment performance: Major factor
+- CCJs: Business equivalent stays 6 years
+
+
+🇺🇸 UNITED STATES - BUSINESS CREDIT
+-------------------------------------
+| System | Provider | Score Range | Purpose | Notes |
+|--------|----------|-------------|---------|-------|
+| PAYDEX | Dun & Bradstreet | 1-100 | Payment promptness | 80+ = good, 100 = excellent |
+| Intelliscore Plus | Experian | 1-100 | Credit risk | 1-10 risk class |
+| FICO SBSS | FICO | 0-300 | Small business lending | SBA loans use this |
+| Equifax Business | Equifax | 1-100 | Credit risk | Payment index |
+
+Key Features:
+- PAYDEX: 80+ = prompt payment (30 days), 100 = early payment
+- FICO SBSS: 140+ usually required for SBA loans
+- Trade credit: Major data source
+- Personal credit: Often linked for small businesses
+- Business credit cards: Easiest way to build
+
+
+🇨🇳 CHINA - BUSINESS CREDIT
+-----------------------------
+| System | Provider | Type | Purpose | Key 2026 Updates |
+|--------|----------|------|---------|------------------|
+| Corporate Social Credit | Government | Regulatory | Compliance monitoring | Stricter 2026 enforcement |
+| PBOC Credit Reference | Central Bank | Financial | Loan risk assessment | Expanded coverage |
+| Alibaba Business Credit | Ant Group | Commercial | SME financing | Supply chain focus |
+
+Key Features:
+- Corporate Social Credit: Different from personal Sesame Credit
+- Rewards: "Red list" for compliant companies
+- Penalties: Blacklist for violations
+- Public: Scores visible to partners
+- 2026: More industries included
+
+
+🇪🇺 EUROPE - BUSINESS CREDIT
+----------------------------
+| Country | System | Provider | Notes |
+|---------|--------|----------|-------|
+| Germany | SCHUFA Firmenkredit | SCHUFA | Business equivalent |
+| France | Banque de France | Central Bank | Company scoring |
+| Netherlands | Graydon | Graydon | Benelux focus |
+| Italy | Cribis D&B | Dun & Bradstreet | CRIF partnership |
+| Spain | Informa D&B | Dun & Bradstreet | Market leader |
+
+Key Features:
+- Cross-border: Less integrated than US
+- National focus: Bureaus mainly national
+- Dun & Bradstreet: Global coverage fills gaps
+
+
+================================================================================
+PART 3: CRYPTO / WEB3 RISK SCORING SYSTEMS
+================================================================================
+
+GLOBAL CRYPTO RISK FRAMEWORK
+-----------------------------
+| Agency | Score/Metric | What It Measures | Application | 2026 Context |
+|--------|--------------|------------------|-------------|--------------|
+| CORE3 | 1-100 (loss likelihood) | Project/exchange failure risk | DeFi protocols, CEXs | Industry avg: 70.87; 1,600+ projects |
+| Particula | Risk rating (A-F) | Institutional token risk | On-chain assets | Queryable by smart contracts |
+| DeFi Safety | Process quality | Smart contract security | DeFi protocols | 1-100 scoring |
+| CertiK | Security score | Audit + monitoring | Smart contracts | Real-time monitoring |
+| TokenInsight | Rating (AAA-D) | Project fundamentals | Tokens, exchanges | Research-based |
+| CoinGecko Trust Score | 1-10 | Exchange transparency | Crypto exchanges | Liquidity, security, API |
+
+HOW TO USE CRYPTO RISK SCORES:
+-------------------------------
+1. Before investing: Check CORE3 or Particula risk rating
+2. DeFi protocols: Review DeFi Safety process score
+3. Smart contracts: Verify CertiK audit status
+4. Exchanges: Check CoinGecko Trust Score
+5. Portfolios: Aggregate risk scores for overall exposure
+
+INTERPRETATION:
+---------------
+- CORE3 90-100: Very low risk (established, audited)
+- CORE3 70-89: Low-moderate risk
+- CORE3 50-69: Moderate risk (newer projects)
+- CORE3 <50: High risk (use caution)
+- Particula A: Investment grade
+- Particula D: High risk/speculative
+
+
+================================================================================
+PART 4: ALTERNATIVE & EMERGING SCORING SYSTEMS
+================================================================================
+
+OPEN BANKING CREDIT SCORING
+----------------------------
+| Provider | Method | What It Uses | Purpose | Availability |
+|----------|--------|--------------|---------|--------------|
+| LexisNexis RiskView | Transaction analysis | Bank account data | Thin-file applicants | UK, US, expanding |
+| Credit Kudos (UK) | Open Banking | 12 months bank history | Credit assessment | UK lenders |
+| Bud (UK) | Transaction categorization | Income/expense patterns | Affordability | UK/EU |
+| Plaid (US) | Account aggregation | Multi-bank data | Verification | US primarily |
+| Yodlee (Global) | Financial data | Account aggregation | Credit decisions | Global |
+
+Key Benefits:
+- No credit history required
+- Real-time income verification
+- Affordability assessment
+- Faster decisions
+- Privacy: Read-only access
+
+
+RENTAL PAYMENT CREDIT BUILDING
+-------------------------------
+| Provider | Country | How It Works | Credit Bureaus | Cost |
+|----------|---------|--------------|----------------|------|
+| Credit Ladder | UK | Reports rent to Experian | Experian | Free/£5/month |
+| Canopy | UK | Rent passport + reporting | Experian, Equifax | Free/tenant pays |
+| RentTrack | US | Reports rent to all bureaus | All 3 US | $6.95/month |
+| LevelCredit | US | Rent + utilities reporting | All 3 US | $6.95/month |
+| Pinwheel | US | Rent reporting | TransUnion | Varies |
+
+Impact:
+- 12-24 months rent reporting: Can add 20-60 points
+- Best for: Thin files, new to credit, rebuilding
+- Check: Ensure landlord/property manager participates
+
+
+BNPL (BUY NOW PAY LATER) REPORTING
+------------------------------------
+| Provider | Reports To | Impact | Notes |
+|----------|------------|--------|-------|
+| Klarna (UK) | Experian, TransUnion | Now reported | 2022 onwards |
+| Clearpay | Not yet | N/A | May change |
+| Laybuy | Experian | Reported | Late payments hurt |
+| Afterpay (US) | Not reported | N/A | Soft checks only |
+| Affirm (US) | Experian | Some loans reported | Larger purchases |
+
+2026 Update:
+- UK: BNPL increasingly reported to credit bureaus
+- On-time payments: Help build credit
+- Late payments: Hurt score
+- Usage: High utilization may affect mortgage applications
+
+
+================================================================================
+PART 5: AUTOMATIC REGION DETECTION SYSTEM
+================================================================================
+
+SHEET: REGION_CONFIGURATION
+----------------------------
+Create this table in your Financial Master spreadsheet:
+
+| Region_ID | Country | Credit_Bureau_1 | Credit_Bureau_2 | Credit_Bureau_3 | Score_Range | Good_Threshold | Excellent_Threshold | Free_Platform | Currency | Tax_Year |
+|-----------|---------|-----------------|-----------------|-----------------|-------------|----------------|---------------------|---------------|----------|----------|
+| GBR | United Kingdom | Experian (0-999) | Equifax (0-1000) | TransUnion (0-710) | 0-1000 | 650+ | 800+ | MSE Credit Club / ClearScore / Credit Karma | GBP | Apr-Apr |
+| USA | United States | FICO (300-850) | VantageScore (300-850) | N/A | 300-850 | 670+ | 800+ | Experian.com/free / Credit Karma | USD | Jan-Dec |
+| CHN | China | Sesame Credit (350-950) | WeChat Credit | PBOC | 350-950 | 600+ | 750+ | Alipay / WeChat | CNY | Jan-Dec |
+| CAN | Canada | Equifax (300-900) | TransUnion (300-900) | N/A | 300-900 | 660+ | 760+ | Some banks free | CAD | Jan-Dec |
+| AUS | Australia | Equifax (0-1200) | Experian (0-1000) | Illion (0-1000) | 0-1200 | 661+ | 853+ | Bureau apps | AUD | Jul-Jun |
+| DEU | Germany | SCHUFA (100-999) | N/A | N/A | 100-999 | 800+ | 900+ | schufa.de | EUR | Jan-Dec |
+| IND | India | CIBIL (300-900) | CRIF (300-900) | Experian/Equifax | 300-900 | 650+ | 750+ | cibil.com | INR | Apr-Mar |
+| JPN | Japan | CIC (200-800 ref) | JICC | KSC | N/A | N/A | N/A | Limited | JPY | Jan-Dec |
+| FRA | France | FICP (negative only) | N/A | N/A | N/A | N/A | N/A | N/A | EUR | Jan-Dec |
+| NLD | Netherlands | BKR (registry) | N/A | N/A | N/A | N/A | N/A | N/A | EUR | Jan-Dec |
+| ITA | Italy | CRIF (300-900) | N/A | N/A | 300-900 | 650+ | 750+ | crif.com | EUR | Jan-Dec |
+| ESP | Spain | ASNEF/RAI (negative) | CIRBE | N/A | N/A | N/A | N/A | N/A | EUR | Jan-Dec |
+| SGP | Singapore | CBS (1000-2000) | Experian (300-850) | N/A | 1000-2000 | 1800+ | 1900+ | cbs.com.sg | SGD | Jan-Dec |
+| BRA | Brazil | Serasa (0-1000) | Boa Vista (0-1000) | SPC/Quod | 0-1000 | 700+ | 900+ | serasa.com.br | BRL | Jan-Dec |
+| ZAF | South Africa | Experian (0-705) | TransUnion (0-705) | Compuscan/XDS | 0-705 | 650+ | 750+ | experian.co.za | ZAR | Mar-Feb |
+| NGA | Nigeria | CRC (300-850) | XDS (300-850) | CBN Registry | 300-850 | 650+ | 750+ | crccreditbureau.com | NGN | Jan-Dec |
+| RUS | Russia | NBCH (300-850) | Equifax (300-850) | OKB | 300-850 | 650+ | 750+ | nbki.ru | RUB | Jan-Dec |
+| MEX | Mexico | Buró de Crédito (300-850) | Círculo de Crédito | N/A | 300-850 | 650+ | 750+ | burodecredito.com.mx | MXN | Jan-Dec |
+| ARE | UAE | AECB (300-900) | ECIC | N/A | 300-900 | 650+ | 750+ | aecb.gov.ae | AED | Jan-Dec |
+| CHN_ALT | China (Business) | Corporate Social Credit | PBOC Business | Alibaba | N/A | N/A | N/A | Varies | CNY | Jan-Dec |
+
+
+AUTOMATIC REGION DETECTION FORMULAS
+------------------------------------
+
+METHOD 1: DROPDOWN SELECTION (Recommended)
+-----------------------------------------
+Cell A1: Dropdown list of countries
+
+Formula to display relevant bureaus:
+```excel
+=IF(A1="United Kingdom", "Experian (0-999), Equifax (0-1000), TransUnion (0-710)", 
+ IF(A1="United States", "FICO (300-850), VantageScore (300-850)",
+ IF(A1="China", "Sesame Credit (350-950), WeChat Credit, PBOC Database",
+ IF(A1="Canada", "Equifax (300-900), TransUnion (300-900)",
+ IF(A1="Australia", "Equifax (0-1200), Experian (0-1000), Illion (0-1000)",
+ IF(A1="Germany", "SCHUFA (100-999)",
+ IF(A1="India", "CIBIL (300-900), CRIF, Experian, Equifax",
+ IF(A1="Japan", "CIC (200-800 reference only), JICC, KSC",
+ "Select country from dropdown"))))))))
+```
+
+Formula to display good threshold:
+```excel
+=IF(A1="United Kingdom", 650,
+ IF(A1="United States", 670,
+ IF(A1="China", 600,
+ IF(A1="Canada", 660,
+ IF(A1="Australia", 661,
+ IF(A1="Germany", 800,
+ IF(A1="India", 650,
+ IF(A1="Japan", "N/A (no standard score)",
+ IF(A1="Singapore", 1800,
+ 650)))))))))
+```
+
+Formula to display free monitoring platform:
+```excel
+=IF(A1="United Kingdom", "MSE Credit Club, ClearScore, Credit Karma",
+ IF(A1="United States", "Experian.com/free, Credit Karma, Credit Sesame",
+ IF(A1="China", "Alipay (Sesame), WeChat Pay",
+ IF(A1="Canada", "Some banks offer free (RBC, TD, etc.)",
+ IF(A1="Australia", "Equifax app, Experian app, Illion app",
+ IF(A1="Germany", "schufa.de (free online access)",
+ IF(A1="India", "cibil.com, crifhighmark.com",
+ "Check local options")))))))
+```
+
+
+METHOD 2: VLOOKUP TABLE (Scalable)
+-----------------------------------
+Create table in Sheet2 (name it "Region_Data"):
+
+| Country | Bureaus | Score_Range | Good | Excellent | Free_Platform |
+|---------|---------|-------------|------|-----------|---------------|
+| United Kingdom | Experian, Equifax, TransUnion | 0-1000 | 650 | 800 | MSE Credit Club |
+| United States | FICO, VantageScore | 300-850 | 670 | 800 | Experian Free |
+| China | Sesame Credit, PBOC | 350-950 | 600 | 750 | Alipay |
+| ... | ... | ... | ... | ... | ... |
+
+Formulas:
+```excel
+=VLOOKUP(A1, Region_Data!A:F, 2, FALSE)  // Returns bureaus
+=VLOOKUP(A1, Region_Data!A:F, 3, FALSE)  // Returns score range
+=VLOOKUP(A1, Region_Data!A:F, 4, FALSE)  // Returns good threshold
+=VLOOKUP(A1, Region_Data!A:F, 5, FALSE)  // Returns excellent threshold
+=VLOOKUP(A1, Region_Data!A:F, 6, FALSE)  // Returns free platform
+```
+
+
+METHOD 3: AUTOMATIC IP DETECTION (Advanced)
+--------------------------------------------
+For Google Sheets with Apps Script:
+
+```javascript
+function getCountryFromIP() {
+  var response = UrlFetchApp.fetch('https://ipapi.co/json/');
+  var json = JSON.parse(response.getContentText());
+  return json.country_name;
+}
+```
+
+Then use returned country in VLOOKUP formulas above.
+
+Note: IP detection works for Google Sheets, not Excel.
+
+
+================================================================================
+PART 6: IMPLEMENTATION GUIDE
+================================================================================
+
+STEP 1: CREATE REGION CONFIGURATION SHEET
+------------------------------------------
+1. Open your Credit_Tracker.xlsx spreadsheet
+2. Create new sheet: "Region_Configuration"
+3. Add column headers: Country, Bureaus, Score_Range, Good, Excellent, Free_Platform, Currency, Tax_Year
+4. Add all countries from table above
+5. Save
+
+Time: 20 minutes
+
+
+STEP 2: ADD DROPDOWN TO DASHBOARD
+----------------------------------
+1. Go to your main dashboard sheet
+2. Cell A1: Data → Data Validation → List
+3. Source: =Region_Configuration!A:A (Country column)
+4. Add label: "Select Your Country"
+5. Format: Bold, colored background
+
+Time: 5 minutes
+
+
+STEP 3: ADD DYNAMIC DISPLAY CELLS
+----------------------------------
+1. Cell B2: "Credit Bureaus in Your Country"
+2. Cell C2: =VLOOKUP(A1, Region_Configuration!A:B, 2, FALSE)
+3. Cell B3: "Score Range"
+4. Cell C3: =VLOOKUP(A1, Region_Configuration!A:C, 3, FALSE)
+5. Cell B4: "Good Score Threshold"
+6. Cell C4: =VLOOKUP(A1, Region_Configuration!A:D, 4, FALSE)
+7. Cell B5: "Free Monitoring Platform"
+8. Cell C5: =VLOOKUP(A1, Region_Configuration!A:F, 6, FALSE)
+
+Time: 10 minutes
+
+
+STEP 4: ADD CONDITIONAL FORMATTING
+-----------------------------------
+1. Select cells C2:C5
+2. Home → Conditional Formatting → New Rule
+3. Format cells that contain → Text → "N/A" → Red fill
+4. Add rule: Good threshold >700 → Green fill
+5. Add rule: Score range includes "negative only" → Yellow fill
+
+Time: 5 minutes
+
+
+STEP 5: TEST WITH MULTIPLE COUNTRIES
+-------------------------------------
+1. Test: United Kingdom → Should show 3 bureaus, 0-999/1000/710 ranges
+2. Test: United States → Should show FICO/VantageScore, 300-850
+3. Test: China → Should show Sesame Credit, 350-950
+4. Test: Germany → Should show SCHUFA, 100-999
+5. Test: France → Should show "N/A (negative registry only)"
+
+Time: 5 minutes
+
+
+TOTAL IMPLEMENTATION TIME: 45 MINUTES
+
+
+================================================================================
+PART 7: MULTI-REGION USE CASES
+================================================================================
+
+USE CASE 1: UK CITIZEN MOVING TO US
+------------------------------------
+Before Move (UK):
+- Credit Score: Experian 750 (Good)
+- Monitoring: MSE Credit Club, ClearScore
+- Actions: Download statutory reports, keep UK accounts open
+
+After Move (US):
+- Change dropdown to "United States"
+- System shows: FICO, VantageScore, 300-850 range
+- New monitoring: Experian.com/free, Credit Karma
+- Challenge: No US credit history
+
+Solution:
+1. Keep UK Amex card (transfers to US Amex)
+2. Get US secured credit card immediately
+3. Become authorized user on partner's card
+4. Use Nova Credit (transfers UK history to US)
+5. Check if UK bank has US presence (HSBC, Citibank)
+
+
+USE CASE 2: US EXPAT MOVING TO GERMANY
+---------------------------------------
+Before Move (US):
+- Credit Score: FICO 780 (Excellent)
+- Monitoring: Credit Karma, Experian
+
+After Move (Germany):
+- Change dropdown to "Germany"
+- System shows: SCHUFA, 100-999 range
+- Challenge: No SCHUFA score, need for renting
+
+Solution:
+1. SCHUFA starts building once you get German bank account
+2. Open Girokonto (current account) immediately
+3. Get German credit card (if eligible)
+4. Some landlords accept foreign bank references
+5. SCHUFA-free apartments exist but limited
+
+
+USE CASE 3: DIGITAL NOMAD (MULTIPLE COUNTRIES)
+-----------------------------------------------
+Base: Estonia (e-Residency)
+Living: Portugal (6 months)
+Working: Remote for US company
+Spending: Significant time in Thailand
+
+Configuration:
+- Primary: Portugal (tax residency)
+- Secondary: Estonia (business base)
+- Tertiary: Thailand (frequent visitor)
+- Employment: Remote (US income)
+
+System shows:
+- Portugal credit: Limited (new resident)
+- Can build EU credit through Portuguese bank
+- US income: Reported to Portugal under NHR
+- Thailand: No credit building possible
+
+Strategy:
+1. Build primary credit in Portugal
+2. Maintain US credit cards (keep history)
+3. Use international card (Revolut, Wise) for Thailand
+4. Consider if any Thai bank will serve foreigners
+
+
+USE CASE 4: CHINA-BASED ENTREPRENEUR
+-------------------------------------
+Location: Shanghai
+Business: E-commerce, cross-border trade
+Needs: Personal credit, business credit, international cards
+
+System Configuration:
+- Country: China
+- System shows: Sesame Credit, WeChat Credit, PBOC
+
+Strategy:
+1. Sesame Credit: 750+ target for best benefits
+2. Alipay: Use for everything to build history
+3. WeChat Pay: Secondary scoring
+4. PBOC: Check annually at pbccrc.org.cn
+5. International: Get Hong Kong or Singapore cards for travel
+6. Business: Maintain clean Corporate Social Credit record
+
+Note: Chinese credit doesn't transfer internationally. Build parallel systems.
+
+
+================================================================================
+PART 8: GLOBAL CREDIT BUILDING STRATEGIES
+================================================================================
+
+STRATEGY 1: CREDIT TRANSFER PROGRAMS
+-------------------------------------
+| Program | From | To | How It Works | Eligibility |
+|---------|------|-----|--------------|-------------|
+| Nova Credit | UK/AU/CA/MX/IN | US | Transfers history to US | Amex partnership |
+| Amex Global Transfer | Any | Any | Transfers Amex history | Existing Amex customer |
+| HSBC Premier | Global | Global | Credit recognition | HSBC Premier status |
+| Citibank Global | Global | Global | Credit consideration | Citi relationship |
+
+Best For: Expats moving to US (Nova Credit + Amex)
+
+
+STRATEGY 2: PARALLEL CREDIT BUILDING
+-------------------------------------
+For frequent travelers/multiple bases:
+
+1. Primary country: Build full credit (credit cards, loans, mortgage)
+2. Secondary country: Secured card + current account
+3. Tertiary countries: International cards (Revolut, Wise, Amex)
+4. Business: Separate business credit in each jurisdiction
+
+Example:
+- UK: Full credit (Experian 800+)
+- Portugal: Portuguese bank card (building)
+- UAE: International card usage
+- Business: UK Ltd company credit + Portugal freelance
+
+
+STRATEGY 3: NO-CREIT-CHECK OPTIONS
+----------------------------------
+For countries with no/score system or thin files:
+
+| Country | Alternative | How It Works |
+|---------|-------------|--------------|
+| France | Bank relationship | Long-term account history |
+| Spain | Income proof | Payslips, tax returns |
+| Germany | SCHUFA starter | Bank account + time |
+| Japan | Employment | Company guarantee |
+| UAE | Salary transfer | Employer bank relationship |
+
+
+STRATEGY 4: CRYPTO-NATIVE CREDIT
+---------------------------------
+| Platform | How It Works | Collateral | Countries |
+|----------|--------------|------------|-----------|
+| Nexo | Crypto-backed loans | BTC, ETH, etc. | Global (not US) |
+| YouHodler | Crypto-backed credit | Multiple cryptos | Global |
+| Salt Lending | Crypto collateral | BTC, ETH | US, others |
+| Coinbase Borrow | BTC-backed loans | BTC | US, others |
+
+Note: Not credit building (doesn't report to bureaus), but access to capital.
+
+
+================================================================================
+FINAL SUMMARY
+================================================================================
+
+YOUR GLOBAL CREDIT SYSTEM NOW COVERS:
+-------------------------------------
+✅ 20+ countries with full credit scoring data
+✅ 40+ credit bureaus worldwide
+✅ Traditional credit scores (FICO, Experian, etc.)
+✅ Alternative systems (Sesame Credit, SCHUFA, etc.)
+✅ Business credit scores
+✅ Crypto/Web3 risk scores
+✅ Open Banking scoring
+✅ Rental payment credit building
+✅ BNPL reporting
+✅ Automatic region detection (3 methods)
+✅ Multi-region use case guidance
+✅ Credit transfer programs
+✅ No-credit-check alternatives
+
+AUTOMATIC ADJUSTMENT CAPABILITY:
+---------------------------------
+User selects country from dropdown → System automatically shows:
+- Relevant credit bureaus
+- Score ranges
+- Good/excellent thresholds
+- Free monitoring platforms
+- Currency
+- Tax year dates
+- Country-specific tips
+
+UNIVERSAL PRINCIPLE ACHIEVED:
+------------------------------
+"One credit system. Any country. Automatic configuration."
+
+Your credit tracking now works globally, automatically adjusts to any region,
+and provides actionable guidance for credit building anywhere in the world. 🌍📊
+
+
+================================================================================
+END OF GLOBAL CREDIT SCORING SYSTEM
+================================================================================
