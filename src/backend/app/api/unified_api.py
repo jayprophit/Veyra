@@ -22,6 +22,8 @@ import logging
 
 from ..core.master_orchestrator import get_orchestrator, MasterOrchestrator
 from .phase8_endpoints import router as phase8_router
+from .phase9_endpoints import router as phase9_router
+from .phase10_endpoints import router as phase10_router
 
 logger = logging.getLogger(__name__)
 
@@ -119,8 +121,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Include Phase 8 routers
+# Include Phase 8, 9, and 10 routers
 app.include_router(phase8_router)
+app.include_router(phase9_router)
+app.include_router(phase10_router)
 
 
 # Dependencies
@@ -477,6 +481,18 @@ async def startup_event():
     orch.register_module("real_estate_tracker", "1.0.0", ["portfolio"])
     orch.register_module("passive_income", "1.0.0", ["portfolio", "dividend_tracker"])
     orch.register_module("oms_ems", "1.0.0", ["execution"])
+    
+    # Register Phase 9 Legendary modules
+    orch.register_module("quantum_computing", "1.0.0", ["ai_analysis", "portfolio"])
+    orch.register_module("autonomous_agent", "1.0.0", ["ai_analysis", "execution"])
+    orch.register_module("voice_trading", "1.0.0", ["ai_analysis", "execution"])
+    
+    # Register Phase 10 Transcendent modules
+    orch.register_module("bci_interface", "1.0.0", ["ai_analysis", "execution"])
+    orch.register_module("reality_simulation", "1.0.0", ["ai_analysis", "risk_engine"])
+    orch.register_module("interplanetary_trading", "1.0.0", ["execution"])
+    orch.register_module("ai_instrument_generator", "1.0.0", ["ai_analysis", "portfolio"])
+    orch.register_module("temporal_arbitrage", "1.0.0", ["execution", "market_data"])
     
     # Start orchestrator
     await orch.start()
