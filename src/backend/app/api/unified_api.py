@@ -24,6 +24,7 @@ from ..core.master_orchestrator import get_orchestrator, MasterOrchestrator
 from .phase8_endpoints import router as phase8_router
 from .phase9_endpoints import router as phase9_router
 from .phase10_endpoints import router as phase10_router
+from .phase11_endpoints import router as phase11_router
 
 logger = logging.getLogger(__name__)
 
@@ -106,8 +107,8 @@ class SystemStatus(BaseModel):
 # Create FastAPI app
 app = FastAPI(
     title="Financial Master API",
-    description="Unified trading and analysis platform API - Grade 350/100 World-Class",
-    version="2.60.0",
+    description="Unified trading and analysis platform API - Grade 600/100 DIVINE TIER - Post-Human Trading Platform",
+    version="4.11.0",
     docs_url="/docs",
     redoc_url="/redoc"
 )
@@ -121,10 +122,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Include Phase 8, 9, and 10 routers
+# Include Phase 8, 9, 10, and 11 routers
 app.include_router(phase8_router)
 app.include_router(phase9_router)
 app.include_router(phase10_router)
+app.include_router(phase11_router)
 
 
 # Dependencies
