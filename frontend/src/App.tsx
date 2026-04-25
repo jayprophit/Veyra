@@ -9,6 +9,8 @@ import { MarketDataPage } from './pages/MarketDataPage';
 import { AnalysisPage } from './pages/AnalysisPage';
 import { RiskPage } from './pages/RiskPage';
 import { SettingsPage } from './pages/SettingsPage';
+import { StrategyBuilderPage } from './pages/StrategyBuilderPage';
+import { DividendTrackerPage } from './pages/DividendTrackerPage';
 import './App.css';
 
 const queryClient = new QueryClient({
@@ -34,6 +36,8 @@ function App() {
               <Route path="analysis" element={<AnalysisPage />} />
               <Route path="risk" element={<RiskPage />} />
               <Route path="settings" element={<SettingsPage />} />
+              <Route path="strategy-builder" element={<StrategyBuilderPage />} />
+              <Route path="dividends" element={<DividendTrackerPage />} />
             </Route>
           </Routes>
           <Toaster position="top-right" />

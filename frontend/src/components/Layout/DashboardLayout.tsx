@@ -8,7 +8,10 @@ import {
   Shield,
   Settings,
   Bell,
-  User
+  User,
+  GitBranch,
+  DollarSign,
+  Sparkles
 } from 'lucide-react';
 import { useWebSocket } from '../../hooks/useWebSocket';
 import { ConnectionStatus } from './ConnectionStatus';
@@ -19,6 +22,8 @@ const navItems = [
   { path: '/market', icon: BarChart3, label: 'Market Data' },
   { path: '/analysis', icon: Brain, label: 'AI Analysis' },
   { path: '/risk', icon: Shield, label: 'Risk' },
+  { path: '/strategy-builder', icon: GitBranch, label: 'Strategy Builder', badge: 'NEW' },
+  { path: '/dividends', icon: DollarSign, label: 'Dividends', badge: 'NEW' },
   { path: '/settings', icon: Settings, label: 'Settings' },
 ];
 
@@ -32,7 +37,7 @@ export const DashboardLayout: React.FC = () => {
       <aside className="w-64 bg-slate-900 text-white flex flex-col">
         <div className="p-6">
           <h1 className="text-xl font-bold">Financial Master</h1>
-          <p className="text-xs text-slate-400 mt-1">v2.50.0</p>
+          <p className="text-xs text-slate-400 mt-1">v2.60.0</p>
         </div>
 
         <nav className="flex-1 px-4 space-y-2">
@@ -52,6 +57,11 @@ export const DashboardLayout: React.FC = () => {
               >
                 <Icon size={20} />
                 <span>{item.label}</span>
+                {item.badge && (
+                  <span className="ml-auto px-2 py-0.5 text-xs bg-green-500 text-white rounded-full">
+                    {item.badge}
+                  </span>
+                )}
               </Link>
             );
           })}

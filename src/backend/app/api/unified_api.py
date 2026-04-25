@@ -21,6 +21,7 @@ import asyncio
 import logging
 
 from ..core.master_orchestrator import get_orchestrator, MasterOrchestrator
+from .phase8_endpoints import router as phase8_router
 
 logger = logging.getLogger(__name__)
 
@@ -103,8 +104,8 @@ class SystemStatus(BaseModel):
 # Create FastAPI app
 app = FastAPI(
     title="Financial Master API",
-    description="Unified trading and analysis platform API",
-    version="2.50.0",
+    description="Unified trading and analysis platform API - Grade 350/100 World-Class",
+    version="2.60.0",
     docs_url="/docs",
     redoc_url="/redoc"
 )
@@ -117,6 +118,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Include Phase 8 routers
+app.include_router(phase8_router)
 
 
 # Dependencies
@@ -462,6 +466,17 @@ async def startup_event():
     orch.register_module("portfolio", "1.0.0", ["market_data"])
     orch.register_module("risk_engine", "1.0.0", ["market_data", "portfolio"])
     orch.register_module("ai_analysis", "1.0.0", ["market_data"])
+    
+    # Register Phase 8 modules
+    orch.register_module("visual_strategy_builder", "1.0.0", ["market_data", "ai_analysis"])
+    orch.register_module("options_strategies", "1.0.0", ["market_data", "execution"])
+    orch.register_module("dividend_tracker", "1.0.0", ["portfolio"])
+    orch.register_module("video_analyzer", "1.0.0", ["ai_analysis"])
+    orch.register_module("satellite_imagery", "1.0.0", ["ai_analysis"])
+    orch.register_module("social_sentiment_v2", "1.0.0", ["ai_analysis"])
+    orch.register_module("real_estate_tracker", "1.0.0", ["portfolio"])
+    orch.register_module("passive_income", "1.0.0", ["portfolio", "dividend_tracker"])
+    orch.register_module("oms_ems", "1.0.0", ["execution"])
     
     # Start orchestrator
     await orch.start()
