@@ -237,6 +237,85 @@ class DatabaseManager:
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )""",
+            # ===== INTERNATIONAL TAX (Multi-Jurisdiction Support) =====
+            # Tax events for all jurisdictions
+            """CREATE TABLE IF NOT EXISTS tax_events (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id TEXT NOT NULL,
+                event_date DATE NOT NULL,
+                event_type TEXT NOT NULL,  -- capital_gain, dividend, interest, etc.
+                asset TEXT NOT NULL,
+                amount REAL NOT NULL,
+                currency TEXT DEFAULT 'GBP',
+                local_currency_amount REAL,
+                cost_basis REAL,
+                proceeds REAL,
+                source_jurisdiction TEXT DEFAULT 'UK',  -- UK, US, DE, etc.
+                reporting_jurisdiction TEXT DEFAULT 'UK',
+                tax_year TEXT NOT NULL,  -- 2024-25 or 2024
+                is_taxable INTEGER DEFAULT 1,
+                holding_days INTEGER,  -- For determining short/long term
+                wash_sale_disallowed REAL DEFAULT 0,  -- US wash sale rule
+                notes TEXT,
+                metadata TEXT,  -- JSON for additional data
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )""",
+            # User tax profiles (residency, domicile, etc.)
+            """CREATE TABLE IF NOT EXISTS user_tax_profiles (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id TEXT NOT NULL UNIQUE,
+                primary_residence TEXT DEFAULT 'UK',  -- Main tax jurisdiction
+                secondary_residences TEXT,  -- JSON array of other jurisdictions
+                domicile TEXT,  -- For UK IHT purposes
+                us_citizen INTEGER DEFAULT 0,  -- US citizens taxed worldwide
+                us_green_card INTEGER DEFAULT 0,  -- Green card holders
+                tax_id_numbers TEXT,  -- JSON {country: tax_id}
+                fatca_compliant INTEGER DEFAULT 0,
+                crs_compliant INTEGER DEFAULT 0,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )""",
+            # Tax calculations cache
+            """CREATE TABLE IF NOT EXISTS tax_calculations (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id TEXT NOT NULL,
+                jurisdiction TEXT NOT NULL,
+                tax_year TEXT NOT NULL,
+                calculation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                total_gains REAL DEFAULT 0,
+                total_losses REAL DEFAULT 0,
+                net_taxable_gain REAL DEFAULT 0,
+                tax_due REAL DEFAULT 0,
+                currency TEXT,
+                effective_rate REAL,
+                allowance_used REAL DEFAULT 0,
+                allowance_remaining REAL DEFAULT 0,
+                short_term_gains REAL DEFAULT 0,
+                long_term_gains REAL DEFAULT 0,
+                calculations_json TEXT,  -- Full breakdown
+                UNIQUE(user_id, jurisdiction, tax_year)
+            )""",
+            # Currency exchange rates (for historical conversions)
+            """CREATE TABLE IF NOT EXISTS exchange_rates (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                date DATE NOT NULL,
+                from_currency TEXT NOT NULL,
+                to_currency TEXT NOT NULL,
+                rate REAL NOT NULL,
+                source TEXT DEFAULT 'ECB',  -- ECB, BOE, FRED, etc.
+                UNIQUE(date, from_currency, to_currency)
+            )""",
+            # Tax treaty elections
+            """CREATE TABLE IF NOT EXISTS tax_treaty_elections (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id TEXT NOT NULL,
+                treaty_countries TEXT NOT NULL,  -- e.g., "UK-US"
+                election_year TEXT NOT NULL,
+                election_type TEXT,  -- tie_breaker, benefits, etc.
+                form_reference TEXT,  -- Form 8833 for US
+                election_made INTEGER DEFAULT 1,
+                notes TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )""",
         ]
         
         for table_sql in tables:
@@ -520,6 +599,183 @@ class DatabaseManager:
             (user_id,)
         ).fetchone()
         return float(dict(row)['total']) if row else 0.0
+
+    # =========================================================================
+    # INTERNATIONAL TAX (Multi-Jurisdiction)
+    # =========================================================================
+
+    def add_tax_event(self, user_id: str, event_date: str, event_type: str,
+                     asset: str, amount: float, currency: str = "GBP",
+                     **kwargs) -> int:
+        """Add a taxable event for any jurisdiction."""
+        cursor = self.conn.execute(
+            """INSERT INTO tax_events
+                (user_id, event_date, event_type, asset, amount, currency,
+                 local_currency_amount, cost_basis, proceeds,
+                 source_jurisdiction, reporting_jurisdiction, tax_year,
+                 is_taxable, holding_days, wash_sale_disallowed, notes, metadata)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            (user_id, event_date, event_type, asset, amount, currency,
+             kwargs.get('local_currency_amount'), kwargs.get('cost_basis'),
+             kwargs.get('proceeds'), kwargs.get('source_jurisdiction', 'UK'),
+             kwargs.get('reporting_jurisdiction', 'UK'), kwargs.get('tax_year'),
+             kwargs.get('is_taxable', True), kwargs.get('holding_days'),
+             kwargs.get('wash_sale_disallowed', 0), kwargs.get('notes'),
+             json.dumps(kwargs.get('metadata', {})))
+        )
+        self.conn.commit()
+        return cursor.lastrowid
+
+    def get_tax_events(self, user_id: str, jurisdiction: str = None,
+                      tax_year: str = None, event_type: str = None) -> List[Dict]:
+        """Get tax events with optional filtering."""
+        query = "SELECT * FROM tax_events WHERE user_id = ?"
+        params = [user_id]
+
+        if jurisdiction:
+            query += " AND reporting_jurisdiction = ?"
+            params.append(jurisdiction)
+        if tax_year:
+            query += " AND tax_year = ?"
+            params.append(tax_year)
+        if event_type:
+            query += " AND event_type = ?"
+            params.append(event_type)
+
+        query += " ORDER BY event_date DESC"
+
+        rows = self.conn.execute(query, params).fetchall()
+        return [dict(row) for row in rows]
+
+    def save_tax_calculation(self, user_id: str, jurisdiction: str, tax_year: str,
+                             total_gains: float, total_losses: float,
+                             net_taxable_gain: float, tax_due: float,
+                             currency: str, **kwargs) -> int:
+        """Save tax calculation result."""
+        cursor = self.conn.execute(
+            """INSERT INTO tax_calculations
+                (user_id, jurisdiction, tax_year, total_gains, total_losses,
+                 net_taxable_gain, tax_due, currency, effective_rate,
+                 allowance_used, allowance_remaining, short_term_gains,
+                 long_term_gains, calculations_json)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+               ON CONFLICT(user_id, jurisdiction, tax_year) DO UPDATE SET
+                 calculation_date = CURRENT_TIMESTAMP,
+                 total_gains = excluded.total_gains,
+                 total_losses = excluded.total_losses,
+                 net_taxable_gain = excluded.net_taxable_gain,
+                 tax_due = excluded.tax_due""",
+            (user_id, jurisdiction, tax_year, total_gains, total_losses,
+             net_taxable_gain, tax_due, currency, kwargs.get('effective_rate'),
+             kwargs.get('allowance_used', 0), kwargs.get('allowance_remaining', 0),
+             kwargs.get('short_term_gains', 0), kwargs.get('long_term_gains', 0),
+             json.dumps(kwargs.get('calculations', {})))
+        )
+        self.conn.commit()
+        return cursor.lastrowid
+
+    def get_tax_calculation(self, user_id: str, jurisdiction: str,
+                           tax_year: str) -> Optional[Dict]:
+        """Get cached tax calculation."""
+        row = self.conn.execute(
+            """SELECT * FROM tax_calculations
+               WHERE user_id = ? AND jurisdiction = ? AND tax_year = ?""",
+            (user_id, jurisdiction, tax_year)
+        ).fetchone()
+        return dict(row) if row else None
+
+    def set_user_tax_profile(self, user_id: str, **kwargs) -> int:
+        """Set user's international tax profile."""
+        cursor = self.conn.execute(
+            """INSERT INTO user_tax_profiles
+                (user_id, primary_residence, secondary_residences, domicile,
+                 us_citizen, us_green_card, tax_id_numbers, fatca_compliant, crs_compliant)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+               ON CONFLICT(user_id) DO UPDATE SET
+                 primary_residence = excluded.primary_residence,
+                 secondary_residences = excluded.secondary_residences,
+                 domicile = excluded.domicile,
+                 us_citizen = excluded.us_citizen,
+                 us_green_card = excluded.us_green_card,
+                 tax_id_numbers = excluded.tax_id_numbers,
+                 fatca_compliant = excluded.fatca_compliant,
+                 crs_compliant = excluded.crs_compliant,
+                 updated_at = CURRENT_TIMESTAMP""",
+            (user_id, kwargs.get('primary_residence', 'UK'),
+             json.dumps(kwargs.get('secondary_residences', [])),
+             kwargs.get('domicile'), kwargs.get('us_citizen', False),
+             kwargs.get('us_green_card', False),
+             json.dumps(kwargs.get('tax_id_numbers', {})),
+             kwargs.get('fatca_compliant', False),
+             kwargs.get('crs_compliant', False))
+        )
+        self.conn.commit()
+        return cursor.lastrowid
+
+    def get_user_tax_profile(self, user_id: str) -> Optional[Dict]:
+        """Get user's tax profile."""
+        row = self.conn.execute(
+            """SELECT * FROM user_tax_profiles WHERE user_id = ?""",
+            (user_id,)
+        ).fetchone()
+
+        if not row:
+            return None
+
+        result = dict(row)
+        # Parse JSON fields
+        if result.get('secondary_residences'):
+            result['secondary_residences'] = json.loads(result['secondary_residences'])
+        if result.get('tax_id_numbers'):
+            result['tax_id_numbers'] = json.loads(result['tax_id_numbers'])
+        return result
+
+    def add_exchange_rate(self, date: str, from_currency: str, to_currency: str,
+                         rate: float, source: str = "ECB") -> int:
+        """Add exchange rate for currency conversion."""
+        cursor = self.conn.execute(
+            """INSERT INTO exchange_rates (date, from_currency, to_currency, rate, source)
+               VALUES (?, ?, ?, ?, ?)
+               ON CONFLICT(date, from_currency, to_currency) DO UPDATE SET
+                 rate = excluded.rate,
+                 source = excluded.source""",
+            (date, from_currency, to_currency, rate, source)
+        )
+        self.conn.commit()
+        return cursor.lastrowid
+
+    def get_exchange_rate(self, date: str, from_currency: str,
+                         to_currency: str) -> Optional[float]:
+        """Get exchange rate for specific date."""
+        row = self.conn.execute(
+            """SELECT rate FROM exchange_rates
+               WHERE date = ? AND from_currency = ? AND to_currency = ?""",
+            (date, from_currency, to_currency)
+        ).fetchone()
+        return float(dict(row)['rate']) if row else None
+
+    def get_multi_jurisdiction_tax_summary(self, user_id: str,
+                                           tax_year: str) -> Dict[str, Dict]:
+        """Get tax summary for all jurisdictions."""
+        rows = self.conn.execute(
+            """SELECT jurisdiction, tax_due, currency, net_taxable_gain,
+                      allowance_used, allowance_remaining
+               FROM tax_calculations
+               WHERE user_id = ? AND tax_year = ?""",
+            (user_id, tax_year)
+        ).fetchall()
+
+        summary = {}
+        for row in rows:
+            data = dict(row)
+            summary[data['jurisdiction']] = {
+                'tax_due': data['tax_due'],
+                'currency': data['currency'],
+                'net_taxable_gain': data['net_taxable_gain'],
+                'allowance_used': data['allowance_used'],
+                'allowance_remaining': data['allowance_remaining']
+            }
+        return summary
 
     # =========================================================================
     # ANALYTICS QUERIES
