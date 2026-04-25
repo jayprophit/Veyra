@@ -34,13 +34,13 @@ services:
       start_period: 40s
 
   # ============================================================================
-  # Dashboard (Frontend)
+  # Frontend (React Dashboard)
   # ============================================================================
-  dashboard:
+  frontend:
     build:
-      context: ./dashboard
+      context: ../../frontend
       dockerfile: Dockerfile
-    container_name: financial-master-dashboard
+    container_name: financial-master-frontend
     restart: unless-stopped
     ports:
       - "3000:3000"
@@ -82,7 +82,7 @@ services:
       - ./nginx/ssl:/etc/nginx/ssl:ro
     depends_on:
       - api
-      - dashboard
+      - frontend
     networks:
       - financial-master-network
 
