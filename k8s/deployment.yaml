@@ -1,0 +1,164 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fm-api
+  namespace: financial-master
+  labels:
+    app: fm-api
+    version: v4.0.0
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: fm-api
+  template:
+    metadata:
+      labels:
+        app: fm-api
+        version: v4.0.0
+    spec:
+      containers:
+      - name: api
+        image: financial-master/api:v4.0.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+          name: http
+          protocol: TCP
+        envFrom:
+        - configMapRef:
+            name: fm-config
+        - secretRef:
+            name: fm-secrets
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "1000m"
+          limits:
+            memory: "4Gi"
+            cpu: "2000m"
+        livenessProbe:
+          httpGet:
+            path: /api/v1/health
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /api/v1/ready
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+        volumeMounts:
+        - name: models
+          mountPath: /app/models
+        - name: tmp
+          mountPath: /tmp
+      volumes:
+      - name: models
+        emptyDir: {}
+      - name: tmp
+        emptyDir: {}
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - fm-api
+              topologyKey: kubernetes.io/hostname
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fm-frontend
+  namespace: financial-master
+  labels:
+    app: fm-frontend
+    version: v4.0.0
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: fm-frontend
+  template:
+    metadata:
+      labels:
+        app: fm-frontend
+        version: v4.0.0
+    spec:
+      containers:
+      - name: frontend
+        image: financial-master/frontend:v4.0.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+          name: http
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fm-celery-worker
+  namespace: financial-master
+  labels:
+    app: fm-celery-worker
+    version: v4.0.0
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: fm-celery-worker
+  template:
+    metadata:
+      labels:
+        app: fm-celery-worker
+        version: v4.0.0
+    spec:
+      containers:
+      - name: worker
+        image: financial-master/api:v4.0.0
+        command: ["celery", "-A", "app.celery_app", "worker", "--loglevel=info"]
+        envFrom:
+        - configMapRef:
+            name: fm-config
+        - secretRef:
+            name: fm-secrets
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"

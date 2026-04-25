@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fm-api-service
+  namespace: financial-master
+  labels:
+    app: fm-api
+spec:
+  type: ClusterIP
+  selector:
+    app: fm-api
+  ports:
+  - port: 80
+    targetPort: 8000
+    protocol: TCP
+    name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fm-frontend-service
+  namespace: financial-master
+  labels:
+    app: fm-frontend
+spec:
+  type: ClusterIP
+  selector:
+    app: fm-frontend
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+    name: http
