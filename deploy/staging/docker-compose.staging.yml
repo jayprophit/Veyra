@@ -1,0 +1,251 @@
+version: '3.8'
+
+services:
+  # Main API Server
+  api:
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+      target: staging
+    image: financial-master-api:staging
+    container_name: fm-api-staging
+    ports:
+      - "8080:8000"
+    environment:
+      - ENVIRONMENT=staging
+      - DATABASE_URL=postgresql://fm_staging:fm_staging_pass@postgres:5432/financial_master_staging
+      - REDIS_URL=redis://redis:6379/0
+      - KAFKA_BROKERS=kafka:9092
+      - JWT_SECRET=${JWT_SECRET_STAGING}
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY_STAGING}
+      # Broker API Keys (Staging/Paper)
+      - ALPACA_API_KEY=${ALPACA_STAGING_KEY}
+      - ALPACA_SECRET_KEY=${ALPACA_STAGING_SECRET}
+      - ALPACA_PAPER=true
+      - IB_PAPER_TRADING=true
+      # ESG Data Providers
+      - MSCI_API_KEY=${MSCI_STAGING_KEY}
+      - SUSTAINALYTICS_API_KEY=${SUSTAINALYTICS_STAGING_KEY}
+      # ML/GPU
+      - AWS_ACCESS_KEY_ID=${AWS_STAGING_ACCESS_KEY}
+      - AWS_SECRET_ACCESS_KEY=${AWS_STAGING_SECRET_KEY}
+      - SAGEMAKER_ENDPOINT_PREFIX=fm-staging
+      # Monitoring
+      - SENTRY_DSN=${SENTRY_STAGING_DSN}
+      - DATADOG_API_KEY=${DATADOG_STAGING_KEY}
+    depends_on:
+      - postgres
+      - redis
+      - kafka
+    networks:
+      - fm-staging-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
+        reservations:
+          cpus: '1'
+          memory: 2G
+
+  # WebSocket Server (Separate for scalability)
+  websocket:
+    build:
+      context: ../..
+      dockerfile: Dockerfile.websocket
+    image: financial-master-ws:staging
+    container_name: fm-websocket-staging
+    ports:
+      - "8081:8001"
+    environment:
+      - ENVIRONMENT=staging
+      - REDIS_URL=redis://redis:6379/1
+      - KAFKA_BROKERS=kafka:9092
+      - MAX_CONNECTIONS=10000
+      - CONNECTION_TIMEOUT=300
+    depends_on:
+      - redis
+      - kafka
+    networks:
+      - fm-staging-network
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+
+  # ML Inference Server
+  ml-server:
+    build:
+      context: ../..
+      dockerfile: Dockerfile.ml
+    image: financial-master-ml:staging
+    container_name: fm-ml-staging
+    ports:
+      - "8082:8002"
+    environment:
+      - ENVIRONMENT=staging
+      - MODEL_PATH=/models/staging
+      - GPU_ENABLED=false  # CPU only for staging
+      - BATCH_SIZE=32
+      - MAX_LATENCY_MS=100
+    volumes:
+      - ml-models-staging:/models:ro
+    networks:
+      - fm-staging-network
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 8G
+
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: fm-postgres-staging
+    environment:
+      - POSTGRES_USER=fm_staging
+      - POSTGRES_PASSWORD=fm_staging_pass
+      - POSTGRES_DB=financial_master_staging
+    volumes:
+      - postgres-data-staging:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    networks:
+      - fm-staging-network
+    restart: unless-stopped
+    command: 
+      - "postgres"
+      - "-c"
+      - "max_connections=500"
+      - "-c"
+      - "shared_buffers=2GB"
+      - "-c"
+      - "effective_cache_size=6GB"
+
+  # Redis Cache & Session Store
+  redis:
+    image: redis:7-alpine
+    container_name: fm-redis-staging
+    command: redis-server --maxmemory 2gb --maxmemory-policy allkeys-lru --appendonly yes
+    volumes:
+      - redis-data-staging:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - fm-staging-network
+    restart: unless-stopped
+
+  # Apache Kafka (Event Streaming)
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: fm-kafka-staging
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+    depends_on:
+      - zookeeper
+    networks:
+      - fm-staging-network
+    restart: unless-stopped
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    container_name: fm-zookeeper-staging
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - fm-staging-network
+
+  # Nginx Load Balancer
+  nginx:
+    image: nginx:alpine
+    container_name: fm-nginx-staging
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.staging.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - api
+      - websocket
+    networks:
+      - fm-staging-network
+    restart: unless-stopped
+
+  # Prometheus Monitoring
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: fm-prometheus-staging
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data-staging:/prometheus
+    networks:
+      - fm-staging-network
+    restart: unless-stopped
+
+  # Grafana Dashboards
+  grafana:
+    image: grafana/grafana:latest
+    container_name: fm-grafana-staging
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRafana_ADMIN_PASSWORD}
+      - GF_SERVER_ROOT_URL=https://staging.grafana.financialmaster.com
+    volumes:
+      - grafana-data-staging:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources:ro
+    networks:
+      - fm-staging-network
+    restart: unless-stopped
+
+  # Vault (Secrets Management)
+  vault:
+    image: hashicorp/vault:latest
+    container_name: fm-vault-staging
+    ports:
+      - "8200:8200"
+    environment:
+      - VAULT_DEV_ROOT_TOKEN_ID=${VAULT_DEV_TOKEN}
+      - VAULT_ADDR=http://localhost:8200
+    volumes:
+      - vault-data-staging:/vault/file
+    networks:
+      - fm-staging-network
+    cap_add:
+      - IPC_LOCK
+    restart: unless-stopped
+
+volumes:
+  postgres-data-staging:
+  redis-data-staging:
+  ml-models-staging:
+  prometheus-data-staging:
+  grafana-data-staging:
+  vault-data-staging:
+
+networks:
+  fm-staging-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
