@@ -26,6 +26,10 @@ from .phase9_endpoints import router as phase9_router
 from .phase10_endpoints import router as phase10_router
 from .phase11_endpoints import router as phase11_router
 from .gap_closure_endpoints import router as gap_closure_router
+from .true_gaps_endpoints import router as true_gaps_router
+from .debt_endpoints import router as debt_router
+from .scoring_endpoints import router as scoring_router
+from .expense_endpoints import router as expense_router
 
 logger = logging.getLogger(__name__)
 
@@ -107,9 +111,9 @@ class SystemStatus(BaseModel):
 
 # Create FastAPI app
 app = FastAPI(
-    title="Financial Master API",
-    description="Unified trading and analysis platform API - Grade 600/100 DIVINE TIER - 100% DeepSeek Requirements Match - Post-Human Trading Platform",
-    version="5.0.0",
+    title="Financial Master Unified API",
+    description="Complete trading and wealth management API with 99%+ DeepSeek coverage including MT5, DEXs, L2s, Cross-Chain Bridges, NFTs, Debt Management, Scoring, Expense/Income Tracking, Budget Rules, Employment Types",
+    version="6.0.6",
     docs_url="/docs",
     redoc_url="/redoc"
 )
@@ -123,12 +127,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Include Phase 8, 9, 10, 11, and Gap Closure routers
+# Include Phase 8, 9, 10, 11, Gap Closure, and True Gaps routers
 app.include_router(phase8_router)
 app.include_router(phase9_router)
 app.include_router(phase10_router)
 app.include_router(phase11_router)
 app.include_router(gap_closure_router)
+app.include_router(true_gaps_router)
+app.include_router(debt_router)
+app.include_router(scoring_router)
+app.include_router(expense_router)
 
 
 # Dependencies
