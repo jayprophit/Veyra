@@ -1,7 +1,7 @@
 # Financial Master API Documentation
 ## Complete REST API Reference
 
-**Version:** 6.0.6  
+**Version:** 6.0.9  
 **Base URL:** `http://localhost:8000`  
 **Coverage:** 99%+ DeepSeek Match
 
@@ -13,11 +13,14 @@
 2. [Core Trading API](#core-trading-api)
 3. [DeFi & Web3 API](#defi--web3-api)
 4. [Tax & Compliance API](#tax--compliance-api)
-5. [Debt Management API](#debt-management-api)
-6. [Scoring Systems API](#scoring-systems-api)
-7. [Expense & Budget API](#expense--budget-api)
-8. [Employment & Income API](#employment--income-api)
-9. [Error Handling](#error-handling)
+5. [Tax Identifiers API](#tax-identifiers-api)
+6. [Multi-Jurisdiction API](#multi-jurisdiction-api)
+7. [Debt Management API](#debt-management-api)
+8. [Scoring Systems API](#scoring-systems-api)
+9. [Expense & Budget API](#expense--budget-api)
+10. [Employment & Income API](#employment--income-api)
+11. [Comprehensive Wealth API](#comprehensive-wealth-api)
+12. [Error Handling](#error-handling)
 
 ---
 
@@ -828,9 +831,434 @@ POST /expenses/budget-rules/analyze
 
 ---
 
+## TAX IDENTIFIERS API
+
+### Overview
+Manage all UK tax identifiers: UTR, VAT, NINO, PAYE, Corporation Tax, and more.
+
+### Add Tax Identifier
+```http
+POST /tax/identifiers/add
+```
+
+**Request:**
+```json
+{
+  "identifier_type": "utr",
+  "reference_number": "1234567890",
+  "entity_name": "John Smith",
+  "entity_type": "individual"
+}
+```
+
+**Supported Types:**
+- `utr` - Unique Taxpayer Reference (10 digits)
+- `nino` - National Insurance Number (AB123456C)
+- `vat_number` - VAT Registration (GB123456789)
+- `paye_reference` - Employer PAYE Reference
+- `ct_utr` - Corporation Tax UTR
+- `gateway_id` - Government Gateway ID
+- And 12 more...
+
+### Validate Identifier
+```http
+GET /tax/identifiers/validate/{type}?value={number}
+```
+
+**Example:**
+```http
+GET /tax/identifiers/validate/utr?value=1234567890
+```
+
+**Response:**
+```json
+{
+  "identifier_type": "utr",
+  "value": "1234567890",
+  "valid": true,
+  "format": "10 digits (e.g., 1234567890)"
+}
+```
+
+### VAT Registration
+```http
+POST /tax/identifiers/vat/registration
+```
+
+**Request:**
+```json
+{
+  "vat_number": "GB123456789",
+  "scheme": "standard",
+  "flat_rate_percentage": null,
+  "return_period": "quarterly"
+}
+```
+
+### Self Assessment Records
+```http
+POST /tax/identifiers/sa/record
+```
+
+**Request:**
+```json
+{
+  "utr": "1234567890",
+  "current_tax_year": 2026,
+  "tax_calculated": 5000.00,
+  "tax_paid": 2000.00
+}
+```
+
+### Compliance Summary
+```http
+GET /tax/identifiers/compliance
+```
+
+**Response:**
+```json
+{
+  "vat_registrations": 1,
+  "sa_accounts": 1,
+  "paye_schemes": 1,
+  "ct_accounts": 0,
+  "upcoming_deadlines": [...],
+  "outstanding_payments": [...],
+  "total_outstanding": 3000.00
+}
+```
+
+---
+
+## MULTI-JURISDICTION API
+
+### Overview
+Track tax, investments, and compliance across 32 jurisdictions globally.
+
+### List Jurisdictions
+```http
+GET /jurisdiction/list
+```
+
+**Supported Regions:**
+- **UK:** England, Scotland, Wales, Northern Ireland
+- **Europe:** Ireland, Germany, France, Netherlands, Switzerland, etc.
+- **Americas:** USA, Canada, Brazil, Mexico
+- **Asia-Pacific:** Australia, Singapore, Hong Kong, Japan, UAE
+- **Offshore:** Cayman Islands, Bermuda, BVI, Jersey, Guernsey
+
+### Get Tax Rules
+```http
+GET /jurisdiction/rules/{jurisdiction}
+```
+
+**Example:** `GET /jurisdiction/rules/uk_england`
+
+**Response includes:**
+- Personal tax bands and allowances
+- Corporate tax rates
+- VAT/GST rates
+- Social security rates
+- Wealth and inheritance taxes
+- Currency and tax year dates
+
+### Compare Tax Across Jurisdictions
+```http
+POST /jurisdiction/tax/compare
+```
+
+**Request:**
+```json
+{
+  "jurisdictions": ["uk_england", "usa", "singapore"],
+  "income": 100000,
+  "income_type": "employment"
+}
+```
+
+**Response:**
+```json
+{
+  "income": 100000,
+  "comparisons": [
+    {"jurisdiction": "singapore", "total_tax": 5650, "effective_rate": 5.7},
+    {"jurisdiction": "usa", "total_tax": 18021, "effective_rate": 18.0},
+    {"jurisdiction": "uk_england", "total_tax": 26428, "effective_rate": 26.4}
+  ],
+  "most_favorable": "singapore"
+}
+```
+
+### Cross-Border Investment Tracking
+```http
+POST /jurisdiction/investment/add
+```
+
+**Request:**
+```json
+{
+  "asset_name": "Apple Inc",
+  "asset_type": "stock",
+  "investor_jurisdiction": "uk_england",
+  "asset_jurisdiction": "usa",
+  "acquisition_cost": 10000,
+  "base_currency": "GBP",
+  "local_currency": "USD"
+}
+```
+
+**Auto-flags:**
+- FATCA reportable (US investments)
+- CRS reportable (OECD standard)
+
+### FATCA/CRS Compliance
+```http
+GET /jurisdiction/compliance/fatca-crs
+```
+
+**Response:**
+```json
+{
+  "fatca": {
+    "reportable_accounts": 2,
+    "total_value": 25000.00,
+    "accounts": [...]
+  },
+  "crs": {
+    "reportable_accounts": 3,
+    "total_value": 45000.00,
+    "accounts": [...]
+  }
+}
+```
+
+### Tax Treaty Information
+```http
+GET /jurisdiction/compliance/tax-treaties?residence=uk&source=usa
+```
+
+**Response:**
+```json
+{
+  "residence": "uk",
+  "source": "usa",
+  "treaty_exists": true,
+  "withholding_rates": {
+    "dividends": 15,
+    "interest": 0,
+    "royalties": 0
+  }
+}
+```
+
+---
+
+## COMPREHENSIVE WEALTH API
+
+### Overview
+Track ALL types of wealth, assets, income, and investment opportunities globally.
+
+### Asset Classes Supported (22+)
+```
+Traditional:    Cash, Stocks, Bonds, ETFs
+Real Assets:    Real Estate, Gold, Silver
+Alternative:    Art, Wine, Classic Cars, Luxury Watches
+Digital:        Crypto, NFTs, DeFi tokens
+Private:        Private Equity, VC, Hedge Funds
+Business:       Business Equity, IP, Patents, Franchises
+Other:          P2P Lending, Commodities, Forex, Derivatives
+```
+
+### Income Types Supported (15+)
+```
+Active:         Salary, Bonus, Freelance, Consulting, Business Profit
+Passive:        Dividends, Interest, Rent, Royalties
+Digital:        Crypto Staking, DeFi Yield, P2P Interest
+Retirement:     Pension Income, Annuities
+```
+
+### Get Asset Classes
+```http
+GET /wealth/asset-classes
+```
+
+### Add Wealth Holding
+```http
+POST /wealth/holding/add
+```
+
+**Request:**
+```json
+{
+  "asset_class": "classic_cars",
+  "name": "1967 Ford Mustang GT",
+  "jurisdiction": "uk",
+  "acquisition_cost": 85000,
+  "current_value": 120000
+}
+```
+
+**All Supported Asset Classes:**
+- `cash` - Cash & Bank Accounts
+- `stocks` - Individual Stocks
+- `bonds` - Government & Corporate Bonds
+- `etf` - Exchange Traded Funds
+- `real_estate` - Property
+- `precious_metals` - Gold, Silver
+- `art` - Artwork & Collectibles
+- `wine` - Fine Wine & Whisky
+- `classic_cars` - Vintage Automobiles
+- `watches` - Luxury Timepieces
+- `crypto` - Cryptocurrencies
+- `nft` - Non-Fungible Tokens
+- `private_equity` - Private Company Shares
+- `venture_capital` - Startup Investments
+- `hedge_funds` - Alternative Funds
+- `p2p_lending` - Peer-to-Peer Loans
+- `business` - Business Equity
+- `pension` - Retirement Accounts
+- `commodities` - Oil, Gas, Agriculture
+- `forex` - Foreign Exchange
+- `derivatives` - Options, Futures, CFDs
+- `intellectual_property` - Patents, Copyrights, Trademarks
+
+### List Holdings
+```http
+GET /wealth/holdings/list?asset_class=crypto&jurisdiction=uk
+```
+
+### Add Income Stream
+```http
+POST /wealth/income/add-stream
+```
+
+**Request:**
+```json
+{
+  "income_type": "crypto_staking",
+  "source": "Ethereum Staking",
+  "amount_monthly": 150,
+  "is_passive": true,
+  "jurisdiction": "international"
+}
+```
+
+### Get Passive Income Summary
+```http
+GET /wealth/income/passive
+```
+
+**Response:**
+```json
+{
+  "monthly_passive": 2500,
+  "annual_passive": 30000,
+  "breakdown": {
+    "dividends": 800,
+    "interest": 200,
+    "rent": 1200,
+    "crypto_staking": 150,
+    "defi_yield": 100,
+    "royalties": 50
+  }
+}
+```
+
+### Get Total Wealth Summary
+```http
+GET /wealth/total
+```
+
+**Response:**
+```json
+{
+  "total_wealth_gbp": 1250000,
+  "by_asset_class": {
+    "real_estate": 500000,
+    "stocks": 300000,
+    "crypto": 100000,
+    "bonds": 150000,
+    "classic_cars": 120000,
+    "art": 80000
+  },
+  "by_jurisdiction": {
+    "uk": 850000,
+    "usa": 250000,
+    "eu": 150000
+  },
+  "passive_income": {
+    "monthly": 2500,
+    "annual": 30000
+  },
+  "fi_metrics": {
+    "fi_number_4pct_rule": 50000,
+    "annual_passive": 30000,
+    "passive_coverage_pct": 60
+  },
+  "diversification": {
+    "asset_classes": 6,
+    "jurisdictions": 3,
+    "foreign_exposure_pct": 32
+  }
+}
+```
+
+### Get Investment Opportunities
+```http
+GET /wealth/opportunities?passive_income_focus=true&jurisdiction=uk
+```
+
+**Response:**
+```json
+{
+  "opportunities": [
+    {
+      "asset_class": "crypto",
+      "name": "Ethereum Staking",
+      "expected_yield": 4.5,
+      "risk_level": "high",
+      "passive": true
+    },
+    {
+      "asset_class": "real_estate",
+      "name": "UK REITs",
+      "expected_yield": 5.0,
+      "risk_level": "medium",
+      "passive": true
+    }
+  ]
+}
+```
+
+### Get International Summary
+```http
+GET /wealth/international/summary
+```
+
+---
+
 ## CHANGELOG
 
-### v6.0.6 (Latest)
+### v6.0.9 (Latest)
+- Added Comprehensive Wealth Tracking (22+ asset classes, 15+ income types)
+- Added alternative investments (art, wine, cars, watches, IP)
+- Added digital asset income tracking (staking, DeFi, yield)
+- Added investment opportunity discovery
+- Added Financial Independence metrics (4% rule, passive coverage)
+
+### v6.0.8
+- Added Tax Identifiers tracking (19 types: UTR, VAT, NINO, PAYE, CT, etc.)
+- Added Multi-Jurisdiction support (32 jurisdictions)
+- Added cross-border investment tracking (FATCA/CRS)
+- Added transfer pricing documentation
+- Added FX exposure management
+
+### v6.0.7
+- Added Tax Identifiers module (UTR, VAT, NINO, PAYE, CT)
+- Tax code calculations and validation
+- HMRC compliance tracking
+
+### v6.0.6
 - Added Employment & Income Tracking (19 types)
 - Added Budget Rules Engine (10 rules)
 - Added Expense Tracker (25 categories)
