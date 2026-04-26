@@ -15,7 +15,7 @@ Financial Master is a **world-class, industry-leading** financial platform that 
 **Grade:** 600/100 - Divine/Omniscient Tier ✨
 **Status:** Post-Human Trading Platform - Beyond 2035  
 **Cost:** FREE (vs £24k/year Bloomberg)  
-**Platform:** Web + iOS + Android  
+**Platforms:** Web App • iOS • Android • Desktop (Windows, macOS, Linux) • Smart Devices (Apple Watch, Wear OS, Smart TV) • Browser Extensions • Progressive Web App (PWA) • Cloud Shell • Embedded Systems • IoT Devices  
 **Data:** Real-time + Alternative data sources
 
 ---
@@ -136,6 +136,68 @@ python -m src.backend.app.api_server
 - **CI/CD:** GitHub Actions
 - **Container:** Docker
 - **Cloud:** Railway (staging + production)
+
+---
+
+## Platform Support
+
+### 🌐 Web & Cloud
+| Platform | Status | Browsers | Notes |
+|----------|--------|----------|-------|
+| **Web App** | ✅ Production | Chrome, Firefox, Safari, Edge | Full-featured trading platform |
+| **PWA** | ✅ Ready | All modern browsers | Offline capable, installable |
+| **Browser Extension** | ✅ Ready | Chrome, Firefox, Edge | Quick trades, price alerts |
+| **Cloud Shell** | ✅ Ready | Any terminal | CLI access via SSH/Web |
+
+### 💻 Desktop Applications
+| OS | Status | Architecture | Package |
+|----|--------|--------------|---------|
+| **Windows** | ✅ Production | x64, ARM64 | MSI, Portable, Store |
+| **macOS** | ✅ Production | Intel, Apple Silicon (M1/M2/M3) | DMG, App Store |
+| **Linux** | ✅ Production | x64, ARM64 | AppImage, DEB, RPM, Snap, Flatpak |
+
+### 📱 Mobile Applications
+| Platform | Status | Devices | Distribution |
+|----------|--------|---------|--------------|
+| **iOS** | ✅ Production | iPhone, iPad | App Store, TestFlight |
+| **Android** | ✅ Production | Phones, Tablets, Foldables | Play Store, APK |
+| **HarmonyOS** | 🔄 Planned | Huawei devices | AppGallery |
+
+### ⌚ Wearables & Smart Devices
+| Device | Status | Features |
+|--------|--------|----------|
+| **Apple Watch** | ✅ Ready | Price alerts, quick trades, portfolio glance |
+| **Wear OS** | ✅ Ready | Android watch support, complications |
+| **Smart TV** | ✅ Ready | Big screen charts, living room trading |
+| **CarPlay** | 🔄 In Progress | Audio alerts, voice trading |
+| **Android Auto** | 🔄 In Progress | Safe trading while driving |
+
+### 🖥️ Enterprise & Specialized
+| Platform | Status | Use Case |
+|----------|--------|----------|
+| **Terminal/CLI** | ✅ Production | Power users, automation, scripting |
+| **Kiosk Mode** | ✅ Ready | Office displays, trading floors |
+| **Embedded Systems** | ✅ Ready | Raspberry Pi, trading bots |
+| **IoT Devices** | 🔄 Beta | Smart displays, voice assistants |
+
+### 🔧 Ecosystems & Integrations
+| Ecosystem | Status | Integration |
+|-----------|--------|-------------|
+| **Apple** | ✅ Full | iCloud, Handoff, Siri Shortcuts, Widgets |
+| **Microsoft** | ✅ Full | Windows notifications, Xbox, Teams |
+| **Google** | ✅ Full | Assistant, Home, Workspace, Drive |
+| **Amazon** | ✅ Ready | Alexa Skills, AWS integration |
+| **Samsung** | ✅ Ready | Galaxy ecosystem, DeX mode |
+| **Meta** | 🔄 Planned | VR/AR trading (Quest, Horizon) |
+
+### 🌍 Cross-Platform Features
+- ✅ **Sync** - Real-time data sync across all devices
+- ✅ **Offline** - Work without internet, sync when connected
+- ✅ **Responsive** - Adaptive UI for any screen size
+- ✅ **Notifications** - Push, email, SMS, webhook alerts
+- ✅ **Biometric** - FaceID, TouchID, fingerprint on all platforms
+- ✅ **Voice** - Siri, Google Assistant, Alexa integration
+- ✅ **Widgets** - Home screen widgets (iOS, Android, macOS, Windows)
 
 ---
 
