@@ -30,6 +30,9 @@ from .true_gaps_endpoints import router as true_gaps_router
 from .debt_endpoints import router as debt_router
 from .scoring_endpoints import router as scoring_router
 from .expense_endpoints import router as expense_router
+from .tax_identifier_endpoints import router as tax_identifier_router
+from .jurisdiction_endpoints import router as jurisdiction_router
+from .wealth_endpoints import router as wealth_router
 
 logger = logging.getLogger(__name__)
 
@@ -112,8 +115,8 @@ class SystemStatus(BaseModel):
 # Create FastAPI app
 app = FastAPI(
     title="Financial Master Unified API",
-    description="Complete trading and wealth management API with 99%+ DeepSeek coverage including MT5, DEXs, L2s, Cross-Chain Bridges, NFTs, Debt Management, Scoring, Expense/Income Tracking, Budget Rules, Employment Types",
-    version="6.0.6",
+    description="Complete trading and wealth management API with 99%+ DeepSeek coverage including MT5, DEXs, L2s, Cross-Chain Bridges, NFTs, Debt Management, Scoring, Expense/Income Tracking, Budget Rules, Employment Types, Tax Identifiers (UTR, VAT, NINO, PAYE, CT), Multi-Jurisdiction (32 countries), Comprehensive Wealth Tracking (ALL asset types, ALL income types, ALL wealth sources)",
+    version="6.0.9",
     docs_url="/docs",
     redoc_url="/redoc"
 )
@@ -137,6 +140,9 @@ app.include_router(true_gaps_router)
 app.include_router(debt_router)
 app.include_router(scoring_router)
 app.include_router(expense_router)
+app.include_router(tax_identifier_router)
+app.include_router(jurisdiction_router)
+app.include_router(wealth_router)
 
 
 # Dependencies
