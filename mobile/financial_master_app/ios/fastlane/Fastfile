@@ -1,0 +1,86 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Build and deploy to TestFlight"
+  lane :beta do
+    # Increment build number
+    increment_build_number(
+      build_number: latest_testflight_build_number + 1,
+      xcodeproj: "Runner.xcodeproj"
+    )
+    
+    # Build the app
+    build_app(
+      workspace: "Runner.xcworkspace",
+      scheme: "Runner",
+      export_method: "app-store",
+      export_options: {
+        provisioningProfiles: {
+          "com.financialmaster.app" => "Financial Master App Store"
+        }
+      }
+    )
+    
+    # Upload to TestFlight
+    upload_to_testflight(
+      skip_waiting_for_build_processing: true,
+      notify_external_testers: false,
+      changelog: "Grade SSS Production Features:\n" +
+                 "- Multi-broker trading (Alpaca, IBKR, Trading212)\n" +
+                 "- AI-powered predictions\n" +
+                 "- Oracle Vision chart analysis\n" +
+                 "- Biometric security\n" +
+                 "- Social/copy trading"
+    )
+    
+    # Notify team
+    slack(
+      message: "iOS Beta #{latest_testflight_build_number} deployed to TestFlight",
+      channel: "#mobile-releases"
+    )
+  end
+  
+  desc "Deploy to App Store"
+  lane :release do
+    # Match - sync certificates
+    match(type: "appstore", readonly: true)
+    
+    # Build release
+    build_app(
+      workspace: "Runner.xcworkspace",
+      scheme: "Runner",
+      export_method: "app-store"
+    )
+    
+    # Upload and submit
+    upload_to_app_store(
+      force: true,
+      skip_metadata: false,
+      skip_screenshots: false,
+      submit_for_review: true,
+      automatic_release: false,
+      precheck_include_in_app_purchases: false,
+      submission_information: {
+        add_id_info_uses_idfa: false,
+        export_compliance_uses_encryption: true,
+        export_compliance_encryption_updated: false
+      }
+    )
+  end
+  
+  desc "Run tests"
+  lane :test do
+    scan(
+      workspace: "Runner.xcworkspace",
+      scheme: "Runner",
+      clean: true,
+      code_coverage: true
+    )
+  end
+  
+  desc "Sync signing certificates"
+  lane :certificates do
+    match(type: "development")
+    match(type: "appstore")
+  end
+end

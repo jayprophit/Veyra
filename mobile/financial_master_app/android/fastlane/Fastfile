@@ -1,0 +1,110 @@
+default_platform(:android)
+
+platform :android do
+  desc "Build and deploy to Google Play Console (Internal Testing)"
+  lane :internal do
+    # Increment version code
+    previous_version_code = google_play_track_version_codes(
+      track: "internal"
+    )[0]
+    
+    current_version_code = previous_version_code + 1
+    
+    # Update version code in build.gradle
+    increment_version_code(
+      version_code: current_version_code
+    )
+    
+    # Build APK
+    gradle(
+      task: "assemble",
+      build_type: "Release",
+      properties: {
+        "android.injected.signing.store.file" => ENV["ANDROID_KEYSTORE_PATH"],
+        "android.injected.signing.store.password" => ENV["ANDROID_KEYSTORE_PASSWORD"],
+        "android.injected.signing.key.alias" => ENV["ANDROID_KEY_ALIAS"],
+        "android.injected.signing.key.password" => ENV["ANDROID_KEY_PASSWORD"]
+      }
+    )
+    
+    # Build AAB (Android App Bundle for Play Store)
+    gradle(
+      task: "bundle",
+      build_type: "Release"
+    )
+    
+    # Upload to Play Console (Internal Track)
+    upload_to_play_store(
+      track: "internal",
+      release_status: "draft",
+      aab: "../build/app/outputs/bundle/release/app-release.aab",
+      skip_upload_metadata: false,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      changelog: "Grade SSS Production Features:\n" +
+                 "- Multi-broker trading (Alpaca, IBKR, Trading212)\n" +
+                 "- AI-powered predictions\n" +
+                 "- Oracle Vision chart analysis\n" +
+                 "- Biometric security\n" +
+                 "- Social/copy trading"
+    )
+    
+    # Notify team
+    slack(
+      message: "Android Build #{current_version_code} uploaded to Play Console (Internal)",
+      channel: "#mobile-releases"
+    )
+  end
+  
+  desc "Promote to Beta (Closed Testing)"
+  lane :beta do
+    upload_to_play_store(
+      track: "internal",
+      track_promote_to: "beta",
+      skip_upload_metadata: false
+    )
+    
+    slack(
+      message: "Android Beta released!",
+      channel: "#mobile-releases"
+    )
+  end
+  
+  desc "Promote to Production"
+  lane :release do
+    # First, check if build is ready
+    validate_play_store_json_key(
+      json_key: ENV["PLAY_STORE_JSON_KEY_PATH"]
+    )
+    
+    # Promote from beta to production
+    upload_to_play_store(
+      track: "beta",
+      track_promote_to: "production",
+      skip_upload_changelogs: false
+    )
+    
+    slack(
+      message: "Android Production Release! 🚀",
+      channel: "#mobile-releases"
+    )
+  end
+  
+  desc "Run tests"
+  lane :test do
+    gradle(task: "test")
+  end
+  
+  desc "Build debug APK"
+  lane :debug do
+    gradle(
+      task: "assemble",
+      build_type: "Debug"
+    )
+  end
+  
+  desc "Clean build"
+  lane :clean do
+    gradle(task: "clean")
+  end
+end
