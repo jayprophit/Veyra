@@ -2,10 +2,10 @@
 
 from .var_calculator import VaRCalculator
 from .stress_tester import StressTester
-from .position_sizer import PositionSizer
+from .liquidity_risk import LiquidityRisk
 
 __all__ = [
     "VaRCalculator",
     "StressTester",
-    "PositionSizer"
+    "LiquidityRisk"
 ]
