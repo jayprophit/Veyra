@@ -1,8 +1,8 @@
 # Financial Master API Documentation
 ## Complete REST API Reference
 
-**Version:** 6.0.9  
-**Base URL:** `http://localhost:8000`  
+**Version:** 6.0.9
+**Base URL:** `http://localhost:8000`
 **Coverage:** 99%+ DeepSeek Match
 
 ---
@@ -1289,3 +1289,4 @@ GET /wealth/international/summary
 ---
 
 **© 2026 Financial Master. All rights reserved.**
+

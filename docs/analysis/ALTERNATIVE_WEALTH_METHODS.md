@@ -450,11 +450,11 @@
 ```python
 class AlternativeIncomeTracker:
     """Track ALL income sources in one place"""
-    
+
     categories = {
         "digital": [
             "youtube_revenue",
-            "podcast_sponsorships", 
+            "podcast_sponsorships",
             "newsletter_subscriptions",
             "course_sales",
             "software_licensing"
@@ -516,3 +516,4 @@ class AlternativeIncomeTracker:
 2. Create AI advisor for alternative wealth paths
 3. Develop ROI calculators for each method
 4. Integrate real-time tracking APIs
+

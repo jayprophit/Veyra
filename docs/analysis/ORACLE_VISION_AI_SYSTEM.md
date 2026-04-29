@@ -148,13 +148,13 @@ Pattern Detection:
   - Hough Transform (line detection)
   - Contour detection (shape recognition)
   - Template matching
-  
+
 Deep Learning:
   - ResNet50 (feature extraction)
   - YOLOv8 (real-time detection)
   - Custom CNN (pattern classification)
   - LSTM (temporal sequence learning)
-  
+
 Training Data:
   - 10M+ historical charts
   - Manually labeled patterns
@@ -300,7 +300,7 @@ Models:
   - Vision Transformer (ViT) (attention-based)
   - CLIP (OpenAI - text-image understanding)
   - DETR (Facebook - detection transformer)
-  
+
 OCR:
   - Tesseract 5.x (text recognition)
   - EasyOCR (multi-language)
@@ -320,7 +320,7 @@ Video AI Models:
   - Video-ChatGPT (conversation)
   - TimeSformer (video transformer)
   - SlowFast (Facebook - action recognition)
-  
+
 Speech Recognition:
   - OpenAI Whisper (primary)
   - Google Cloud Speech-to-Text
@@ -428,3 +428,4 @@ Most platforms don't have:
 - ✅ Multi-modal intelligence fusion
 
 **First-mover advantage in visual financial AI**
+

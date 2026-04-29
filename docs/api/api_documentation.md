@@ -435,5 +435,6 @@ ws.onopen = () => {
 
 ---
 
-**Version:** 2.50.0  
+**Version:** 2.50.0
 **Last Updated:** January 2026
+

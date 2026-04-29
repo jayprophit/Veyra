@@ -1,8 +1,8 @@
 # 🎭 E2E Tests - End-to-End Testing Suite
 
-**Framework:** Playwright  
-**Coverage:** Full user flows from UI to database  
-**Browsers:** Chrome, Firefox, Safari, Edge  
+**Framework:** Playwright
+**Coverage:** Full user flows from UI to database
+**Browsers:** Chrome, Firefox, Safari, Edge
 **Devices:** Desktop, Mobile, Tablet
 
 ## Quick Start
@@ -57,3 +57,4 @@ Tests run automatically on:
 - Every pull request
 - Before deployment to staging
 - Nightly regression suite
+

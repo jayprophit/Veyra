@@ -62,7 +62,7 @@ from app.database import DatabaseManager
 db = DatabaseManager("./my_database")
 
 # Add files to database
-file1 = db.add_file("/path/to/data.xlsx", 
+file1 = db.add_file("/path/to/data.xlsx",
                     category="financial",
                     tags=["2024", "Q1", "revenue"],
                     description="Q1 2024 financial report")
@@ -71,11 +71,11 @@ file2 = db.add_file("/path/to/report.pdf",
                     tags=["annual", "report"])
 
 # Search files
-results = db.search_files(query="financial report", 
+results = db.search_files(query="financial report",
                           file_type=FileType.EXCEL)
 
 # Query SQL database
-sql_results = db.query_sql_database(file1.file_id, 
+sql_results = db.query_sql_database(file1.file_id,
                                     "SELECT * FROM revenue WHERE quarter='Q1'")
 
 # Read Excel data
@@ -179,7 +179,7 @@ text = db.extract_document_text(file_id)
 
 # Search within document
 matches = db.document_handler.search_in_document(
-    file_path, 
+    file_path,
     search_term="profit margin"
 )
 
@@ -247,10 +247,10 @@ async def upload_file(file: UploadFile = File(...)):
     temp_path = f"/tmp/{file.filename}"
     with open(temp_path, "wb") as f:
         f.write(await file.read())
-    
+
     # Add to database
     db_file = db.add_file(temp_path, tags=["uploaded"])
-    
+
     return {
         "file_id": db_file.file_id,
         "name": db_file.name,
@@ -260,10 +260,10 @@ async def upload_file(file: UploadFile = File(...)):
 @router.get("/database/search")
 async def search(query: str, file_type: Optional[str] = None):
     from app.database.database_manager import FileType
-    
+
     ft = FileType(file_type) if file_type else None
     results = db.search_files(query=query, file_type=ft)
-    
+
     return {"results": results}
 ```
 
@@ -317,3 +317,4 @@ shutil.copytree("./local_database", "./local_database_backup")
 # Restore from backup
 shutil.copytree("./local_database_backup", "./local_database")
 ```
+

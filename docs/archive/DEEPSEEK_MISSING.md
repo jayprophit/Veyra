@@ -168,6 +168,7 @@
 **Core system is 96% complete.**
 Remaining 4% = external integrations and advanced strategies that require:
 - Paid API subscriptions
-- Cloud service integrations  
+- Cloud service integrations
 - Specialized broker connections
 - Advanced Solidity coding
+

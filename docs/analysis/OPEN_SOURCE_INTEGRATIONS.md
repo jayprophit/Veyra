@@ -884,3 +884,4 @@ Security:
 - **Open Source Stack:** $1,200-2,000/month
 - **Commercial APIs:** $500-2,000/month (usage-based)
 - **Total:** $1,700-4,000/month (vs $15,000+ all-commercial)
+

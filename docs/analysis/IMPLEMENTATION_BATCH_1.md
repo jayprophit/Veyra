@@ -36,3 +36,4 @@
 3. Screener (+8 pts) - HIGH
 4. VaR Calculator (+6 pts) - MEDIUM
 5. Pattern Recognition (+5 pts) - MEDIUM
+
