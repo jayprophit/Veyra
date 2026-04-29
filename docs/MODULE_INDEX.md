@@ -1,7 +1,7 @@
 # Financial Master - Module Index
 
-**Generated:** 2026-04-29 19:52:21
-**Total Modules:** 195 directories
+**Generated:** 2026-04-29 20:03:32
+**Total Modules:** 199 directories
 
 ## Module Categories
 - **agriculture** - 4 Python files
@@ -32,6 +32,7 @@
 - **brokers** - 14 Python files
 - **business** - 2 Python files
 - **cannabis_investing** - 4 Python files
+- **carbon_capture** - 2 Python files
 - **carbon_markets** - 4 Python files
 - **celebrity_tracker** - 6 Python files
 - **circular_economy** - 2 Python files
@@ -123,6 +124,7 @@
 - **music_royalties** - 4 Python files
 - **nanotech_investing** - 4 Python files
 - **news_events** - 4 Python files
+- **nuclear_energy** - 2 Python files
 - **open_source_intel** - 2 Python files
 - **ops** - 7 Python files
 - **options_flow** - 2 Python files
@@ -170,6 +172,7 @@
 - **spac_tracker** - 2 Python files
 - **space_debris** - 2 Python files
 - **space_economy** - 4 Python files
+- **space_mining** - 2 Python files
 - **spatial** - 2 Python files
 - **special_situations** - 4 Python files
 - **sports_finance** - 4 Python files
@@ -178,6 +181,7 @@
 - **strategy** - 4 Python files
 - **structured_products** - 2 Python files
 - **supply_chain_arbitrage** - 8 Python files
+- **sustainable_aviation** - 2 Python files
 - **swap_curve** - 2 Python files
 - **synbio_investing** - 3 Python files
 - **tax** - 7 Python files
