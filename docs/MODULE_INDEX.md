@@ -1,7 +1,7 @@
 # Financial Master - Module Index
 
-**Generated:** 2026-04-29 20:03:32
-**Total Modules:** 199 directories
+**Generated:** 2026-04-29 20:20:47
+**Total Modules:** 204 directories
 
 ## Module Categories
 - **agriculture** - 4 Python files
@@ -23,6 +23,7 @@
 - **archaeology** - 2 Python files
 - **art_finance** - 4 Python files
 - **asset_allocation** - 2 Python files
+- **autonomous_mobility** - 2 Python files
 - **aviation_finance** - 4 Python files
 - **backtesting** - 1 Python files
 - **beekeeping** - 2 Python files
@@ -35,6 +36,7 @@
 - **carbon_capture** - 2 Python files
 - **carbon_markets** - 4 Python files
 - **celebrity_tracker** - 6 Python files
+- **cellular_agriculture** - 2 Python files
 - **circular_economy** - 2 Python files
 - **climate_engineering** - 4 Python files
 - **climate_finance** - 2 Python files
@@ -89,6 +91,7 @@
 - **fractional** - 2 Python files
 - **fund_of_funds** - 1 Python files
 - **fundamental_analysis** - 2 Python files
+- **fusion_energy** - 2 Python files
 - **gamification** - 2 Python files
 - **gaming_economy** - 6 Python files
 - **gene_editing** - 4 Python files
@@ -123,6 +126,7 @@
 - **music_investing** - 2 Python files
 - **music_royalties** - 4 Python files
 - **nanotech_investing** - 4 Python files
+- **neurotech_investing** - 2 Python files
 - **news_events** - 4 Python files
 - **nuclear_energy** - 2 Python files
 - **open_source_intel** - 2 Python files
@@ -193,6 +197,7 @@
 - **transportation** - 1 Python files
 - **vc_growth** - 2 Python files
 - **venture_capital** - 2 Python files
+- **vertical_farming** - 2 Python files
 - **virtual_real_estate** - 4 Python files
 - **vision** - 7 Python files
 - **visual_learning** - 2 Python files
