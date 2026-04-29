@@ -1,0 +1,18 @@
+{
+    "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}/src/backend",
+        "${workspaceFolder}/src/backend/app"
+    ],
+    "python.linting.enabled": true,
+    "python.formatting.provider": "black",
+    "editor.formatOnSave": true,
+    "windsurf.cascade.workspacePreparation": {
+        "pythonEnvironment": {
+            "autoCreate": true,
+            "path": "${workspaceFolder}/.venv"
+        }
+    }
+}
