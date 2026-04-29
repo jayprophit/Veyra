@@ -14,7 +14,7 @@
 
 ## Modules Affected
 <!-- List the financial modules affected by this change -->
--
+- (list modules here)
 
 ## Checklist
 <!-- Mark completed items with [x] -->
@@ -33,4 +33,3 @@
 
 ## Additional Notes
 <!-- Any additional information that reviewers should know -->
-
