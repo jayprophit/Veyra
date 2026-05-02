@@ -1,0 +1,59 @@
+# Financial Master - Docker Compose with Ollama
+# =============================================
+# Includes Ollama service for local AI inference
+# Run: docker-compose -f docker-compose.yml -f docker-compose.ollama.yml up -d
+
+version: '3.8'
+
+services:
+  # Ollama - Local LLM Inference
+  ollama:
+    image: ollama/ollama:latest
+    container_name: financial-master-ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      - OLLAMA_ORIGINS=*
+      - OLLAMA_HOST=0.0.0.0
+    networks:
+      - financial-master-network
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    # For CPU-only systems, comment out the 'deploy' section above
+    profiles:
+      - ai
+      - full
+
+  # AI Agent Service (uses Ollama)
+  ai-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: financial-master-ai-agent
+    restart: unless-stopped
+    command: python -m src.backend.app.llm_integration_free_tier
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/financial_master
+      - REDIS_URL=redis://redis:6379/0
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - OLLAMA_MODEL=llama3.2:3b
+    depends_on:
+      - ollama
+      - db
+      - redis
+    networks:
+      - financial-master-network
+    profiles:
+      - ai
+      - full
+
+volumes:
+  ollama_data:
