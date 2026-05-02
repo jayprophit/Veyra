@@ -42,9 +42,10 @@ class GridModernization:
             "renewable_integration_capacity": "2x current"
         }
     
-    "vendor_landscape": {
-        "itron": {"focus": "Meters + AMI", "market_share": 0.25},
-        "landis_gyr": {"focus": "Meters", "market_share": 0.20},
-        "sensus": {"focus": "Communications", "market_share": 0.15},
-        "general_electric": {"focus": "Grid automation", "market_share": 0.10}
-    }
+    def vendor_landscape(self) -> Dict:
+        return {
+            "itron": {"focus": "Meters + AMI", "market_share": 0.25},
+            "landis_gyr": {"focus": "Meters", "market_share": 0.20},
+            "sensus": {"focus": "Communications", "market_share": 0.15},
+            "general_electric": {"focus": "Grid automation", "market_share": 0.10}
+        }
