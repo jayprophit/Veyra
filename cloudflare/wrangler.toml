@@ -18,3 +18,4 @@ ENVIRONMENT = "staging"
 [[kv_namespaces]]
 binding = "RATE_LIMIT_KV"
 id = "your_kv_namespace_id"
+
