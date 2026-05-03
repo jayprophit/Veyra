@@ -23,6 +23,54 @@ Financial Master is a **world-class, industry-leading** financial platform that 
 
 ---
 
+## 🚀 Quick Start (For Beginners - No Coding Required!)
+
+**New to coding?** No problem! We've automated everything for you.
+
+### 5-Minute Setup (Windows)
+
+```powershell
+# 1. Run automated setup (installs everything for you)
+.\scripts\complete_setup.ps1
+
+# 2. Add your free API keys (Alpaca, Polygon - all free)
+#    See: docs/compliance/API_SETUP_GUIDE.md
+
+# 3. Start the application
+.\scripts\start_local.ps1
+
+# 4. Open in browser
+#    http://localhost:8000
+```
+
+**That's it!** The script handles Python, Git, VS Code, and all dependencies automatically.
+
+### What You Get (All Free)
+
+| Component | Cost | What It Does |
+|-----------|------|--------------|
+| **Paper Trading** | FREE | Practice with $100k fake money |
+| **Real-time Data** | FREE | Live stock prices & charts |
+| **AI Analysis** | FREE | Trading signals & predictions |
+| **Portfolio Tracking** | FREE | Monitor all your investments |
+| **Cloud Deployment** | FREE | Host on Render/Cloudflare |
+
+### 📚 Documentation for Beginners
+
+- **[Beginner's Guide](docs/BEGINNERS_GUIDE.md)** - Step-by-step for non-coders
+- **[API Setup Guide](docs/compliance/API_SETUP_GUIDE.md)** - Free API keys walkthrough
+- **[Health Check](scripts/health_check.ps1)** - Automated diagnostics
+- **[Troubleshooting](docs/TROUBLESHOOTING.md)** - Common issues & fixes
+
+### 🎯 Your Journey
+
+**Phase 1 (Now):** Personal testing with paper trading → **FREE**  
+**Phase 2:** Closed beta with friends → **£50-100/month**  
+**Phase 3:** Public launch → **£200-500/month**  
+**Phase 4:** Scale to thousands of users → **£1,000+/month**
+
+---
+
 ## What's New (May 2026) 🆕
 
 ### Visual Learning AI (Production-Ready)
@@ -417,6 +465,51 @@ See [`.github/workflows/ci-cd.yml`](.github/workflows/ci-cd.yml)
 - **Grafana** - Dashboards & visualization
 - **Health Checks** - `/api/v1/health`, `/api/v1/ready`
 - **HPA** - Horizontal Pod Autoscaler (3-10 replicas)
+
+---
+
+## Compliance & Security
+
+### Current Security Posture
+
+| Category | Implementation | Status |
+|----------|---------------|--------|
+| **Data Encryption** | AES-256-GCM at rest, TLS 1.3 in transit | ✅ Active |
+| **Access Control** | JWT tokens, RBAC, rate limiting | ✅ Active |
+| **Container Security** | Multi-stage builds, security contexts | ✅ Configured |
+| **Secret Management** | GitHub Secrets, Kubernetes secrets | ✅ Active |
+| **Security Scanning** | Bandit, dependency auditing | ✅ CI/CD |
+| **Network Security** | Cloudflare DDoS, WAF, SSL/TLS | ✅ Active |
+
+### Compliance Status
+
+| Regulation | Status | Notes |
+|------------|--------|-------|
+| **GDPR** | ⚠️ Partial | Privacy policy needed |
+| **FCA/SEC** | ❓ Unverified | Legal consultation required |
+| **PCI DSS** | ❌ Not Applicable | No card processing |
+| **SOC 2** | ❌ Not Certified | Consider for enterprise |
+| **ISO 27001** | ❌ Not Certified | Gap analysis needed |
+
+### Security Features
+
+- **Paper Trading Mode** - No real money risk during testing
+- **Kill Switch** - Emergency trading halt capability
+- **Trade Limits** - Configurable daily trade maximums
+- **Approval Thresholds** - High-value trade approval workflow
+- **Audit Logging** - Complete trade and access logging
+- **API Key Rotation** - Automated 30-180 day rotation schedule
+
+### Compliance Documentation
+
+Full audit report: [`docs/compliance/COMPLIANCE_SECURITY_AUDIT.md`](docs/compliance/COMPLIANCE_SECURITY_AUDIT.md)
+
+**⚠️ Important:** Before deploying with real money or user funds:
+
+1. Consult financial regulatory attorney (FCA/SEC compliance)
+2. Implement comprehensive privacy policy
+3. Complete Data Protection Impact Assessment (DPIA)
+4. Conduct third-party penetration testing
 
 ---
 

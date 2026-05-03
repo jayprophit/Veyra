@@ -443,6 +443,104 @@ psql "YOUR_NEON_CONNECTION_STRING" -c "SELECT NOW();"
 
 ---
 
+## Personal Testing → Public Launch Roadmap
+
+Currently testing personally? Here's your path to production:
+
+### Phase 1: Personal Testing (Current)
+
+**What you can do:**
+
+- ✅ Paper trading only (Alpaca free tier)
+- ✅ Test all features with mock data
+- ✅ Build enterprise-grade architecture (Helm, K8s, CI/CD)
+- ✅ Docker/Kubernetes testing locally
+- ✅ No registration needed
+
+**Cost:** £0/month
+
+### Phase 2: Closed Beta (Months 3-6)
+
+**Requirements:**
+
+- Beta testing agreement for each user
+- Terms of Service (basic)
+- Privacy Policy (GDPR-compliant)
+- Paper trading only
+- 5-10 beta users (friends/family)
+
+**Registration needed:**
+
+- None yet (if staying paper-only)
+
+**Cost:** £50-100/month (hosting, monitoring)
+
+### Phase 3: Public Launch Decision
+
+#### Option A: Information Platform (Recommended First)
+
+**What you do:**
+
+- Market data, charts, analysis
+- Educational content
+- Portfolio tracking (users connect own broker)
+- Paper trading
+- Charge subscription for features
+
+**Registration:**
+
+- ✅ Ltd company registration (£12)
+- ✅ ICO data protection (£40/year)
+- ❌ NO FCA/SEC needed (you're a tech company, not financial adviser)
+
+**Legal structure:**
+
+```
+Financial Master Technology Ltd
+- SaaS technology company
+- NOT a financial adviser
+- NOT a broker-dealer
+- Users connect their own brokers
+```
+
+**Timeline:** 1 month to launch  
+**Cost:** £2,000-5,000 (legal setup) + £200-500/month (infrastructure)
+
+#### Option B: Robo-Adviser (Higher Regulation)
+
+**What you do:**
+
+- Automated trading strategies
+- Personalized recommendations
+- Charge management fees
+
+**Registration:**
+
+- 🔴 FCA Authorization REQUIRED (£15,000-50,000)
+- 🔴 SEC Registration if US users (£10,000-30,000)
+- 🔴 Professional indemnity insurance (£50,000+/year)
+
+**Timeline:** 6-12 months  
+**Cost:** £50,000-100,000+ to launch
+
+### Recommended Path: Start Simple
+
+1. **Months 0-3:** Personal testing, paper trading (NOW)
+2. **Months 3-6:** Closed beta, 5-10 users, paper only
+3. **Month 6:** Register Ltd company, legal docs
+4. **Month 7:** Launch as Information Platform (Option A)
+5. **Month 12+:** Evaluate adding copy trading or robo-adviser features
+
+### Detailed Roadmap
+
+Full guide: [`docs/compliance/ROADMAP_TO_PRODUCTION.md`](docs/compliance/ROADMAP_TO_PRODUCTION.md)
+
+Compliance audit: [`docs/compliance/COMPLIANCE_SECURITY_AUDIT.md`](docs/compliance/COMPLIANCE_SECURITY_AUDIT.md)
+
+**Key insight:** Build enterprise-grade infrastructure NOW (Helm, K8s, security, CI/CD) even for personal use. When ready to launch publicly, you just "open the doors"—no rebuilding required.
+
+---
+
 ## Support
 
 - **Alpaca Paper Trading**: <https://alpaca.markets/support>
