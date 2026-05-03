@@ -1,0 +1,620 @@
+/* ═══════════════════════════════════════════════════════════════════════════════
+   DataSphere Design System - Adapted for Financial Master
+   Dark Theme CSS Variables & Components
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap');
+
+:root {
+  /* Brand Colors */
+  --ds-primary: #FF6000;
+  --ds-primary-hover: #ff7520;
+  --ds-secondary: #4361EE;
+  --ds-success: #0D9488;
+  --ds-warning: #D97706;
+  --ds-danger: #DC2626;
+  
+  /* Background Colors */
+  --ds-bg: #0B0F1A;
+  --ds-bg-2: #141827;
+  --ds-bg-3: #1C2235;
+  --ds-bg-4: #232942;
+  
+  /* Border Colors */
+  --ds-border: #252D45;
+  --ds-border-2: #333C5A;
+  
+  /* Text Colors */
+  --ds-text: #F0F2FF;
+  --ds-text-muted: #8892AD;
+  --ds-text-faint: #3D4566;
+  
+  /* Typography */
+  --ds-font: 'Outfit', sans-serif;
+  --ds-font-mono: 'DM Mono', monospace;
+  --ds-font-display: 'Syne', sans-serif;
+  
+  /* Spacing */
+  --ds-radius: 12px;
+  --ds-radius-sm: 8px;
+  --ds-radius-lg: 16px;
+  
+  /* Transitions */
+  --ds-transition: all 0.12s ease;
+  --ds-transition-slow: all 0.25s ease;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   Base Styles
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.ds-theme {
+  font-family: var(--ds-font);
+  background: var(--ds-bg);
+  color: var(--ds-text);
+  min-height: 100vh;
+}
+
+.ds-theme * {
+  box-sizing: border-box;
+}
+
+.ds-theme ::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.ds-theme ::-webkit-scrollbar-track {
+  background: var(--ds-bg);
+}
+
+.ds-theme ::-webkit-scrollbar-thumb {
+  background: var(--ds-text-faint);
+  border-radius: 3px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   Card Components
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.ds-card {
+  background: var(--ds-bg-2);
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius);
+  padding: 17px;
+  transition: var(--ds-transition);
+}
+
+.ds-card:hover {
+  border-color: var(--ds-border-2);
+}
+
+.ds-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 13px;
+}
+
+.ds-card-title {
+  font-family: var(--ds-font-display);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--ds-text);
+}
+
+/* Stat Card */
+.ds-stat-card {
+  background: var(--ds-bg-2);
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius);
+  padding: 15px;
+  transition: var(--ds-transition);
+}
+
+.ds-stat-value {
+  font-family: var(--ds-font-display);
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--ds-text);
+}
+
+.ds-stat-label {
+  font-size: 0.69rem;
+  color: var(--ds-text-muted);
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ds-stat-sub {
+  font-size: 0.73rem;
+  color: var(--ds-text-muted);
+  margin-top: 4px;
+}
+
+/* Record Card */
+.ds-record-card {
+  background: var(--ds-bg-2);
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius);
+  padding: 13px;
+  margin-bottom: 9px;
+  border-left: 4px solid transparent;
+  transition: transform 0.12s;
+  cursor: pointer;
+}
+
+.ds-record-card:hover {
+  transform: translateX(2px);
+}
+
+.ds-record-card.good {
+  border-left-color: var(--ds-success);
+}
+
+.ds-record-card.warning {
+  border-left-color: var(--ds-warning);
+}
+
+.ds-record-card.danger {
+  border-left-color: var(--ds-danger);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   Tags & Badges
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.ds-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+}
+
+.ds-tag-success {
+  background: rgba(13, 148, 136, 0.13);
+  color: var(--ds-success);
+}
+
+.ds-tag-warning {
+  background: rgba(217, 119, 6, 0.13);
+  color: var(--ds-warning);
+}
+
+.ds-tag-danger {
+  background: rgba(220, 38, 38, 0.13);
+  color: var(--ds-danger);
+}
+
+.ds-tag-info {
+  background: rgba(67, 97, 238, 0.13);
+  color: #7B9EFF;
+}
+
+.ds-tag-muted {
+  background: rgba(107, 114, 128, 0.13);
+  color: var(--ds-text-muted);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   Quality Bar
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.ds-quality-bar {
+  height: 5px;
+  border-radius: 3px;
+  background: var(--ds-bg-4);
+  overflow: hidden;
+  width: 68px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.ds-quality-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.ds-quality-fill.high {
+  background: var(--ds-success);
+}
+
+.ds-quality-fill.medium {
+  background: var(--ds-warning);
+}
+
+.ds-quality-fill.low {
+  background: var(--ds-danger);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   Chips & Filters
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.ds-chip-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 16px;
+  align-items: center;
+}
+
+.ds-chip {
+  padding: 5px 13px;
+  border-radius: 999px;
+  border: 1px solid var(--ds-border);
+  background: var(--ds-bg-2);
+  color: var(--ds-text-muted);
+  font-size: 0.77rem;
+  cursor: pointer;
+  transition: var(--ds-transition);
+  white-space: nowrap;
+}
+
+.ds-chip:hover,
+.ds-chip.active {
+  border-color: var(--ds-primary);
+  color: var(--ds-text);
+  background: var(--ds-bg-3);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   Table Styles
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.ds-table-wrap {
+  overflow-x: auto;
+  border-radius: var(--ds-radius);
+  border: 1px solid var(--ds-border);
+}
+
+.ds-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.ds-table thead tr {
+  background: var(--ds-bg-3);
+}
+
+.ds-table th {
+  padding: 10px 13px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--ds-text-muted);
+  font-size: 0.71rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--ds-border);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+}
+
+.ds-table th:hover {
+  color: var(--ds-text);
+}
+
+.ds-table td {
+  padding: 9px 13px;
+  border-bottom: 1px solid var(--ds-border);
+  vertical-align: middle;
+  color: var(--ds-text);
+}
+
+.ds-table tr:last-child td {
+  border-bottom: none;
+}
+
+.ds-table tr:hover td {
+  background: rgba(255, 255, 255, 0.018);
+}
+
+.ds-table .copyable {
+  cursor: pointer;
+}
+
+.ds-table .copyable:hover {
+  color: var(--ds-secondary);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   Input & Button Styles
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.ds-input {
+  background: var(--ds-bg-3);
+  border: 1px solid var(--ds-border);
+  border-radius: 9px;
+  padding: 9px 14px;
+  color: var(--ds-text);
+  font-family: var(--ds-font);
+  font-size: 0.87rem;
+  outline: none;
+  transition: border-color 0.12s;
+  width: 100%;
+}
+
+.ds-input:focus {
+  border-color: var(--ds-primary);
+}
+
+.ds-input::placeholder {
+  color: var(--ds-text-muted);
+}
+
+.ds-btn {
+  padding: 8px 17px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-family: var(--ds-font);
+  font-size: 0.83rem;
+  font-weight: 600;
+  transition: var(--ds-transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.ds-btn-primary {
+  background: var(--ds-primary);
+  color: #fff;
+}
+
+.ds-btn-primary:hover {
+  background: var(--ds-primary-hover);
+}
+
+.ds-btn-secondary {
+  background: var(--ds-bg-3);
+  color: var(--ds-text);
+  border: 1px solid var(--ds-border);
+}
+
+.ds-btn-secondary:hover {
+  background: var(--ds-bg-4);
+}
+
+.ds-btn-danger {
+  background: rgba(220, 38, 38, 0.14);
+  color: var(--ds-danger);
+  border: 1px solid rgba(220, 38, 38, 0.25);
+}
+
+.ds-btn-danger:hover {
+  background: rgba(220, 38, 38, 0.22);
+}
+
+.ds-btn-success {
+  background: rgba(13, 148, 136, 0.14);
+  color: var(--ds-success);
+  border: 1px solid rgba(13, 148, 136, 0.25);
+}
+
+.ds-btn-success:hover {
+  background: rgba(13, 148, 136, 0.22);
+}
+
+.ds-btn-sm {
+  padding: 5px 12px;
+  font-size: 0.76rem;
+  border-radius: 7px;
+}
+
+/* Toggle Switch */
+.ds-toggle {
+  width: 44px;
+  height: 24px;
+  background: var(--ds-bg-4);
+  border-radius: 12px;
+  position: relative;
+  cursor: pointer;
+  transition: var(--ds-transition);
+}
+
+.ds-toggle::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: var(--ds-text);
+  border-radius: 50%;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.2s;
+}
+
+.ds-toggle.active {
+  background: var(--ds-success);
+}
+
+.ds-toggle.active::after {
+  transform: translateX(20px);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   Grid Layouts
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.ds-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 13px;
+  margin-bottom: 18px;
+}
+
+.ds-grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 13px;
+  margin-bottom: 18px;
+}
+
+.ds-grid-auto {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+  gap: 11px;
+  margin-bottom: 18px;
+}
+
+.ds-grid-responsive {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   Modal Styles
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.ds-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+}
+
+.ds-modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.ds-modal {
+  background: var(--ds-bg-2);
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius);
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 24px;
+  transform: translateY(-20px);
+  transition: transform 0.2s;
+}
+
+.ds-modal-overlay.open .ds-modal {
+  transform: translateY(0);
+}
+
+.ds-modal-header {
+  font-family: var(--ds-font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: var(--ds-text);
+}
+
+.ds-modal-footer {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   Chart Container
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.ds-chart-box {
+  background: var(--ds-bg-2);
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius);
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.ds-chart-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--ds-text);
+}
+
+.ds-chart-wrap {
+  position: relative;
+  height: 250px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   Animations
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+@keyframes ds-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ds-animate-in {
+  animation: ds-fade-in 0.2s ease;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   Utility Classes
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.ds-text-muted {
+  color: var(--ds-text-muted);
+}
+
+.ds-text-primary {
+  color: var(--ds-primary);
+}
+
+.ds-text-success {
+  color: var(--ds-success);
+}
+
+.ds-text-warning {
+  color: var(--ds-warning);
+}
+
+.ds-text-danger {
+  color: var(--ds-danger);
+}
+
+.ds-mono {
+  font-family: var(--ds-font-mono);
+}
+
+.ds-display {
+  font-family: var(--ds-font-display);
+}
+
+/* Code block */
+.ds-codebox {
+  background: var(--ds-bg-3);
+  border-radius: 8px;
+  padding: 12px;
+  font-family: var(--ds-font-mono);
+  font-size: 0.75rem;
+  line-height: 1.7;
+  overflow-x: auto;
+  color: var(--ds-text);
+}

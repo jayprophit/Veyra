@@ -1,0 +1,345 @@
+"""
+AI Transaction Categorization System
+Inspired by ANNA Business Account - Smart auto-categorization with ML
+90% automation target with continuous learning from corrections
+"""
+
+from dataclasses import dataclass, field
+from typing import List, Dict, Optional, Tuple, Any
+from datetime import datetime
+import re
+import json
+from collections import defaultdict
+
+@dataclass
+class CategorizationRule:
+    """Rule-based categorization pattern"""
+    id: str
+    pattern: str  # Regex or keyword pattern
+    account_code: str
+    category: str
+    confidence: float = 1.0
+    is_regex: bool = False
+    match_count: int = 0
+    created_at: datetime = field(default_factory=datetime.now)
+
+@dataclass
+class CategorizationResult:
+    """Result of AI categorization"""
+    account_code: str
+    category: str
+    confidence: float
+    method: str  # 'ml', 'rule', 'manual', 'default'
+    explanation: str = ""
+    alternative_suggestions: List[Dict] = field(default_factory=list)
+
+class AICategorization:
+    """
+    AI-powered transaction categorization
+    Learns from user corrections to improve accuracy
+    """
+    
+    # Default account mappings for common transactions
+    DEFAULT_MAPPINGS = {
+        # Expense patterns
+        "rent|lease|property": ("5100", "Rent Expense"),
+        "salary|payroll|wage": ("5200", "Salaries & Wages"),
+        "electric|gas|water|utility": ("5300", "Utilities"),
+        "office|stationery|supplies": ("5400", "Office Supplies"),
+        "marketing|advertising|ad |promotion": ("5500", "Marketing"),
+        "legal|accounting|consulting|professional": ("5600", "Professional Fees"),
+        "software|subscription|saas|cloud": ("5700", "Software & Subscriptions"),
+        "trading fee|commission|brokerage": ("5800", "Trading Fees"),
+        "investment|dividend|interest expense": ("5900", "Investment Expenses"),
+        
+        # Revenue patterns
+        "sale|revenue|income": ("4000", "Sales Revenue"),
+        "service|consulting fee": ("4100", "Service Revenue"),
+        "dividend received|stock dividend": ("4400", "Dividend Income"),
+        "interest received|bank interest": ("4500", "Interest Income"),
+        "trading gain|capital gain": ("4300", "Trading Gains"),
+        
+        # Transfer/Asset patterns
+        "transfer|deposit|withdrawal": ("1000", "Cash"),
+        "buy|purchase.*stock|investment": ("1700", "Investments"),
+        "crypto|bitcoin|ethereum": ("1800", "Cryptocurrency"),
+    }
+    
+    def __init__(self):
+        self._rules: Dict[str, CategorizationRule] = {}
+        self._ml_model = None  # Placeholder for ML model
+        self._corrections: List[Dict] = []
+        self._category_stats: Dict[str, Dict] = defaultdict(lambda: {
+            "total": 0, "correct": 0, "confidence_sum": 0
+        })
+        self._initialize_default_rules()
+    
+    def _initialize_default_rules(self):
+        """Initialize with default categorization rules"""
+        for pattern, (account_code, category) in self.DEFAULT_MAPPINGS.items():
+            rule_id = f"default_{pattern[:20]}"
+            self._rules[rule_id] = CategorizationRule(
+                id=rule_id,
+                pattern=pattern,
+                account_code=account_code,
+                category=category,
+                confidence=0.8,
+                is_regex=True
+            )
+    
+    def categorize_transaction(self, description: str, amount: float,
+                              merchant: str = "", 
+                              historical_data: Optional[List[Dict]] = None) -> CategorizationResult:
+        """
+        Categorize a transaction using AI/rules/historical patterns
+        
+        Returns best matching account code with confidence score
+        """
+        description_lower = description.lower()
+        merchant_lower = merchant.lower() if merchant else ""
+        combined_text = f"{description_lower} {merchant_lower}"
+        
+        # Try rule-based matching first (fastest)
+        rule_result = self._apply_rules(combined_text)
+        if rule_result and rule_result.confidence > 0.9:
+            return rule_result
+        
+        # Try ML model if available
+        ml_result = self._apply_ml_model(description, amount, merchant, historical_data)
+        if ml_result and ml_result.confidence > 0.85:
+            return ml_result
+        
+        # Try historical pattern matching
+        historical_result = self._apply_historical_patterns(combined_text, historical_data)
+        if historical_result and historical_result.confidence > 0.75:
+            return historical_result
+        
+        # Use rule-based with lower confidence or default
+        if rule_result:
+            return rule_result
+        
+        # Default categorization based on amount direction
+        if amount < 0:
+            # Outflow - likely expense
+            return CategorizationResult(
+                account_code="5000",
+                category="Expense",
+                confidence=0.5,
+                method="default",
+                explanation="Default expense categorization for outflow"
+            )
+        else:
+            # Inflow - likely revenue
+            return CategorizationResult(
+                account_code="4000",
+                category="Revenue",
+                confidence=0.5,
+                method="default",
+                explanation="Default revenue categorization for inflow"
+            )
+    
+    def _apply_rules(self, text: str) -> Optional[CategorizationResult]:
+        """Apply rule-based categorization"""
+        best_match = None
+        best_confidence = 0.0
+        
+        for rule in self._rules.values():
+            if rule.is_regex:
+                if re.search(rule.pattern, text, re.IGNORECASE):
+                    if rule.confidence > best_confidence:
+                        best_confidence = rule.confidence
+                        best_match = rule
+            else:
+                if rule.pattern.lower() in text:
+                    if rule.confidence > best_confidence:
+                        best_confidence = rule.confidence
+                        best_match = rule
+        
+        if best_match:
+            best_match.match_count += 1
+            return CategorizationResult(
+                account_code=best_match.account_code,
+                category=best_match.category,
+                confidence=best_confidence,
+                method="rule",
+                explanation=f"Matched rule pattern: {best_match.pattern}"
+            )
+        
+        return None
+    
+    def _apply_ml_model(self, description: str, amount: float,
+                       merchant: str, historical_data: Optional[List[Dict]]) -> Optional[CategorizationResult]:
+        """Apply ML model for categorization (placeholder for actual ML)"""
+        # This would integrate with Hugging Face models like rahulholla1/mistral-stock-model
+        # For now, return None to fall back to other methods
+        return None
+    
+    def _apply_historical_patterns(self, text: str,
+                                   historical_data: Optional[List[Dict]]) -> Optional[CategorizationResult]:
+        """Find similar transactions in history"""
+        if not historical_data:
+            return None
+        
+        # Simple keyword matching against historical transactions
+        matches = []
+        for transaction in historical_data:
+            hist_desc = transaction.get("description", "").lower()
+            similarity = self._calculate_similarity(text, hist_desc)
+            if similarity > 0.7:
+                matches.append((similarity, transaction))
+        
+        if matches:
+            # Return most similar
+            matches.sort(reverse=True)
+            best_match = matches[0][1]
+            return CategorizationResult(
+                account_code=best_match.get("account_code", "5000"),
+                category=best_match.get("category", "Expense"),
+                confidence=matches[0][0],
+                method="historical",
+                explanation=f"Matched similar transaction: {best_match.get('description', '')}"
+            )
+        
+        return None
+    
+    def _calculate_similarity(self, text1: str, text2: str) -> float:
+        """Calculate text similarity using simple word overlap"""
+        words1 = set(text1.split())
+        words2 = set(text2.split())
+        
+        if not words1 or not words2:
+            return 0.0
+        
+        intersection = words1.intersection(words2)
+        union = words1.union(words2)
+        
+        return len(intersection) / len(union)
+    
+    def record_correction(self, transaction_id: str, original_category: str,
+                         corrected_category: str, corrected_account: str,
+                         description: str, user_feedback: str = ""):
+        """
+        Record a user correction to improve future categorization
+        This is how the AI learns from mistakes
+        """
+        correction = {
+            "transaction_id": transaction_id,
+            "original_category": original_category,
+            "corrected_category": corrected_category,
+            "corrected_account": corrected_account,
+            "description": description,
+            "user_feedback": user_feedback,
+            "timestamp": datetime.now().isoformat()
+        }
+        
+        self._corrections.append(correction)
+        
+        # Create a new rule from this correction if pattern is clear
+        self._learn_from_correction(correction)
+        
+        # Update stats
+        self._category_stats[corrected_category]["total"] += 1
+        self._category_stats[corrected_category]["correct"] += 1
+    
+    def _learn_from_correction(self, correction: Dict):
+        """Create new rules from user corrections"""
+        description = correction["description"].lower()
+        
+        # Extract keywords (simple approach - could use NLP)
+        keywords = [w for w in description.split() if len(w) > 3]
+        
+        for keyword in keywords[:3]:  # Top 3 keywords
+            rule_id = f"learned_{keyword}_{datetime.now().strftime('%Y%m%d%H%M%S')}"
+            self._rules[rule_id] = CategorizationRule(
+                id=rule_id,
+                pattern=keyword,
+                account_code=correction["corrected_account"],
+                category=correction["corrected_category"],
+                confidence=0.7,  # Start with moderate confidence
+                is_regex=False
+            )
+    
+    def get_accuracy_stats(self) -> Dict[str, Any]:
+        """Get categorization accuracy statistics"""
+        total_transactions = sum(s["total"] for s in self._category_stats.values())
+        total_correct = sum(s["correct"] for s in self._category_stats.values())
+        
+        if total_transactions == 0:
+            return {
+                "overall_accuracy": 0.0,
+                "total_categorized": 0,
+                "total_corrections": len(self._corrections),
+                "category_breakdown": {},
+                "learning_progress": 0.0
+            }
+        
+        accuracy = (total_correct / total_transactions) * 100
+        
+        return {
+            "overall_accuracy": accuracy,
+            "total_categorized": total_transactions,
+            "total_corrections": len(self._corrections),
+            "category_breakdown": dict(self._category_stats),
+            "learning_progress": min(100, (len(self._corrections) / 100) * 100),  # Progress to 90% target
+            "rules_learned": len([r for r in self._rules.values() if r.id.startswith("learned_")])
+        }
+    
+    def add_custom_rule(self, pattern: str, account_code: str, category: str,
+                       is_regex: bool = False, confidence: float = 0.9):
+        """Add a custom categorization rule"""
+        rule_id = f"custom_{pattern[:20]}_{datetime.now().strftime('%Y%m%d%H%M%S')}"
+        
+        self._rules[rule_id] = CategorizationRule(
+            id=rule_id,
+            pattern=pattern,
+            account_code=account_code,
+            category=category,
+            confidence=confidence,
+            is_regex=is_regex
+        )
+        
+        return rule_id
+    
+    def export_rules(self) -> str:
+        """Export all rules to JSON"""
+        rules_data = [
+            {
+                "id": r.id,
+                "pattern": r.pattern,
+                "account_code": r.account_code,
+                "category": r.category,
+                "confidence": r.confidence,
+                "is_regex": r.is_regex,
+                "match_count": r.match_count
+            }
+            for r in self._rules.values()
+        ]
+        return json.dumps(rules_data, indent=2)
+    
+    def batch_categorize(self, transactions: List[Dict]) -> List[CategorizationResult]:
+        """Categorize multiple transactions at once"""
+        results = []
+        
+        # Build historical data from the batch itself
+        historical = transactions[:50]  # Use first 50 as history reference
+        
+        for transaction in transactions:
+            result = self.categorize_transaction(
+                description=transaction.get("description", ""),
+                amount=transaction.get("amount", 0),
+                merchant=transaction.get("merchant", ""),
+                historical_data=historical
+            )
+            results.append(result)
+        
+        return results
+
+# Singleton instance
+_ai_categorization: Optional[AICategorization] = None
+
+def get_ai_categorization() -> AICategorization:
+    """Get or create singleton AI Categorization instance"""
+    global _ai_categorization
+    if _ai_categorization is None:
+        _ai_categorization = AICategorization()
+    return _ai_categorization

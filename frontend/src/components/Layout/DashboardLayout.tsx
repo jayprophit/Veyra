@@ -1,18 +1,17 @@
-import React from 'react';
-import { Outlet, Link, useLocation } from 'react-router-dom';
 import {
-  LayoutDashboard,
-  TrendingUp,
   BarChart3,
-  Brain,
-  Shield,
-  Settings,
   Bell,
-  User,
-  GitBranch,
+  Brain,
   DollarSign,
-  Sparkles
+  GitBranch,
+  LayoutDashboard,
+  Settings,
+  Shield,
+  TrendingUp,
+  User
 } from 'lucide-react';
+import React from 'react';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import { useWebSocket } from '../../hooks/useWebSocket';
 import { ConnectionStatus } from './ConnectionStatus';
 
@@ -24,6 +23,8 @@ const navItems = [
   { path: '/risk', icon: Shield, label: 'Risk' },
   { path: '/strategy-builder', icon: GitBranch, label: 'Strategy Builder', badge: 'NEW' },
   { path: '/dividends', icon: DollarSign, label: 'Dividends', badge: 'NEW' },
+  { path: '/market-intelligence', icon: Globe, label: 'Intelligence', badge: 'NEW' },
+  { path: '/tax', icon: Calculator, label: 'Tax', badge: 'NEW' },
   { path: '/settings', icon: Settings, label: 'Settings' },
 ];
 
@@ -44,16 +45,15 @@ export const DashboardLayout: React.FC = () => {
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = location.pathname === item.path;
-            
+
             return (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                  isActive
-                    ? 'bg-blue-600 text-white'
-                    : 'text-slate-300 hover:bg-slate-800'
-                }`}
+                className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${isActive
+                  ? 'bg-blue-600 text-white'
+                  : 'text-slate-300 hover:bg-slate-800'
+                  }`}
               >
                 <Icon size={20} />
                 <span>{item.label}</span>

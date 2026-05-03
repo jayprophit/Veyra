@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* DataSphere Design System */
+@import './styles/datasphere-theme.css';
+
 .App {
   min-height: 100vh;
 }
@@ -27,9 +30,12 @@
 
 /* Animations */
 @keyframes pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.5;
   }
