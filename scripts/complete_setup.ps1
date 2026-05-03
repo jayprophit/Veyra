@@ -1,4 +1,4 @@
-# Financial Master - Complete Automated Setup
+﻿# Financial Master - Complete Automated Setup
 # For Windows Users with No-Code Experience
 # Run this script as Administrator
 
@@ -32,23 +32,26 @@ function Test-Command($Command) {
     try {
         Get-Command $Command -ErrorAction Stop | Out-Null
         return $true
-    } catch {
+    }
+    catch {
         return $false
     }
 }
 
 function Install-IfNotPresent($Command, $InstallScript, $Name) {
     if (Test-Command $Command) {
-        Write-Status "✅ $Name is already installed" "Success"
+        Write-Status "[OK] $Name is already installed" "Success"
         return $true
-    } else {
-        Write-Status "⚠️  $Name not found. Installing..." "Warning"
+    }
+    else {
+        Write-Status "  $Name not found. Installing..." "Warning"
         try {
             Invoke-Expression $InstallScript
-            Write-Status "✅ $Name installed successfully" "Success"
+            Write-Status "[OK] $Name installed successfully" "Success"
             return $true
-        } catch {
-            Write-Status "❌ Failed to install $Name. Please install manually." "Error"
+        }
+        catch {
+            Write-Status " Failed to install $Name. Please install manually." "Error"
             return $false
         }
     }
@@ -59,21 +62,21 @@ function Install-IfNotPresent($Command, $InstallScript, $Name) {
 # ============================================
 Clear-Host
 Write-Status @"
-╔══════════════════════════════════════════════════════════════════════╗
-║            FINANCIAL MASTER - COMPLETE AUTOMATED SETUP               ║
-║                                                                      ║
-║  This script will set up everything you need to start:            ║
-║  • Install required programs                                        ║
-║  • Set up Python environment                                        ║
-║  • Install dependencies                                             ║
-║  • Configure GitHub                                                 ║
-║  • Set up API keys (Alpaca, Polygon, etc.)                          ║
-║  • Test the installation                                            ║
-║                                                                      ║
-║  Estimated time: 15-30 minutes                                       ║
-║  Cost: FREE (all services have free tiers)                          ║
-╚══════════════════════════════════════════════════════════════════════╝
-" "Info"
+
+            FINANCIAL MASTER - COMPLETE AUTOMATED SETUP               
+                                                                      
+  This script will set up everything you need to start:            
+   Install required programs                                        
+   Set up Python environment                                        
+   Install dependencies                                             
+   Configure GitHub                                                 
+   Set up API keys (Alpaca, Polygon, etc.)                          
+   Test the installation                                            
+                                                                      
+  Estimated time: 15-30 minutes                                       
+  Cost: FREE (all services have free tiers)                          
+
+"@ "Info"
 
 Write-Status "Press any key to continue..." "Warning"
 $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
@@ -81,23 +84,23 @@ $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 # ============================================
 # STEP 1: CHECK WINDOWS VERSION
 # ============================================
-Write-Status "`n📋 STEP 1: Checking System Requirements..." "Info"
+Write-Status "`n STEP 1: Checking System Requirements..." "Info"
 
 $OS = Get-CimInstance -ClassName Win32_OperatingSystem
 $WindowsVersion = [System.Environment]::OSVersion.Version
 
 if ($WindowsVersion.Major -lt 10) {
-    Write-Status "❌ Windows 10 or higher required" "Error"
+    Write-Status " Windows 10 or higher required" "Error"
     exit 1
 }
 
-Write-Status "✅ Windows $($OS.Caption) detected" "Success"
-Write-Status "✅ System requirements met" "Success"
+Write-Status "[OK] Windows $($OS.Caption) detected" "Success"
+Write-Status "[OK] System requirements met" "Success"
 
 # ============================================
 # STEP 2: INSTALL CHOCOLATEY (Package Manager)
 # ============================================
-Write-Status "`n📦 STEP 2: Installing Package Manager (Chocolatey)..." "Info"
+Write-Status "`n STEP 2: Installing Package Manager (Chocolatey)..." "Info"
 
 if (-not (Test-Command "choco")) {
     Write-Status "Installing Chocolatey..." "Info"
@@ -106,47 +109,52 @@ if (-not (Test-Command "choco")) {
     try {
         Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
         $env:PATH += ";$env:ALLUSERSPROFILE\chocolatey\bin"
-        Write-Status "✅ Chocolatey installed" "Success"
-    } catch {
-        Write-Status "❌ Chocolatey installation failed" "Error"
+        Write-Status "[OK] Chocolatey installed" "Success"
+    }
+    catch {
+        Write-Status " Chocolatey installation failed" "Error"
         Write-Status "Please install manually from: https://chocolatey.org/install" "Warning"
     }
-} else {
-    Write-Status "✅ Chocolatey already installed" "Success"
+}
+else {
+    Write-Status "[OK] Chocolatey already installed" "Success"
 }
 
 # ============================================
 # STEP 3: INSTALL REQUIRED PROGRAMS
 # ============================================
-Write-Status "`n🔧 STEP 3: Installing Required Programs..." "Info"
+Write-Status "`n STEP 3: Installing Required Programs..." "Info"
 
 $Programs = @(
-    @{Name = "Git"; Command = "git"; ChocolateyPackage = "git"},
-    @{Name = "Python 3.11"; Command = "python"; ChocolateyPackage = "python"},
-    @{Name = "VS Code"; Command = "code"; ChocolateyPackage = "vscode"},
-    @{Name = "Docker Desktop"; Command = "docker"; ChocolateyPackage = "docker-desktop"; Optional = $true}
+    @{Name = "Git"; Command = "git"; ChocolateyPackage = "git" },
+    @{Name = "Python 3.11"; Command = "python"; ChocolateyPackage = "python" },
+    @{Name = "VS Code"; Command = "code"; ChocolateyPackage = "vscode" },
+    @{Name = "Docker Desktop"; Command = "docker"; ChocolateyPackage = "docker-desktop"; Optional = $true }
 )
 
 foreach ($Program in $Programs) {
     $IsOptional = $Program.Optional -eq $true
     
     if ($IsOptional -and $SkipDocker) {
-        Write-Status "⏭️  Skipping $($Program.Name) (optional, skipped by flag)" "Warning"
+        Write-Status "  Skipping $($Program.Name) (optional, skipped by flag)" "Warning"
         continue
     }
     
     if (Test-Command $Program.Command) {
-        Write-Status "✅ $($Program.Name) is already installed" "Success"
-    } else {
-        Write-Status "⚠️  Installing $($Program.Name)..." "Warning"
+        Write-Status "[OK] $($Program.Name) is already installed" "Success"
+    }
+    else {
+        Write-Status "  Installing $($Program.Name)..." "Warning"
         try {
             choco install $Program.ChocolateyPackage -y --no-progress
-            Write-Status "✅ $($Program.Name) installed" "Success"
-        } catch {
+            Write-Status "[OK] $($Program.Name) installed" "Success"
+        }
+        catch {
             if ($IsOptional) {
-                Write-Status "⚠️  $($Program.Name) installation failed (optional, continuing)" "Warning"
-            } else {
-                Write-Status "❌ $($Program.Name) installation failed" "Error"
+                Write-Status "  $($Program.Name) installation failed (optional, continuing)" "Warning"
+            }
+            else {
+                Write-Status " $($Program.Name) installation failed" "Error"
                 Write-Status "Please install manually and re-run this script" "Error"
                 exit 1
             }
@@ -157,17 +165,18 @@ foreach ($Program in $Programs) {
 # ============================================
 # STEP 4: VERIFY PYTHON INSTALLATION
 # ============================================
-Write-Status "`n🐍 STEP 4: Verifying Python..." "Info"
+Write-Status "`n STEP 4: Verifying Python..." "Info"
 
 try {
     $PythonVersion = python --version 2>&1
-    Write-Status "✅ $PythonVersion detected" "Success"
+    Write-Status "[OK] $PythonVersion detected" "Success"
     
     # Check if Python is in PATH
     $PythonPath = Get-Command python | Select-Object -ExpandProperty Source
-    Write-Status "✅ Python location: $PythonPath" "Success"
-} catch {
-    Write-Status "❌ Python not found in PATH" "Error"
+    Write-Status "[OK] Python location: $PythonPath" "Success"
+}
+catch {
+    Write-Status " Python not found in PATH" "Error"
     Write-Status "Please restart your computer and run this script again" "Error"
     exit 1
 }
@@ -175,17 +184,17 @@ try {
 # ============================================
 # STEP 5: CREATE PYTHON VIRTUAL ENVIRONMENT
 # ============================================
-Write-Status "`n🌐 STEP 5: Setting Up Python Environment..." "Info"
+Write-Status "`n STEP 5: Setting Up Python Environment..." "Info"
 
 $ProjectRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 $VenvPath = Join-Path $ProjectRoot ".venv"
 
 if (Test-Path $VenvPath) {
-    Write-Status "⚠️  Virtual environment already exists at $VenvPath" "Warning"
+    Write-Status "  Virtual environment already exists at $VenvPath" "Warning"
     $Recreate = Read-Host "Do you want to recreate it? (y/n) [default: n]"
     if ($Recreate -eq "y") {
         Remove-Item -Recurse -Force $VenvPath
-        Write-Status "🗑️  Old virtual environment removed" "Success"
+        Write-Status "  Old virtual environment removed" "Success"
     }
 }
 
@@ -193,9 +202,10 @@ if (-not (Test-Path $VenvPath)) {
     Write-Status "Creating virtual environment..." "Info"
     try {
         python -m venv $VenvPath
-        Write-Status "✅ Virtual environment created" "Success"
-    } catch {
-        Write-Status "❌ Failed to create virtual environment" "Error"
+        Write-Status "[OK] Virtual environment created" "Success"
+    }
+    catch {
+        Write-Status " Failed to create virtual environment" "Error"
         exit 1
     }
 }
@@ -204,16 +214,17 @@ if (-not (Test-Path $VenvPath)) {
 $ActivateScript = Join-Path $VenvPath "Scripts\Activate.ps1"
 if (Test-Path $ActivateScript) {
     & $ActivateScript
-    Write-Status "✅ Virtual environment activated" "Success"
-} else {
-    Write-Status "❌ Could not find activation script" "Error"
+    Write-Status "[OK] Virtual environment activated" "Success"
+}
+else {
+    Write-Status " Could not find activation script" "Error"
     exit 1
 }
 
 # ============================================
 # STEP 6: UPGRADE PIP AND INSTALL DEPENDENCIES
 # ============================================
-Write-Status "`n📥 STEP 6: Installing Python Dependencies..." "Info"
+Write-Status "`n STEP 6: Installing Python Dependencies..." "Info"
 
 Write-Status "Upgrading pip..." "Info"
 python -m pip install --upgrade pip --quiet
@@ -224,31 +235,35 @@ if (Test-Path $RequirementsFile) {
     Write-Status "This may take 5-10 minutes..." "Warning"
     try {
         pip install -r $RequirementsFile --quiet
-        Write-Status "✅ Dependencies installed successfully" "Success"
-    } catch {
-        Write-Status "❌ Failed to install some dependencies" "Error"
+        Write-Status "[OK] Dependencies installed successfully" "Success"
+    }
+    catch {
+        Write-Status " Failed to install some dependencies" "Error"
         Write-Status "Continuing anyway..." "Warning"
     }
-} else {
-    Write-Status "⚠️  requirements.txt not found at $RequirementsFile" "Warning"
+}
+else {
+    Write-Status "  requirements.txt not found at $RequirementsFile" "Warning"
 }
 
 # ============================================
 # STEP 7: CREATE ENVIRONMENT FILE TEMPLATE
 # ============================================
-Write-Status "`n🔑 STEP 7: Setting Up Environment Configuration..." "Info"
+Write-Status "`n STEP 7: Setting Up Environment Configuration..." "Info"
 
 $EnvFile = Join-Path $ProjectRoot ".env"
 $EnvExample = Join-Path $ProjectRoot ".env.example"
 
 if (Test-Path $EnvFile) {
-    Write-Status "✅ .env file already exists" "Success"
-} elseif (Test-Path $EnvExample) {
+    Write-Status "[OK] .env file already exists" "Success"
+}
+elseif (Test-Path $EnvExample) {
     Copy-Item $EnvExample $EnvFile
-    Write-Status "✅ .env file created from .env.example" "Success"
-    Write-Status "⚠️  You will need to add your API keys to .env" "Warning"
-} else {
-    @"
+    Write-Status "[OK] .env file created from .env.example" "Success"
+    Write-Status "  You will need to add your API keys to .env" "Warning"
+}
+else {
+    $EnvContent = @"
 # Financial Master Environment Configuration
 # Generated by setup script on $(Get-Date)
 
@@ -313,58 +328,61 @@ ENABLE_OPTIONS=false
 # ============================================
 SENTRY_DSN=
 ENVIRONMENT=development
-"@ | Out-File -FilePath $EnvFile -Encoding utf8
-    Write-Status "✅ New .env file created with templates" "Success"
+"@
+    $EnvContent | Out-File -FilePath $EnvFile -Encoding utf8
+    Write-Status "[OK] New .env file created with templates" "Success"
 }
 
 # ============================================
 # STEP 8: INITIALIZE DATABASE
 # ============================================
-Write-Status "`n🗄️  STEP 8: Initializing Database..." "Info"
+Write-Status "`n  STEP 8: Initializing Database..." "Info"
 
 try {
     $DbScript = Join-Path $ProjectRoot "scripts" "init_database.py"
     if (Test-Path $DbScript) {
         python $DbScript
-        Write-Status "✅ Database initialized" "Success"
-    } else {
-        Write-Status "⚠️  Database init script not found, skipping" "Warning"
+        Write-Status "[OK] Database initialized" "Success"
     }
-} catch {
-    Write-Status "⚠️  Database initialization had issues, continuing..." "Warning"
+    else {
+        Write-Status "  Database init script not found, skipping" "Warning"
+    }
+}
+catch {
+    Write-Status "  Database initialization had issues, continuing..." "Warning"
 }
 
 # ============================================
 # STEP 9: API SETUP GUIDANCE
 # ============================================
 if (-not $SkipAPISetup) {
-    Write-Status "`n🔐 STEP 9: API Key Setup (Required for Trading)..." "Info"
+    Write-Status "`n STEP 9: API Key Setup (Required for Trading)..." "Info"
     
     Write-Status @"
 
-╔══════════════════════════════════════════════════════════════════════╗
-║                    FREE API KEY SETUP REQUIRED                       ║
-╠══════════════════════════════════════════════════════════════════════╣
-║                                                                      ║
-║  To start trading with real market data, you need these FREE APIs:   ║
-║                                                                      ║
-║  1. ALPACA (Paper Trading - $0)                                      ║
-║     URL: https://alpaca.markets                                      ║
-║     Steps: Sign up → Dashboard → API Keys → Generate               ║
-║     Copy: API Key ID and Secret Key                                  ║
-║                                                                      ║
-║  2. POLYGON.IO (Stock Data - $0)                                     ║
-║     URL: https://polygon.io                                          ║
-║     Steps: Sign up → Dashboard → API Keys → Create                   ║
-║     Copy: API Key                                                      ║
-║                                                                      ║
-║  3. ALPHA VANTAGE (Stock Data - $0)                                  ║
-║     URL: https://www.alphavantage.co/support/#api-key                ║
-║     Steps: Click "Get Free API Key" → Enter email → Receive key        ║
-║     Copy: API Key                                                      ║
-║                                                                      ║
-╚══════════════════════════════════════════════════════════════════════╝
-" "Warning"
+
+                    FREE API KEY SETUP REQUIRED                       
+
+                                                                      
+  To start trading with real market data, you need these FREE APIs:   
+                                                                      
+  1. ALPACA (Paper Trading - $0)                                      
+     URL: https://alpaca.markets                                      
+     Steps: Sign up  Dashboard  API Keys  Generate               
+     Copy: API Key ID and Secret Key                                  
+                                                                      
+  2. POLYGON.IO (Stock Data - $0)                                     
+     URL: https://polygon.io                                          
+     Steps: Sign up  Dashboard  API Keys  Create                   
+     Copy: API Key                                                      
+                                                                      
+  3. ALPHA VANTAGE (Stock Data - $0)                                  
+     URL: https://www.alphavantage.co/support/#api-key                
+     Steps: Click "Get Free API Key"  Enter email  Receive key        
+     Copy: API Key                                                      
+                                                                      
+
+"@ "Warning"
 
     $SetupNow = Read-Host "`nDo you want to open these websites in your browser now? (y/n) [default: y]"
     if ($SetupNow -ne "n") {
@@ -382,7 +400,7 @@ if (-not $SkipAPISetup) {
     
     Write-Status @"
 
-⚠️  IMPORTANT: After getting your API keys:
+  IMPORTANT: After getting your API keys:
 
 1. Open the file: $EnvFile
 2. Replace the placeholder values with your real keys
@@ -393,13 +411,13 @@ Example:
    ALPACA_API_KEY=PK1234567890ABCDEF
    ALPACA_SECRET_KEY=your_secret_here
    POLYGON_API_KEY=abc123def456
-" "Warning"
+"@ "Warning"
 }
 
 # ============================================
 # STEP 10: TEST INSTALLATION
 # ============================================
-Write-Status "`n🧪 STEP 10: Testing Installation..." "Info"
+Write-Status "`n STEP 10: Testing Installation..." "Info"
 
 $TestResults = @()
 
@@ -407,66 +425,73 @@ $TestResults = @()
 Write-Status "Testing Python..." "Info"
 try {
     $PyVersion = python --version 2>&1
-    $TestResults += "✅ Python: $PyVersion"
-} catch {
-    $TestResults += "❌ Python: Not working"
+    $TestResults += "[OK] Python: $PyVersion"
+}
+catch {
+    $TestResults += " Python: Not working"
 }
 
 # Test Git
 Write-Status "Testing Git..." "Info"
 try {
     $GitVersion = git --version 2>&1
-    $TestResults += "✅ Git: $GitVersion"
-} catch {
-    $TestResults += "❌ Git: Not working"
+    $TestResults += "[OK] Git: $GitVersion"
+}
+catch {
+    $TestResults += " Git: Not working"
 }
 
 # Test Dependencies
 Write-Status "Testing Python dependencies..." "Info"
 try {
     python -c "import fastapi, uvicorn, pandas, sqlalchemy, alpaca_trade_api; print('OK')" 2>&1 | Out-Null
-    $TestResults += "✅ Core dependencies: Working"
-} catch {
-    $TestResults += "❌ Core dependencies: Some issues (may need API keys)"
+    $TestResults += "[OK] Core dependencies: Working"
+}
+catch {
+    $TestResults += " Core dependencies: Some issues (may need API keys)"
 }
 
 # Test Virtual Environment
 Write-Status "Testing virtual environment..." "Info"
 if ($env:VIRTUAL_ENV) {
-    $TestResults += "✅ Virtual Environment: Active"
-} else {
-    $TestResults += "⚠️  Virtual Environment: Not active (run .\venv\Scripts\Activate.ps1)"
+    $TestResults += "[OK] Virtual Environment: Active"
+}
+else {
+    $TestResults += "  Virtual Environment: Not active (run .\venv\Scripts\Activate.ps1)"
 }
 
-Write-Status "`n📊 Test Results:" "Info"
+Write-Status "`n Test Results:" "Info"
 $TestResults | ForEach-Object { Write-Status $_ }
 
 # ============================================
 # STEP 11: GITHUB SETUP
 # ============================================
-Write-Status "`n📦 STEP 11: GitHub Repository Setup..." "Info"
+Write-Status "`n STEP 11: GitHub Repository Setup..." "Info"
 
 $GitDir = Join-Path $ProjectRoot ".git"
 if (Test-Path $GitDir) {
-    Write-Status "✅ Git repository already initialized" "Success"
-} else {
+    Write-Status "[OK] Git repository already initialized" "Success"
+}
+else {
     Write-Status "Initializing Git repository..." "Info"
     try {
         git init
-        Write-Status "✅ Git repository initialized" "Success"
-    } catch {
-        Write-Status "⚠️  Git init failed, continuing..." "Warning"
+        Write-Status "[OK] Git repository initialized" "Success"
+    }
+    catch {
+        Write-Status "  Git init failed, continuing..." "Warning"
     }
 }
 
 # Check GitHub remote
 $Remotes = git remote -v 2>&1
 if ($Remotes -match "github.com") {
-    Write-Status "✅ GitHub remote already configured" "Success"
+    Write-Status "[OK] GitHub remote already configured" "Success"
     Write-Status "Remote: $Remotes" "Info"
-} else {
+}
+else {
     Write-Status @"
-⚠️  GitHub remote not configured.
+  GitHub remote not configured.
 
 To connect to GitHub:
 1. Create a repository at: https://github.com/new
@@ -476,7 +501,7 @@ To connect to GitHub:
    git add .
    git commit -m "Initial commit"
    git push -u origin main
-" "Warning"
+"@ "Warning"
 }
 
 # ============================================
@@ -484,85 +509,85 @@ To connect to GitHub:
 # ============================================
 Write-Status @"
 
-╔══════════════════════════════════════════════════════════════════════╗
-║                      SETUP COMPLETE! ✅                              ║
-╠══════════════════════════════════════════════════════════════════════╣
-" "Success"
+
+                      SETUP COMPLETE! [OK]                              
+
+"@ "Success"
 
 Write-Status @"
 
-🎉 WHAT'S BEEN INSTALLED:
-" "Info"
+ WHAT'S BEEN INSTALLED:
+"@ "Info"
 
 $Installed = @(
-    "✅ Python 3.11+ with pip"
-    "✅ Virtual environment (.venv)"
-    "✅ All Python dependencies"
-    "✅ Git for version control"
-    "✅ VS Code (IDE)"
-    "✅ Environment configuration (.env)"
+    "[OK] Python 3.11+ with pip"
+    "[OK] Virtual environment (.venv)"
+    "[OK] All Python dependencies"
+    "[OK] Git for version control"
+    "[OK] VS Code (IDE)"
+    "[OK] Environment configuration (.env)"
 )
 if (-not $SkipDocker) {
-    $Installed += "✅ Docker Desktop (optional)"
+    $Installed += "[OK] Docker Desktop (optional)"
 }
-$Installed += "✅ Project structure ready"
+$Installed += "[OK] Project structure ready"
 
 $Installed | ForEach-Object { Write-Status $_ }
 
 Write-Status @"
 
-📋 NEXT STEPS TO START TRADING:
+ NEXT STEPS TO START TRADING:
 
-1. 🔑 ADD API KEYS (5 minutes)
+1.  ADD API KEYS (5 minutes)
    - Edit: $EnvFile
    - Add your Alpaca, Polygon, Alpha Vantage keys
    - All APIs are FREE tier
 
-2. 🧪 TEST THE SYSTEM (2 minutes)
+2.  TEST THE SYSTEM (2 minutes)
    Run: .\scripts\test_installation.ps1
    
-3. 🚀 START THE APPLICATION (1 minute)
+3.  START THE APPLICATION (1 minute)
    Run: .\scripts\start_local.ps1
    
-4. 📊 OPEN IN BROWSER
+4.  OPEN IN BROWSER
    URL: http://localhost:8000
    API Docs: http://localhost:8000/docs
 
-" "Info"
+"@ "Info"
 
 Write-Status @"
 
-📚 HELPFUL DOCUMENTATION:
+ HELPFUL DOCUMENTATION:
 
-• Quick Start: .\QUICKSTART.md
-• Complete Setup: .\COMPLETE_SETUP_GUIDE.md
-• API Setup: .\docs\compliance\API_SETUP_GUIDE.md
-• Beginner Guide: .\docs\BEGINNERS_GUIDE.md
-• Troubleshooting: .\docs\TROUBLESHOOTING.md
+ Quick Start: .\QUICKSTART.md
+ Complete Setup: .\COMPLETE_SETUP_GUIDE.md
+ API Setup: .\docs\compliance\API_SETUP_GUIDE.md
+ Beginner Guide: .\docs\BEGINNERS_GUIDE.md
+ Troubleshooting: .\docs\TROUBLESHOOTING.md
 
-" "Info"
-
-Write-Status @"
-
-💰 COST SUMMARY:
-
-• Setup: FREE
-• APIs: FREE (Alpaca, Polygon, Alpha Vantage free tiers)
-• Hosting: FREE (Render, Neon, Cloudflare free tiers)
-• Trading: FREE (Paper trading with Alpaca)
-• Total Monthly Cost: £0.00
-
-" "Success"
+"@ "Info"
 
 Write-Status @"
 
-🆘 NEED HELP?
+ COST SUMMARY:
 
-• Check the documentation files above
-• Run: .\scripts\health_check.ps1
-• Review: .\docs\TROUBLESHOOTING.md
+ Setup: FREE
+ APIs: FREE (Alpaca, Polygon, Alpha Vantage free tiers)
+ Hosting: FREE (Render, Neon, Cloudflare free tiers)
+ Trading: FREE (Paper trading with Alpaca)
+ Total Monthly Cost: 0.00
 
-" "Warning"
+"@ "Success"
+
+Write-Status @"
+
+ NEED HELP?
+
+ Check the documentation files above
+ Run: .\scripts\health_check.ps1
+ Review: .\docs\TROUBLESHOOTING.md
+
+"@ "Warning"
 
 Write-Status "Press any key to exit..." "Info"
 $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
