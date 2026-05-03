@@ -20,6 +20,23 @@ from app.ai.voice_commands import voice_processor, process_text_command
 from app.education.elearning import elearning, CourseLevel
 from app.marketplace.job_marketplace import jobs
 from app.portfolio.advanced_analytics import analytics
+from app.market_data.websocket_feeds import feed_manager, FeedType
+from app.ai.news_sentiment import sentiment_analyzer
+from app.trading.advanced_orders import order_manager, OrderType, OrderStatus
+from app.reporting.tax_compliance import tax_compliance
+from app.accounts.multi_account import account_manager, AccountType
+from app.journal.trading_journal import trading_journal
+from app.notifications.smart_alerts import smart_alerts, AlertType, AlertCondition
+from app.backtesting.engine import backtest_engine, BacktestResult
+from app.social.copy_trading_system import copy_trading
+from app.execution.liquidity_aggregator import liquidity_aggregator
+from app.derivatives.options_trading import options_trading, OptionsPricing, OptionType, OptionStrategy
+from app.hft.execution_engine import hft_engine, HFTOrder, Tick
+from app.risk.risk_management import risk_manager, RiskLevel, RiskLimit
+from app.compliance.regulatory_reporting import compliance_engine, Regulation, TradeReport
+from app.data_pipeline.etl_engine import etl_pipeline, DataSource, DataType
+from app.feature_store.feature_engineering import feature_store
+from app.simulation.paper_trading import paper_trading, PaperOrder, OrderStatus
 
 router = APIRouter(prefix="/api/v1/enhanced", tags=["enhanced-features"])
 
@@ -503,3 +520,754 @@ async def efficient_frontier(returns_data: Dict[str, List[float]]) -> List[Dict[
     
     returns_df = pd.DataFrame(returns_data)
     return analytics.efficient_frontier(returns_df)
+
+
+# ========== MARKET DATA WEBSOCKET ENDPOINTS ==========
+
+@router.post("/market/subscribe")
+async def subscribe_market_data(client_id: str, symbols: List[str], feed_type: str = "ticker"):
+    """Subscribe to real-time market data feed."""
+    ft = FeedType(feed_type)
+    await feed_manager.subscribe(client_id, symbols, ft)
+    return {'success': True, 'subscribed': len(symbols), 'feed_type': feed_type}
+
+@router.post("/market/unsubscribe")
+async def unsubscribe_market_data(client_id: str, symbols: List[str], feed_type: str = "ticker"):
+    """Unsubscribe from market data feed."""
+    ft = FeedType(feed_type)
+    await feed_manager.unsubscribe(client_id, symbols, ft)
+    return {'success': True, 'unsubscribed': len(symbols)}
+
+
+# ========== NEWS SENTIMENT ANALYSIS ENDPOINTS ==========
+
+@router.post("/sentiment/analyze")
+async def analyze_news_sentiment(headline: str, source: str = "news") -> Dict[str, Any]:
+    """Analyze sentiment of a news headline."""
+    result = await sentiment_analyzer.analyze(headline, source)
+    return result.to_dict()
+
+@router.get("/sentiment/symbol/{symbol}")
+async def get_symbol_sentiment(symbol: str, hours: int = 24) -> Dict[str, Any]:
+    """Get aggregated sentiment for a symbol."""
+    return await sentiment_analyzer.get_symbol_sentiment(symbol, hours)
+
+@router.post("/sentiment/batch")
+async def batch_sentiment_analysis(headlines: List[str]) -> List[Dict[str, Any]]:
+    """Analyze multiple headlines."""
+    results = await sentiment_analyzer.scan_news(headlines)
+    return [r.to_dict() for r in results]
+
+
+# ========== ADVANCED ORDER ENDPOINTS ==========
+
+@router.post("/orders/market")
+async def place_market_order(symbol: str, side: str, quantity: float) -> Dict[str, Any]:
+    """Place a market order."""
+    order = await order_manager.place_market_order(symbol, side, quantity)
+    return {'order_id': order.id, 'status': order.status.value, 'symbol': symbol}
+
+@router.post("/orders/limit")
+async def place_limit_order(symbol: str, side: str, quantity: float, price: float) -> Dict[str, Any]:
+    """Place a limit order."""
+    order = await order_manager.place_limit_order(symbol, side, quantity, price)
+    return {'order_id': order.id, 'status': order.status.value, 'price': price}
+
+@router.post("/orders/trailing-stop")
+async def place_trailing_stop(symbol: str, side: str, quantity: float, trailing_pct: float) -> Dict[str, Any]:
+    """Place a trailing stop order."""
+    order = await order_manager.place_trailing_stop(symbol, side, quantity, trailing_pct)
+    return {'order_id': order.id, 'trailing_pct': trailing_pct, 'status': order.status.value}
+
+@router.post("/orders/oco")
+async def place_oco_order(symbol: str, side: str, quantity: float, 
+                         limit_price: float, stop_price: float) -> Dict[str, Any]:
+    """Place One-Cancels-Other order."""
+    result = await order_manager.place_oco_order(symbol, side, quantity, limit_price, stop_price)
+    return {
+        'parent_id': result['parent_id'],
+        'limit_order_id': result['limit_order'].id,
+        'stop_order_id': result['stop_order'].id
+    }
+
+@router.post("/orders/bracket")
+async def place_bracket_order(symbol: str, side: str, quantity: float,
+                              entry_price: float, take_profit: float, 
+                              stop_loss: float) -> Dict[str, Any]:
+    """Place bracket order (entry + TP + SL)."""
+    result = await order_manager.place_bracket_order(symbol, side, quantity, entry_price, take_profit, stop_loss)
+    return {
+        'parent_id': result['parent_id'],
+        'entry_order_id': result['entry'].id,
+        'tp_order_id': result['take_profit'].id,
+        'sl_order_id': result['stop_loss'].id
+    }
+
+@router.post("/orders/iceberg")
+async def place_iceberg_order(symbol: str, side: str, total_quantity: float,
+                            display_qty: float, price: float) -> Dict[str, Any]:
+    """Place iceberg order (hidden large order)."""
+    order = await order_manager.place_iceberg_order(symbol, side, total_quantity, display_qty, price)
+    return {
+        'order_id': order.id,
+        'total_qty': total_quantity,
+        'display_qty': display_qty,
+        'hidden_qty': order.hidden_qty,
+        'status': order.status.value
+    }
+
+@router.post("/orders/cancel/{order_id}")
+async def cancel_order(order_id: str) -> Dict[str, Any]:
+    """Cancel an order."""
+    success = await order_manager.cancel_order(order_id)
+    return {'success': success, 'order_id': order_id}
+
+@router.get("/orders/open")
+async def get_open_orders(symbol: Optional[str] = None) -> List[Dict[str, Any]]:
+    """Get all open orders."""
+    orders = await order_manager.get_open_orders(symbol)
+    return [{
+        'order_id': o.id,
+        'symbol': o.symbol,
+        'side': o.side,
+        'type': o.order_type.value,
+        'quantity': o.quantity,
+        'price': o.price,
+        'status': o.status.value
+    } for o in orders]
+
+
+# ========== TAX COMPLIANCE ENDPOINTS ==========
+
+@router.post("/tax/record-trade")
+async def record_trade_for_tax(user_id: str, trade: Dict[str, Any]) -> Dict[str, str]:
+    """Record a trade for tax reporting."""
+    trade_id = await tax_compliance.record_trade(user_id, trade)
+    return {'trade_id': trade_id, 'status': 'recorded'}
+
+@router.get("/tax/report/{user_id}/{year}")
+async def generate_tax_report(user_id: str, year: int, method: str = "fifo") -> Dict[str, Any]:
+    """Generate annual tax report."""
+    return await tax_compliance.generate_tax_report(user_id, year, method)
+
+@router.post("/tax/unrealized-gains/{user_id}")
+async def get_unrealized_gains(user_id: str, current_prices: Dict[str, float]) -> Dict[str, Any]:
+    """Calculate unrealized gains/losses."""
+    return await tax_compliance.get_unrealized_gains(user_id, current_prices)
+
+
+# ========== MULTI-ACCOUNT MANAGEMENT ENDPOINTS ==========
+
+@router.post("/accounts/create")
+async def create_account(user_id: str, name: str, account_type: str, 
+                        risk_limits: Optional[Dict] = None) -> Dict[str, Any]:
+    """Create a new trading account."""
+    acc_type = AccountType(account_type)
+    account = await account_manager.create_account(user_id, name, acc_type, risk_limits)
+    return {
+        'account_id': account.id,
+        'name': account.name,
+        'type': account.account_type.value,
+        'is_default': account.is_default,
+        'risk_limits': account.risk_limits
+    }
+
+@router.get("/accounts/{user_id}")
+async def get_user_accounts(user_id: str) -> List[Dict[str, Any]]:
+    """Get all accounts for a user."""
+    accounts = await account_manager.get_user_accounts(user_id)
+    return [{
+        'id': acc.id,
+        'name': acc.name,
+        'type': acc.account_type.value,
+        'balances': acc.balances,
+        'value_usd': acc.total_value_usd,
+        'is_default': acc.is_default
+    } for acc in accounts]
+
+@router.get("/accounts/summary/{user_id}")
+async def get_account_summary(user_id: str) -> Dict[str, Any]:
+    """Get account summary."""
+    return await account_manager.get_account_summary(user_id)
+
+@router.post("/accounts/transfer")
+async def transfer_between_accounts(user_id: str, from_account: str, 
+                                   to_account: str, asset: str, 
+                                   amount: float) -> Dict[str, Any]:
+    """Transfer assets between accounts."""
+    return await account_manager.transfer_between_accounts(user_id, from_account, to_account, asset, amount)
+
+@router.post("/accounts/check-risk/{account_id}")
+async def check_risk_limits(account_id: str, proposed_trade: Dict[str, Any]) -> Dict[str, Any]:
+    """Check if trade violates risk limits."""
+    return await account_manager.check_risk_limits(account_id, proposed_trade)
+
+
+# ========== TRADING JOURNAL ENDPOINTS ==========
+
+@router.post("/journal/entry")
+async def create_journal_entry(user_id: str, trade_data: Dict[str, Any], 
+                              reflection: Dict[str, Any]) -> Dict[str, str]:
+    """Create a trading journal entry."""
+    entry = await trading_journal.create_entry(user_id, trade_data, reflection)
+    return {'entry_id': entry.entry.entry_id, 'status': 'created'}
+
+@router.get("/journal/entries/{user_id}")
+async def get_journal_entries(user_id: str, 
+                              symbol: Optional[str] = None,
+                              strategy: Optional[str] = None) -> List[Dict[str, Any]]:
+    """Get journal entries with filters."""
+    filters = {}
+    if symbol:
+        filters['symbol'] = symbol
+    if strategy:
+        filters['strategy'] = strategy
+    return await trading_journal.get_entries(user_id, filters if filters else None)
+
+@router.get("/journal/stats/{user_id}")
+async def get_journal_stats(user_id: str) -> Dict[str, Any]:
+    """Get trading performance statistics."""
+    return await trading_journal.get_performance_stats(user_id)
+
+@router.get("/journal/insights/{user_id}")
+async def get_journal_insights(user_id: str) -> List[str]:
+    """Get AI-generated insights from trading patterns."""
+    return await trading_journal.generate_insights(user_id)
+
+
+# ========== SMART ALERTS ENDPOINTS ==========
+
+@router.post("/alerts/create")
+async def create_alert(user_id: str, alert_data: Dict[str, Any]) -> Dict[str, Any]:
+    """Create a new price/P&L alert."""
+    alert = await smart_alerts.create_alert(user_id, alert_data)
+    return {
+        'alert_id': alert.alert_id,
+        'type': alert.alert_type.value,
+        'symbol': alert.symbol,
+        'condition': alert.condition.value,
+        'threshold': alert.threshold,
+        'channels': alert.notification_channels
+    }
+
+@router.get("/alerts/{user_id}")
+async def get_user_alerts(user_id: str, active_only: bool = False) -> List[Dict[str, Any]]:
+    """Get all alerts for a user."""
+    return await smart_alerts.get_user_alerts(user_id, active_only)
+
+@router.post("/alerts/toggle/{alert_id}")
+async def toggle_alert(alert_id: str) -> Dict[str, Any]:
+    """Toggle alert active status."""
+    new_status = await smart_alerts.toggle_alert(alert_id)
+    return {'alert_id': alert_id, 'is_active': new_status}
+
+@router.delete("/alerts/{alert_id}")
+async def delete_alert(alert_id: str) -> Dict[str, bool]:
+    """Delete an alert."""
+    success = await smart_alerts.delete_alert(alert_id)
+    return {'deleted': success}
+
+@router.post("/alerts/preset/{user_id}")
+async def create_preset_alerts(user_id: str, preset: str) -> Dict[str, Any]:
+    """Create preset alert configuration (conservative/aggressive/hodler)."""
+    alert_ids = await smart_alerts.create_preset_alerts(user_id, preset)
+    return {'preset': preset, 'created_alerts': len(alert_ids), 'alert_ids': alert_ids}
+
+
+# ========== BACKTESTING ENDPOINTS ==========
+
+@router.post("/backtest/run")
+async def run_backtest(strategy_name: str,
+                      price_data: List[Dict[str, Any]],
+                      initial_capital: float = 100000.0,
+                      commission: float = 0.001) -> Dict[str, Any]:
+    """Run strategy backtest with historical data."""
+    import pandas as pd
+    
+    # Convert to DataFrame
+    df = pd.DataFrame(price_data)
+    df['date'] = pd.to_datetime(df['date'])
+    df.set_index('date', inplace=True)
+    
+    # Simple momentum strategy as example
+    def momentum_strategy(data):
+        if len(data) < 20:
+            return 0
+        sma20 = data['close'].rolling(20).mean().iloc[-1]
+        current = data['close'].iloc[-1]
+        return 1 if current > sma20 else -1 if current < sma20 else 0
+    
+    result = await backtest_engine.run_backtest(
+        momentum_strategy, df, initial_capital=initial_capital, commission=commission
+    )
+    
+    return result.to_dict()
+
+@router.post("/backtest/optimize")
+async def optimize_parameters(strategy_name: str,
+                            price_data: List[Dict[str, Any]],
+                            param_grid: Dict[str, List[Any]]) -> Dict[str, Any]:
+    """Grid search for optimal strategy parameters."""
+    import pandas as pd
+    
+    df = pd.DataFrame(price_data)
+    df['date'] = pd.to_datetime(df['date'])
+    df.set_index('date', inplace=True)
+    
+    def strategy(data, **params):
+        # Generic parameterizable strategy
+        fast = params.get('fast_period', 10)
+        slow = params.get('slow_period', 20)
+        
+        if len(data) < slow:
+            return 0
+        
+        fast_ma = data['close'].rolling(fast).mean().iloc[-1]
+        slow_ma = data['close'].rolling(slow).mean().iloc[-1]
+        
+        return 1 if fast_ma > slow_ma else -1 if fast_ma < slow_ma else 0
+    
+    return await backtest_engine.optimize_parameters(strategy, df, param_grid)
+
+@router.post("/backtest/walk-forward")
+async def walk_forward_analysis(strategy_name: str,
+                              price_data: List[Dict[str, Any]],
+                              train_size: int = 252,
+                              test_size: int = 63) -> List[Dict]:
+    """Walk-forward optimization to prevent overfitting."""
+    import pandas as pd
+    
+    df = pd.DataFrame(price_data)
+    df['date'] = pd.to_datetime(df['date'])
+    df.set_index('date', inplace=True)
+    
+    def simple_strategy(data):
+        if len(data) < 20:
+            return 0
+        return 1 if data['close'].iloc[-1] > data['close'].rolling(20).mean().iloc[-1] else -1
+    
+    return await backtest_engine.walk_forward_analysis(simple_strategy, df, train_size, test_size)
+
+
+# ========== COPY TRADING ENDPOINTS ==========
+
+@router.post("/copy/register-trader")
+async def register_as_trader(user_id: str, username: str,
+                            monthly_fee: float = 0,
+                            performance_fee_pct: float = 20) -> Dict[str, Any]:
+    """Register as pro trader for others to copy."""
+    trader = await copy_trading.register_as_trader(user_id, username, monthly_fee, performance_fee_pct)
+    return {
+        'trader_id': trader.user_id,
+        'username': trader.username,
+        'monthly_fee': trader.monthly_fee,
+        'performance_fee': trader.performance_fee_pct
+    }
+
+@router.post("/copy/start")
+async def start_copy_trading(follower_id: str, trader_id: str,
+                            allocation: float,
+                            copy_percentage: float = 100.0,
+                            max_position_size: Optional[float] = None) -> Dict[str, Any]:
+    """Start copying a trader's trades."""
+    copy = await copy_trading.start_copying(
+        follower_id, trader_id, allocation, copy_percentage, max_position_size
+    )
+    return {
+        'copy_id': copy.copy_id,
+        'trader_id': copy.trader_id,
+        'allocation': copy.allocation,
+        'copy_percentage': copy.copy_percentage,
+        'status': 'active'
+    }
+
+@router.post("/copy/stop/{copy_id}")
+async def stop_copy_trading(copy_id: str) -> Dict[str, Any]:
+    """Stop copying a trader."""
+    success = await copy_trading.stop_copying(copy_id)
+    return {'copy_id': copy_id, 'stopped': success}
+
+@router.get("/copy/top-traders")
+async def get_top_traders(limit: int = 10) -> List[Dict[str, Any]]:
+    """Get top performing traders to copy."""
+    return await copy_trading.get_top_traders(limit)
+
+@router.get("/copy/portfolio/{follower_id}")
+async def get_copy_portfolio(follower_id: str) -> Dict[str, Any]:
+    """Get copy trading portfolio for a follower."""
+    return await copy_trading.get_follower_portfolio(follower_id)
+
+@router.post("/copy/update-stats/{trader_id}")
+async def update_trader_stats(trader_id: str,
+                             return_30d: float,
+                             win_rate: float,
+                             sharpe: float,
+                             max_dd: float) -> Dict[str, str]:
+    """Update trader performance statistics."""
+    await copy_trading.update_trader_stats(trader_id, return_30d, win_rate, sharpe, max_dd)
+    return {'status': 'updated', 'trader_id': trader_id}
+
+
+# ========== LIQUIDITY AGGREGATION ENDPOINTS ==========
+
+@router.get("/liquidity/quote/{symbol}")
+async def get_liquidity_quote(symbol: str, side: str, size: float) -> Dict[str, Any]:
+    """Get best aggregated quote across exchanges."""
+    quote = await liquidity_aggregator.get_best_quote(symbol, side, size)
+    if not quote:
+        return {'error': 'No liquidity available'}
+    
+    return {
+        'symbol': quote.symbol,
+        'best_bid': quote.best_bid,
+        'best_ask': quote.best_ask,
+        'best_bid_exchange': quote.best_bid_exchange,
+        'best_ask_exchange': quote.best_ask_exchange,
+        'spread': quote.spread,
+        'effective_price': quote.effective_price,
+        'total_bid_liquidity': quote.total_bid_liquidity,
+        'total_ask_liquidity': quote.total_ask_liquidity,
+        'sources': len(quote.sources)
+    }
+
+@router.post("/liquidity/route")
+async def smart_order_routing(symbol: str, side: str, size: float) -> Dict[str, Any]:
+    """Get smart order routing plan across multiple exchanges."""
+    return await liquidity_aggregator.smart_routing(symbol, side, size)
+
+@router.post("/liquidity/update")
+async def update_liquidity_sources(market_data: Dict[str, List[Dict]]) -> Dict[str, Any]:
+    """Update liquidity sources with new market data."""
+    await liquidity_aggregator.update_all_sources(market_data)
+    return {'status': 'updated', 'symbols_updated': len(market_data)}
+
+
+# ========== OPTIONS TRADING ENDPOINTS ==========
+
+@router.post("/options/price")
+async def calculate_option_price(S: float, K: float, T_days: int,
+                                 r: float, sigma: float,
+                                 option_type: str) -> Dict[str, float]:
+    """Calculate option price and Greeks using Black-Scholes."""
+    T = T_days / 365
+    opt_type = OptionType(option_type)
+    pricing = OptionsPricing.calculate_price(S, K, T, r, sigma, opt_type)
+    return pricing
+
+@router.post("/options/implied-vol")
+async def calculate_implied_volatility(S: float, K: float, T_days: int,
+                                       r: float, market_price: float,
+                                       option_type: str) -> Dict[str, float]:
+    """Calculate implied volatility from market price."""
+    T = T_days / 365
+    opt_type = OptionType(option_type)
+    iv = OptionsPricing.implied_volatility(S, K, T, r, market_price, opt_type)
+    return {'implied_volatility': iv, 'market_price': market_price}
+
+@router.post("/options/buy")
+async def buy_option_contract(user_id: str, underlying: str,
+                              option_type: str, strike: float,
+                              expiry_days: int, quantity: int,
+                              current_price: float, volatility: float) -> Dict[str, Any]:
+    """Buy an option contract."""
+    position = await options_trading.buy_option(
+        user_id, underlying, option_type, strike, expiry_days, quantity,
+        current_price, volatility
+    )
+    return {
+        'position_id': position.position_id,
+        'symbol': position.option.symbol,
+        'premium': position.entry_price,
+        'quantity': position.option.quantity,
+        'entry_date': position.entry_date.isoformat(),
+        'greeks': {
+            'delta': position.option.delta,
+            'gamma': position.option.gamma,
+            'theta': position.option.theta,
+            'vega': position.option.vega
+        }
+    }
+
+@router.post("/options/strategy-payoff")
+async def calculate_strategy_payoff(strategy: str,
+                                   legs: List[Dict],
+                                   price_range: List[float]) -> Dict[str, Any]:
+    """Calculate payoff diagram for multi-leg option strategies."""
+    return await options_trading.calculate_strategy_payoff(
+        strategy, legs, (price_range[0], price_range[1])
+    )
+
+@router.get("/options/portfolio-greeks/{user_id}")
+async def get_portfolio_greeks(user_id: str) -> Dict[str, Any]:
+    """Get aggregate Greeks for user's options portfolio."""
+    return await options_trading.get_portfolio_greeks(user_id)
+
+@router.get("/options/screen")
+async def screen_options(underlying: str,
+                        min_volume: int = 100,
+                        max_iv: float = 1.0) -> List[Dict]:
+    """Screen for attractive option opportunities."""
+    return await options_trading.screen_options(underlying, min_volume, max_iv)
+
+
+# ========== HFT EXECUTION ENDPOINTS ==========
+
+@router.post("/hft/submit-order")
+async def submit_hft_order(order_data: Dict[str, Any]) -> Dict[str, Any]:
+    """Submit ultra-low latency HFT order."""
+    order = HFTOrder(
+        order_id=order_data['order_id'],
+        symbol=order_data['symbol'],
+        side=order_data['side'],
+        quantity=order_data['quantity'],
+        price=order_data.get('price', 0),
+        order_type=order_data.get('order_type', 'market'),
+        timestamp=order_data.get('timestamp', __import__('time').time()),
+        latency_target_ms=order_data.get('latency_target_ms', 0.1),
+        strategy_id=order_data.get('strategy_id', 'default')
+    )
+    return await hft_engine.submit_order(order)
+
+@router.get("/hft/latency-report")
+async def get_hft_latency_report() -> Dict[str, Any]:
+    """Get HFT execution latency statistics."""
+    return await hft_engine.get_latency_report()
+
+@router.post("/hft/arbitrage-scan")
+async def scan_arbitrage_opportunities(symbols: List[str]) -> List[Dict]:
+    """Scan for HFT arbitrage opportunities."""
+    return await hft_engine.arbitrage_scan(symbols)
+
+@router.post("/hft/register-strategy")
+async def register_hft_strategy(strategy_id: str, 
+                                strategy_code: Optional[str] = None) -> Dict[str, Any]:
+    """Register high-frequency trading strategy."""
+    def sample_strategy(tick: Tick):
+        # Placeholder strategy logic
+        pass
+    
+    hft_engine.register_strategy(strategy_id, sample_strategy)
+    return {'strategy_id': strategy_id, 'status': 'registered'}
+
+
+# ========== RISK MANAGEMENT ENDPOINTS ==========
+
+@router.post("/risk/set-limits/{user_id}")
+async def set_risk_limits(user_id: str, limits: Dict[str, float]) -> Dict[str, Any]:
+    """Set user-specific risk limits."""
+    await risk_manager.set_user_limits(user_id, limits)
+    return {'user_id': user_id, 'limits_set': list(limits.keys())}
+
+@router.post("/risk/check-order/{user_id}")
+async def check_order_risk(user_id: str, order: Dict[str, Any]) -> Dict[str, Any]:
+    """Pre-trade risk check for order."""
+    return await risk_manager.check_order_risk(user_id, order)
+
+@router.post("/risk/update-exposure/{user_id}")
+async def update_exposure(user_id: str, positions: List[Dict]) -> Dict[str, Any]:
+    """Update portfolio exposure calculations."""
+    return await risk_manager.update_exposure(user_id, positions)
+
+@router.get("/risk/portfolio-var/{user_id}")
+async def get_portfolio_var(user_id: str, 
+                            positions: List[Dict],
+                            confidence: float = 0.95) -> Dict[str, float]:
+    """Calculate portfolio Value at Risk."""
+    var = await risk_manager.calculate_portfolio_var(user_id, positions, confidence)
+    return {'var_95': var, 'confidence': confidence}
+
+@router.post("/risk/stress-test/{user_id}")
+async def run_stress_test(user_id: str,
+                         positions: List[Dict],
+                         scenarios: Optional[List[str]] = None) -> Dict[str, Any]:
+    """Run stress tests on portfolio."""
+    return await risk_manager.stress_test(user_id, positions, scenarios)
+
+@router.get("/risk/report/{user_id}")
+async def get_risk_report(user_id: str) -> Dict[str, Any]:
+    """Generate comprehensive risk report."""
+    return await risk_manager.get_risk_report(user_id)
+
+@router.post("/risk/circuit-breaker")
+async def check_circuit_breaker(market_data: Dict[str, Any]) -> Dict[str, Any]:
+    """Check if circuit breakers should trigger."""
+    triggered = await risk_manager.circuit_breaker_check(market_data)
+    return {'circuit_breaker_triggered': triggered, 'daily_change_pct': market_data.get('daily_change_pct', 0)}
+
+
+# ========== COMPLIANCE & REGULATORY ENDPOINTS ==========
+
+@router.post("/compliance/report-trade")
+async def report_trade(trade: Dict[str, Any],
+                      jurisdiction: str = "sec") -> Dict[str, Any]:
+    """Submit trade for regulatory reporting."""
+    regulation = Regulation(jurisdiction)
+    report = await compliance_engine.report_trade(trade, regulation)
+    return {
+        'report_id': report.report_id,
+        'trade_id': report.trade_id,
+        'compliance_hash': report.compliance_hash,
+        'status': 'reported'
+    }
+
+@router.post("/compliance/surveillance")
+async def run_trade_surveillance(trades: List[Dict],
+                                orders: List[Dict]) -> Dict[str, Any]:
+    """Run market abuse surveillance."""
+    alerts = await compliance_engine.run_trade_surveillance(trades, orders)
+    return {
+        'alerts_generated': len(alerts),
+        'alerts': [{
+            'alert_id': a.alert_id,
+            'type': a.activity_type,
+            'risk_score': a.risk_score,
+            'description': a.description
+        } for a in alerts]
+    }
+
+@router.get("/compliance/regulatory-filing/{jurisdiction}")
+async def generate_regulatory_filing(jurisdiction: str,
+                                    period: str = "monthly") -> Dict[str, Any]:
+    """Generate regulatory filing report."""
+    regulation = Regulation(jurisdiction)
+    return await compliance_engine.generate_regulatory_filing(regulation, period)
+
+@router.get("/compliance/verify-integrity")
+async def verify_audit_integrity() -> Dict[str, Any]:
+    """Verify integrity of audit trail."""
+    return await compliance_engine.verify_audit_integrity()
+
+@router.get("/compliance/audit-trail")
+async def get_audit_trail(limit: int = 100) -> List[Dict]:
+    """Get recent audit trail entries."""
+    return compliance_engine.audit_trail[-limit:]
+
+
+# ========== ETL DATA PIPELINE ENDPOINTS ==========
+
+@router.post("/etl/create-job")
+async def create_etl_job(source: str,
+                        data_type: str,
+                        symbol: str,
+                        start_date: str,
+                        end_date: str) -> Dict[str, Any]:
+    """Create ETL job for data ingestion."""
+    job = await etl_pipeline.create_etl_job(source, data_type, symbol, start_date, end_date)
+    return {
+        'job_id': job.job_id,
+        'symbol': job.symbol,
+        'source': job.source.value,
+        'data_type': job.data_type.value,
+        'status': job.status,
+        'created_at': job.created_at.isoformat()
+    }
+
+@router.post("/etl/run-job/{job_id}")
+async def run_etl_job(job_id: str) -> Dict[str, Any]:
+    """Execute ETL job."""
+    job = await etl_pipeline.run_etl_job(job_id)
+    return {
+        'job_id': job.job_id,
+        'status': job.status,
+        'records_processed': job.records_processed,
+        'completed_at': job.completed_at.isoformat() if job.completed_at else None,
+        'error_message': job.error_message
+    }
+
+@router.get("/etl/job-status/{job_id}")
+async def get_etl_job_status(job_id: str) -> Dict[str, Any]:
+    """Get ETL job status and lineage."""
+    return await etl_pipeline.get_job_status(job_id)
+
+@router.get("/etl/jobs")
+async def list_etl_jobs(status: Optional[str] = None) -> List[Dict]:
+    """List ETL jobs with optional filtering."""
+    return await etl_pipeline.list_jobs(status)
+
+
+# ========== FEATURE STORE ENDPOINTS ==========
+
+@router.post("/features/register")
+async def register_feature(feature_name: str,
+                          feature_type: str,
+                          description: str,
+                          ttl_seconds: int = 3600) -> Dict[str, Any]:
+    """Register a new feature in the feature store."""
+    await feature_store.register_feature(feature_name, feature_type, description, ttl_seconds)
+    return {
+        'feature_name': feature_name,
+        'type': feature_type,
+        'status': 'registered'
+    }
+
+@router.post("/features/compute-technical/{symbol}")
+async def compute_technical_features(symbol: str,
+                                    price_data: List[Dict]) -> Dict[str, Any]:
+    """Compute technical analysis features for a symbol."""
+    return await feature_store.compute_technical_features(symbol, price_data)
+
+@router.post("/features/store-online/{entity_id}")
+async def store_online_features(entity_id: str,
+                               features: Dict[str, Any]) -> Dict[str, str]:
+    """Store features in online store for real-time serving."""
+    await feature_store.store_online_features(entity_id, features)
+    return {'status': 'stored', 'entity_id': entity_id}
+
+@router.get("/features/get-online/{entity_id}")
+async def get_online_features(entity_id: str,
+                              feature_names: List[str]) -> Dict[str, Any]:
+    """Retrieve features from online store."""
+    return await feature_store.get_online_features(entity_id, feature_names)
+
+@router.post("/features/drift-detection")
+async def detect_feature_drift(feature_name: str,
+                              current_values: List[float],
+                              reference_values: List[float]) -> Dict[str, Any]:
+    """Detect feature drift from reference distribution."""
+    return await feature_store.detect_feature_drift(feature_name, current_values, reference_values)
+
+
+# ========== PAPER TRADING ENDPOINTS ==========
+
+@router.post("/paper/account/create")
+async def create_paper_account(user_id: str,
+                             initial_balance: float = 100000.0) -> Dict[str, Any]:
+    """Create paper trading account."""
+    return await paper_trading.create_account(user_id, initial_balance)
+
+@router.post("/paper/order/submit")
+async def submit_paper_order(user_id: str,
+                            symbol: str,
+                            side: str,
+                            quantity: float,
+                            order_type: str = "market",
+                            price: Optional[float] = None) -> Dict[str, Any]:
+    """Submit paper trading order."""
+    order = await paper_trading.submit_order(user_id, symbol, side, quantity, order_type, price)
+    return {
+        'order_id': order.order_id,
+        'status': order.status.value,
+        'symbol': order.symbol,
+        'side': order.side,
+        'quantity': order.quantity,
+        'filled_quantity': order.filled_quantity,
+        'avg_fill_price': order.avg_fill_price,
+        'commission': order.commission
+    }
+
+@router.post("/paper/prices/update")
+async def update_paper_prices(prices: Dict[str, float]) -> Dict[str, Any]:
+    """Update market prices for paper trading simulation."""
+    await paper_trading.update_market_prices(prices)
+    return {'updated_symbols': len(prices)}
+
+@router.get("/paper/portfolio/{user_id}")
+async def get_paper_portfolio(user_id: str) -> Dict[str, Any]:
+    """Get paper trading portfolio."""
+    return await paper_trading.get_portfolio(user_id)
+
+@router.post("/paper/order/cancel/{order_id}")
+async def cancel_paper_order(order_id: str) -> Dict[str, Any]:
+    """Cancel pending paper trading order."""
+    success = await paper_trading.cancel_order(order_id)
+    return {'order_id': order_id, 'cancelled': success}
