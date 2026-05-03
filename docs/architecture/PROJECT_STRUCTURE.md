@@ -1,4 +1,5 @@
 # Financial Master - Project Structure
+
 **Last Updated:** April 25, 2026
 **Status:** ✅ ORGANIZED & CLEAN
 
@@ -99,6 +100,36 @@ config/
     └── .env.example            # Environment template
 ```
 
+## Infrastructure & Deployment
+
+```
+├── k8s/                      # Raw Kubernetes manifests
+│   ├── namespace.yaml        # K8s namespace
+│   ├── deployment.yaml       # API deployment
+│   ├── service.yaml          # ClusterIP services
+│   ├── ingress.yaml          # Ingress rules
+│   └── hpa.yaml              # Horizontal Pod Autoscaler
+│
+├── helm/                     # Helm chart for K8s
+│   └── financial-master/
+│       ├── Chart.yaml        # Chart metadata
+│       ├── values.yaml       # Default configuration
+│       ├── README.md         # Helm usage guide
+│       └── templates/        # K8s manifest templates
+│           ├── _helpers.tpl
+│           ├── deployment.yaml
+│           ├── service.yaml
+│           ├── ingress.yaml
+│           ├── hpa.yaml
+│           ├── configmap.yaml
+│           └── worker-deployment.yaml
+│
+└── .github/workflows/        # CI/CD pipelines
+    ├── ci-cd.yml             # Main CI/CD pipeline
+    ├── ci.yml                # Simplified CI
+    └── deploy-cloudflare.yml # Cloudflare deployment
+```
+
 ---
 
 ## Test Structure
@@ -123,7 +154,8 @@ scripts/
 
 ## Cleanup Results
 
-### Deleted (Consolidated):
+### Deleted (Consolidated)
+
 - ✅ 8 duplicate grade tracking files → 1 consolidated file
 - ✅ 4 duplicate gap analysis files → 1 consolidated file
 - ✅ 8 scattered feature docs → organized in docs/features/
@@ -131,7 +163,8 @@ scripts/
 - ✅ 9 phase folders (00-09) → deleted after code extraction
 - ✅ 07_Working_Files/ (172 items) → code moved, folder deleted
 
-### Moved:
+### Moved
+
 - ✅ `app/` → `src/backend/app/`
 - ✅ `mobile/` → `src/mobile/`
 - ✅ `Dockerfile` → `config/docker/`
@@ -190,8 +223,12 @@ scripts/
 | Configuration | `config/` |
 | Tests | `tests/` |
 | Build scripts | `scripts/` |
+| Kubernetes manifests | `k8s/` |
+| Helm chart | `helm/financial-master/` |
+| CI/CD workflows | `.github/workflows/` |
 | Grade history | `docs/grade-tracking/` |
 | Feature specs | `docs/features/` |
+| Deployment guides | `docs/deployment/` |
 
 ---
 
@@ -208,7 +245,13 @@ cd src/frontend/dashboard && npm start
 cd tests && pytest
 
 # Docker compose
-cd config/docker && docker-compose up
+docker-compose up -d
+
+# Helm deploy
+cd helm/financial-master && helm install financial-master . -n financial-master --create-namespace
+
+# Kubernetes apply
+kubectl apply -f k8s/
 
 # Build all
 make build
@@ -219,4 +262,3 @@ make build
 **Status:** Production Ready 🚀
 **Grade:** 110/100 (Exceeded SSS+)
 **Structure:** Professional & Organized
-

@@ -5,14 +5,17 @@
 ### Step-by-Step Instructions
 
 #### 1. Navigate to Your Repository
-1. Go to https://github.com/jayprophit/Financial-Master
+
+1. Go to <https://github.com/jayprophit/Financial-Master>
 2. Click on **"Settings"** tab (top right of repository)
 
 #### 2. Access Secrets Section
+
 1. In the left sidebar, click **"Secrets and variables"**
 2. Click **"Actions"** from the dropdown
 
 #### 3. Add a New Secret
+
 1. Click the green **"New repository secret"** button
 2. Fill in the form:
 
@@ -21,7 +24,7 @@
 | **Name*** | Secret identifier (UPPERCASE with underscores) | `API_KEY_OPENAI` |
 | **Secret*** | The actual secret value | `sk-abc123xyz...` |
 
-3. Click **"Add secret"**
+1. Click **"Add secret"**
 
 ### 📋 Common Secrets for Financial Master
 
@@ -58,6 +61,12 @@ TELEGRAM_BOT_TOKEN          # Telegram bot
 VERCEL_TOKEN                # Vercel deployment
 NETLIFY_AUTH_TOKEN          # Netlify deployment
 DOCKER_HUB_TOKEN            # Docker Hub access
+GITHUB_TOKEN                # GitHub Container Registry (auto-provided)
+
+# Kubernetes (for CI/CD deployment to K8s clusters)
+KUBE_CONFIG_STAGING         # Base64-encoded kubeconfig for staging cluster
+KUBE_CONFIG_PRODUCTION      # Base64-encoded kubeconfig for production cluster
+KUBECONFIG                  # Alternative: raw kubeconfig content
 ```
 
 ### 🔧 Using Secrets in Workflows
@@ -78,12 +87,14 @@ jobs:
 ### 🛡️ Security Best Practices
 
 1. **Never commit secrets to code**
+
    ```bash
    # BAD - Never do this!
    API_KEY = "sk-abc123..."  # in source code
    ```
 
 2. **Use environment variables in code**
+
    ```python
    # GOOD
    import os
@@ -111,19 +122,25 @@ jobs:
 ### 🚨 Troubleshooting Secrets
 
 **Problem: Secret not found in workflow**
+
 ```
 Error: Input required and not supplied: api-key
 ```
+
 **Solution:**
+
 1. Verify secret name matches exactly (case-sensitive)
 2. Check it's added to Repository secrets (not Environment secrets)
 3. Re-run workflow after adding secret
 
 **Problem: Secret shows as empty**
+
 ```
 Secret value: 
 ```
+
 **Solution:**
+
 1. Secret wasn't saved properly - re-add it
 2. Secret was deleted - check secrets list
 
@@ -141,6 +158,29 @@ Secret value:
 - my secret        (spaces)
 - secret!          (special chars)
 - key123           (too generic)
+```
+
+### 🔐 Kubernetes Secret Setup
+
+For automated CI/CD deployment to Kubernetes clusters:
+
+```bash
+# 1. Get your kubeconfig file
+# Usually at ~/.kube/config
+
+# 2. Encode it to base64 (Linux/Mac)
+cat ~/.kube/config | base64 | pbcopy
+
+# 3. On Windows PowerShell
+[Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes((Get-Content ~/.kube/config -Raw))) | Set-Clipboard
+
+# 4. Add to GitHub Secrets:
+# - Name: KUBE_CONFIG_STAGING
+# - Value: <paste base64 output>
+
+# 5. Verify in workflow:
+echo "${{ secrets.KUBE_CONFIG_STAGING }}" | base64 -d > kubeconfig
+kubectl --kubeconfig=kubeconfig get nodes
 ```
 
 ---

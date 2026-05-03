@@ -1,4 +1,5 @@
 # Production Deployment Guide
+
 ## Financial Master - 500/100 Transcendent
 
 **Version:** 4.0.0
@@ -10,6 +11,7 @@
 ## 📋 Pre-Deployment Checklist
 
 ### Infrastructure Requirements
+
 - [ ] Docker & Docker Compose installed
 - [ ] Kubernetes cluster (EKS/GKE/AKS) or Docker Swarm
 - [ ] PostgreSQL 14+ database
@@ -19,6 +21,7 @@
 - [ ] Cloud provider account (AWS/GCP/Azure)
 
 ### API Keys & Secrets
+
 - [ ] Polygon.io API key
 - [ ] Alpaca API key & secret
 - [ ] Alpha Vantage API key
@@ -28,6 +31,7 @@
 - [ ] Redis credentials
 
 ### Security
+
 - [ ] Firewall rules configured
 - [ ] DDoS protection enabled (CloudFlare)
 - [ ] WAF configured
@@ -359,6 +363,113 @@ kubectl rollout undo deployment/fm-api -n financial-master
 
 ---
 
+## ⎈ Helm Deployment (Recommended)
+
+Helm provides a production-ready, templated approach to deploying Financial Master on Kubernetes with built-in best practices.
+
+### Prerequisites
+
+```bash
+# Install Helm 3.12+
+curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
+# Add Bitnami repository for dependencies
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo update
+
+# Verify kubectl access
+kubectl cluster-info
+```
+
+### Quick Deploy
+
+```bash
+# Install with default production values
+helm install financial-master ./helm/financial-master \
+  --namespace financial-master \
+  --create-namespace \
+  --set global.environment=production
+
+# Verify installation
+helm list -n financial-master
+kubectl get pods -n financial-master
+kubectl get ingress -n financial-master
+```
+
+### Environment-Specific Configurations
+
+```bash
+# Development (minimal resources, no persistence)
+helm install financial-master ./helm/financial-master \
+  --namespace financial-master-dev \
+  --create-namespace \
+  --set api.replicaCount=1 \
+  --set api.autoscaling.enabled=false \
+  --set postgresql.primary.persistence.enabled=false \
+  --set global.environment=development
+
+# Staging (production-like, smaller scale)
+helm install financial-master ./helm/financial-master \
+  --namespace financial-master-staging \
+  --create-namespace \
+  --set api.replicaCount=2 \
+  --set api.ingress.hosts[0].host=api-staging.financialmaster.app \
+  --set global.environment=staging
+
+# Production (full scale with autoscaling)
+helm install financial-master ./helm/financial-master \
+  --namespace financial-master-prod \
+  --create-namespace \
+  --set api.replicaCount=5 \
+  --set api.autoscaling.minReplicas=5 \
+  --set api.autoscaling.maxReplicas=20 \
+  --set api.resources.limits.memory=8Gi \
+  --set api.resources.limits.cpu=4000m \
+  --set global.environment=production
+```
+
+### Managing Secrets
+
+```bash
+# Create secrets before Helm install
+kubectl create secret generic financial-master-secrets \
+  --namespace financial-master \
+  --from-literal=JWT_SECRET_KEY=$(openssl rand -hex 32) \
+  --from-literal=API_KEY=$(openssl rand -hex 16) \
+  --from-literal=ALPACA_API_KEY=your-key \
+  --from-literal=ALPACA_SECRET_KEY=your-secret \
+  --from-literal=POLYGON_API_KEY=your-polygon-key
+
+# Helm will automatically pick up secrets via envFromSecret in values.yaml
+```
+
+### Upgrades & Rollbacks
+
+```bash
+# Upgrade to new version
+helm upgrade financial-master ./helm/financial-master \
+  --namespace financial-master \
+  --set api.image.tag=v4.0.1
+
+# Rollback to previous revision
+helm rollback financial-master 1 -n financial-master
+
+# View revision history
+helm history financial-master -n financial-master
+```
+
+### Uninstall
+
+```bash
+# Remove Financial Master
+helm uninstall financial-master -n financial-master
+
+# Clean up namespace
+kubectl delete namespace financial-master
+```
+
+---
+
 ## 🔒 Security Hardening
 
 ### 1. Network Security
@@ -443,6 +554,7 @@ scrape_configs:
 Access at: `https://grafana.your-domain.com`
 
 Default dashboards:
+
 - API Performance
 - Trading Volume
 - AI Model Performance
@@ -468,6 +580,7 @@ gunzip < /backups/fm_20260425.sql.gz | psql -h db -U fm_user financial_master
 2. **RTO (Recovery Time Objective):** 30 minutes
 
 **Steps:**
+
 1. Activate standby database
 2. Redirect DNS to failover region
 3. Scale API servers in new region
@@ -502,12 +615,14 @@ curl -X POST https://api.financialmaster.com/api/v4/reality/simulate \
 ### Common Issues
 
 **High API Latency:**
+
 ```bash
 # Check database connection pool
 kubectl exec -it deploy/fm-api -n financial-master -- python -c "from app.core.database import check_pool; check_pool()"
 ```
 
 **Redis Connection Failed:**
+
 ```bash
 # Verify Redis is running
 kubectl get pods -n financial-master | grep redis
@@ -515,6 +630,7 @@ kubectl logs -n financial-master deployment/redis
 ```
 
 **AI Model Loading Failure:**
+
 ```bash
 # Check model cache
 kubectl exec -it deploy/fm-api -n financial-master -- ls -la /app/models/
@@ -540,5 +656,4 @@ kubectl exec -it deploy/fm-api -n financial-master -- ls -la /app/models/
 **Status: Production Ready** ✅
 **Grade: 500/100 - TRANSCENDENT** 🔥✨
 
-For support: support@financialmaster.com
-
+For support: <support@financialmaster.com>

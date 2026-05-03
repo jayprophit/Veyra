@@ -112,9 +112,80 @@ jobs:
           path: bandit-report.json
           if-no-files-found: ignore
 
+  build-docker:
+    name: Build Docker Images
+    needs: [ test, lint, security ]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    continue-on-error: true
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push API image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository }}/api:${{ github.sha }}
+            ghcr.io/${{ github.repository }}/api:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  deploy-staging:
+    name: Deploy to Staging
+    needs: build-docker
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    environment: staging
+    continue-on-error: true
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: "3.12.0"
+
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v4
+        with:
+          version: "v1.28.0"
+
+      - name: Configure kubectl
+        run: |
+          echo "${{ secrets.KUBE_CONFIG_STAGING }}" | base64 -d > kubeconfig
+          export KUBECONFIG=kubeconfig
+
+      - name: Deploy with Helm
+        run: |
+          export KUBECONFIG=kubeconfig
+          helm upgrade --install financial-master ./helm/financial-master \
+            --namespace financial-master-staging \
+            --create-namespace \
+            --set api.image.tag=${{ github.sha }} \
+            --set global.environment=staging \
+            --wait \
+            --timeout 10m
+
   status-summary:
     name: CI Status Summary
-    needs: [ test, lint, security ]
+    needs: [ test, lint, security, build-docker, deploy-staging ]
     runs-on: ubuntu-latest
     if: always()
 
@@ -128,5 +199,7 @@ jobs:
           echo "| Test (3.10-3.12) | ${{ needs.test.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Lint | ${{ needs.lint.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Security | ${{ needs.security.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Build Docker | ${{ needs.build-docker.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Deploy Staging | ${{ needs.deploy-staging.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "All jobs configured with \\"continue-on-error: true\\" for resilience." >> $GITHUB_STEP_SUMMARY
+          echo "All jobs configured with \"continue-on-error: true\" for resilience." >> $GITHUB_STEP_SUMMARY

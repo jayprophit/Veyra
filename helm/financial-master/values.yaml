@@ -1,0 +1,221 @@
+# Financial Master - Helm Chart Values
+
+# Global settings
+global:
+  environment: production
+  imageRegistry: ""
+  imagePullSecrets: []
+
+# API Application
+api:
+  enabled: true
+  replicaCount: 3
+  
+  image:
+    repository: financial-master/api
+    tag: v4.0.0
+    pullPolicy: Always
+  
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 8000
+  
+  ingress:
+    enabled: true
+    className: nginx
+    annotations:
+      nginx.ingress.kubernetes.io/rate-limit: "100"
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    hosts:
+      - host: api.financialmaster.app
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: api-tls-secret
+        hosts:
+          - api.financialmaster.app
+  
+  resources:
+    requests:
+      memory: "2Gi"
+      cpu: "1000m"
+    limits:
+      memory: "4Gi"
+      cpu: "2000m"
+  
+  autoscaling:
+    enabled: true
+    minReplicas: 3
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 70
+    targetMemoryUtilizationPercentage: 80
+  
+  livenessProbe:
+    enabled: true
+    path: /api/v1/health
+    port: 8000
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
+  
+  readinessProbe:
+    enabled: true
+    path: /api/v1/ready
+    port: 8000
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 3
+  
+  env:
+    - name: ENVIRONMENT
+      value: "production"
+    - name: LOG_LEVEL
+      value: "INFO"
+    - name: ENABLE_WEBSOCKET
+      value: "true"
+  
+  envFromSecrets:
+    - JWT_SECRET_KEY
+    - API_KEY
+    - DATABASE_URL
+    - REDIS_URL
+
+# Frontend Application
+frontend:
+  enabled: true
+  replicaCount: 2
+  
+  image:
+    repository: financial-master/frontend
+    tag: v4.0.0
+    pullPolicy: Always
+  
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+  
+  ingress:
+    enabled: true
+    className: nginx
+    annotations:
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    hosts:
+      - host: app.financialmaster.app
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: frontend-tls-secret
+        hosts:
+          - app.financialmaster.app
+  
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "250m"
+    limits:
+      memory: "1Gi"
+      cpu: "500m"
+
+# Celery Workers
+worker:
+  enabled: true
+  replicaCount: 2
+  
+  image:
+    repository: financial-master/api
+    tag: v4.0.0
+    pullPolicy: Always
+  
+  command:
+    - celery
+    - -A
+    - src.backend.app.core.celery_app
+    - worker
+    - --loglevel=info
+  
+  resources:
+    requests:
+      memory: "1Gi"
+      cpu: "500m"
+    limits:
+      memory: "2Gi"
+      cpu: "1000m"
+
+# Celery Beat Scheduler
+scheduler:
+  enabled: true
+  replicaCount: 1
+  
+  image:
+    repository: financial-master/api
+    tag: v4.0.0
+    pullPolicy: Always
+  
+  command:
+    - celery
+    - -A
+    - src.backend.app.core.celery_app
+    - beat
+    - --loglevel=info
+  
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "250m"
+    limits:
+      memory: "1Gi"
+      cpu: "500m"
+
+# PostgreSQL (Bitnami Subchart)
+postgresql:
+  enabled: true
+  auth:
+    username: postgres
+    password: postgres
+    database: financial_master
+  primary:
+    persistence:
+      enabled: true
+      size: 10Gi
+    resources:
+      requests:
+        memory: "1Gi"
+        cpu: "500m"
+      limits:
+        memory: "2Gi"
+        cpu: "1000m"
+
+# Redis (Bitnami Subchart)
+redis:
+  enabled: true
+  auth:
+    enabled: false
+  master:
+    persistence:
+      enabled: true
+      size: 5Gi
+    resources:
+      requests:
+        memory: "512Mi"
+        cpu: "250m"
+      limits:
+        memory: "1Gi"
+        cpu: "500m"
+
+# Monitoring
+monitoring:
+  enabled: true
+  prometheus:
+    enabled: true
+    retention: 15d
+    storage: 10Gi
+  grafana:
+    enabled: true
+    adminPassword: admin
+    storage: 5Gi

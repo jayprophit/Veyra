@@ -1,4 +1,5 @@
 # Financial Master - Complete Setup & Deployment Guide
+
 ## World-Class Industrial Build | Free Tier + Open Source
 
 ---
@@ -11,10 +12,11 @@
 4. [Step-by-Step Setup](#step-by-step-setup)
 5. [Local Development Setup](#local-development-setup)
 6. [Cloud Deployment](#cloud-deployment)
-7. [Testing Strategy](#testing-strategy)
-8. [GDPR & Data Compliance](#gdpr--data-compliance)
-9. [Security Configuration](#security-configuration)
-10. [Monitoring & Maintenance](#monitoring--maintenance)
+7. [Infrastructure & Kubernetes](#infrastructure--kubernetes)
+8. [Testing Strategy](#testing-strategy)
+9. [GDPR & Data Compliance](#gdpr--data-compliance)
+10. [Security Configuration](#security-configuration)
+11. [Monitoring & Maintenance](#monitoring--maintenance)
 
 ---
 
@@ -134,6 +136,7 @@
 ### Phase 1: Account Creation (30 minutes)
 
 #### 1.1 GitHub Setup
+
 ```bash
 # 1. Create GitHub account (if not done)
 # https://github.com/signup
@@ -148,6 +151,7 @@
 ```
 
 #### 1.2 Cloudflare Setup
+
 ```bash
 # 1. Sign up for Cloudflare (hobbyist free account)
 # https://dash.cloudflare.com/sign-up
@@ -163,6 +167,7 @@
 ```
 
 #### 1.3 Render Setup
+
 ```bash
 # 1. Sign up for Render
 # https://render.com
@@ -172,6 +177,7 @@
 ```
 
 #### 1.4 Neon Database Setup
+
 ```bash
 # 1. Sign up for Neon
 # https://neon.tech
@@ -185,6 +191,7 @@
 ```
 
 #### 1.5 UptimeRobot Setup
+
 ```bash
 # 1. Sign up for UptimeRobot
 # https://uptimerobot.com
@@ -197,6 +204,7 @@
 ### Phase 2: API Key Acquisition (45 minutes)
 
 #### 2.1 Alpaca (Paper Trading)
+
 ```bash
 # 1. Visit: https://app.alpaca.markets/signup
 # 2. Verify email
@@ -213,6 +221,7 @@ ALPACA_BASE_URL=https://paper-api.alpaca.markets
 ```
 
 #### 2.2 Polygon.io
+
 ```bash
 # 1. Visit: https://polygon.io/dashboard/signup
 # 2. Verify email
@@ -224,6 +233,7 @@ POLYGON_API_KEY=your_key_here
 ```
 
 #### 2.3 Alpha Vantage
+
 ```bash
 # 1. Visit: https://www.alphavantage.co/support/#api-key
 # 2. Enter email
@@ -234,6 +244,7 @@ ALPHA_VANTAGE_API_KEY=your_key_here
 ```
 
 #### 2.4 OpenAI (Optional - for AI features)
+
 ```bash
 # 1. Visit: https://platform.openai.com/signup
 # 2. Add payment method for $5 free credit
@@ -245,6 +256,7 @@ OPENAI_API_KEY=your_key_here
 ```
 
 #### 2.5 Telegram Bot (Optional - for notifications)
+
 ```bash
 # 1. Message @BotFather on Telegram
 # 2. Type: /newbot
@@ -264,6 +276,7 @@ TELEGRAM_CHAT_ID=your_chat_id_here
 ### Phase 3: Local Environment Setup (30 minutes)
 
 #### 3.1 Prerequisites
+
 ```bash
 # Windows (PowerShell as Administrator):
 
@@ -287,6 +300,7 @@ ollama --version
 ```
 
 #### 3.2 Clone Repository & Setup
+
 ```powershell
 # Navigate to your project
 cd "c:\Users\jpowe\Desktop\Financial Master"
@@ -305,6 +319,7 @@ copy .env.example .env
 ```
 
 #### 3.3 Configure Local Environment File
+
 Edit `c:\Users\jpowe\Desktop\Financial Master\.env`:
 
 ```env
@@ -381,6 +396,7 @@ FRONTEND_URL=http://localhost:3000
 ```
 
 #### 3.4 Test Local Setup
+
 ```powershell
 # Ensure you're in the project directory and venv is activated
 cd "c:\Users\jpowe\Desktop\Financial Master"
@@ -404,6 +420,7 @@ curl http://localhost:8000/health
 ## LOCAL DEVELOPMENT SETUP
 
 ### Directory Structure
+
 ```
 c:\Users\jpowe\Desktop\Financial Master\
 ├── .venv/                          # Python virtual environment
@@ -460,6 +477,7 @@ npm start
 ### Phase 4: Deploy to Render (Backend)
 
 #### 4.1 Create Web Service
+
 ```
 1. Go to https://dashboard.render.com
 2. Click "New +" > "Web Service"
@@ -493,6 +511,7 @@ npm start
 ### Phase 5: Deploy to Neon (Database)
 
 #### 5.1 Configure Neon Database
+
 ```
 1. Go to https://console.neon.tech
 2. Select your project: financial-master
@@ -509,6 +528,7 @@ npm start
 ### Phase 6: Deploy to Cloudflare Pages (Frontend/Docs)
 
 #### 6.1 Deploy Documentation
+
 ```
 1. Go to https://dash.cloudflare.com
 2. Pages > Create a project > Connect to Git
@@ -524,6 +544,7 @@ npm start
 ```
 
 #### 6.2 Deploy Frontend (if React build)
+
 ```
 1. Pages > Create a project > Connect to Git
 2. Select: jayprophit/Financial-Master
@@ -542,6 +563,7 @@ npm start
 ### Phase 7: Configure Cloudflare Workers (API Gateway)
 
 #### 7.1 Deploy Workers
+
 ```bash
 # Install Wrangler CLI
 npm install -g wrangler
@@ -564,9 +586,123 @@ wrangler deploy
 
 ---
 
+## INFRASTRUCTURE & KUBERNETES
+
+### Container Orchestration Stack
+
+Financial Master supports multiple deployment patterns from local development to production-scale Kubernetes clusters.
+
+| Tool | Purpose | Status | Priority | When to Use |
+|------|---------|--------|----------|-------------|
+| **Docker** | Container runtime for local development | ✅ Active | High | Local development, simple deployments |
+| **Docker Compose** | Multi-container orchestration | ✅ Active | High | Full stack on single machine |
+| **Kubernetes** | Production container orchestration | ✅ Configured | High | Scalable production workloads |
+| **Helm** | K8s package management | ✅ Available | Medium | Managing K8s app lifecycle |
+| **GitHub Actions** | CI/CD automation | ✅ Active | High | Automated testing & deployment |
+| **Terraform** | Infrastructure as Code | ⏳ Optional | Low | AWS/GCP/Azure provisioning |
+| **Istio** | Service mesh | ⏭️ Future | Skip | Not needed at current scale |
+| **ArgoCD** | GitOps continuous delivery | ⏳ Optional | Low | Advanced K8s deployment patterns |
+
+### Local Development with Docker
+
+```bash
+# Start full stack with monitoring
+docker-compose up -d
+
+# Access services:
+# - API: http://localhost:8000
+# - Grafana: http://localhost:3000
+# - Prometheus: http://localhost:9090
+# - Ollama (AI): http://localhost:11434
+
+# View logs
+docker-compose logs -f api
+
+# Stop all services
+docker-compose down
+```
+
+### Kubernetes Deployment
+
+#### Option 1: Helm (Recommended)
+
+```bash
+# Install Financial Master with Helm
+helm install financial-master ./helm/financial-master \
+  --namespace financial-master \
+  --create-namespace \
+  --set global.environment=staging
+
+# Verify deployment
+kubectl get pods -n financial-master
+kubectl get ingress -n financial-master
+
+# Upgrade deployment
+helm upgrade financial-master ./helm/financial-master \
+  --namespace financial-master \
+  --set api.image.tag=v4.0.1
+```
+
+#### Option 2: Raw Kubernetes Manifests
+
+```bash
+# Apply all manifests
+kubectl apply -f k8s/namespace.yaml
+kubectl apply -f k8s/configmap.yaml
+kubectl apply -f k8s/deployment.yaml
+kubectl apply -f k8s/service.yaml
+kubectl apply -f k8s/ingress.yaml
+kubectl apply -f k8s/hpa.yaml
+```
+
+### Environment-Specific Helm Values
+
+```bash
+# Development (minimal resources)
+helm install financial-master ./helm/financial-master \
+  --namespace financial-master-dev \
+  --create-namespace \
+  --set api.replicaCount=1 \
+  --set api.autoscaling.enabled=false \
+  --set postgresql.primary.persistence.enabled=false
+
+# Production (full scale)
+helm install financial-master ./helm/financial-master \
+  --namespace financial-master-prod \
+  --create-namespace \
+  --set api.replicaCount=5 \
+  --set api.autoscaling.maxReplicas=20 \
+  --set global.environment=production
+```
+
+### CI/CD Pipeline
+
+Every push to `main` automatically triggers:
+
+1. **Test** - Python 3.10/3.11/3.12 matrix testing
+2. **Lint** - Code quality checks (flake8, black, isort)
+3. **Security** - Bandit security scanning
+4. **Build** - Docker image build & push to GitHub Container Registry
+5. **Deploy** - Automated Helm deployment to staging Kubernetes cluster
+
+Required GitHub Secrets:
+
+- `KUBE_CONFIG_STAGING` - Base64-encoded kubeconfig for staging cluster
+- `GITHUB_TOKEN` - Auto-provided for GHCR authentication
+
+### Monitoring Stack
+
+- **Prometheus** - Metrics collection at `http://localhost:9090`
+- **Grafana** - Dashboards at `http://localhost:3000` (admin/admin)
+- **Health Checks** - `/api/v1/health` (liveness), `/api/v1/ready` (readiness)
+- **HPA** - Horizontal Pod Autoscaler (3-10 replicas based on CPU/memory)
+
+---
+
 ## TESTING STRATEGY
 
 ### Mock Data Testing (Week 1-2)
+
 ```powershell
 # Use mock data to test all features
 .venv\Scripts\Activate.ps1
@@ -586,6 +722,7 @@ pytest tests/integration/ -v
 ```
 
 ### Paper Trading Testing (Week 3-4)
+
 ```powershell
 # Switch to paper trading with live data
 # Edit .env:
@@ -613,6 +750,7 @@ curl -X POST http://localhost:8000/api/v1/order \
 ```
 
 ### Live Data Backtesting (Week 5-8)
+
 ```powershell
 # Run backtesting with 1-2 years historical data
 python -m src.backend.app.backtesting.engine \
@@ -660,6 +798,7 @@ python -m src.backend.app.backtesting.engine \
 - [ ] **Breach Notification**: Automated alerts
 
 ### Implementation
+
 ```python
 # Local data encryption (already in codebase)
 from cryptography.fernet import Fernet
@@ -679,6 +818,7 @@ encrypted = cipher.encrypt(sensitive_data.encode())
 ### Required Security Measures
 
 #### 1. API Key Rotation Schedule
+
 ```
 Alpaca:         Rotate every 90 days
 Polygon:        Rotate every 180 days
@@ -688,6 +828,7 @@ JWT Secret:     Rotate every 30 days
 ```
 
 #### 2. GitHub Secrets Setup
+
 ```
 1. Go to: https://github.com/jayprophit/Financial-Master/settings/secrets/actions
 
@@ -703,6 +844,7 @@ JWT Secret:     Rotate every 30 days
 ```
 
 #### 3. Local Security
+
 ```powershell
 # Create .env.local (never commit!)
 # Add to .gitignore:
@@ -723,6 +865,7 @@ icacls .env /inheritance:r /grant:r "%username%:F"
 ## MONITORING & MAINTENANCE
 
 ### UptimeRobot Setup
+
 ```
 1. Go to https://uptimerobot.com/dashboard
 2. Add New Monitor:
@@ -738,6 +881,7 @@ icacls .env /inheritance:r /grant:r "%username%:F"
 ```
 
 ### Sentry Error Tracking
+
 ```
 1. Sign up: https://sentry.io/signup/
 2. Create project: Python > FastAPI
@@ -763,6 +907,7 @@ icacls .env /inheritance:r /grant:r "%username%:F"
 ### Common Issues
 
 #### Issue: Backend won't start
+
 ```powershell
 # Check virtual environment
 .venv\Scripts\Activate.ps1
@@ -778,6 +923,7 @@ python -m src.backend.app.validate_setup
 ```
 
 #### Issue: API keys not working
+
 ```powershell
 # Verify .env file is loaded
 Get-ChildItem .env
@@ -789,6 +935,7 @@ curl "https://paper-api.alpaca.markets/v2/account" \
 ```
 
 #### Issue: Database locked (SQLite)
+
 ```powershell
 # Close all connections to the database
 # Restart the application
@@ -812,6 +959,7 @@ Remove-Item data/*.db-shm
 | Multiple users | Full VPS (Hetzner) | €5/mo | 5+ concurrent users |
 
 ### Production Architecture (Future)
+
 ```
 ┌────────────────────────────────────────────────────────────────┐
 │                        PRODUCTION STACK                        │
@@ -888,6 +1036,7 @@ Remove-Item data/*.db-shm
 **Next Review:** After first successful paper trading week
 
 **Support Resources:**
-- GitHub Issues: https://github.com/jayprophit/Financial-Master/issues
-- Documentation: https://financial-master-docs.pages.dev
-- API Status: https://financial-master-api.onrender.com/health
+
+- GitHub Issues: <https://github.com/jayprophit/Financial-Master/issues>
+- Documentation: <https://financial-master-docs.pages.dev>
+- API Status: <https://financial-master-api.onrender.com/health>

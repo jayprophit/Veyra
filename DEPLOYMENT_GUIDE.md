@@ -245,6 +245,139 @@ curl http://localhost:8000/api/v1/ai/analyze -X POST \
 
 ---
 
+## Infrastructure Tools & Orchestration
+
+Financial Master supports multiple deployment patterns from local development to production-scale Kubernetes clusters.
+
+### Container Orchestration Matrix
+
+| Tool | Purpose | Status | Priority | When to Use |
+|------|---------|--------|----------|-------------|
+| **Docker** | Container runtime | ✅ Active | High | Local development, simple deployments |
+| **Docker Compose** | Multi-container local orchestration | ✅ Active | High | Full stack on single machine |
+| **Kubernetes** | Production container orchestration | ✅ Configured | High | Scalable production workloads |
+| **Helm** | Kubernetes package management | ✅ Available | Medium | Managing K8s app lifecycle |
+| **GitHub Actions** | CI/CD automation | ✅ Active | High | Automated testing & deployment |
+| **Terraform** | Infrastructure as Code | ⏳ Optional | Low | AWS/GCP/Azure provisioning |
+| **Istio** | Service mesh | ⏭️ Future | Skip | Not needed at current scale |
+| **ArgoCD** | GitOps continuous delivery | ⏳ Optional | Low | Advanced K8s deployment patterns |
+
+### Deployment Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    DEVELOPMENT (Local)                       │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐           │
+│  │  Docker     │  │  Docker     │  │   Redis     │           │
+│  │  Compose    │  │  Compose    │  │             │           │
+│  │  (API)      │  │  (Frontend) │  │             │           │
+│  └──────┬──────┘  └─────────────┘  └─────────────┘           │
+└─────────┼─────────────────────────────────────────────────────┘
+          │
+          ▼ Docker Build
+┌─────────────────────────────────────────────────────────────┐
+│                    CI/CD (GitHub Actions)                    │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐           │
+│  │    Test     │  │    Build    │  │    Push     │           │
+│  │   (pytest)  │  │   (Docker)  │  │  (GHCR)     │           │
+│  └─────────────┘  └─────────────┘  └─────────────┘           │
+└─────────────────────────────────────────────────────────────┘
+          │
+          ▼ Helm Deploy
+┌─────────────────────────────────────────────────────────────┐
+│                    STAGING / PRODUCTION                      │
+│                    (Kubernetes Cluster)                       │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐           │
+│  │   Helm      │  │  K8s        │  │  HPA        │           │
+│  │  Release    │  │  Ingress    │  │  Autoscale  │           │
+│  └─────────────┘  └─────────────┘  └─────────────┘           │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Helm Deployment (Recommended for K8s)
+
+#### Quick Start
+
+```bash
+# Install Financial Master with Helm
+helm install financial-master ./helm/financial-master \
+  --namespace financial-master \
+  --create-namespace \
+  --set global.environment=staging
+
+# Verify deployment
+kubectl get pods -n financial-master
+kubectl get ingress -n financial-master
+
+# Upgrade deployment
+helm upgrade financial-master ./helm/financial-master \
+  --namespace financial-master \
+  --set api.image.tag=v4.0.1
+```
+
+#### Environment-Specific Values
+
+```bash
+# Development (minimal resources)
+helm install financial-master ./helm/financial-master \
+  --namespace financial-master-dev \
+  --create-namespace \
+  -f ./helm/financial-master/values.yaml \
+  --set api.replicaCount=1 \
+  --set api.autoscaling.enabled=false \
+  --set postgresql.primary.persistence.enabled=false
+
+# Production (full scale)
+helm install financial-master ./helm/financial-master \
+  --namespace financial-master-prod \
+  --create-namespace \
+  -f ./helm/financial-master/values.yaml \
+  --set api.replicaCount=5 \
+  --set api.autoscaling.maxReplicas=20 \
+  --set global.environment=production
+```
+
+### Raw Kubernetes Manifests
+
+For environments without Helm:
+
+```bash
+# Apply all manifests
+kubectl apply -f k8s/namespace.yaml
+kubectl apply -f k8s/configmap.yaml
+kubectl apply -f k8s/deployment.yaml
+kubectl apply -f k8s/service.yaml
+kubectl apply -f k8s/ingress.yaml
+kubectl apply -f k8s/hpa.yaml
+```
+
+### CI/CD Pipeline
+
+The GitHub Actions workflow (`ci-cd.yml`) includes:
+
+1. **Test Stage** - Python 3.10/3.11/3.12 matrix testing
+2. **Lint Stage** - Code quality checks (flake8, black, isort)
+3. **Security Stage** - Bandit security scanning
+4. **Build Stage** - Docker image build & push to GitHub Container Registry
+5. **Deploy Stage** - Automated Helm deployment to staging
+
+**Required Secrets**:
+
+- `KUBE_CONFIG_STAGING` - Base64-encoded kubeconfig for staging cluster
+- `GITHUB_TOKEN` - Auto-provided for GHCR authentication
+
+### Monitoring & Observability
+
+| Component | Tool | Access |
+|-----------|------|--------|
+| Metrics | Prometheus | `kubectl port-forward svc/prometheus 9090` |
+| Dashboards | Grafana | `kubectl port-forward svc/grafana 3000` |
+| Health | Liveness/Readiness | `/api/v1/health`, `/api/v1/ready` |
+| Scaling | HPA | `kubectl get hpa -n financial-master` |
+| Logs | kubectl | `kubectl logs -f deployment/fm-api` |
+
+---
+
 ## Safety Features
 
 Your setup has these protections:

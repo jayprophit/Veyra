@@ -1,4 +1,5 @@
 # Financial Master - Deployment Ready
+
 ## Complete Test Suite & Production Deployment Package
 
 **Version:** 4.0.0
@@ -108,6 +109,32 @@ k8s/
 └── hpa.yaml                # Horizontal Pod Autoscaler
 ```
 
+### 2.3 Helm Chart (Recommended for K8s)
+
+```
+helm/financial-master/
+├── Chart.yaml              # Chart metadata
+├── values.yaml             # Default configuration
+├── README.md               # Helm usage guide
+└── templates/
+    ├── _helpers.tpl        # Template helpers
+    ├── deployment.yaml     # API deployment
+    ├── service.yaml        # Services
+    ├── ingress.yaml        # Ingress rules
+    ├── hpa.yaml            # Autoscaling
+    ├── configmap.yaml      # Environment config
+    └── worker-deployment.yaml  # Celery workers
+```
+
+**Quick Helm Deploy:**
+
+```bash
+helm install financial-master ./helm/financial-master \
+  --namespace financial-master \
+  --create-namespace \
+  --set global.environment=production
+```
+
 ### 2.3 Docker Configuration
 
 ```
@@ -121,6 +148,7 @@ docker-compose.prod.yml    # Production Docker Compose
 ```
 
 **Pipeline Stages:**
+
 1. ✅ Lint & Security Scan (flake8, black, bandit, safety)
 2. ✅ Unit Tests (pytest)
 3. ✅ Integration Tests
@@ -195,11 +223,35 @@ kubectl get ingress -n financial-master
 curl https://api.financialmaster.com/api/v4/transcendent/status
 ```
 
+### Option C: Helm (Recommended for Production)
+
+```bash
+# 1. Add Bitnami repo for dependencies
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo update
+
+# 2. Install Financial Master
+helm install financial-master ./helm/financial-master \
+  --namespace financial-master \
+  --create-namespace \
+  --set global.environment=production
+
+# 3. Verify deployment
+helm list -n financial-master
+kubectl get pods -n financial-master
+
+# 4. Upgrade when needed
+helm upgrade financial-master ./helm/financial-master \
+  --namespace financial-master \
+  --set api.image.tag=v4.0.1
+```
+
 ---
 
 ## 🔒 Security Features
 
 ### Implemented
+
 - ✅ SSL/TLS (Let's Encrypt auto-renewal)
 - ✅ Rate limiting (60 req/min per IP)
 - ✅ WAF rules (OWASP Top 10)
@@ -211,6 +263,7 @@ curl https://api.financialmaster.com/api/v4/transcendent/status
 - ✅ Input validation (Pydantic models)
 
 ### Security Scanning
+
 - ✅ Bandit (Python security linter)
 - ✅ Safety (dependency vulnerability check)
 - ✅ Trivy (container image scanning)
@@ -221,6 +274,7 @@ curl https://api.financialmaster.com/api/v4/transcendent/status
 ## 📈 Monitoring & Observability
 
 ### Metrics Collected
+
 - API response times (p50, p95, p99)
 - Error rates by endpoint
 - Trading volume & execution times
@@ -230,6 +284,7 @@ curl https://api.financialmaster.com/api/v4/transcendent/status
 - Cache hit/miss rates
 
 ### Tools
+
 - **Prometheus:** Metrics collection
 - **Grafana:** Dashboards & visualization
 - **Loki:** Log aggregation
@@ -237,6 +292,7 @@ curl https://api.financialmaster.com/api/v4/transcendent/status
 - **Sentry:** Error tracking
 
 ### Alerts
+
 - High error rate (> 1%)
 - High latency (> 500ms p95)
 - Database connection pool exhaustion
@@ -248,6 +304,7 @@ curl https://api.financialmaster.com/api/v4/transcendent/status
 ## 🎯 Production Readiness Checklist
 
 ### Tests ✅
+
 - [x] Unit tests written (30 tests)
 - [x] Integration tests written
 - [x] Test coverage > 80%
@@ -255,6 +312,7 @@ curl https://api.financialmaster.com/api/v4/transcendent/status
 - [x] Security tests passing
 
 ### Infrastructure ✅
+
 - [x] Kubernetes manifests complete
 - [x] Docker images optimized
 - [x] Auto-scaling configured (HPA)
@@ -262,6 +320,7 @@ curl https://api.financialmaster.com/api/v4/transcendent/status
 - [x] Rolling updates configured
 
 ### Security ✅
+
 - [x] SSL/TLS configured
 - [x] Secrets management
 - [x] Network policies
@@ -269,6 +328,7 @@ curl https://api.financialmaster.com/api/v4/transcendent/status
 - [x] Security scanning
 
 ### Monitoring ✅
+
 - [x] Prometheus metrics
 - [x] Grafana dashboards
 - [x] Log aggregation
@@ -276,6 +336,7 @@ curl https://api.financialmaster.com/api/v4/transcendent/status
 - [x] Runbooks documented
 
 ### Documentation ✅
+
 - [x] API documentation (v4)
 - [x] Deployment guide
 - [x] Troubleshooting guide
@@ -317,12 +378,14 @@ kubectl logs -f deployment/fm-api -n financial-master
 ## 📞 Support
 
 ### Monitoring URLs
+
 - Application: `https://app.financialmaster.com`
 - API: `https://api.financialmaster.com`
 - Grafana: `https://grafana.financialmaster.com`
 - Prometheus: `https://prometheus.financialmaster.com`
 
 ### Emergency Procedures
+
 1. **Service Down:** Check pod status → Restart deployment → Check logs
 2. **High Error Rate:** Check database → Check external APIs → Scale up
 3. **Security Incident:** Isolate affected pods → Review logs → Rotate secrets
@@ -346,5 +409,4 @@ kubectl logs -f deployment/fm-api -n financial-master
 
 ---
 
-*For questions or support, contact: devops@financialmaster.com*
-
+*For questions or support, contact: <devops@financialmaster.com>*

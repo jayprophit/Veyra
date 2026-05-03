@@ -349,6 +349,77 @@ Financial Master/
 
 ---
 
+## Infrastructure & Deployment
+
+### Container Orchestration
+
+| Tool | Purpose | Status | Priority |
+|------|---------|--------|----------|
+| **Docker** | Container runtime for local development | ✅ Active | High |
+| **Kubernetes** | Production container orchestration | ✅ Configured | High |
+| **Helm** | Kubernetes package management | ✅ Available | Medium |
+| **GitHub Actions** | CI/CD automation | ✅ Active | High |
+| **Terraform** | Infrastructure as Code (AWS/GCP/Azure) | ⏳ Optional | Low |
+| **Istio** | Service mesh | ⏭️ Future | Skip |
+| **ArgoCD** | GitOps continuous delivery | ⏳ Optional | Low |
+
+### Deployment Options
+
+#### 1. Docker Compose (Local Development)
+
+```bash
+# Start full stack with monitoring
+docker-compose up -d
+
+# Access services:
+# - API: http://localhost:8000
+# - Grafana: http://localhost:3000
+# - Prometheus: http://localhost:9090
+```
+
+#### 2. Kubernetes (Production)
+
+```bash
+# Deploy with Helm (recommended)
+helm install financial-master ./helm/financial-master \
+  --namespace financial-master \
+  --create-namespace \
+  --set global.environment=production
+
+# Or use raw manifests
+kubectl apply -f k8s/
+```
+
+#### 3. Cloud Platforms
+
+| Platform | Cost | Best For |
+|----------|------|----------|
+| **Render** | Free tier | Quick cloud deployment |
+| **Cloudflare Workers** | Free tier | Edge API gateway |
+| **AWS/GCP/Azure** | Pay per use | Production scale |
+| **Self-hosted K8s** | Hardware cost | Full control |
+
+### CI/CD Pipeline
+
+Every push to `main` triggers:
+
+1. **Test** - Python 3.10/3.11/3.12 matrix
+2. **Lint** - flake8, black, isort
+3. **Security** - bandit scanning
+4. **Build** - Docker image → GitHub Container Registry
+5. **Deploy** - Auto-deploy to staging Kubernetes cluster
+
+See [`.github/workflows/ci-cd.yml`](.github/workflows/ci-cd.yml)
+
+### Monitoring Stack
+
+- **Prometheus** - Metrics collection
+- **Grafana** - Dashboards & visualization
+- **Health Checks** - `/api/v1/health`, `/api/v1/ready`
+- **HPA** - Horizontal Pod Autoscaler (3-10 replicas)
+
+---
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md)
