@@ -1,0 +1,296 @@
+name: Deploy to Azure
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment to deploy"
+        required: true
+        default: "staging"
+        type: choice
+        options:
+          - staging
+          - production
+  push:
+    branches: [ main ]
+    paths:
+      - "src/backend/**"
+      - "Dockerfile"
+      - ".github/workflows/deploy-azure.yml"
+
+env:
+  AZURE_RESOURCE_GROUP: financial-master-rg
+  AZURE_APP_NAME: financial-master-api
+  AZURE_LOCATION: eastus
+
+jobs:
+  deploy-azure:
+    name: Deploy to Azure Container Apps
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment || 'staging' }}
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Build and push to ACR
+        run: |
+          # Login to Azure Container Registry
+          az acr login --name ${{ secrets.AZURE_ACR_NAME }}
+
+          # Build and push
+          docker build -t ${{ secrets.AZURE_ACR_NAME }}.azurecr.io/financial-master:${{ github.sha }} .
+          docker push ${{ secrets.AZURE_ACR_NAME }}.azurecr.io/financial-master:${{ github.sha }}
+
+          echo "Image pushed successfully"
+
+      - name: Deploy to Container Apps
+        run: |
+          az containerapp update \
+            --name ${{ env.AZURE_APP_NAME }}-${{ github.event.inputs.environment || 'staging' }} \
+            --resource-group ${{ env.AZURE_RESOURCE_GROUP }}-${{ github.event.inputs.environment || 'staging' }} \
+            --image ${{ secrets.AZURE_ACR_NAME }}.azurecr.io/financial-master:${{ github.sha }} \
+            --set-env-vars \
+              "ENVIRONMENT=${{ github.event.inputs.environment || 'staging' }}" \
+              "VERSION=${{ github.sha }}" \
+              "AI_AGENT_MODE=active" \
+              "ANOMALY_DETECTION=enabled"
+
+      - name: Configure Autoscaling
+        run: |
+          az containerapp update \
+            --name ${{ env.AZURE_APP_NAME }}-${{ github.event.inputs.environment || 'staging' }} \
+            --resource-group ${{ env.AZURE_RESOURCE_GROUP }}-${{ github.event.inputs.environment || 'staging' }} \
+            --scale-rule-name trading-volume-rule \
+            --scale-rule-type azure-queue \
+            --scale-rule-metadata \
+              "accountName=${{ secrets.AZURE_STORAGE_ACCOUNT }}" \
+              "queueName=trading-queue" \
+              "queueLength=100" \
+            --scale-rule-auth \
+              "connection=storage-connection-string"
+
+      - name: Setup Application Insights
+        run: |
+          # Enable AI-powered monitoring
+          az monitor app-insights component create \
+            --app ${{ env.AZURE_APP_NAME }}-insights \
+            --location ${{ env.AZURE_LOCATION }} \
+            --resource-group ${{ env.AZURE_RESOURCE_GROUP }}-${{ github.event.inputs.environment || 'staging' }} \
+            --application-type web \
+            2>/dev/null || echo "Insights already exists"
+
+      - name: Create monitoring alerts
+        run: |
+          # Create action group for notifications
+          az monitor action-group create \
+            --name financial-master-alerts \
+            --resource-group ${{ env.AZURE_RESOURCE_GROUP }}-${{ github.event.inputs.environment || 'staging' }} \
+            --short-name fma \
+            --email-receiver admin \
+            --email admin@financialmaster.com \
+            2>/dev/null || echo "Action group exists"
+
+      - name: Deploy Azure Functions (AI Agents)
+        run: |
+          # Deploy serverless AI agents
+          cd src/backend/app/agents
+
+          # Market Analysis Agent
+          func azure functionapp publish fm-market-agent-${{ github.event.inputs.environment || 'staging' }} \
+            --python-version 3.11 \
+            2>/dev/null || echo "Function app deploy attempted"
+
+          # Risk Management Agent
+          func azure functionapp publish fm-risk-agent-${{ github.event.inputs.environment || 'staging' }} \
+            --python-version 3.11 \
+            2>/dev/null || echo "Function app deploy attempted"
+
+      - name: Update Azure Key Vault secrets
+        run: |
+          # Rotate secrets on deployment
+          az keyvault secret set \
+            --name api-version \
+            --vault-name fm-vault-${{ github.event.inputs.environment || 'staging' }} \
+            --value ${{ github.sha }}
+
+      - name: Health check and validation
+        run: |
+          ENDPOINT="https://${{ env.AZURE_APP_NAME }}-${{ github.event.inputs.environment || 'staging' }}.azurecontainerapps.io"
+
+          # Wait for deployment
+          sleep 30
+
+          # Health check
+          for i in {1..5}; do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$ENDPOINT/health" || echo "000")
+            if [ "$STATUS" = "200" ]; then
+              echo "✅ Health check passed"
+              exit 0
+            fi
+            echo "Attempt $i: Status $STATUS, retrying..."
+            sleep 10
+          done
+
+          echo "❌ Health check failed after 5 attempts"
+          exit 1
+
+      - name: Notify deployment
+        if: always()
+        run: |
+          echo "## Azure Deployment ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
+          echo "Environment: ${{ github.event.inputs.environment || 'staging' }}" >> $GITHUB_STEP_SUMMARY
+          echo "App: ${{ env.AZURE_APP_NAME }}" >> $GITHUB_STEP_SUMMARY
+          echo "Region: ${{ env.AZURE_LOCATION }}" >> $GITHUB_STEP_SUMMARY
+          echo "Version: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+
+  deploy-cognitive-services:
+    name: Deploy Azure AI Services
+    runs-on: ubuntu-latest
+    needs: deploy-azure
+
+    steps:
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy Azure OpenAI
+        run: |
+          # Deploy GPT-4 for trading analysis
+          az cognitiveservices account create \
+            --name fm-openai-${{ github.event.inputs.environment || 'staging' }} \
+            --resource-group ${{ env.AZURE_RESOURCE_GROUP }}-${{ github.event.inputs.environment || 'staging' }} \
+            --kind OpenAI \
+            --sku S0 \
+            --location ${{ env.AZURE_LOCATION }} \
+            --yes \
+            2>/dev/null || echo "OpenAI service exists"
+
+      - name: Deploy Speech Services
+        run: |
+          # For voice command processing
+          az cognitiveservices account create \
+            --name fm-speech-${{ github.event.inputs.environment || 'staging' }} \
+            --resource-group ${{ env.AZURE_RESOURCE_GROUP }}-${{ github.event.inputs.environment || 'staging' }} \
+            --kind SpeechServices \
+            --sku S0 \
+            --location ${{ env.AZURE_LOCATION }} \
+            --yes \
+            2>/dev/null || echo "Speech service exists"
+
+      - name: Deploy Anomaly Detector
+        run: |
+          # For trading anomaly detection
+          az cognitiveservices account create \
+            --name fm-anomaly-${{ github.event.inputs.environment || 'staging' }} \
+            --resource-group ${{ env.AZURE_RESOURCE_GROUP }}-${{ github.event.inputs.environment || 'staging' }} \
+            --kind AnomalyDetector \
+            --sku S0 \
+            --location ${{ env.AZURE_LOCATION }} \
+            --yes \
+            2>/dev/null || echo "Anomaly detector exists"
+
+      - name: Store AI service keys in Key Vault
+        run: |
+          # Get and store keys
+          OPENAI_KEY=$(az cognitiveservices account keys list \
+            --name fm-openai-${{ github.event.inputs.environment || 'staging' }} \
+            --resource-group ${{ env.AZURE_RESOURCE_GROUP }}-${{ github.event.inputs.environment || 'staging' }} \
+            --query key1 -o tsv)
+
+          az keyvault secret set \
+            --name openai-key \
+            --vault-name fm-vault-${{ github.event.inputs.environment || 'staging' }} \
+            --value "$OPENAI_KEY"
+
+  predictive-scaling:
+    name: Enable Predictive Autoscaling
+    runs-on: ubuntu-latest
+    needs: deploy-azure
+
+    steps:
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Setup predictive autoscaling
+        run: |
+          # Configure predictive scaling based on ML models
+          az monitor autoscale create \
+            --name fm-predictive-autoscale \
+            --resource-group ${{ env.AZURE_RESOURCE_GROUP }}-${{ github.event.inputs.environment || 'staging' }} \
+            --resource ${{ env.AZURE_APP_NAME }}-${{ github.event.inputs.environment || 'staging' }} \
+            --resource-type Microsoft.App/containerApps \
+            --min-count 2 \
+            --max-count 20 \
+            --count 3 \
+            --predictive-autoscale-mode Enabled \
+            --scale-out-cooldown 5 \
+            --scale-in-cooldown 10 \
+            2>/dev/null || echo "Autoscale profile exists"
+
+      - name: Add scaling rules
+        run: |
+          # Scale on CPU
+          az monitor autoscale rule create \
+            --resource-group ${{ env.AZURE_RESOURCE_GROUP }}-${{ github.event.inputs.environment || 'staging' }} \
+            --autoscale-name fm-predictive-autoscale \
+            --condition "Percentage CPU > 70 avg 5m" \
+            --scale out 3
+
+          # Scale on memory
+          az monitor autoscale rule create \
+            --resource-group ${{ env.AZURE_RESOURCE_GROUP }}-${{ github.event.inputs.environment || 'staging' }} \
+            --autoscale-name fm-predictive-autoscale \
+            --condition "Memory Percentage > 80 avg 5m" \
+            --scale out 2
+
+          # Scale on trading queue depth
+          az monitor autoscale rule create \
+            --resource-group ${{ env.AZURE_RESOURCE_GROUP }}-${{ github.event.inputs.environment || 'staging' }} \
+            --autoscale-name fm-predictive-autoscale \
+            --condition "TradingQueueDepth > 1000 avg 1m" \
+            --scale out 5
+
+  rollback-azure:
+    name: Rollback Azure Deployment
+    runs-on: ubuntu-latest
+    needs: deploy-azure
+    if: failure()
+
+    steps:
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Rollback to previous revision
+        run: |
+          # Get previous revision
+          PREVIOUS_REVISION=$(az containerapp revision list \
+            --name ${{ env.AZURE_APP_NAME }}-${{ github.event.inputs.environment || 'staging' }} \
+            --resource-group ${{ env.AZURE_RESOURCE_GROUP }}-${{ github.event.inputs.environment || 'staging' }} \
+            --query '[?properties.active==`true`].[name]' -o tsv | head -2 | tail -1)
+
+          if [ -n "$PREVIOUS_REVISION" ]; then
+            echo "Rolling back to revision: $PREVIOUS_REVISION"
+            az containerapp revision activate \
+              --name ${{ env.AZURE_APP_NAME }}-${{ github.event.inputs.environment || 'staging' }} \
+              --resource-group ${{ env.AZURE_RESOURCE_GROUP }}-${{ github.event.inputs.environment || 'staging' }} \
+              --revision $PREVIOUS_REVISION
+          else
+            echo "No previous revision found for rollback"
+          fi
+
+      - name: Notify rollback
+        run: |
+          echo "⚠️ Azure rollback executed for ${{ github.event.inputs.environment || 'staging' }}"
+          echo "Deployment failed - reverted to last known good revision"

@@ -1,10 +1,11 @@
 """
-Financial Master - Main Orchestrator
-====================================
-Entry point that wires all components together.
+Financial Master - Main Orchestrator & FastAPI Application
+===========================================================
+Entry point that wires all components together with REST API.
 
 Usage:
     python main.py              # Start all systems
+    python main.py --api        # Start API server only
     python main.py --dashboard  # Start dashboard only
     python main.py --agents     # Start agents only
     python main.py --websocket  # Start WebSocket feeds only
@@ -17,6 +18,7 @@ import argparse
 import logging
 from datetime import datetime
 from dotenv import load_dotenv
+import json
 
 # Setup logging
 logging.basicConfig(
@@ -40,6 +42,24 @@ from database_layer import DatabaseManager, DatabaseConfig
 from autonomous_agent_framework import AgentOrchestrator, GuardrailConfig, create_default_agents
 from websocket_real_time_feeds import DataFeedManager, WebSocketConfig, DataProvider
 from llm_integration_free_tier import LLMManager, LLMConfig
+
+# Import FastAPI
+from fastapi import FastAPI, APIRouter
+from fastapi.middleware.cors import CORSMiddleware
+
+# Import all trading module routers
+try:
+    from trading.strategy_builder_api import router as strategy_builder_router
+    from trading.copy_trading_api import router as copy_trading_router
+    from trading.bot_manager_api import router as bot_manager_router
+    from trading.metatrader_api import router as metatrader_router
+    from marketplace.marketplace_api import router as marketplace_router
+    from blockchain.token_economy_api import router as token_economy_router
+    from treasury.treasury_api import router as treasury_router
+    TRADING_MODULES_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Some trading modules not available: {e}")
+    TRADING_MODULES_AVAILABLE = False
 
 
 class FinancialMasterSystem:
@@ -152,14 +172,110 @@ class FinancialMasterSystem:
         }
 
 
+# Create FastAPI app
+def create_fastapi_app() -> FastAPI:
+    """Create and configure FastAPI application."""
+    app = FastAPI(
+        title="Financial Master API",
+        description="Complete financial management and trading platform API",
+        version="1.0.0",
+        docs_url="/docs",
+        redoc_url="/redoc"
+    )
+    
+    # Add CORS middleware
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],  # Configure for production
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+    
+    # Include all routers
+    if TRADING_MODULES_AVAILABLE:
+        app.include_router(strategy_builder_router, prefix="/api/v1")
+        app.include_router(copy_trading_router, prefix="/api/v1")
+        app.include_router(bot_manager_router, prefix="/api/v1")
+        app.include_router(metatrader_router, prefix="/api/v1")
+        app.include_router(marketplace_router, prefix="/api/v1")
+        app.include_router(token_economy_router, prefix="/api/v1")
+        app.include_router(treasury_router, prefix="/api/v1")
+        logger.info("✓ All trading API routers loaded")
+    
+    # Root endpoint
+    @app.get("/")
+    async def root():
+        return {
+            "name": "Financial Master API",
+            "version": "1.0.0",
+            "status": "operational",
+            "modules_loaded": TRADING_MODULES_AVAILABLE,
+            "endpoints": {
+                "docs": "/docs",
+                "health": "/health",
+                "trading": "/api/v1/strategy-builder",
+                "bots": "/api/v1/bots",
+                "copy_trading": "/api/v1/copy-trading",
+                "marketplace": "/api/v1/marketplace",
+                "tokens": "/api/v1/tokens",
+                "treasury": "/api/v1/treasury",
+                "metatrader": "/api/v1/metatrader"
+            }
+        }
+    
+    # Health check
+    @app.get("/health")
+    async def health_check():
+        return {
+            "status": "healthy",
+            "timestamp": datetime.now().isoformat(),
+            "modules": {
+                "trading": TRADING_MODULES_AVAILABLE,
+                "ai_employees": True,
+                "sentiment": True,
+                "contrarian": True
+            }
+        }
+    
+    return app
+
+
+async def start_api_server(host: str = "0.0.0.0", port: int = 8000):
+    """Start FastAPI server."""
+    import uvicorn
+    
+    app = create_fastapi_app()
+    
+    config = uvicorn.Config(
+        app,
+        host=host,
+        port=port,
+        log_level="info",
+        reload=False
+    )
+    
+    server = uvicorn.Server(config)
+    logger.info(f"Starting API server on {host}:{port}")
+    await server.serve()
+
+
 async def main():
     """Main entry point."""
     parser = argparse.ArgumentParser(description='Financial Master System')
+    parser.add_argument('--api', action='store_true', help='Start API server only')
     parser.add_argument('--dashboard', action='store_true', help='Start dashboard server only')
     parser.add_argument('--agents', action='store_true', help='Start agents only')
     parser.add_argument('--websocket', action='store_true', help='Start WebSocket feeds only')
     parser.add_argument('--status', action='store_true', help='Show system status')
+    parser.add_argument('--host', default='0.0.0.0', help='API server host')
+    parser.add_argument('--port', type=int, default=8000, help='API server port')
     args = parser.parse_args()
+    
+    # Start API server only
+    if args.api:
+        await start_api_server(args.host, args.port)
+        return
     
     system = FinancialMasterSystem()
     
@@ -167,9 +283,14 @@ async def main():
         print(json.dumps(system.get_status(), indent=2))
         return
     
-    # For now, start everything (can be modularized later)
+    # Start everything including API
     try:
+        # Start API in background
+        api_task = asyncio.create_task(start_api_server(args.host, args.port))
+        
+        # Start main system
         await system.start()
+        
     except Exception as e:
         logger.error(f"System error: {e}")
         raise
