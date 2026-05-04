@@ -37,6 +37,15 @@ from app.compliance.regulatory_reporting import compliance_engine, Regulation, T
 from app.data_pipeline.etl_engine import etl_pipeline, DataSource, DataType
 from app.feature_store.feature_engineering import feature_store
 from app.simulation.paper_trading import paper_trading, PaperOrder, OrderStatus
+from app.rebalancing.portfolio_rebalancer import rebalancer
+from app.forex.forex_trading import forex_trading, CurrencyPair
+from app.defi.yield_farming import yield_farming, Protocol
+from app.monitoring.performance_dashboard import performance_dashboard
+from app.analytics.trade_cost_analysis import tca
+from app.arbitrage.cross_border_arbitrage import cross_border_arb, ArbitrageType
+from app.market_making.automated_mm import market_maker, MMStrategy
+from app.factors.smart_beta import smart_beta, FactorType
+from app.credit_risk.assessment import credit_assessment, CreditRating
 
 router = APIRouter(prefix="/api/v1/enhanced", tags=["enhanced-features"])
 
@@ -1271,3 +1280,313 @@ async def cancel_paper_order(order_id: str) -> Dict[str, Any]:
     """Cancel pending paper trading order."""
     success = await paper_trading.cancel_order(order_id)
     return {'order_id': order_id, 'cancelled': success}
+
+
+# ========== PORTFOLIO REBALANCING ENDPOINTS ==========
+
+@router.post("/rebalancing/create-plan/{user_id}")
+async def create_rebalance_plan(user_id: str,
+                               target_allocations: List[Dict],
+                               current_holdings: Dict[str, float],
+                               current_prices: Dict[str, float],
+                               total_value: float) -> Dict[str, Any]:
+    """Create portfolio rebalancing plan."""
+    return await rebalancer.create_rebalance_plan(user_id, target_allocations, current_holdings, current_prices, total_value)
+
+@router.post("/rebalancing/check-drift/{user_id}")
+async def check_portfolio_drift(user_id: str,
+                               target_allocations: List[Dict],
+                               current_holdings: Dict[str, float],
+                               current_prices: Dict[str, float]) -> Dict[str, Any]:
+    """Check portfolio drift from target allocations."""
+    return await rebalancer.check_drift(user_id, target_allocations, current_holdings, current_prices)
+
+
+# ========== FOREX TRADING ENDPOINTS ==========
+
+@router.post("/forex/open-position")
+async def open_forex_position(user_id: str,
+                             pair: str,
+                             side: str,
+                             size: float,
+                             entry_price: float,
+                             leverage: float = 50) -> Dict[str, Any]:
+    """Open forex position with leverage."""
+    position = await forex_trading.open_position(user_id, pair, side, size, entry_price, leverage)
+    return {
+        'position_id': position.position_id,
+        'pair': position.pair,
+        'side': position.side,
+        'size': position.size,
+        'entry_price': position.entry_price,
+        'margin_used': position.margin_used,
+        'leverage': position.leverage
+    }
+
+@router.post("/forex/close-position/{position_id}")
+async def close_forex_position(position_id: str, exit_price: float) -> Dict[str, Any]:
+    """Close forex position."""
+    return await forex_trading.close_position(position_id, exit_price)
+
+@router.post("/forex/prices/update")
+async def update_forex_prices(prices: Dict[str, float]) -> Dict[str, Any]:
+    """Update forex prices and recalculate P&L."""
+    await forex_trading.update_prices(prices)
+    return {'updated_pairs': len(prices)}
+
+@router.get("/forex/margin/{user_id}")
+async def get_forex_margin_requirements(user_id: str) -> Dict[str, Any]:
+    """Get margin requirements and levels."""
+    return await forex_trading.calculate_margin_requirements(user_id)
+
+@router.get("/forex/quotes")
+async def get_forex_quotes(pairs: List[str]) -> Dict[str, Any]:
+    """Get forex quotes with spreads."""
+    return await forex_trading.get_forex_quotes(pairs)
+
+
+# ========== DeFi YIELD FARMING ENDPOINTS ==========
+
+@router.get("/defi/yield-opportunities")
+async def get_yield_opportunities(min_apy: float = 0,
+                                 max_risk: float = 10,
+                                 asset_filter: Optional[str] = None) -> List[Dict]:
+    """Get DeFi yield farming opportunities."""
+    return await yield_farming.get_yield_opportunities(min_apy, max_risk, asset_filter)
+
+@router.post("/defi/deposit")
+async def deposit_to_yield_farm(user_id: str,
+                               opportunity_id: str,
+                               amount: float) -> Dict[str, Any]:
+    """Deposit into yield farming pool."""
+    return await yield_farming.deposit(user_id, opportunity_id, amount)
+
+@router.post("/defi/harvest/{position_id}")
+async def harvest_yield_rewards(position_id: str) -> Dict[str, Any]:
+    """Harvest farming rewards."""
+    return await yield_farming.harvest_rewards(position_id)
+
+@router.post("/defi/withdraw/{position_id}")
+async def withdraw_from_yield_farm(position_id: str) -> Dict[str, Any]:
+    """Withdraw from farming position."""
+    return await yield_farming.withdraw(position_id)
+
+@router.get("/defi/farming-summary/{user_id}")
+async def get_user_farming_summary(user_id: str) -> Dict[str, Any]:
+    """Get user's yield farming summary."""
+    return await yield_farming.get_user_farming_summary(user_id)
+
+
+# ========== PERFORMANCE MONITORING ENDPOINTS ==========
+
+@router.post("/monitoring/metric/{name}")
+async def record_performance_metric(name: str, value: float, unit: str = "") -> Dict[str, str]:
+    """Record performance metric for monitoring."""
+    await performance_dashboard.record_metric(name, value, unit)
+    return {'status': 'recorded', 'metric': name}
+
+@router.get("/monitoring/real-time")
+async def get_real_time_metrics() -> Dict[str, Any]:
+    """Get real-time system metrics."""
+    return await performance_dashboard.get_real_time_metrics()
+
+@router.get("/monitoring/statistics/{metric_name}")
+async def get_metric_statistics(metric_name: str, time_window_minutes: int = 60) -> Dict[str, Any]:
+    """Get statistical analysis of metric."""
+    return await performance_dashboard.get_metric_statistics(metric_name, time_window_minutes)
+
+@router.get("/monitoring/apdex/{metric_name}")
+async def calculate_apdex(metric_name: str, satisfied_threshold: float, tolerating_threshold: float) -> Dict[str, Any]:
+    """Calculate Apdex score for user satisfaction."""
+    return await performance_dashboard.calculate_apdex(metric_name, satisfied_threshold, tolerating_threshold)
+
+@router.get("/monitoring/dashboard-summary")
+async def get_dashboard_summary() -> Dict[str, Any]:
+    """Get comprehensive dashboard summary."""
+    return await performance_dashboard.get_dashboard_summary()
+
+
+# ========== TRADE COST ANALYSIS ENDPOINTS ==========
+
+@router.post("/tca/analyze-trade/{trade_id}")
+async def analyze_trade_costs(
+    trade_id: str,
+    symbol: str,
+    side: str,
+    quantity: float,
+    executed_price: float,
+    benchmark_price: float,
+    market_conditions: Dict[str, Any]
+) -> Dict[str, Any]:
+    """Perform trade cost analysis."""
+    return await tca.analyze_trade(trade_id, symbol, side, quantity, executed_price, benchmark_price, 
+                                   datetime.now(), datetime.now(), market_conditions)
+
+@router.get("/tca/compare-benchmark/{trade_id}")
+async def compare_to_benchmark(trade_id: str, benchmark_type: str = "vwap") -> Dict[str, Any]:
+    """Compare trade to benchmark."""
+    return await tca.compare_to_benchmark(trade_id, benchmark_type)
+
+@router.get("/tca/summary/{user_id}")
+async def get_tca_summary(user_id: str, start_date: str, end_date: str) -> Dict[str, Any]:
+    """Get trading cost summary for period."""
+    return await tca.get_cost_summary(user_id, start_date, end_date)
+
+
+# ========== CROSS-BORDER ARBITRAGE ENDPOINTS ==========
+
+@router.post("/arbitrage/venue/register")
+async def register_arbitrage_venue(
+    venue_id: str,
+    name: str,
+    region: str,
+    currency: str,
+    fees_maker: float,
+    fees_taker: float,
+    latency_ms: float
+) -> Dict[str, str]:
+    """Register trading venue for arbitrage monitoring."""
+    await cross_border_arb.register_venue(venue_id, name, region, currency, fees_maker, fees_taker, latency_ms)
+    return {'status': 'registered', 'venue_id': venue_id}
+
+@router.post("/arbitrage/fx-rates/update")
+async def update_fx_rates(rates: Dict[str, float]) -> Dict[str, Any]:
+    """Update foreign exchange rates."""
+    await cross_border_arb.update_fx_rates(rates)
+    return {'updated': len(rates)}
+
+@router.post("/arbitrage/spatial/scan")
+async def scan_spatial_arbitrage(symbol: str, venue_prices: Dict[str, Dict]) -> List[Dict]:
+    """Scan for price differences across venues."""
+    opportunities = await cross_border_arb.scan_spatial_arbitrage(symbol, venue_prices)
+    return [{
+        'opportunity_id': o.opportunity_id,
+        'buy_venue': o.buy_venue,
+        'sell_venue': o.sell_venue,
+        'spread_pct': o.spread_pct,
+        'estimated_profit': o.estimated_profit
+    } for o in opportunities]
+
+@router.post("/arbitrage/triangular/scan")
+async def scan_triangular_arbitrage(currencies: Optional[List[str]] = None) -> List[Dict]:
+    """Scan for triangular FX arbitrage."""
+    opportunities = await cross_border_arb.scan_triangular_arbitrage(currencies)
+    return [{
+        'opportunity_id': o.opportunity_id,
+        'symbol': o.symbol,
+        'spread_pct': o.spread_pct,
+        'risk_factors': o.risk_factors
+    } for o in opportunities]
+
+@router.get("/arbitrage/history")
+async def get_arbitrage_history(start_date: str, end_date: str) -> List[Dict]:
+    """Get historical arbitrage trades."""
+    return await cross_border_arb.get_arbitrage_history(start_date, end_date)
+
+
+# ========== MARKET MAKING ENDPOINTS ==========
+
+@router.post("/mm/start/{symbol}")
+async def start_market_making(symbol: str,
+                             strategy: str = "basic",
+                             target_position: float = 0,
+                             max_position: float = 1000,
+                             base_spread_bps: float = 10) -> Dict[str, Any]:
+    """Start automated market making for symbol."""
+    return await market_maker.start_market_making(symbol, strategy, target_position, max_position, base_spread_bps)
+
+@router.post("/mm/quotes/{symbol}")
+async def generate_mm_quotes(symbol: str,
+                            mid_price: float,
+                            market_conditions: Dict[str, Any]) -> Dict[str, Any]:
+    """Generate bid/ask quotes with dynamic spread."""
+    return await market_maker.generate_quotes(symbol, mid_price, market_conditions)
+
+@router.post("/mm/fill/{symbol}")
+async def process_mm_fill(symbol: str,
+                         side: str,
+                         price: float,
+                         size: float) -> Dict[str, Any]:
+    """Process market making fill and update inventory."""
+    return await market_maker.process_fill(symbol, side, price, size)
+
+@router.get("/mm/status/{symbol}")
+async def get_mm_status(symbol: str) -> Dict[str, Any]:
+    """Get market making status."""
+    return await market_maker.get_mm_status(symbol)
+
+@router.post("/mm/stop/{symbol}")
+async def stop_market_making(symbol: str) -> Dict[str, Any]:
+    """Stop market making and flatten position."""
+    return await market_maker.stop_market_making(symbol)
+
+
+# ========== SMART BETA / FACTOR INVESTING ENDPOINTS ==========
+
+@router.post("/smart-beta/calculate-exposures/{symbol}")
+async def calculate_factor_exposures(symbol: str,
+                                    fundamentals: Dict[str, float]) -> List[Dict]:
+    """Calculate factor exposures for stock."""
+    exposures = await smart_beta.calculate_factor_exposures(symbol, fundamentals)
+    return [{'factor': e.factor.value, 'exposure': e.exposure, 'z_score': e.z_score, 'percentile': e.percentile} for e in exposures]
+
+@router.post("/smart-beta/construct-portfolio")
+async def construct_smart_beta_portfolio(name: str,
+                                        target_factors: List[str],
+                                        universe: List[str],
+                                        max_stocks: int = 50) -> Dict[str, Any]:
+    """Construct smart beta portfolio."""
+    portfolio = await smart_beta.construct_portfolio(name, target_factors, universe, max_stocks)
+    return {
+        'portfolio_id': portfolio.portfolio_id,
+        'name': portfolio.name,
+        'factors': [f.value for f in portfolio.factors],
+        'weights': portfolio.weights,
+        'stock_count': len(portfolio.weights)
+    }
+
+@router.get("/smart-beta/attribution/{portfolio_id}")
+async def get_factor_attribution(portfolio_id: str,
+                                start_date: str,
+                                end_date: str) -> Dict[str, Any]:
+    """Get factor attribution analysis."""
+    return await smart_beta.get_factor_attribution(portfolio_id, start_date, end_date)
+
+@router.post("/smart-beta/screen")
+async def screen_by_factors(universe: List[str],
+                         factor_criteria: Dict[str, Dict],
+                         max_results: int = 20) -> List[Dict]:
+    """Screen stocks by factor criteria."""
+    return await smart_beta.screen_by_factors(universe, factor_criteria, max_results)
+
+@router.get("/smart-beta/factor-performance/{factor}")
+async def get_factor_performance(factor: str,
+                                lookback_months: int = 12) -> Dict[str, Any]:
+    """Get historical factor performance."""
+    return await smart_beta.get_factor_performance(factor, lookback_months)
+
+
+# ========== CREDIT RISK ASSESSMENT ENDPOINTS ==========
+
+@router.post("/credit/assess/{entity_id}")
+async def assess_creditworthiness(entity_id: str,
+                                 financial_data: Dict[str, Any],
+                                 payment_history: List[Dict],
+                                 industry: str) -> Dict[str, Any]:
+    """Assess creditworthiness of entity."""
+    score = await credit_assessment.assess_creditworthiness(entity_id, financial_data, payment_history, industry)
+    return {
+        'entity_id': entity_id,
+        'score': score.score,
+        'rating': score.rating.value,
+        'probability_of_default': score.probability_of_default,
+        'factors': score.factors,
+        'confidence': score.confidence,
+        'assessment_date': score.assessment_date.isoformat()
+    }
+
+@router.get("/credit/monitor-exposure/{entity_id}")
+async def monitor_credit_exposure(entity_id: str,
+                                  current_exposure: float) -> Dict[str, Any]:
+    """Monitor current exposure vs limits."""
+    return await credit_assessment.monitor_exposure(entity_id, current_exposure)
