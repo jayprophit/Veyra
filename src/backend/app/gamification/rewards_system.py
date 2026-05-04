@@ -257,7 +257,7 @@ class RewardsSystem:
                 id='strategy_guru',
                 name='Strategy Guru',
                 description='Create 10 strategies with 100+ total copies',
-                icon '🏆',
+                icon='🏆',
                 tier=AchievementTier.GOLD,
                 points_reward=500,
                 requirements={'strategies_created': 10, 'total_copies': 100}

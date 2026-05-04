@@ -246,7 +246,7 @@ class LiveBrokerManager:
             logger.error(f"Polygon WebSocket error: {e}")
     
     async def _listen_polygon_websocket(self):
-        """Listen for Polygon WebSocket messages.""""
+        """Listen for Polygon WebSocket messages."""
         try:
             while self._running and self.polygon_ws:
                 message = await self.polygon_ws.recv()

@@ -48,7 +48,7 @@ class CarbonFiber:
             "pressure_vessels": {"volume_kt": 8, "price_premium": 1.0, "growth_rate": 0.20}
         }
     
-    vs_alternatives(self, application: str = "automotive") -> Dict:
+    def vs_alternatives(self, application: str = "automotive") -> Dict:
         return {
             "carbon_fiber": {"weight": 1.0, "strength": 10.0, "cost": 15.00},
             "steel": {"weight": 8.0, "strength": 1.0, "cost": 2.00},

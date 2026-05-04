@@ -104,7 +104,7 @@ class ForexCorrelationAnalyzer:
                         'actual_rate': round(actual_eurjpy, 5),
                         'spread_pct': round(spread * 100, 4),
                         'profit_potential': round(spread * 10000, 1)  # In pips
-                    }}
+                    })
         
         # Check GBP -> USD -> JPY -> GBP
         if 'GBPUSD' in rates and 'USDJPY' in rates:

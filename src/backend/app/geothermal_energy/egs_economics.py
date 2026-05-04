@@ -67,7 +67,7 @@ class EGSEconomics:
             "capital_component_pct": round(annual_capital / total_annual * 100, 1)
         }
     
-    vs_solar_wind(self, solar_lcoe: float = 40, wind_lcoe: float = 35) -> Dict:
+    def vs_solar_wind(self, solar_lcoe: float = 40, wind_lcoe: float = 35) -> Dict:
         geo_lcoe = self.lcoe()["lcoe_usd_per_mwh"]
         
         # Value of baseload vs intermittent

@@ -92,7 +92,7 @@ class BESSMain:
             "battery_replacement_year": 10
         }
     
-    vs_grid_alternatives(self, gas_peaker_cost_per_kw: float = 800) -> Dict:
+    def vs_grid_alternatives(self, gas_peaker_cost_per_kw: float = 800) -> Dict:
         # Compare to gas peaker
         gas_capex = self.power_mw * 1000 * gas_peaker_cost_per_kw
         storage_capex = self.capex_analysis()["total_capex"]
