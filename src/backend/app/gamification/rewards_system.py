@@ -277,7 +277,7 @@ class RewardsSystem:
                 id='portfolio_protector',
                 name='Portfolio Protector',
                 description='Maintain positive risk-adjusted returns for 30 days',
-                icon '🛡️',
+                icon='🛡️',
                 tier=AchievementTier.GOLD,
                 points_reward=400,
                 requirements={'positive_sharpe_days': 30}
@@ -288,7 +288,7 @@ class RewardsSystem:
                 id='influencer',
                 name='Trading Influencer',
                 description='Get 50 followers on copy trading',
-                icon '🌟',
+                icon='🌟',
                 tier=AchievementTier.GOLD,
                 points_reward=500,
                 requirements={'followers': 50}
@@ -297,7 +297,7 @@ class RewardsSystem:
                 id='community_helper',
                 name='Community Helper',
                 description='Make 20 helpful community posts',
-                icon '🤝',
+                icon='🤝',
                 tier=AchievementTier.SILVER,
                 points_reward=300,
                 requirements={'helpful_posts': 20}
@@ -308,7 +308,7 @@ class RewardsSystem:
                 id='consistent_trader',
                 name='Consistent Trader',
                 description='Maintain a 7-day trading streak',
-                icon '🔥',
+                icon='🔥',
                 tier=AchievementTier.BRONZE,
                 points_reward=100,
                 requirements={'streak_days': 7}
@@ -317,7 +317,7 @@ class RewardsSystem:
                 id='dedicated_trader',
                 name='Dedicated Trader',
                 description='Maintain a 30-day trading streak',
-                icon '🔥🔥',
+                icon='🔥🔥',
                 tier=AchievementTier.SILVER,
                 points_reward=300,
                 requirements={'streak_days': 30}
@@ -326,7 +326,7 @@ class RewardsSystem:
                 id='legendary_trader',
                 name='Legendary Trader',
                 description='Maintain a 100-day trading streak',
-                icon '🔥🔥🔥',
+                icon='🔥🔥🔥',
                 tier=AchievementTier.GOLD,
                 points_reward=1000,
                 requirements={'streak_days': 100}
@@ -337,7 +337,7 @@ class RewardsSystem:
                 id='eager_learner',
                 name='Eager Learner',
                 description='Complete 5 learning modules',
-                icon '📚',
+                icon='📚',
                 tier=AchievementTier.BRONZE,
                 points_reward=200,
                 requirements={'modules_completed': 5}
@@ -346,7 +346,7 @@ class RewardsSystem:
                 id='trading_scholar',
                 name='Trading Scholar',
                 description='Complete all beginner courses',
-                icon '🎓',
+                icon='🎓',
                 tier=AchievementTier.SILVER,
                 points_reward=500,
                 requirements={'beginner_courses': 'all'}
@@ -357,7 +357,7 @@ class RewardsSystem:
                 id='early_adopter',
                 name='Early Adopter',
                 description='Join during beta phase',
-                icon '🚀',
+                icon='🚀',
                 tier=AchievementTier.PLATINUM,
                 points_reward=2000,
                 requirements={'beta_user': True}
@@ -366,7 +366,7 @@ class RewardsSystem:
                 id='top_referrer',
                 name='Top Referrer',
                 description='Refer 10 active users',
-                icon '🎁',
+                icon='🎁',
                 tier=AchievementTier.GOLD,
                 points_reward=1000,
                 requirements={'referrals': 10}

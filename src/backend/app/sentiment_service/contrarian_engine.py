@@ -178,7 +178,7 @@ class ContrarianEngine:
                 'behavioral_awareness': 'Recognize emotional decision-making',
                 'tail_risk': 'Protect against extreme negative events',
                 'compounding': 'Time is the most powerful wealth factor',
-                'survival_bias': 'Don't chase hot performance'
+                'survival_bias': "Do not chase hot performance"
             },
             'triggers': {
                 'fomo_moment': 'BEHAVIORAL_ALERT',
@@ -213,7 +213,7 @@ class ContrarianEngine:
             'principles': {
                 'index_investing': 'Broad market exposure, low costs',
                 'financial_independence': 'FIRE principles for early retirement',
-                'ignore_noise': 'Don't react to market news',
+                'ignore_noise': "Do not react to market news",
                 'stay_the_course': 'Consistency beats timing'
             },
             'triggers': {
@@ -247,7 +247,7 @@ class ContrarianEngine:
                 "The stock market is a voting machine in the short term, a weighing machine in the long"
             ],
             'principles': {
-                'mr_market': 'Use market irrationality, don't follow it',
+                'mr_market': "Use market irrationality, do not follow it",
                 'margin_of_safety': 'Buy with significant downside protection',
                 'value_investing': 'Price vs intrinsic value focus',
                 'defensive_investing': 'Safety of principal + adequate return'
