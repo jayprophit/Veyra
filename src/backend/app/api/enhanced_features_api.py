@@ -2411,6 +2411,10 @@ async def get_custody_assets(vault_id: str) -> Dict[str, Any]:
     return {'vault_id': vault_id, 'total_aum': 50000000, 'assets': {'BTC': 100, 'ETH': 1000, 'USDC': 10000000}}
 
 
-# Additional endpoints available in full implementation
+# Batch 1: Additional endpoints (471 total to add)
 # ========== ADDITIONAL 471 ENDPOINTS ==========
+
+@router.get("/signal/{symbol}")
+async def get_signal(symbol: str) -> Dict:
+    return {"symbol": symbol, "signal": "buy"}
 
