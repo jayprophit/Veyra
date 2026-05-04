@@ -100,7 +100,7 @@ class SuborbitalEconomics:
             "vehicle_count": vehicle_count
         }
     
-    vs_travel_alternatives(self) -> Dict:
+    def vs_travel_alternatives(self) -> Dict:
         return {
             "suborbital_space": {
                 "price": 450000,

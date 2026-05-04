@@ -212,7 +212,7 @@ class GeopoliticalRiskMonitor:
             'risk_trends': trends,
             'market_implications': {
                 'volatility_expectation': 'ELEVATED' if avg_risk > 60 else 'NORMAL',
-                'safe_haven_flows': 'LIKELY' if any(c['score'] > 80 for c in self.COUNTRY_RISKS.values()),
+                'safe_haven_flows': 'LIKELY' if any(c['score'] > 80 for c in self.COUNTRY_RISKS.values()) else 'NORMAL',
                 'energy_premium': 'SUSTAINED' if 'RUSSIA' in self.COUNTRY_RISKS else 'NORMAL'
             },
             'timestamp': datetime.now().isoformat()

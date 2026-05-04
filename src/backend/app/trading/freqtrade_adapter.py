@@ -57,7 +57,7 @@ class FreqtradeStrategy:
     ignore_roi_if_buy_signal: bool
     startup_candle_count: int
     order_types: Dict[str, str]
-    order_time_in_force: Dict[str, str
+    order_time_in_force: Dict[str, str]
     use_exit_signal: bool
     exit_profit_only: bool
     exit_profit_offset: float

@@ -97,7 +97,7 @@ class ContrarianOpportunity:
 class ContrarianEngine:
     """
     Advanced contrarian analysis engine combining:
- - Market sentiment extremes (Fear & Greed)
+    - Market sentiment extremes (Fear & Greed)
     - Behavioral finance principles (Psychology of Money)
     - Smart money tracking (insiders, institutions)
     - Asset accumulation strategies (Rich Dad, Simple Path)

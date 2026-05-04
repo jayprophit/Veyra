@@ -167,7 +167,7 @@ class LitigationFinanceTracker:
                 'Defendant ability to pay',
                 'Insurance coverage',
                 'Adequate damages vs investment',
-                'Fee structure (contingency %)
+                'Fee structure (contingency %)'
             ],
             'timeline': [
                 'Expected duration (prefer < 3 years)',
