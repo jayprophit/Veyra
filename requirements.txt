@@ -92,3 +92,19 @@ opentelemetry-instrumentation-fastapi==0.42b0
 opentelemetry-instrumentation-sqlalchemy==0.42b0
 opentelemetry-exporter-prometheus==1.12.0rc1
 opentelemetry-exporter-jaeger==1.21.0
+
+# Grade SSS Dependencies
+structlog==23.2.0
+web3==6.11.0
+eth-account==0.9.0
+eth-utils==2.1.0
+transformers==4.35.0
+torch==2.1.0
+numpy==1.26.2
+pillow==10.1.0
+opencv-python==4.8.1.78
+pytesseract==0.3.10
+aiohttp==3.9.1
+cryptography==41.0.7
+scipy==1.11.4
+scikit-learn==1.3.2

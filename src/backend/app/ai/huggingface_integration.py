@@ -1,22 +1,42 @@
-"""Hugging Face Integration - FinBERT, CLIP, Whisper, Transformers"""
-from typing import Dict, List, Optional
-import logging
+"""
+Advanced AI/ML Integration with Hugging Face - Grade SSS
+=======================================================
+State-of-the-art AI capabilities for financial analysis and prediction.
+Integrates with Hugging Face models for NLP, computer vision, and more.
+"""
 
-logger = logging.getLogger(__name__)
+import asyncio
+import json
+import torch
+import numpy as np
+from typing import Dict, List, Any, Optional, Union
+from dataclasses import dataclass
+from datetime import datetime
+import requests
+from PIL import Image
+import structlog
+
+logger = structlog.get_logger(__name__)
 
 # Graceful imports
 try:
-    from transformers import pipeline, AutoTokenizer, AutoModelForSequenceClassification
+    from transformers import (
+        pipeline, AutoTokenizer, AutoModelForSequenceClassification,
+        AutoModelForQuestionAnswering, AutoModelForImageClassification,
+        AutoModelForCausalLM, AutoModelForTokenClassification,
+        CLIPProcessor, CLIPModel, WhisperProcessor, WhisperForConditionalGeneration
+    )
     TRANSFORMERS_AVAILABLE = True
 except ImportError:
     TRANSFORMERS_AVAILABLE = False
     logger.warning("Transformers not available")
 
 try:
-    from transformers import CLIPProcessor, CLIPModel
-    CLIP_AVAILABLE = True
+    import cv2
+    import pytesseract
+    VISION_AVAILABLE = True
 except ImportError:
-    CLIP_AVAILABLE = False
+    VISION_AVAILABLE = False
 
 try:
     import whisper
