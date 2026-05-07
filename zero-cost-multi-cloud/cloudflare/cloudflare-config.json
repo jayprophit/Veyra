@@ -1,0 +1,57 @@
+{
+  "provider": "cloudflare",
+  "name": "Cloudflare Free Tier",
+  "description": "Free CDN, Workers, R2, and Pages",
+  "free_tier": {
+    "pages": {
+      "description": "Static site hosting",
+      "limits": "Unlimited sites, 1 build/min",
+      "cost": "Free"
+    },
+    "workers": {
+      "description": "Serverless functions",
+      "limits": "100,000 requests/day",
+      "cost": "Free"
+    },
+    "r2": {
+      "description": "Object storage",
+      "limits": "10GB storage, 10M reads/month",
+      "cost": "Free"
+    },
+    "dns": {
+      "description": "DNS management",
+      "limits": "Unlimited domains",
+      "cost": "Free"
+    },
+    "analytics": {
+      "description": "Basic analytics",
+      "limits": "Basic metrics",
+      "cost": "Free"
+    }
+  },
+  "features": [
+    "Global CDN",
+    "DDoS protection",
+    "SSL/TLS certificates",
+    "Edge computing",
+    "Serverless functions",
+    "Object storage",
+    "Static site hosting",
+    "DNS management",
+    "Analytics"
+  ],
+  "use_cases": [
+    "Frontend hosting",
+    "API gateway",
+    "Static assets",
+    "Edge computing",
+    "CDN services",
+    "DNS management"
+  ],
+  "deployment_files": [
+    "pages.yaml",
+    "worker.js",
+    "r2-config.json",
+    "dns-records.json"
+  ]
+}

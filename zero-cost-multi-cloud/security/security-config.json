@@ -1,0 +1,118 @@
+{
+  "category": "security",
+  "name": "Free Security Stack",
+  "description": "Free security and authentication tools",
+  "tools": {
+    "auth0": {
+      "description": "Authentication service",
+      "features": [
+        "Authentication",
+        "Authorization",
+        "Social login",
+        "User management"
+      ],
+      "limits": "7,000 MAU",
+      "cost": "Free",
+      "use_cases": [
+        "Authentication",
+        "Authorization",
+        "User management"
+      ]
+    },
+    "firebase_auth": {
+      "description": "Authentication service",
+      "features": [
+        "Authentication",
+        "Social login",
+        "User management",
+        "Security rules"
+      ],
+      "limits": "10k MAU",
+      "cost": "Free",
+      "use_cases": [
+        "Authentication",
+        "User management",
+        "Mobile auth"
+      ]
+    },
+    "keycloak": {
+      "description": "Open source identity management",
+      "features": [
+        "Identity management",
+        "SSO",
+        "User federation",
+        "Security policies"
+      ],
+      "cost": "Free",
+      "use_cases": [
+        "Identity management",
+        "SSO",
+        "User federation"
+      ]
+    },
+    "lets_encrypt": {
+      "description": "Free SSL certificates",
+      "features": [
+        "SSL certificates",
+        "Auto-renewal",
+        "Wildcard certificates"
+      ],
+      "cost": "Free",
+      "use_cases": [
+        "SSL/TLS",
+        "HTTPS",
+        "Security"
+      ]
+    },
+    "cloudflare_waf": {
+      "description": "Web application firewall",
+      "features": [
+        "DDoS protection",
+        "WAF rules",
+        "Security analytics"
+      ],
+      "cost": "Free",
+      "use_cases": [
+        "DDoS protection",
+        "WAF",
+        "Security monitoring"
+      ]
+    },
+    "github_security": {
+      "description": "Code security scanning",
+      "features": [
+        "Vulnerability scanning",
+        "Code analysis",
+        "Security alerts"
+      ],
+      "cost": "Free",
+      "use_cases": [
+        "Code security",
+        "Vulnerability scanning",
+        "Security alerts"
+      ]
+    },
+    "owasp_zap": {
+      "description": "Security testing",
+      "features": [
+        "Security scanning",
+        "Vulnerability assessment",
+        "Penetration testing"
+      ],
+      "cost": "Free",
+      "use_cases": [
+        "Security testing",
+        "Vulnerability assessment",
+        "Penetration testing"
+      ]
+    }
+  },
+  "total_cost": "$0",
+  "deployment_files": [
+    "auth0-config.json",
+    "firebase-auth-config.json",
+    "keycloak-config.json",
+    "ssl-config.json",
+    "waf-rules.json"
+  ]
+}

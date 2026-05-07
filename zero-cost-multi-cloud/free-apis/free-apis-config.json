@@ -1,0 +1,230 @@
+{
+  "category": "free-apis",
+  "name": "Free API Services",
+  "description": "Free API tiers for development and testing",
+  "apis": {
+    "financial": {
+      "alpha_vantage": {
+        "description": "Financial data API",
+        "limits": "5 calls/minute, 500 calls/day",
+        "features": [
+          "Stock prices",
+          "Forex rates",
+          "Technical indicators"
+        ],
+        "cost": "Free",
+        "use_cases": [
+          "Stock data",
+          "Forex rates",
+          "Technical analysis"
+        ]
+      },
+      "polygon_io": {
+        "description": "Financial data API",
+        "limits": "Free tier with limited data",
+        "features": [
+          "Stock data",
+          "Forex data",
+          "Crypto data"
+        ],
+        "cost": "Free",
+        "use_cases": [
+          "Market data",
+          "Historical data",
+          "Real-time data"
+        ]
+      },
+      "iex_cloud": {
+        "description": "Financial data API",
+        "limits": "50,000 messages/month",
+        "features": [
+          "Stock data",
+          "Company data",
+          "Market data"
+        ],
+        "cost": "Free",
+        "use_cases": [
+          "Stock data",
+          "Company information",
+          "Market data"
+        ]
+      },
+      "finnhub": {
+        "description": "Financial data API",
+        "limits": "Free tier with basic data",
+        "features": [
+          "Stock data",
+          "News data",
+          "Economic data"
+        ],
+        "cost": "Free",
+        "use_cases": [
+          "Stock data",
+          "News analysis",
+          "Economic indicators"
+        ]
+      },
+      "yahoo_finance": {
+        "description": "Financial data API",
+        "limits": "Unlimited (unofficial)",
+        "features": [
+          "Stock prices",
+          "Historical data",
+          "Company info"
+        ],
+        "cost": "Free",
+        "use_cases": [
+          "Stock data",
+          "Historical analysis",
+          "Company data"
+        ]
+      }
+    },
+    "ai_ml": {
+      "openai": {
+        "description": "AI/ML API",
+        "limits": "Free credits for new accounts",
+        "features": [
+          "GPT models",
+          "DALL-E",
+          "Embeddings"
+        ],
+        "cost": "Free credits",
+        "use_cases": [
+          "Text generation",
+          "Image generation",
+          "Embeddings"
+        ]
+      },
+      "huggingface": {
+        "description": "AI/ML API",
+        "limits": "Free API calls",
+        "features": [
+          "Pre-trained models",
+          "NLP models",
+          "Computer vision"
+        ],
+        "cost": "Free",
+        "use_cases": [
+          "NLP",
+          "Computer vision",
+          "Text generation"
+        ]
+      },
+      "google_cloud_ai": {
+        "description": "AI/ML API",
+        "limits": "300 units/month",
+        "features": [
+          "Vision AI",
+          "Speech AI",
+          "Natural Language"
+        ],
+        "cost": "Free",
+        "use_cases": [
+          "Image analysis",
+          "Speech recognition",
+          "NLP"
+        ]
+      },
+      "ibm_watson": {
+        "description": "AI/ML API",
+        "limits": "10,000 calls/month",
+        "features": [
+          "Natural Language",
+          "Speech to Text",
+          "Text to Speech"
+        ],
+        "cost": "Free",
+        "use_cases": [
+          "NLP",
+          "Speech processing",
+          "Text analysis"
+        ]
+      },
+      "microsoft_cognitive": {
+        "description": "AI/ML API",
+        "limits": "1,000 calls/month",
+        "features": [
+          "Computer Vision",
+          "Speech",
+          "Language"
+        ],
+        "cost": "Free",
+        "use_cases": [
+          "Computer vision",
+          "Speech processing",
+          "NLP"
+        ]
+      }
+    },
+    "communication": {
+      "sendgrid": {
+        "description": "Email API",
+        "limits": "100 emails/day",
+        "features": [
+          "Email sending",
+          "Templates",
+          "Analytics"
+        ],
+        "cost": "Free",
+        "use_cases": [
+          "Transactional email",
+          "Marketing email",
+          "Notifications"
+        ]
+      },
+      "mailgun": {
+        "description": "Email API",
+        "limits": "5,000 emails/3 months",
+        "features": [
+          "Email sending",
+          "Validation",
+          "Analytics"
+        ],
+        "cost": "Free",
+        "use_cases": [
+          "Transactional email",
+          "Email validation",
+          "Analytics"
+        ]
+      },
+      "twilio": {
+        "description": "Communication API",
+        "limits": "Free trial credits",
+        "features": [
+          "SMS",
+          "Voice",
+          "WhatsApp"
+        ],
+        "cost": "Free credits",
+        "use_cases": [
+          "SMS notifications",
+          "Voice calls",
+          "WhatsApp messaging"
+        ]
+      },
+      "firebase_cloud_messaging": {
+        "description": "Push notifications",
+        "limits": "Free unlimited",
+        "features": [
+          "Push notifications",
+          "Topic messaging",
+          "Targeted messaging"
+        ],
+        "cost": "Free",
+        "use_cases": [
+          "Push notifications",
+          "Mobile messaging",
+          "App notifications"
+        ]
+      }
+    }
+  },
+  "total_cost": "$0",
+  "deployment_files": [
+    "api-config.json",
+    "rate-limiting.json",
+    "api-keys.json",
+    "fallback-data.json"
+  ]
+}

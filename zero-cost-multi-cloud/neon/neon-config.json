@@ -1,0 +1,54 @@
+{
+  "provider": "neon",
+  "name": "Neon Free Tier",
+  "description": "Free PostgreSQL database",
+  "free_tier": {
+    "postgresql": {
+      "description": "PostgreSQL database",
+      "limits": "500MB storage, 190 compute hours/month",
+      "cost": "Free"
+    },
+    "branching": {
+      "description": "Database branching",
+      "limits": "Unlimited branches",
+      "cost": "Free"
+    },
+    "backup": {
+      "description": "Point-in-time recovery",
+      "limits": "7 days retention",
+      "cost": "Free"
+    },
+    "connection_pooling": {
+      "description": "Connection pooling",
+      "limits": "Free",
+      "cost": "Free"
+    },
+    "ssl_tls": {
+      "description": "SSL/TLS encryption",
+      "limits": "Free",
+      "cost": "Free"
+    }
+  },
+  "features": [
+    "PostgreSQL database",
+    "Database branching",
+    "Point-in-time recovery",
+    "Connection pooling",
+    "SSL/TLS encryption",
+    "Auto-scaling",
+    "Multi-region",
+    "API access"
+  ],
+  "use_cases": [
+    "Primary database",
+    "Development database",
+    "Testing database",
+    "Staging database",
+    "Backup database"
+  ],
+  "deployment_files": [
+    "neon-config.json",
+    "connection-string.json",
+    "database-schema.sql"
+  ]
+}

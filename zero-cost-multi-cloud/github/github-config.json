@@ -1,0 +1,56 @@
+{
+  "provider": "github",
+  "name": "GitHub Free Tier",
+  "description": "Free repositories and CI/CD",
+  "free_tier": {
+    "repositories": {
+      "description": "Code repositories",
+      "limits": "Unlimited public repos",
+      "cost": "Free"
+    },
+    "actions": {
+      "description": "CI/CD pipelines",
+      "limits": "2000 minutes/month",
+      "cost": "Free"
+    },
+    "pages": {
+      "description": "Static site hosting",
+      "limits": "Unlimited sites",
+      "cost": "Free"
+    },
+    "packages": {
+      "description": "Package registry",
+      "limits": "Free private packages",
+      "cost": "Free"
+    },
+    "codespaces": {
+      "description": "Cloud development environment",
+      "limits": "Free hours/month",
+      "cost": "Free"
+    }
+  },
+  "features": [
+    "Code repositories",
+    "CI/CD pipelines",
+    "Static site hosting",
+    "Package registry",
+    "Cloud development",
+    "Issue tracking",
+    "Pull requests",
+    "Actions marketplace"
+  ],
+  "use_cases": [
+    "Code hosting",
+    "CI/CD pipelines",
+    "Static site hosting",
+    "Package hosting",
+    "Development environment",
+    "Collaboration"
+  ],
+  "deployment_files": [
+    "github-actions.yml",
+    "pages-config.yml",
+    "package.json",
+    "dockerfile"
+  ]
+}

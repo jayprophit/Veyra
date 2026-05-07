@@ -1,0 +1,142 @@
+{
+  "category": "mobile",
+  "name": "Free Mobile Deployment",
+  "description": "Free mobile app development and deployment",
+  "platforms": {
+    "progressive_web_app": {
+      "description": "Web-based mobile app",
+      "features": [
+        "Service worker",
+        "App manifest",
+        "Push notifications"
+      ],
+      "cost": "Free",
+      "use_cases": [
+        "Mobile web app",
+        "Installable app",
+        "Offline functionality"
+      ]
+    },
+    "react_native": {
+      "description": "Cross-platform mobile app",
+      "features": [
+        "Cross-platform",
+        "Native performance",
+        "Hot reload"
+      ],
+      "cost": "Free",
+      "use_cases": [
+        "iOS app",
+        "Android app",
+        "Cross-platform app"
+      ]
+    },
+    "flutter": {
+      "description": "Cross-platform mobile app",
+      "features": [
+        "Cross-platform",
+        "Fast development",
+        "Expressive UI"
+      ],
+      "cost": "Free",
+      "use_cases": [
+        "iOS app",
+        "Android app",
+        "Cross-platform app"
+      ]
+    },
+    "ionic": {
+      "description": "Hybrid mobile app",
+      "features": [
+        "Web technologies",
+        "Hybrid app",
+        "Cordova integration"
+      ],
+      "cost": "Free",
+      "use_cases": [
+        "Hybrid app",
+        "Web-based app",
+        "Cross-platform app"
+      ]
+    },
+    "expo": {
+      "description": "Mobile development platform",
+      "features": [
+        "Development tools",
+        "Build services",
+        "OTA updates"
+      ],
+      "cost": "Free",
+      "use_cases": [
+        "Mobile development",
+        "App building",
+        "OTA updates"
+      ]
+    }
+  },
+  "distribution": {
+    "testflight": {
+      "description": "iOS testing platform",
+      "features": [
+        "Beta testing",
+        "Crash reports",
+        "Analytics"
+      ],
+      "cost": "Free",
+      "use_cases": [
+        "iOS testing",
+        "Beta distribution",
+        "Crash reporting"
+      ]
+    },
+    "google_play": {
+      "description": "Android app store",
+      "features": [
+        "App distribution",
+        "Analytics",
+        "In-app purchases"
+      ],
+      "cost": "Free developer account",
+      "use_cases": [
+        "Android distribution",
+        "App store presence",
+        "Monetization"
+      ]
+    },
+    "github_releases": {
+      "description": "App distribution",
+      "features": [
+        "Version management",
+        "Release notes",
+        "Asset hosting"
+      ],
+      "cost": "Free",
+      "use_cases": [
+        "App distribution",
+        "Version management",
+        "Release notes"
+      ]
+    },
+    "direct_apk": {
+      "description": "Direct Android distribution",
+      "features": [
+        "Direct distribution",
+        "No store fees",
+        "Instant updates"
+      ],
+      "cost": "Free",
+      "use_cases": [
+        "Android distribution",
+        "Enterprise distribution",
+        "Testing"
+      ]
+    }
+  },
+  "total_cost": "$0",
+  "deployment_files": [
+    "pwa-manifest.json",
+    "service-worker.js",
+    "react-native-config.json",
+    "flutter-config.json"
+  ]
+}

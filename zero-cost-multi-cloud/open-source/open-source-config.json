@@ -1,0 +1,277 @@
+{
+  "category": "open-source",
+  "name": "Open Source Alternatives",
+  "description": "Free open source alternatives to paid services",
+  "alternatives": {
+    "infrastructure_as_code": {
+      "terraform": {
+        "description": "Infrastructure as Code",
+        "features": [
+          "Multi-cloud support",
+          "State management",
+          "Policy as code"
+        ],
+        "cost": "Free",
+        "use_cases": [
+          "Infrastructure management",
+          "Multi-cloud deployment"
+        ]
+      },
+      "ansible": {
+        "description": "Configuration management",
+        "features": [
+          "Automation",
+          "Configuration management",
+          "Orchestration"
+        ],
+        "cost": "Free",
+        "use_cases": [
+          "Server configuration",
+          "Application deployment"
+        ]
+      },
+      "docker": {
+        "description": "Container platform",
+        "features": [
+          "Containerization",
+          "Docker Compose",
+          "Docker Hub"
+        ],
+        "cost": "Free",
+        "use_cases": [
+          "Application containerization",
+          "Development environment"
+        ]
+      },
+      "kubernetes": {
+        "description": "Container orchestration",
+        "features": [
+          "Container orchestration",
+          "Auto-scaling",
+          "Service discovery"
+        ],
+        "cost": "Free",
+        "use_cases": [
+          "Container orchestration",
+          "Microservices"
+        ]
+      }
+    },
+    "database": {
+      "postgresql": {
+        "description": "Open source database",
+        "features": [
+          "Relational database",
+          "ACID compliance",
+          "Extensions"
+        ],
+        "cost": "Free",
+        "use_cases": [
+          "Primary database",
+          "Analytics database"
+        ]
+      },
+      "mysql": {
+        "description": "Open source database",
+        "features": [
+          "Relational database",
+          "Replication",
+          "Clustering"
+        ],
+        "cost": "Free",
+        "use_cases": [
+          "Primary database",
+          "Web applications"
+        ]
+      },
+      "sqlite": {
+        "description": "Embedded database",
+        "features": [
+          "Serverless",
+          "File-based",
+          "Zero configuration"
+        ],
+        "cost": "Free",
+        "use_cases": [
+          "Mobile apps",
+          "Development",
+          "Testing"
+        ]
+      },
+      "redis": {
+        "description": "In-memory cache",
+        "features": [
+          "In-memory cache",
+          "Pub/sub",
+          "Data structures"
+        ],
+        "cost": "Free",
+        "use_cases": [
+          "Caching",
+          "Session storage",
+          "Message queue"
+        ]
+      }
+    },
+    "api_gateway": {
+      "kong": {
+        "description": "API gateway",
+        "features": [
+          "API gateway",
+          "Load balancing",
+          "Rate limiting"
+        ],
+        "cost": "Free",
+        "use_cases": [
+          "API management",
+          "Load balancing"
+        ]
+      },
+      "tyk": {
+        "description": "API gateway",
+        "features": [
+          "API gateway",
+          "Analytics",
+          "Developer portal"
+        ],
+        "cost": "Free",
+        "use_cases": [
+          "API management",
+          "Developer portal"
+        ]
+      },
+      "nginx": {
+        "description": "Web server and reverse proxy",
+        "features": [
+          "Web server",
+          "Reverse proxy",
+          "Load balancing"
+        ],
+        "cost": "Free",
+        "use_cases": [
+          "Web server",
+          "Reverse proxy",
+          "Load balancing"
+        ]
+      },
+      "traefik": {
+        "description": "Edge router",
+        "features": [
+          "Edge router",
+          "Service discovery",
+          "Load balancing"
+        ],
+        "cost": "Free",
+        "use_cases": [
+          "Edge routing",
+          "Service discovery"
+        ]
+      }
+    },
+    "monitoring": {
+      "grafana": {
+        "description": "Visualization platform",
+        "features": [
+          "Dashboards",
+          "Visualization",
+          "Alerting"
+        ],
+        "cost": "Free",
+        "use_cases": [
+          "Monitoring dashboards",
+          "Data visualization"
+        ]
+      },
+      "prometheus": {
+        "description": "Metrics collection",
+        "features": [
+          "Metrics collection",
+          "Time series database",
+          "Alerting"
+        ],
+        "cost": "Free",
+        "use_cases": [
+          "Metrics collection",
+          "Monitoring",
+          "Alerting"
+        ]
+      },
+      "jaeger": {
+        "description": "Distributed tracing",
+        "features": [
+          "Distributed tracing",
+          "Service mesh",
+          "Performance monitoring"
+        ],
+        "cost": "Free",
+        "use_cases": [
+          "Distributed tracing",
+          "Performance monitoring"
+        ]
+      },
+      "elasticsearch": {
+        "description": "Search and analytics",
+        "features": [
+          "Search engine",
+          "Analytics",
+          "Log analysis"
+        ],
+        "cost": "Free",
+        "use_cases": [
+          "Search",
+          "Analytics",
+          "Log analysis"
+        ]
+      }
+    },
+    "security": {
+      "keycloak": {
+        "description": "Identity management",
+        "features": [
+          "Identity management",
+          "SSO",
+          "User federation"
+        ],
+        "cost": "Free",
+        "use_cases": [
+          "Authentication",
+          "Authorization",
+          "SSO"
+        ]
+      },
+      "vault": {
+        "description": "Secrets management",
+        "features": [
+          "Secrets management",
+          "Encryption",
+          "Access control"
+        ],
+        "cost": "Free",
+        "use_cases": [
+          "Secrets management",
+          "Encryption"
+        ]
+      },
+      "fail2ban": {
+        "description": "Intrusion prevention",
+        "features": [
+          "Intrusion prevention",
+          "IP blocking",
+          "Log monitoring"
+        ],
+        "cost": "Free",
+        "use_cases": [
+          "Security",
+          "Intrusion prevention"
+        ]
+      }
+    }
+  },
+  "total_cost": "$0",
+  "deployment_files": [
+    "docker-compose.yml",
+    "terraform-config.tf",
+    "ansible-playbook.yml",
+    "kubernetes-deployment.yaml"
+  ]
+}

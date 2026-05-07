@@ -1,0 +1,56 @@
+{
+  "provider": "render",
+  "name": "Render Free Tier",
+  "description": "Free web services and database",
+  "free_tier": {
+    "web_services": {
+      "description": "Web application hosting",
+      "limits": "Free (spins down after 15min idle)",
+      "cost": "Free"
+    },
+    "static_sites": {
+      "description": "Static site hosting",
+      "limits": "Unlimited",
+      "cost": "Free"
+    },
+    "postgresql": {
+      "description": "PostgreSQL database",
+      "limits": "Free (spins down after inactivity)",
+      "cost": "Free"
+    },
+    "environment_variables": {
+      "description": "Environment variables",
+      "limits": "Unlimited",
+      "cost": "Free"
+    },
+    "custom_domains": {
+      "description": "Custom domain support",
+      "limits": "Free",
+      "cost": "Free"
+    }
+  },
+  "features": [
+    "Web application hosting",
+    "Static site hosting",
+    "PostgreSQL database",
+    "Environment variables",
+    "Custom domains",
+    "Auto-deployment",
+    "Health checks",
+    "Logs"
+  ],
+  "use_cases": [
+    "Backend API hosting",
+    "Web application hosting",
+    "Database hosting",
+    "Static site hosting",
+    "Development environment",
+    "Testing environment"
+  ],
+  "deployment_files": [
+    "render.yaml",
+    "dockerfile",
+    "package.json",
+    "requirements.txt"
+  ]
+}

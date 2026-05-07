@@ -1,0 +1,52 @@
+{
+  "getting_started": {
+    "title": "Getting Started",
+    "description": "Quick start guide for zero-cost deployment",
+    "sections": [
+      "Account Setup",
+      "Environment Setup",
+      "Local Development",
+      "Deployment"
+    ]
+  },
+  "deployment_guide": {
+    "title": "Deployment Guide",
+    "description": "Complete deployment instructions",
+    "sections": [
+      "Frontend Deployment",
+      "Backend Deployment",
+      "Database Setup",
+      "Monitoring"
+    ]
+  },
+  "api_documentation": {
+    "title": "API Documentation",
+    "description": "API endpoints and usage",
+    "sections": [
+      "Authentication",
+      "Endpoints",
+      "Rate Limiting",
+      "Error Handling"
+    ]
+  },
+  "troubleshooting": {
+    "title": "Troubleshooting",
+    "description": "Common issues and solutions",
+    "sections": [
+      "Build Issues",
+      "Deployment Issues",
+      "API Issues",
+      "Database Issues"
+    ]
+  },
+  "scaling_guide": {
+    "title": "Scaling Guide",
+    "description": "How to scale beyond free tiers",
+    "sections": [
+      "Resource Limits",
+      "Upgrade Triggers",
+      "Migration Path",
+      "Cost Analysis"
+    ]
+  }
+}

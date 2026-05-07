@@ -1,0 +1,88 @@
+{
+  "category": "monitoring",
+  "name": "Free Monitoring Stack",
+  "description": "Free monitoring and analytics tools",
+  "tools": {
+    "grafana": {
+      "description": "Visualization platform",
+      "features": [
+        "Dashboards",
+        "Visualization",
+        "Alerting",
+        "Data sources"
+      ],
+      "cost": "Free",
+      "use_cases": [
+        "Monitoring dashboards",
+        "Data visualization",
+        "Alerting"
+      ]
+    },
+    "prometheus": {
+      "description": "Metrics collection",
+      "features": [
+        "Metrics collection",
+        "Time series database",
+        "Alerting",
+        "Service discovery"
+      ],
+      "cost": "Free",
+      "use_cases": [
+        "Metrics collection",
+        "Monitoring",
+        "Alerting",
+        "Performance monitoring"
+      ]
+    },
+    "uptime_robot": {
+      "description": "Uptime monitoring",
+      "features": [
+        "Uptime monitoring",
+        "Alerting",
+        "Status pages"
+      ],
+      "limits": "50 monitors",
+      "cost": "Free",
+      "use_cases": [
+        "Uptime monitoring",
+        "Alerting",
+        "Status pages"
+      ]
+    },
+    "github_status": {
+      "description": "Repository monitoring",
+      "features": [
+        "Repository monitoring",
+        "Build status",
+        "Deployment status"
+      ],
+      "cost": "Free",
+      "use_cases": [
+        "Repository monitoring",
+        "Build monitoring",
+        "Deployment monitoring"
+      ]
+    },
+    "cloudflare_analytics": {
+      "description": "CDN analytics",
+      "features": [
+        "CDN analytics",
+        "Security analytics",
+        "Performance analytics"
+      ],
+      "cost": "Free",
+      "use_cases": [
+        "CDN monitoring",
+        "Security monitoring",
+        "Performance monitoring"
+      ]
+    }
+  },
+  "total_cost": "$0",
+  "deployment_files": [
+    "grafana-dashboard.json",
+    "prometheus-config.yml",
+    "alerting-rules.yml",
+    "uptime-monitors.json"
+  ]
+}
