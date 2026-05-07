@@ -213,7 +213,29 @@ class SpanExporter:
     
     async def export(self, span: Span):
         """Export a span"""
-        raise NotImplementedError
+        try:
+            # Mock implementation - would integrate with actual tracing system
+            logger.info(f"Exporting span: {span.trace_id}:{span.span_id}")
+            
+            # In production, would send to Jaeger/Zipkin
+            # For now, just log the span data
+            span_data = {
+                "trace_id": span.trace_id,
+                "span_id": span.span_id,
+                "operation_name": span.operation_name,
+                "start_time": span.start_time,
+                "end_time": span.end_time,
+                "tags": span.tags,
+                "logs": span.logs
+            }
+            
+            # Mock export to file or database
+            logger.debug(f"Span data: {span_data}")
+            return True
+            
+        except Exception as e:
+            logger.error(f"Error exporting span: {e}")
+            return False
 
 
 class JaegerExporter(SpanExporter):

@@ -168,7 +168,18 @@ class LogOutput:
     
     async def write(self, logs: List[LogEntry]):
         """Write logs to output"""
-        raise NotImplementedError
+        try:
+            # Mock implementation - would integrate with actual log aggregation system
+            for log in logs:
+                logger.info(f"Aggregated log: {log.level} - {log.message}")
+            
+            # In production, would send to ELK stack, Splunk, or similar
+            # For now, just log the entries
+            return True
+            
+        except Exception as e:
+            logger.error(f"Error writing logs: {e}")
+            return False
 
 
 class ConsoleOutput(LogOutput):

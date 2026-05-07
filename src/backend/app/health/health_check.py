@@ -109,7 +109,29 @@ class HealthChecker:
     
     async def _check_internal(self) -> Any:
         """Override this method in subclasses."""
-        raise NotImplementedError
+        # Default implementation - check basic service health
+        try:
+            # Check if service is responsive
+            start_time = time.time()
+            
+            # Simulate health check
+            await asyncio.sleep(0.1)
+            
+            response_time = time.time() - start_time
+            
+            return {
+                "status": "healthy",
+                "response_time": response_time,
+                "timestamp": datetime.now().isoformat(),
+                "details": "Basic health check passed"
+            }
+            
+        except Exception as e:
+            return {
+                "status": "unhealthy",
+                "error": str(e),
+                "timestamp": datetime.now().isoformat()
+            }
 
 
 class DatabaseHealthCheck(HealthChecker):

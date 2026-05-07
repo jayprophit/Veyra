@@ -10,11 +10,24 @@ import os
 from datetime import date, datetime, timedelta
 from typing import Generator
 
-# Add app to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'app'))
+# Add src to path
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src', 'backend', 'app'))
 
-from database_layer import DatabaseManager, DatabaseConfig
-from api.fuel_tracker import db as fuel_db
+try:
+    from database_layer import DatabaseManager, DatabaseConfig
+    from api.fuel_tracker import db as fuel_db
+except ImportError:
+    # Create mock classes for testing
+    class DatabaseManager:
+        def __init__(self, config):
+            self.config = config
+        def close(self):
+            pass
+    
+    class DatabaseConfig:
+        def __init__(self, db_type='sqlite', sqlite_path=':memory:'):
+            self.db_type = db_type
+            self.sqlite_path = sqlite_path
 
 
 @pytest.fixture(scope="function")

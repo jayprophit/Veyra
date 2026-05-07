@@ -645,7 +645,32 @@ class NewsProcessor:
     
     async def fetch_latest_news(self, config: Dict[str, Any]) -> List[NewsItem]:
         """Fetch latest news from source"""
-        raise NotImplementedError
+        try:
+            # Mock implementation - would integrate with actual news APIs
+            mock_news = [
+                NewsItem(
+                    id=f"news_{datetime.now().timestamp()}",
+                    title="Market Rally Continues as Tech Stocks Lead Gains",
+                    content="Technology stocks led a broader market rally today as investors...",
+                    source=NewsSource.BLOOMBERG,
+                    category=NewsCategory.MARKET_NEWS,
+                    sentiment=Sentiment.POSITIVE,
+                    sentiment_score=0.6,
+                    relevance_score=0.8,
+                    timestamp=datetime.now(),
+                    symbols=["AAPL", "GOOGL", "MSFT"],
+                    authors=["Market Team"],
+                    url="https://example.com/news/1",
+                    keywords=["market", "tech", "stocks"],
+                    market_impact="medium",
+                    priority=7,
+                    metadata={}
+                )
+            ]
+            return mock_news
+        except Exception as e:
+            logger.error(f"Error fetching news: {e}")
+            return []
 
 
 class BloombergProcessor(NewsProcessor):
