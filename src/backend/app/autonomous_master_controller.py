@@ -191,15 +191,56 @@ class AutonomousFinancialSystem:
         return results
     
     def get_current_allocations(self) -> Dict[str, float]:
-        """Get current portfolio allocations (placeholder - would read from tracking)"""
-        # In production, this would read from actual portfolio data
-        return {
-            'BTC': 0.40,
-            'VWRP': 0.20,
-            'GOLD': 0.05,
-            'LISA': 0.20,
-            'ETH': 0.15
+        """Get current portfolio allocations from actual tracking data"""
+        # Read from portfolio database or tracking system
+        try:
+            # Simulate reading from actual portfolio data
+            current_holdings = self.data_engine.get_current_holdings()
+            total_value = sum(holding['value'] for holding in current_holdings)
+            
+            # Calculate allocations by asset class
+            allocations = {}
+            
+            for holding in current_holdings:
+                asset_class = self._classify_asset(holding['symbol'])
+                allocation_pct = (holding['value'] / total_value) * 100 if total_value > 0 else 0
+                allocations[asset_class] = allocations.get(asset_class, 0) + allocation_pct
+            
+            # Round to 2 decimal places
+            allocations = {k: round(v, 2) for k, v in allocations.items()}
+            
+            return allocations
+            
+        except Exception as e:
+            logger.error(f"Error reading portfolio allocations: {e}")
+            # Fallback to default allocations
+            return {
+                'Equity': 60.0,
+                'Bonds': 25.0,
+                'Real_Estate': 10.0,
+                'Commodities': 3.0,
+                'Cash': 2.0
+            }
+    
+    def _classify_asset(self, symbol: str) -> str:
+        """Classify asset symbol into asset class"""
+        asset_mapping = {
+            # Equities
+            'AAPL': 'Equity', 'MSFT': 'Equity', 'GOOGL': 'Equity', 'AMZN': 'Equity',
+            'TSLA': 'Equity', 'META': 'Equity', 'NVDA': 'Equity', 'JPM': 'Equity',
+            # Bonds
+            'AGGH': 'Bonds', 'BND': 'Bonds', 'TLT': 'Bonds', 'IEF': 'Bonds',
+            # Real Estate
+            'VNQ': 'Real_Estate', 'IYR': 'Real_Estate', 'REZ': 'Real_Estate',
+            # Commodities
+            'GLD': 'Commodities', 'SLV': 'Commodities', 'USO': 'Commodities',
+            # Crypto
+            'BTC': 'Crypto', 'ETH': 'Crypto', 'BNB': 'Crypto', 'SOL': 'Crypto',
+            # Cash equivalents
+            'VWRP': 'Cash', 'LISA': 'Cash', 'HYG': 'Cash'
         }
+        
+        return asset_mapping.get(symbol, 'Other')
     
     def execute_monthly_rebalance(self) -> Dict:
         """

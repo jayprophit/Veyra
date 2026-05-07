@@ -153,9 +153,26 @@ async def scenario_analysis(
     
     results = {}
     for name, impacts in scenarios.items():
+        # Calculate realistic impact based on scenario
+        stock_impact = impacts.get("stock", 0)
+        bond_impact = impacts.get("bond", 0)
+        
+        # Calculate portfolio impact (weighted average)
+        portfolio_impact = (stock_impact * 0.7) + (bond_impact * 0.3)
+        
+        # Estimate recovery time based on severity
+        if abs(portfolio_impact) > 0.5:
+            recovery_time = "12-18 months"
+        elif abs(portfolio_impact) > 0.2:
+            recovery_time = "6-12 months"
+        else:
+            recovery_time = "3-6 months"
+        
         results[name] = {
-            "estimated_impact": "placeholder",
-            "recovery_time": "TBD"
+            "estimated_impact": round(portfolio_impact * 100, 2),  # Convert to percentage
+            "recovery_time": recovery_time,
+            "stock_impact": round(stock_impact * 100, 2),
+            "bond_impact": round(bond_impact * 100, 2)
         }
     
     return {"scenarios": results}

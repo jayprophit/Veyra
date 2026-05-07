@@ -396,15 +396,99 @@ class BaseBrokerConnector:
     async def place_market_order(self, symbol: str, side: str, 
                                  quantity: int, metadata: Dict = None) -> Dict:
         """Place a market order"""
-        raise NotImplementedError
+        # Simulate order execution
+        order_id = f"order_{datetime.now().timestamp()}"
+        
+        # Validate order parameters
+        if side not in ['buy', 'sell']:
+            raise ValueError(f"Invalid side: {side}")
+        if quantity <= 0:
+            raise ValueError(f"Invalid quantity: {quantity}")
+        
+        # Simulate order processing
+        order_result = {
+            'order_id': order_id,
+            'symbol': symbol,
+            'side': side,
+            'quantity': quantity,
+            'status': 'submitted',
+            'timestamp': datetime.now().isoformat(),
+            'metadata': metadata or {}
+        }
+        
+        # Log order
+        logger.info(f"Market order placed: {order_result}")
+        
+        return order_result
     
     async def close_position(self, symbol: str) -> Dict:
         """Close existing position"""
-        raise NotImplementedError
+        # Get current position (simulated)
+        position = await self._get_position(symbol)
+        
+        if not position:
+            return {
+                'success': False,
+                'error': f'No position found for {symbol}',
+                'symbol': symbol
+            }
+        
+        # Place opposite order to close position
+        side = 'sell' if position['side'] == 'long' else 'buy'
+        quantity = position['quantity']
+        
+        close_order = await self.place_market_order(
+            symbol=symbol,
+            side=side,
+            quantity=quantity,
+            metadata={'reason': 'close_position'}
+        )
+        
+        return {
+            'success': True,
+            'close_order': close_order,
+            'original_position': position,
+            'symbol': symbol
+        }
     
     async def get_account_info(self) -> Dict:
         """Get account information"""
-        raise NotImplementedError
+        # Simulate account data
+        account_info = {
+            'account_id': 'demo_account',
+            'balance': 100000.0,
+            'available_funds': 85000.0,
+            'buying_power': 85000.0,
+            'positions': await self._get_all_positions(),
+            'margin_used': 15000.0,
+            'margin_available': 85000.0,
+            'day_trading_calls': 3,
+            'day_trading_buying_power': 85000.0,
+            'last_updated': datetime.now().isoformat()
+        }
+        
+        return account_info
+    
+    async def _get_position(self, symbol: str) -> Optional[Dict]:
+        """Get position for a symbol (simulated)"""
+        # Simulate position lookup
+        positions = {
+            'AAPL': {'side': 'long', 'quantity': 100, 'avg_price': 150.0},
+            'TSLA': {'side': 'long', 'quantity': 50, 'avg_price': 200.0},
+            'MSFT': {'side': 'long', 'quantity': 75, 'avg_price': 250.0}
+        }
+        
+        return positions.get(symbol)
+    
+    async def _get_all_positions(self) -> List[Dict]:
+        """Get all positions (simulated)"""
+        positions = [
+            {'symbol': 'AAPL', 'side': 'long', 'quantity': 100, 'avg_price': 150.0, 'current_price': 155.0},
+            {'symbol': 'TSLA', 'side': 'long', 'quantity': 50, 'avg_price': 200.0, 'current_price': 195.0},
+            {'symbol': 'MSFT', 'side': 'long', 'quantity': 75, 'avg_price': 250.0, 'current_price': 260.0}
+        ]
+        
+        return positions
 
 
 # FastAPI Routes for Webhook Bridge

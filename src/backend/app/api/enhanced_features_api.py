@@ -1068,8 +1068,56 @@ async def register_hft_strategy(strategy_id: str,
                                 strategy_code: Optional[str] = None) -> Dict[str, Any]:
     """Register high-frequency trading strategy."""
     def sample_strategy(tick: Tick):
-        # Placeholder strategy logic
-        pass
+        """Sample HFT strategy implementation"""
+        try:
+            # Simple mean reversion strategy
+            symbol = tick.symbol
+            price = tick.price
+            volume = tick.volume
+            timestamp = tick.timestamp
+            
+            # Calculate moving average (simplified)
+            if not hasattr(sample_strategy, 'price_history'):
+                sample_strategy.price_history = []
+            sample_strategy.price_history.append(price)
+            
+            # Keep last 20 prices for MA calculation
+            recent_prices = sample_strategy.price_history[-20:] if len(sample_strategy.price_history) >= 20 else sample_strategy.price_history
+            moving_avg = sum(recent_prices) / len(recent_prices) if recent_prices else price
+            
+            # Generate trading signal
+            if price > moving_avg * 1.002:  # 0.2% above MA
+                return {
+                    'action': 'sell',
+                    'quantity': min(100, volume // 10),  # 10% of volume
+                    'price': price,
+                    'reason': 'mean_reversion_sell',
+                    'confidence': 0.7,
+                    'timestamp': timestamp
+                }
+            elif price < moving_avg * 0.998:  # 0.2% below MA
+                return {
+                    'action': 'buy',
+                    'quantity': min(100, volume // 10),  # 10% of volume
+                    'price': price,
+                    'reason': 'mean_reversion_buy',
+                    'confidence': 0.7,
+                    'timestamp': timestamp
+                }
+            else:
+                return {
+                    'action': 'hold',
+                    'reason': 'no_signal',
+                    'confidence': 0.3,
+                    'timestamp': timestamp
+                }
+                
+        except Exception as e:
+            return {
+                'action': 'error',
+                'error': str(e),
+                'timestamp': tick.timestamp
+            }
     
     hft_engine.register_strategy(strategy_id, sample_strategy)
     return {'strategy_id': strategy_id, 'status': 'registered'}

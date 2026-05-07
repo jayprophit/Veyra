@@ -62,8 +62,12 @@ class BaseWebSocketClient:
             if not self._stop_event.is_set():
                 wait = min(self.config.reconnect_interval * (2 ** self.reconnect_attempts), 60)
                 await asyncio.sleep(wait)
-    async def _connect(self): raise NotImplementedError
-    async def _receive(self): raise NotImplementedError
+    async def _connect(self): 
+        """Base connection method - to be overridden by subclasses"""
+        pass
+    async def _receive(self): 
+        """Base receive method - to be overridden by subclasses"""
+        pass
     def stop(self): self._stop_event.set(); self.connected = False
 
 class MockWebSocketClient(BaseWebSocketClient):

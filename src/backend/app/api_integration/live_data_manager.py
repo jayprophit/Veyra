@@ -7,6 +7,7 @@ Polygon.io, IEX Cloud, Alpha Vantage, Coinbase Pro
 
 import asyncio
 import aiohttp
+import websockets
 from typing import Dict, List, Optional, Callable
 from dataclasses import dataclass
 from datetime import datetime
@@ -252,9 +253,58 @@ class LiveDataManager:
     
     async def start_websocket_stream(self, tickers: List[str], provider: str = 'polygon'):
         """Start WebSocket stream for real-time updates"""
-        # Placeholder for WebSocket implementation
-        # Would use websockets library for real-time streaming
-        logger.info(f"WebSocket streaming started for {len(tickers)} tickers via {provider}")
+        try:
+            # WebSocket URL based on provider
+            ws_urls = {
+                'polygon': 'wss://socket.polygon.io/stocks',
+                'iex': 'wss://ws.iexcloud.com/ws',
+                'alpha_vantage': 'wss://ws.alphavantage.co/stream',
+                'coinbase': 'wss://ws-feed.exchange.coinbase.com'
+            }
+            
+            if provider not in ws_urls:
+                logger.error(f"Unsupported WebSocket provider: {provider}")
+                return None
+            
+            import websockets
+            ws_url = ws_urls[provider]
+            
+            # Connect to WebSocket
+            logger.info(f"Connecting to WebSocket: {ws_url}")
+            async with websockets.connect(ws_url) as websocket:
+                logger.info(f"WebSocket connected for {len(tickers)} tickers via {provider}")
+                
+                # Subscribe to ticker data
+                subscribe_msg = {
+                    "action": "subscribe",
+                    "params": {
+                        "symbols": tickers,
+                        "types": ["quote", "trade"]
+                    }
+                }
+                
+                await websocket.send(json.dumps(subscribe_msg))
+                
+                # Handle incoming messages
+                async for message in websocket:
+                    try:
+                        data = json.loads(message)
+                        
+                        # Process different message types
+                        if 'type' in data:
+                            if data['type'] == 'quote':
+                                await self._process_quote_update(data)
+                            elif data['type'] == 'trade':
+                                await self._process_trade_update(data)
+                            elif data['type'] == 'error':
+                                logger.error(f"WebSocket error: {data}")
+                                
+                    except json.JSONDecodeError as e:
+                        logger.error(f"Failed to parse WebSocket message: {e}")
+                        
+        except Exception as e:
+            logger.error(f"WebSocket streaming error: {e}")
+            raise
     
     async def run_price_monitor(self, tickers: List[str], interval_seconds: int = 5):
         """Run continuous price monitoring"""

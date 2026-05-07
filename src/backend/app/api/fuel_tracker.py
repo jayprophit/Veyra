@@ -200,17 +200,34 @@ async def list_mileage(
     tax_year: Optional[str] = None
 ):
     """Paginated mileage log. Filter by tax year (e.g. '2026-27')."""
-    # TODO: Fetch from database
-    # rows = await db.fetch_all(
-    #     """SELECT m.*, v.make || ' ' || v.model AS vehicle_name
-    #        FROM mileage_log m
-    #        LEFT JOIN vehicles v ON m.vehicle_id = v.id
-    #        WHERE m.user_id = $1
-    #        ORDER BY m.trip_date DESC
-    #        LIMIT $2 OFFSET $3""",
-    #     user_id, limit, offset
-    # )
-    return {"trips": [], "total": 0, "message": "Integrate with your database"}
+    try:
+        query = """
+            SELECT m.*, v.make || ' ' || v.model AS vehicle_name
+            FROM mileage_log m
+            LEFT JOIN vehicles v ON m.vehicle_id = v.id
+            WHERE m.user_id = $1 AND m.trip_date >= date '$tax_year-04-06'
+            AND m.trip_date < date '$tax_year-04-06' + interval '1 year'
+            ORDER BY m.trip_date DESC
+            LIMIT $2 OFFSET $3
+        """
+        
+        rows = await db.fetch_all(query, (user_id, limit, offset))
+        
+        return {
+            "user_id": user_id,
+            "tax_year": tax_year,
+            "entries": rows,
+            "total_entries": len(rows)
+        }
+    except Exception as e:
+        logger.error(f"Error fetching mileage log: {e}")
+        return {
+            "user_id": user_id,
+            "tax_year": tax_year,
+            "entries": [],
+            "total_entries": 0,
+            "error": str(e)
+        }
 
 
 # ── Fuel Purchase Endpoints ───────────────────────────────────────
@@ -218,30 +235,24 @@ async def list_mileage(
 @router.post("/purchases", summary="Log a fuel purchase")
 async def log_fuel_purchase(purchase: FuelPurchase, user_id: str):
     """Log a fuel fill-up. Receipt image can be uploaded separately."""
-    # TODO: Save to database
-    # await db.execute(
-    #     """INSERT INTO fuel_log
-    #            (user_id, vehicle_id, purchase_date, odometer_reading, litres,
-    #             price_per_litre, total_cost, fuel_type, is_full_tank, station, notes)
-    #        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)""",
-    #     user_id, purchase.vehicle_id, purchase.purchase_date,
-    #     purchase.odometer_reading, purchase.litres, purchase.price_per_litre,
-    #     purchase.total_cost, purchase.fuel_type, purchase.is_full_tank,
-    #     purchase.station, purchase.notes
-    # )
-    
-    # Calculate MPG
-    mpg = None
-    if purchase.is_full_tank:
-        # TODO: Fetch previous full-tank fill from database
-        # prev = await db.fetch_one(...)
-        # if prev:
-        #     miles = purchase.odometer_reading - prev["odometer_reading"]
-        #     gallons = purchase.litres / 4.54609
-        #     mpg = round(miles / gallons, 1) if gallons > 0 else None
-        pass
-
-    return {"status": "logged", "mpg": mpg, "message": "Integrate with your database"}
+    try:
+        query = """
+            INSERT INTO fuel_log
+            (user_id, vehicle_id, purchase_date, odometer_reading, litres,
+             cost_per_litre, total_cost, fuel_type, station, receipt_path)
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+        """
+        
+        await db.execute(query, (
+            user_id, purchase.vehicle_id, purchase.purchase_date,
+            purchase.odometer_reading, purchase.litres, purchase.cost_per_litre,
+            purchase.total_cost, purchase.fuel_type, purchase.station, purchase.receipt_path
+        ))
+        
+        return {"success": True, "message": "Fuel purchase logged successfully"}
+    except Exception as e:
+        logger.error(f"Error saving fuel purchase: {e}")
+        return {"success": False, "error": str(e)}
 
 
 @router.post("/purchases/{purchase_id}/receipt", summary="Upload fuel receipt")
@@ -251,14 +262,30 @@ async def upload_fuel_receipt(
     file: UploadFile = File(...)
 ):
     """Upload and store receipt image; updates fuel_log.receipt_path."""
-    # TODO: Integrate with your storage (MinIO, S3, or local)
-    # object_path = f"receipts/fuel/{user_id}/{purchase_id}/{file.filename}"
-    # await storage.put_object("receipts", object_path, file.file, file.size)
-    # await db.execute(
-    #     "UPDATE fuel_log SET receipt_path = $1 WHERE id = $2 AND user_id = $3",
-    #     object_path, purchase_id, user_id
-    # )
-    return {"status": "uploaded", "path": f"receipts/fuel/{user_id}/{purchase_id}/{file.filename}"}
+    try:
+        object_path = f"receipts/fuel/{user_id}/{purchase_id}/{file.filename}"
+        
+        # Simulate storage upload - in production would use actual storage service
+        file_content = await file.read()
+        
+        # Save file locally for now
+        os.makedirs(f"receipts/fuel/{user_id}", exist_ok=True)
+        local_path = f"receipts/fuel/{user_id}/{purchase_id}/{file.filename}"
+        
+        with open(local_path, 'wb') as f:
+            f.write(file_content)
+        
+        # Update database with local path
+        update_query = """
+            UPDATE fuel_log SET receipt_path = $1 WHERE id = $2
+        """
+        
+        await db.execute(update_query, (local_path, purchase_id))
+        
+        return {"success": True, "receipt_path": local_path, "storage": "local"}
+    except Exception as e:
+        logger.error(f"Error saving receipt: {e}")
+        return {"success": False, "error": str(e)}
 
 
 # ── Summary & Self Assessment ─────────────────────────────────────
@@ -270,28 +297,18 @@ async def get_mileage_summary(tax_year: str, user_id: str):
     Keeps HMRC tiered rates (45p/25p) correctly applied.
     tax_year format: '2026-27'
     """
-    # TODO: Refresh materialized view
-    # await db.execute("REFRESH MATERIALIZED VIEW CONCURRENTLY yearly_mileage_summary")
-    
-    # TODO: Fetch from database
-    # row = await db.fetch_one(
-    #     "SELECT * FROM yearly_mileage_summary WHERE user_id = $1",
-    #     user_id
-    # )
-    
-    # Placeholder response
-    total = 0.0
-    return {
-        "tax_year": tax_year,
-        "total_trips": 0,
-        "total_business_miles": round(total, 2),
-        "miles_at_45p": round(min(total, 10000), 2),
-        "miles_at_25p": round(max(0, total - 10000), 2),
-        "total_claimable": 0.0,
-        "total_passenger_allowance": 0.0,
-        "ytd_progress_pct": round(min(100.0, (total / 10000) * 100), 1),
-        "message": "Integrate with your database"
-    }
+    try:
+        await db.execute("""REFRESH MATERIALIZED VIEW CONCURRENTLY yearly_mileage_summary""")
+        
+        row = await db.fetch_one(
+            """SELECT * FROM yearly_mileage_summary WHERE user_id = $1""",
+            user_id
+        )
+        
+        return row if row else {"error": "No data found"}
+    except Exception as e:
+        logger.error(f"Error refreshing materialized view: {e}")
+        return {"error": str(e)}
 
 
 @router.get("/summary/{tax_year}/export", summary="Export mileage log as CSV for HMRC")
@@ -304,27 +321,22 @@ async def export_mileage_csv(tax_year: str, user_id: str):
     import io
     from fastapi.responses import StreamingResponse
     
-    # TODO: Fetch from database
-    # rows = await db.fetch_all(
-    #     """SELECT trip_date, start_location, end_location, purpose,
-    #               distance_miles, amount_claimable, passenger_allowance, notes
-    #        FROM mileage_log
-    #        WHERE user_id = $1 AND is_business = TRUE
-    #        ORDER BY trip_date""",
-    #     user_id
-    # )
-    
-    # Generate CSV
-    output = io.StringIO()
-    writer = csv.DictWriter(output, fieldnames=[
-        "Date", "From", "To", "Purpose",
-        "Miles", "Claimable (£)", "Passenger (£)", "Notes"
-    ])
-    writer.writeheader()
-    
-    # TODO: Write rows from database
-    # for r in rows:
-    #     writer.writerow({...})
+    # Write rows from database
+    try:
+        for r in rows:
+            writer.writerow({
+                'trip_date': r.get('trip_date', ''),
+                'start_location': r.get('start_location', ''),
+                'end_location': r.get('end_location', ''),
+                'purpose': r.get('purpose', ''),
+                'distance_miles': r.get('distance_miles', 0),
+                'amount_claimable': r.get('amount_claimable', 0.45),
+                'passenger_allowance': r.get('passenger_allowance', 0.05),
+                'notes': r.get('notes', '')
+            })
+    except Exception as e:
+        logger.error(f"Error writing CSV: {e}")
+        raise
     
     return StreamingResponse(
         iter([output.getvalue()]),

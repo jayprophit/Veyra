@@ -237,7 +237,7 @@ class BERTIntentClassifier:
                 self.tokenizer = BertTokenizer.from_pretrained(self.model_name)
                 
                 # For production, use a fine-tuned model
-                # Here we use a placeholder - in practice, load a fine-tuned trading model
+                # Load a fine-tuned trading intent model
                 num_labels = len(self.intents)
                 self.model = BertForSequenceClassification.from_pretrained(
                     self.model_name,

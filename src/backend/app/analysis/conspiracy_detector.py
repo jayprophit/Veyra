@@ -133,8 +133,42 @@ class ConspiracyDetector:
     
     def _detect_spoofing(self, symbol: str, data: pd.DataFrame) -> Optional[ManipulationAlert]:
         """Detect order book spoofing (requires L2 data)"""
-        # Placeholder - requires bid/ask level data
-        return None
+        try:
+            if 'bid' not in data.columns or 'ask' not in data.columns:
+                return None
+            
+            # Analyze order book imbalance
+            recent = data.tail(10)
+            bid_volume = recent['bid_volume'].sum() if 'bid_volume' in recent.columns else 0
+            ask_volume = recent['ask_volume'].sum() if 'ask_volume' in recent.columns else 0
+            total_volume = bid_volume + ask_volume
+            
+            if total_volume == 0:
+                return None
+            
+            # Calculate order imbalance ratio
+            imbalance_ratio = abs(bid_volume - ask_volume) / total_volume
+            
+            # Look for large, persistent imbalances
+            if imbalance_ratio > 0.8:  # 80%+ imbalance
+                return ManipulationAlert(
+                    symbol=symbol,
+                    manipulation_type=ManipulationType.SPOOFING,
+                    confidence=min(0.9, imbalance_ratio),
+                    indicators=["High order book imbalance", "Persistent one-sided pressure"],
+                    severity="HIGH",
+                    timestamp=datetime.now().isoformat(),
+                    description="Potential order book spoofing detected",
+                    evidence={
+                        "imbalance_ratio": imbalance_ratio,
+                        "bid_volume": bid_volume,
+                        "ask_volume": ask_volume,
+                        "total_volume": total_volume
+                    }
+                )
+        except Exception as e:
+            logger.error(f"Error detecting spoofing: {e}")
+            return None
     
     def _detect_wash_trading(self, symbol: str, data: pd.DataFrame) -> Optional[ManipulationAlert]:
         """Detect wash trading patterns"""

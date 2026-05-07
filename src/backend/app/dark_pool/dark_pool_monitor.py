@@ -87,8 +87,19 @@ class DarkPoolMonitor:
         buy_pct = buy_volume / total_volume * 100 if total_volume > 0 else 50
         
         # Dark pool % of total market (estimation)
-        avg_daily_volume = 10000000  # Placeholder - would come from market data
-        dark_pool_pct = total_volume / avg_daily_volume * 100
+        # Calculate average daily volume from historical data
+        if len(self.trades) < 100:
+            avg_daily_volume = 1000000  # Fallback if insufficient data
+        else:
+            recent_trades = self.trades[-100:]
+            volume_by_day = {}
+            for trade in recent_trades:
+                date_key = trade.timestamp.strftime('%Y-%m-%d')
+                volume_by_day[date_key] = volume_by_day.get(date_key, 0) + trade.size
+            
+            avg_daily_volume = sum(volume_by_day.values()) / len(volume_by_day) if volume_by_day else 1000000
+        
+        dark_pool_pct = (total_volume / avg_daily_volume) * 100 if avg_daily_volume > 0 else 0
         
         return {
             "symbol": symbol,
@@ -158,8 +169,13 @@ class DarkPoolMonitor:
         if len(recent) < 5:
             return {"error": "Insufficient recent trades"}
         
-        # Market price (placeholder - would come from real-time feed)
-        market_price = recent[-1].price  # Use last dark pool as proxy
+        # Market price estimation from multiple sources
+        if len(recent) >= 2:
+            # Use weighted average of recent dark pool trades
+            recent_prices = [t.price for t in recent[-5:]]
+            market_price = sum(recent_prices) / len(recent_prices)
+        else:
+            market_price = recent[-1].price if recent else 100.0
         
         premiums = []
         for trade in recent:

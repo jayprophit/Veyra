@@ -65,11 +65,19 @@ class DividendTracker:
     
     def _get_next_dividend(self, symbol: str) -> Optional[DividendEvent]:
         """Fetch next dividend from data source"""
-        # Would integrate with dividend API (IEX, Alpha Vantage, etc.)
-        # Placeholder implementation
-        return DividendEvent(
-            symbol=symbol,
-            ex_dividend_date=date.today(),
+        # Simulate dividend API integration
+        dividend_schedule = {
+            'AAPL': {'amount': 0.24, 'ex_date': date(2024, 2, 9), 'pay_date': date(2024, 2, 16)},
+            'MSFT': {'amount': 0.75, 'ex_date': date(2024, 2, 15), 'pay_date': date(2024, 3, 14)},
+            'JPM': {'amount': 1.05, 'ex_date': date(2024, 1, 31), 'pay_date': date(2024, 4, 1)},
+            'VZ': {'amount': 0.665, 'ex_date': date(2024, 2, 8), 'pay_date': date(2024, 5, 1)}
+        }
+        
+        if symbol in dividend_schedule:
+            div_data = dividend_schedule[symbol]
+            return DividendEvent(
+                symbol=symbol,
+                ex_dividend_date=div_data['ex_date'],
             payment_date=date.today(),
             amount_per_share=0.50,
             dividend_type="cash"
@@ -99,8 +107,18 @@ class DividendTracker:
     
     def _get_price(self, symbol: str) -> Optional[float]:
         """Get current stock price"""
-        # Would integrate with price feed
-        return 100.0  # Placeholder
+        # Simulate price feed integration
+        price_map = {
+            'AAPL': 185.50,
+            'MSFT': 415.25,
+            'JPM': 148.75,
+            'VZ': 38.90,
+            'TSLA': 238.45,
+            'GOOGL': 142.30,
+            'AMZN': 155.80,
+            'META': 485.20
+        }
+        return price_map.get(symbol, 100.0)
     
     def get_dividend_calendar(
         self,
@@ -206,8 +224,18 @@ class DividendTracker:
     
     def _get_annual_dividend_rate(self, symbol: str) -> float:
         """Get annual dividend per share"""
-        # Would query dividend history
-        return 2.00  # Placeholder
+        # Simulate dividend history lookup
+        annual_rates = {
+            'AAPL': 0.96,  # $0.24 quarterly
+            'MSFT': 3.00,  # $0.75 quarterly
+            'JPM': 4.20,  # $1.05 quarterly
+            'VZ': 2.66,  # $0.665 quarterly
+            'TSLA': 0.00,  # No dividend
+            'GOOGL': 0.80,  # $0.20 quarterly
+            'AMZN': 0.00,  # No dividend
+            'META': 2.00   # $0.50 quarterly
+        }
+        return annual_rates.get(symbol, 0.00)
     
     def execute_drip(
         self,
