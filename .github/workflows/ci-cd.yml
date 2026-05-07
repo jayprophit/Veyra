@@ -1,21 +1,27 @@
-name: CI/CD Pipeline - Simplified
+name: Financial Master CI/CD Pipeline
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main, develop, release/* ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, develop ]
+  release:
+    types: [ published ]
 
 # Prevent duplicate runs
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
 jobs:
+  # Code Quality and Testing
   test:
     name: Test Python ${{ matrix.python-version }}
     runs-on: ubuntu-latest
-    continue-on-error: true
     strategy:
       fail-fast: false
       matrix:
@@ -34,24 +40,37 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt || echo "Some deps may have failed"
-          pip install pytest pytest-asyncio
+          pip install -r requirements.txt
+          pip install pytest pytest-asyncio pytest-cov coverage
 
       - name: Verify Python setup
         run: |
           python --version
           python -c "import sys; print(f'Python: {sys.executable}')"
 
-      - name: Run basic import test
+      - name: Run import tests
         run: |
           cd src/backend
-          python -c "print('Basic import test passed')" || echo "Import test info only"
-        continue-on-error: true
+          python -c "
+          import app
+          print('✅ Main app import successful')
+          import app.api
+          print('✅ API module import successful')
+          import app.advanced_trading
+          print('✅ Advanced trading import successful')
+          import app.security
+          print('✅ Security module import successful')
+          "
 
-      - name: Run pytest
+      - name: Run unit tests
         run: |
-          pytest tests/ -v --tb=short || pytest tests/unit -v --tb=short || echo "Tests completed"
-        continue-on-error: true
+          cd src/backend
+          pytest tests/unit/ -v --cov=app --cov-report=xml --cov-report=html --tb=short
+
+      - name: Run integration tests
+        run: |
+          cd src/backend
+          pytest tests/integration/ -v --tb=short
 
       - name: Upload test results
         uses: actions/upload-artifact@v4
@@ -61,12 +80,12 @@ jobs:
           path: |
             test-results.xml
             coverage.xml
+            htmlcov/
           if-no-files-found: ignore
 
   lint:
     name: Lint & Format Check
     runs-on: ubuntu-latest
-    continue-on-error: true
 
     steps:
       - uses: actions/checkout@v4
@@ -78,39 +97,83 @@ jobs:
 
       - name: Install tools
         run: |
-          pip install flake8 black isort
+          pip install flake8 black isort mypy bandit safety
 
       - name: Run flake8
         run: |
-          flake8 src/backend/app --count --select=E9,F63,F7,F82 --show-source || echo "Flake8 done"
-        continue-on-error: true
+          flake8 src/backend/app --count --select=E9,F63,F7,F82 --show-source
 
       - name: Check black formatting
         run: |
-          black --check src/backend/app 2>&1 || echo "Format check info"
-        continue-on-error: true
+          black --check src/backend/app
+
+      - name: Check isort formatting
+        run: |
+          isort --check-only src/backend/app
+
+      - name: Run mypy type checking
+        run: |
+          mypy src/backend/app --ignore-missing-imports || true
 
   security:
     name: Security Scan
     runs-on: ubuntu-latest
-    continue-on-error: true
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Run bandit
+      - name: Run bandit security scan
         run: |
           pip install bandit
-          bandit -r src/backend/app -ll || echo "Security scan done"
-        continue-on-error: true
+          bandit -r src/backend/app -f json -o bandit-report.json
 
-      - name: Upload security report
+      - name: Run safety dependency check
+        run: |
+          pip install safety
+          safety check --json --output safety-report.json
+
+      - name: Upload security reports
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: security-report
-          path: bandit-report.json
-          if-no-files-found: ignore
+          name: security-reports
+          path: |
+            bandit-report.json
+            safety-report.json
+
+  # Mobile App Testing
+  mobile-test:
+    name: Mobile App Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        platform: [ ios, android ]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter (for cross-platform testing)
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.16.0"
+          channel: "stable"
+
+      - name: Install dependencies
+        run: |
+          cd mobile
+          flutter pub get
+
+      - name: Run mobile tests
+        run: |
+          cd mobile
+          flutter test --coverage
+
+      - name: Upload mobile test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mobile-test-results-${{ matrix.platform }}
+          path: mobile/coverage/lcov.info
 
   build-docker:
     name: Build Docker Images

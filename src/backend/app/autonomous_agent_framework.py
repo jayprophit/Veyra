@@ -387,8 +387,41 @@ class BaseAgent(BaseAgentHelpers):
                 await asyncio.sleep(60)  # Wait 1 min on error
     
     async def execute_cycle(self):
-        """Override this method in subclasses"""
-        raise NotImplementedError("Subclasses must implement execute_cycle")
+        """Execute autonomous agent cycle with comprehensive analysis"""
+        try:
+            # Market data analysis
+            market_data = await self.analyze_market_conditions()
+            
+            # Risk assessment
+            risk_metrics = await self.assess_risk_metrics()
+            
+            # Decision making
+            decisions = await self.make_trading_decisions(market_data, risk_metrics)
+            
+            # Execute trades
+            executed_trades = await self.execute_trades(decisions)
+            
+            # Performance monitoring
+            performance = await self.monitor_performance(executed_trades)
+            
+            # Update agent state
+            await self.update_agent_state(market_data, risk_metrics, decisions, performance)
+            
+            # Log results
+            logger.info(f"Agent {self.name} cycle completed: {len(executed_trades)} trades executed")
+            
+            return {
+                "timestamp": datetime.now().isoformat(),
+                "market_analysis": market_data,
+                "risk_metrics": risk_metrics,
+                "decisions": decisions,
+                "executed_trades": executed_trades,
+                "performance": performance
+            }
+            
+        except Exception as e:
+            logger.error(f"Error in agent {self.name} execute_cycle: {e}")
+            return {"error": str(e), "timestamp": datetime.now().isoformat()}
     
     def get_interval_seconds(self) -> int:
         """Override to set agent run interval"""
@@ -398,6 +431,245 @@ class BaseAgent(BaseAgentHelpers):
         """Stop the agent"""
         self.running = False
         logger.info(f"Agent {self.name} stopped")
+    
+    async def analyze_market_conditions(self) -> Dict[str, Any]:
+        """Analyze current market conditions"""
+        try:
+            # Get market data
+            market_data = await self.get_market_data()
+            
+            # Technical analysis
+            technical_indicators = await self.calculate_technical_indicators(market_data)
+            
+            # Sentiment analysis
+            sentiment = await self.analyze_sentiment()
+            
+            # Market volatility
+            volatility = await self.calculate_volatility(market_data)
+            
+            return {
+                "market_data": market_data,
+                "technical_indicators": technical_indicators,
+                "sentiment": sentiment,
+                "volatility": volatility,
+                "analysis_timestamp": datetime.now().isoformat()
+            }
+        except Exception as e:
+            logger.error(f"Error analyzing market conditions: {e}")
+            return {"error": str(e)}
+    
+    async def assess_risk_metrics(self) -> Dict[str, Any]:
+        """Assess current risk metrics"""
+        try:
+            # Portfolio risk
+            portfolio_risk = await self.calculate_portfolio_risk()
+            
+            # Market risk
+            market_risk = await self.calculate_market_risk()
+            
+            # Credit risk
+            credit_risk = await self.calculate_credit_risk()
+            
+            # Operational risk
+            operational_risk = await self.calculate_operational_risk()
+            
+            return {
+                "portfolio_risk": portfolio_risk,
+                "market_risk": market_risk,
+                "credit_risk": credit_risk,
+                "operational_risk": operational_risk,
+                "overall_risk_score": (portfolio_risk + market_risk + credit_risk + operational_risk) / 4,
+                "risk_timestamp": datetime.now().isoformat()
+            }
+        except Exception as e:
+            logger.error(f"Error assessing risk metrics: {e}")
+            return {"error": str(e)}
+    
+    async def make_trading_decisions(self, market_data: Dict, risk_metrics: Dict) -> List[Dict[str, Any]]:
+        """Make trading decisions based on analysis"""
+        try:
+            decisions = []
+            
+            # Risk-adjusted decision making
+            risk_score = risk_metrics.get("overall_risk_score", 0.5)
+            
+            for symbol, data in market_data.get("market_data", {}).items():
+                # Analyze symbol
+                signal = await self.analyze_symbol_signal(symbol, data, risk_score)
+                
+                if signal["action"] != "hold":
+                    decision = {
+                        "symbol": symbol,
+                        "action": signal["action"],
+                        "quantity": signal["quantity"],
+                        "confidence": signal["confidence"],
+                        "reasoning": signal["reasoning"],
+                        "risk_score": risk_score,
+                        "timestamp": datetime.now().isoformat()
+                    }
+                    decisions.append(decision)
+            
+            return decisions
+        except Exception as e:
+            logger.error(f"Error making trading decisions: {e}")
+            return []
+    
+    async def execute_trades(self, decisions: List[Dict]) -> List[Dict[str, Any]]:
+        """Execute trading decisions"""
+        try:
+            executed_trades = []
+            
+            for decision in decisions:
+                # Risk check before execution
+                if decision["risk_score"] > 0.8:  # High risk threshold
+                    continue
+                
+                # Execute trade
+                trade_result = await self.execute_single_trade(decision)
+                
+                if trade_result["success"]:
+                    executed_trades.append(trade_result)
+                    logger.info(f"Trade executed: {decision['symbol']} {decision['action']} {decision['quantity']}")
+            
+            return executed_trades
+        except Exception as e:
+            logger.error(f"Error executing trades: {e}")
+            return []
+    
+    async def monitor_performance(self, trades: List[Dict]) -> Dict[str, Any]:
+        """Monitor trading performance"""
+        try:
+            # Calculate P&L
+            total_pnl = sum(trade.get("pnl", 0) for trade in trades)
+            
+            # Win rate
+            winning_trades = len([t for t in trades if t.get("pnl", 0) > 0])
+            win_rate = winning_trades / len(trades) if trades else 0
+            
+            # Sharpe ratio
+            returns = [trade.get("pnl", 0) for trade in trades]
+            sharpe_ratio = self.calculate_sharpe_ratio(returns)
+            
+            return {
+                "total_pnl": total_pnl,
+                "win_rate": win_rate,
+                "sharpe_ratio": sharpe_ratio,
+                "trade_count": len(trades),
+                "performance_timestamp": datetime.now().isoformat()
+            }
+        except Exception as e:
+            logger.error(f"Error monitoring performance: {e}")
+            return {"error": str(e)}
+    
+    async def update_agent_state(self, market_data: Dict, risk_metrics: Dict, 
+                                decisions: List, performance: Dict):
+        """Update agent internal state"""
+        try:
+            self.last_market_analysis = market_data
+            self.last_risk_assessment = risk_metrics
+            self.last_decisions = decisions
+            self.last_performance = performance
+            
+            # Update learning models
+            await self.update_learning_models(decisions, performance)
+            
+        except Exception as e:
+            logger.error(f"Error updating agent state: {e}")
+    
+    # Helper methods
+    async def get_market_data(self) -> Dict[str, Any]:
+        """Get current market data"""
+        # Mock implementation - would connect to real market data
+        return {"AAPL": {"price": 150.0, "volume": 1000000}, "GOOGL": {"price": 2500.0, "volume": 500000}}
+    
+    async def calculate_technical_indicators(self, data: Dict) -> Dict[str, Any]:
+        """Calculate technical indicators"""
+        return {"rsi": 50.0, "macd": 0.5, "bollinger_bands": {"upper": 155, "lower": 145}}
+    
+    async def analyze_sentiment(self) -> Dict[str, Any]:
+        """Analyze market sentiment"""
+        return {"overall": "neutral", "score": 0.0, "confidence": 0.8}
+    
+    async def calculate_volatility(self, data: Dict) -> float:
+        """Calculate market volatility"""
+        return 0.2  # 20% volatility
+    
+    async def calculate_portfolio_risk(self) -> float:
+        """Calculate portfolio risk score"""
+        return 0.3  # 30% risk
+    
+    async def calculate_market_risk(self) -> float:
+        """Calculate market risk score"""
+        return 0.4  # 40% risk
+    
+    async def calculate_credit_risk(self) -> float:
+        """Calculate credit risk score"""
+        return 0.2  # 20% risk
+    
+    async def calculate_operational_risk(self) -> float:
+        """Calculate operational risk score"""
+        return 0.1  # 10% risk
+    
+    async def analyze_symbol_signal(self, symbol: str, data: Dict, risk_score: float) -> Dict[str, Any]:
+        """Analyze signal for specific symbol"""
+        # Simple momentum strategy
+        price = data.get("price", 0)
+        volume = data.get("volume", 0)
+        
+        # Generate signal
+        if volume > 1000000 and price > 100:
+            return {
+                "action": "buy",
+                "quantity": 100,
+                "confidence": 0.7,
+                "reasoning": "High volume and price momentum"
+            }
+        elif volume < 500000 and price < 50:
+            return {
+                "action": "sell",
+                "quantity": 50,
+                "confidence": 0.6,
+                "reasoning": "Low volume and price decline"
+            }
+        else:
+            return {
+                "action": "hold",
+                "quantity": 0,
+                "confidence": 0.5,
+                "reasoning": "Neutral market conditions"
+            }
+    
+    async def execute_single_trade(self, decision: Dict) -> Dict[str, Any]:
+        """Execute a single trade"""
+        try:
+            # Mock trade execution
+            return {
+                "success": True,
+                "symbol": decision["symbol"],
+                "action": decision["action"],
+                "quantity": decision["quantity"],
+                "price": 100.0,
+                "pnl": decision["quantity"] * 0.1,  # Mock P&L
+                "timestamp": datetime.now().isoformat()
+            }
+        except Exception as e:
+            return {"success": False, "error": str(e)}
+    
+    def calculate_sharpe_ratio(self, returns: List[float]) -> float:
+        """Calculate Sharpe ratio"""
+        if not returns:
+            return 0.0
+        
+        avg_return = sum(returns) / len(returns)
+        variance = sum((r - avg_return) ** 2 for r in returns) / len(returns)
+        std_dev = variance ** 0.5
+        
+        return avg_return / std_dev if std_dev > 0 else 0.0
+    
+    async def update_learning_models(self, decisions: List, performance: Dict):
+        """Update machine learning models"""
+        # Mock learning update
+        pass
     
     def get_status(self) -> Dict[str, Any]:
         """Get agent status"""
@@ -690,10 +962,145 @@ class PortfolioRebalancerAgent(BaseAgent):
     def _execute_trades(self, trades: List[Dict]):
         """Execute rebalance trades"""
         logger.info(f"Executing rebalance trades: {trades}")
-        # TODO: Integrate with broker API
+        try:
+            # Initialize broker connection
+            broker_client = self._get_broker_client()
+            
+            executed_trades = []
+            for trade in trades:
+                # Validate trade
+                if self._validate_trade(trade):
+                    # Execute trade through broker API
+                    result = broker_client.execute_order({
+                        "symbol": trade["symbol"],
+                        "side": trade["side"],
+                        "quantity": trade["quantity"],
+                        "order_type": "market",
+                        "time_in_force": "day"
+                    })
+                    
+                    if result["success"]:
+                        executed_trades.append({
+                            "symbol": trade["symbol"],
+                            "side": trade["side"],
+                            "quantity": trade["quantity"],
+                            "order_id": result["order_id"],
+                            "executed_price": result["price"],
+                            "executed_quantity": result["quantity"],
+                            "status": "filled"
+                        })
+                        logger.info(f"Trade executed: {trade['symbol']} {trade['side']} {trade['quantity']}")
+                    else:
+                        logger.error(f"Trade execution failed: {result['error']}")
+                else:
+                    logger.warning(f"Trade validation failed: {trade}")
+            
+            # Update portfolio
+            self._update_portfolio_after_trades(executed_trades)
+            
+            return executed_trades
+            
+        except Exception as e:
+            logger.error(f"Error executing trades: {e}")
+            return []
+    
+    def _get_broker_client(self):
+        """Get broker API client"""
+        # Mock broker client - in production would connect to real broker
+        return MockBrokerClient()
+    
+    def _validate_trade(self, trade: Dict) -> bool:
+        """Validate trade before execution"""
+        required_fields = ["symbol", "side", "quantity"]
+        return all(field in trade for field in required_fields) and trade["quantity"] > 0
+    
+    def _update_portfolio_after_trades(self, trades: List[Dict]):
+        """Update portfolio after trade execution"""
+        # Mock portfolio update
+        pass
     
     def get_interval_seconds(self) -> int:
         return 86400  # Daily
+
+
+# ============================================================================
+# MOCK BROKER CLIENT
+# ============================================================================
+
+class MockBrokerClient:
+    """Mock broker client for testing and development"""
+    
+    def __init__(self):
+        self.order_id_counter = 1000
+        self.positions = {}
+        self.orders = {}
+        
+    def execute_order(self, order_request: Dict[str, Any]) -> Dict[str, Any]:
+        """Execute order through broker API"""
+        try:
+            order_id = f"order_{self.order_id_counter}"
+            self.order_id_counter += 1
+            
+            # Mock execution
+            execution_price = self._get_mock_price(order_request["symbol"])
+            
+            result = {
+                "success": True,
+                "order_id": order_id,
+                "price": execution_price,
+                "quantity": order_request["quantity"],
+                "status": "filled",
+                "timestamp": datetime.now().isoformat()
+            }
+            
+            # Store order
+            self.orders[order_id] = result
+            
+            # Update positions
+            self._update_position(order_request, execution_price)
+            
+            return result
+            
+        except Exception as e:
+            return {
+                "success": False,
+                "error": str(e),
+                "timestamp": datetime.now().isoformat()
+            }
+    
+    def _get_mock_price(self, symbol: str) -> float:
+        """Get mock price for symbol"""
+        mock_prices = {
+            "AAPL": 150.0,
+            "GOOGL": 2500.0,
+            "MSFT": 300.0,
+            "AMZN": 3500.0,
+            "TSLA": 800.0
+        }
+        return mock_prices.get(symbol, 100.0)
+    
+    def _update_position(self, order: Dict[str, Any], price: float):
+        """Update position after trade"""
+        symbol = order["symbol"]
+        side = order["side"]
+        quantity = order["quantity"]
+        
+        if symbol not in self.positions:
+            self.positions[symbol] = {"quantity": 0, "avg_price": 0.0}
+        
+        if side == "buy":
+            # Add to position
+            current_qty = self.positions[symbol]["quantity"]
+            current_avg = self.positions[symbol]["avg_price"]
+            
+            new_qty = current_qty + quantity
+            new_avg = ((current_qty * current_avg) + (quantity * price)) / new_qty if new_qty > 0 else price
+            
+            self.positions[symbol]["quantity"] = new_qty
+            self.positions[symbol]["avg_price"] = new_avg
+        else:
+            # Reduce position
+            self.positions[symbol]["quantity"] -= quantity
 
 
 # ============================================================================

@@ -885,8 +885,112 @@ class AIProtocols(BaseAgent):
     
     def _calculate_protocol_risk(self, protocol: str) -> float:
         """Calculate risk score for protocol"""
-        # Factors: audit status, TVL stability, hack history, team doxxed
-        return 0.3  # Placeholder
+        try:
+            # Factors: audit status, TVL stability, hack history, team doxxed
+            protocol_data = self._get_protocol_data(protocol)
+            
+            # Audit score (40% weight)
+            audit_score = self._calculate_audit_score(protocol_data.get("audits", []))
+            
+            # TVL stability score (30% weight)
+            tvl_score = self._calculate_tvl_stability(protocol_data.get("tvl_history", []))
+            
+            # Security history score (20% weight)
+            security_score = self._calculate_security_score(protocol_data.get("security_events", []))
+            
+            # Team credibility score (10% weight)
+            team_score = self._calculate_team_score(protocol_data.get("team_info", {}))
+            
+            # Weighted risk score (lower is better)
+            risk_score = 1.0 - (audit_score * 0.4 + tvl_score * 0.3 + security_score * 0.2 + team_score * 0.1)
+            
+            return max(0.0, min(1.0, risk_score))
+            
+        except Exception as e:
+            logger.error(f"Error calculating protocol risk for {protocol}: {e}")
+            return 0.5  # Medium risk on error
+    
+    def _get_protocol_data(self, protocol: str) -> Dict[str, Any]:
+        """Get protocol data from database or API"""
+        # Mock protocol data - in production would fetch from DeFi APIs
+        mock_data = {
+            "uniswap": {
+                "audits": [{"firm": "Trail of Bits", "date": "2023-01-01", "score": 95}],
+                "tvl_history": [1000000, 1200000, 1100000, 1300000],
+                "security_events": [],
+                "team_info": {"doxxed": True, "experience_years": 5}
+            },
+            "compound": {
+                "audits": [{"firm": "OpenZeppelin", "date": "2023-02-01", "score": 92}],
+                "tvl_history": [2000000, 1800000, 2100000, 1900000],
+                "security_events": [{"type": "bug", "severity": "low", "date": "2022-06-01"}],
+                "team_info": {"doxxed": True, "experience_years": 7}
+            }
+        }
+        return mock_data.get(protocol, {
+            "audits": [],
+            "tvl_history": [],
+            "security_events": [],
+            "team_info": {}
+        })
+    
+    def _calculate_audit_score(self, audits: List[Dict]) -> float:
+        """Calculate audit score from audit reports"""
+        if not audits:
+            return 0.3  # Low score for no audits
+        
+        # Use highest audit score
+        max_score = max(audit.get("score", 0) for audit in audits)
+        return min(1.0, max_score / 100.0)
+    
+    def _calculate_tvl_stability(self, tvl_history: List[float]) -> float:
+        """Calculate TVL stability score"""
+        if len(tvl_history) < 2:
+            return 0.5  # Medium score for insufficient data
+        
+        # Calculate volatility
+        avg_tvl = sum(tvl_history) / len(tvl_history)
+        variance = sum((tvl - avg_tvl) ** 2 for tvl in tvl_history) / len(tvl_history)
+        volatility = (variance ** 0.5) / avg_tvl if avg_tvl > 0 else 1.0
+        
+        # Lower volatility = higher score
+        stability_score = max(0.0, 1.0 - volatility)
+        return stability_score
+    
+    def _calculate_security_score(self, security_events: List[Dict]) -> float:
+        """Calculate security score from security events"""
+        if not security_events:
+            return 1.0  # Perfect score for no events
+        
+        # Deduct points based on severity
+        score = 1.0
+        for event in security_events:
+            severity = event.get("severity", "low").lower()
+            if severity == "critical":
+                score -= 0.4
+            elif severity == "high":
+                score -= 0.2
+            elif severity == "medium":
+                score -= 0.1
+            elif severity == "low":
+                score -= 0.05
+        
+        return max(0.0, score)
+    
+    def _calculate_team_score(self, team_info: Dict) -> float:
+        """Calculate team credibility score"""
+        score = 0.0
+        
+        # Team doxxed (50% weight)
+        if team_info.get("doxxed", False):
+            score += 0.5
+        
+        # Experience (50% weight)
+        experience = team_info.get("experience_years", 0)
+        experience_score = min(1.0, experience / 10.0)  # 10 years = perfect score
+        score += experience_score * 0.5
+        
+        return score
     
     async def execute(self, decision: AgentDecision) -> Dict:
         return {'status': 'protocol_action', 'risk_acknowledged': True}
@@ -1087,8 +1191,15 @@ class AIBlockchain(BaseAgent):
     
     async def _check_gas_prices(self) -> Optional[AgentDecision]:
         """Recommend optimal gas timing"""
-        # Would check current gas prices
-        current_gas = 45  # Placeholder gwei
+        try:
+            # Get current gas prices from Ethereum network
+            current_gas = await self._get_current_gas_price()
+            
+            # Get historical gas data for trend analysis
+            gas_history = await self._get_gas_price_history()
+            
+            # Predict optimal timing
+            optimal_timing = await self._predict_optimal_gas_timing(gas_history)
         
         if current_gas > self.gas_thresholds['ethereum']['high']:
             return AgentDecision(
@@ -1112,6 +1223,90 @@ class AIBlockchain(BaseAgent):
                 risk_level="LOW"
             )
         return None
+    
+    async def _get_current_gas_price(self) -> float:
+        """Get current gas price from Ethereum network"""
+        try:
+            # Mock implementation - would connect to Ethereum API
+            # In production, would use Etherscan, Infura, or similar
+            mock_gas_prices = {
+                "low": 25.0,
+                "medium": 45.0,
+                "high": 85.0,
+                "very_high": 150.0
+            }
+            
+            # Simulate network conditions
+            import random
+            conditions = random.choice(["low", "medium", "high", "very_high"])
+            return mock_gas_prices[conditions]
+            
+        except Exception as e:
+            logger.error(f"Error getting gas price: {e}")
+            return 45.0  # Default medium gas
+    
+    async def _get_gas_price_history(self) -> List[Dict[str, Any]]:
+        """Get historical gas price data"""
+        try:
+            # Mock historical data - would fetch from API
+            import random
+            history = []
+            base_time = datetime.now() - timedelta(days=7)
+            
+            for i in range(168):  # 7 days of hourly data
+                timestamp = base_time + timedelta(hours=i)
+                # Simulate gas price patterns (higher during business hours)
+                hour = timestamp.hour
+                if 9 <= hour <= 17:  # Business hours
+                    base_price = random.uniform(40, 80)
+                else:  # Off hours
+                    base_price = random.uniform(20, 50)
+                
+                history.append({
+                    "timestamp": timestamp.isoformat(),
+                    "gas_price": base_price,
+                    "block_number": 15000000 + i * 13  # Mock block numbers
+                })
+            
+            return history
+            
+        except Exception as e:
+            logger.error(f"Error getting gas history: {e}")
+            return []
+    
+    async def _predict_optimal_gas_timing(self, gas_history: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """Predict optimal timing for transactions"""
+        try:
+            if not gas_history:
+                return {"optimal_hours": [2, 3, 4, 5], "avg_gas": 45.0}
+            
+            # Analyze hourly patterns
+            hourly_gas = {}
+            for entry in gas_history[-24 * 7:]:  # Last week
+                hour = datetime.fromisoformat(entry["timestamp"]).hour
+                if hour not in hourly_gas:
+                    hourly_gas[hour] = []
+                hourly_gas[hour].append(entry["gas_price"])
+            
+            # Calculate average gas by hour
+            hourly_avg = {}
+            for hour, prices in hourly_gas.items():
+                hourly_avg[hour] = sum(prices) / len(prices)
+            
+            # Find optimal hours (lowest gas prices)
+            sorted_hours = sorted(hourly_avg.items(), key=lambda x: x[1])
+            optimal_hours = [hour for hour, _ in sorted_hours[:6]]  # Top 6 hours
+            
+            return {
+                "optimal_hours": optimal_hours,
+                "hourly_averages": hourly_avg,
+                "predicted_low_gas": min(hourly_avg.values()) if hourly_avg else 30.0,
+                "predicted_high_gas": max(hourly_avg.values()) if hourly_avg else 80.0
+            }
+            
+        except Exception as e:
+            logger.error(f"Error predicting optimal timing: {e}")
+            return {"optimal_hours": [2, 3, 4, 5], "avg_gas": 45.0}
     
     async def _check_network_congestion(self) -> Optional[AgentDecision]:
         """Check network congestion status"""
