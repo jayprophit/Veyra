@@ -1,0 +1,10 @@
+name = "financial-master-api"
+main = "api-gateway/worker.js"
+compatibility_date = "2024-01-01"
+
+[[r2_buckets]]
+binding = "ASSETS"
+bucket_name = "financial-master-assets"
+
+[env.production]
+vars = { ENVIRONMENT = "production" }

@@ -1,83 +1,17 @@
-# Render.com Deployment Configuration
-# ===================================
-# Free tier deployment for Financial Master API
-# 
-# Deploy steps:
-# 1. Push code to GitHub
-# 2. Connect Render to your GitHub repo
-# 3. Render will read this file and deploy automatically
-#
-# Services deployed:
-# - Web Service: FastAPI backend (free, sleeps after 15min idle)
-# - PostgreSQL: Neon database (free 500MB)
-
 services:
-  # Web Service - FastAPI Backend
   - type: web
-    name: financial-master-api
+    name: financial-master
     runtime: python
     plan: free
-    autoDeploy: true
-    buildCommand: |
-      pip install -r requirements.txt
-      mkdir -p data logs
-    startCommand: uvicorn src.backend.app.api_server:app --host 0.0.0.0 --port $PORT
-    envVars:
-      - key: PYTHON_VERSION
-        value: 3.11.0
-      - key: ENVIRONMENT
-        value: staging
-      - key: DEBUG
-        value: false
-      - key: USE_MOCK_DATA
-        value: false
-      - key: DB_TYPE
-        value: postgres
-      - key: DATABASE_URL
-        fromDatabase:
-          name: financial-master-db
-          property: connectionString
-      - key: SECRET_KEY
-        generateValue: true
-      - key: ALPACA_PAPER
-        value: true
-      - key: ALPACA_PAPER_API_KEY
-        sync: false  # Set manually in Render dashboard
-      - key: ALPACA_PAPER_API_SECRET
-        sync: false  # Set manually in Render dashboard
-      - key: FINNHUB_API_KEY
-        sync: false  # Set manually in Render dashboard
-      - key: MAX_DAILY_TRADES
-        value: 5
-      - key: APPROVAL_THRESHOLD
-        value: 10000
-      - key: ENABLE_PAPER_TRADING_ONLY
-        value: true
-    healthCheckPath: /api/health
-    # Prevent sleep for critical operations (optional upgrade)
-    # autoDeploy: true
-
-  # Background Worker (optional - for agents)
-  - type: worker
-    name: financial-master-agents
-    runtime: python
-    plan: free
-    autoDeploy: true
     buildCommand: pip install -r requirements.txt
-    startCommand: python -m src.backend.app.main --agents
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.11.0
       - key: DATABASE_URL
-        fromDatabase:
-          name: financial-master-db
-          property: connectionString
-      - key: ENVIRONMENT
-        value: staging
-    # Workers run continuously in free tier but may restart
-
-databases:
-  # PostgreSQL Database - Neon compatible
-  - name: financial-master-db
-    plan: free
-    ipAllowList: []  # Allow connections from anywhere (Render handles security)
+        sync: false
+      - key: ALPHA_VANTAGE_KEY
+        sync: false
+      - key: SENTRY_DSN
+        sync: false
+      - key: OLLAMA_BASE_URL
+        value: http://localhost:11434

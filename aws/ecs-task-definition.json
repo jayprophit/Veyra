@@ -1,0 +1,60 @@
+{
+  "family": "financial-master",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": "256",
+  "memory": "512",
+  "executionRoleArn": "${aws_iam_role.ecs_task_execution_role.arn}",
+  "taskRoleArn": "${aws_iam_role.ecs_task_role.arn}",
+  "containerDefinitions": [
+    {
+      "name": "financial-master-api",
+      "image": "YOUR_ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/financial-master:latest",
+      "portMappings": [
+        {
+          "containerPort": 8000,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        {
+          "name": "DATABASE_URL",
+          "value": "postgresql://username:password@db-host:5432/financial_master"
+        },
+        {
+          "name": "REDIS_URL",
+          "value": "redis://cache-host:6379"
+        },
+        {
+          "name": "OLLAMA_BASE_URL",
+          "value": "http://ollama-service:11434"
+        }
+      ],
+      "secrets": [
+        {
+          "name": "ALPHA_VANTAGE_KEY",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:ACCOUNT:secret:financial-master/secrets"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/financial-master",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "healthCheck": {
+        "command": [
+          "CMD-SHELL",
+          "curl -f http://localhost:8000/health || exit 1"
+        ],
+        "interval": 30,
+        "timeout": 5,
+        "retries": 3
+      }
+    }
+  ]
+}
