@@ -1,0 +1,67 @@
+# Cross-Cloud Networking Configuration
+apiVersion: v1
+kind: Network
+metadata:
+  name: financial-master-network
+spec:
+  type: multi-cloud
+  providers:
+    aws:
+      vpcId: vpc-12345678
+      region: us-east-1
+      subnets:
+        - subnet-1
+        - subnet-2
+        - subnet-3
+    
+    azure:
+      vnetId: /subscriptions/12345678-1234-5678-1234-567812345678/resourceGroups/financial-master-azure/providers/Microsoft.Network/virtualNetworks/financial-master-vnet
+      subnets:
+        - container-apps-subnet
+        - database-subnet
+    
+    gcp:
+      networkId: projects/financial-master-gcp/global/networks/financial-master-network
+      subnets:
+        - financial-master-private
+        - financial-master-public
+  
+  peering:
+    aws-azure:
+      enabled: true
+      type: vpc-peering
+      routes:
+        - 10.0.0.0/16 -> 10.1.0.0/16
+    
+    aws-gcp:
+      enabled: true
+      type: interconnect
+      routes:
+        - 10.0.0.0/16 -> 10.2.0.0/16
+    
+    azure-gcp:
+      enabled: true
+      type: expressroute
+      routes:
+        - 10.1.0.0/16 -> 10.2.0.0/16
+  
+  security:
+    firewall:
+      aws:
+        securityGroups:
+          - financial-master-sg
+        networkAcls:
+          - financial-master-nacl
+      
+      azure:
+        networkSecurityGroups:
+          - financial-master-nsg
+        networkSecurityGroupRules:
+          - allow-https
+          - allow-ssh
+      
+      gcp:
+        firewallRules:
+          - allow-https
+          - allow-ssh
+          - allow-database

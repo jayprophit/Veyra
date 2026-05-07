@@ -1,0 +1,34 @@
+{
+  "provider": "azure",
+  "name": "Microsoft Azure",
+  "role": "Microsoft Ecosystem Integration",
+  "cost": "$40-150/month",
+  "strengths": [
+    "Seamless Microsoft integration",
+    "Enterprise productivity tools",
+    "Advanced analytics (Power BI)",
+    "Hybrid cloud capabilities"
+  ],
+  "services": {
+    "core": [
+      "Container Instances",
+      "Azure SQL",
+      "Front Door CDN"
+    ],
+    "microsoft": [
+      "Azure AD",
+      "Office 365",
+      "Power BI",
+      "Excel Integration"
+    ],
+    "backup": [
+      "Azure Functions",
+      "Blob Storage",
+      "Azure Monitor"
+    ]
+  },
+  "deployment_files": [
+    "bicep/main.bicep",
+    "scripts/deploy-azure.sh"
+  ]
+}

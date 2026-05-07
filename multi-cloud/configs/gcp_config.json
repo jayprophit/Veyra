@@ -1,0 +1,35 @@
+{
+  "provider": "gcp",
+  "name": "Google Cloud Platform",
+  "role": "AI/ML & Data Analytics",
+  "cost": "$45-180/month",
+  "strengths": [
+    "Superior AI/ML capabilities",
+    "Advanced data analytics",
+    "BigQuery performance",
+    "Vertex AI platform"
+  ],
+  "services": {
+    "core": [
+      "Cloud Run",
+      "Cloud SQL",
+      "Cloud CDN"
+    ],
+    "ai_ml": [
+      "Vertex AI",
+      "BigQuery",
+      "AutoML",
+      "Notebooks"
+    ],
+    "backup": [
+      "Cloud Functions",
+      "Cloud Storage",
+      "Dataflow"
+    ]
+  },
+  "deployment_files": [
+    "terraform/main.tf",
+    "terraform/variables.tf",
+    "scripts/deploy-gcp.sh"
+  ]
+}

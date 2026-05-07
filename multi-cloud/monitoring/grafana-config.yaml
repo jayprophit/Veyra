@@ -1,0 +1,102 @@
+# Unified Monitoring for Multi-Cloud Financial Master
+apiVersion: 1
+
+datasources:
+  - name: AWS CloudWatch
+    type: cloudwatch
+    accessKeyId: ${AWS_ACCESS_KEY_ID}
+    secretAccessKey: ${AWS_SECRET_ACCESS_KEY}
+    region: us-east-1
+    
+  - name: Azure Monitor
+    type: azuremonitor
+    clientId: ${AZURE_CLIENT_ID}
+    clientSecret: ${AZURE_CLIENT_SECRET}
+    tenantId: ${AZURE_TENANT_ID}
+    subscriptionId: ${AZURE_SUBSCRIPTION_ID}
+    
+  - name: GCP Cloud Monitoring
+    type: stackdriver
+    projectId: financial-master-gcp
+    keyFile: ${GOOGLE_APPLICATION_CREDENTIALS}
+
+dashboards:
+  - name: Financial Master Overview
+    panels:
+      - title: API Response Time
+        type: graph
+        targets:
+          - datasource: AWS CloudWatch
+            refId: A
+          - datasource: Azure Monitor
+            refId: B
+          - datasource: GCP Cloud Monitoring
+            refId: C
+      
+      - title: Error Rate
+        type: graph
+        targets:
+          - datasource: AWS CloudWatch
+            refId: D
+          - datasource: Azure Monitor
+            refId: E
+          - datasource: GCP Cloud Monitoring
+            refId: F
+      
+      - title: Database Performance
+        type: graph
+        targets:
+          - datasource: AWS CloudWatch
+            refId: G
+          - datasource: Azure Monitor
+            refId: H
+          - datasource: GCP Cloud Monitoring
+            refId: I
+      
+      - title: AI/ML Model Performance
+        type: graph
+        targets:
+          - datasource: GCP Cloud Monitoring
+            refId: J
+          - datasource: AWS CloudWatch
+            refId: K
+
+alerts:
+  - name: High Error Rate
+    condition:
+      - datasource: AWS CloudWatch
+        query: "rate(errors[5m]) > 0.1"
+      - datasource: Azure Monitor
+        query: "exceptions | where success == false | count() > 10"
+      - datasource: GCP Cloud Monitoring
+        query: "fetch financial_master_error_rate | value > 0.05"
+    
+    for: 5m
+    annotations:
+      summary: "High error rate detected in Financial Master"
+      description: "Error rate is above threshold"
+      severity: critical
+    
+    notifications:
+      - slack
+      - email
+      - pagerduty
+
+  - name: Database Connection Issues
+    condition:
+      - datasource: AWS CloudWatch
+        query: "avg(database_connections) < 1"
+      - datasource: Azure Monitor
+        query: "azure_db_connections | avg() < 1"
+      - datasource: GCP Cloud Monitoring
+        query: "fetch database_connections | value < 1"
+    
+    for: 2m
+    annotations:
+      summary: "Database connection issues detected"
+      description: "Database connections are below expected levels"
+      severity: warning
+    
+    notifications:
+      - slack
+      - email

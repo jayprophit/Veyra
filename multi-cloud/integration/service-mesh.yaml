@@ -1,0 +1,54 @@
+# Multi-Cloud Service Mesh Integration
+apiVersion: v1
+kind: ServiceMesh
+metadata:
+  name: financial-master-mesh
+spec:
+  providers:
+    aws:
+      region: us-east-1
+      account: "123456789012"
+    azure:
+      subscription: "financial-master-subscription"
+      resourceGroup: "financial-master-azure"
+    gcp:
+      project: "financial-master-gcp"
+      region: "us-central1"
+  
+  services:
+    - name: financial-master-api
+      provider: aws
+      endpoint: https://financial-master-api.us-east-1.elb.amazonaws.com
+      backup:
+        - provider: azure
+          endpoint: https://financial-master-api.azurewebsites.net
+        - provider: gcp
+          endpoint: https://financial-master-api-xxxxxx-uc.a.run.app
+    
+    - name: financial-master-ai
+      provider: gcp
+      endpoint: https://financial-master-ai-xxxxxx-uc.a.run.app
+      backup:
+        - provider: aws
+          endpoint: https://financial-master-ai.us-east-1.elb.amazonaws.com
+    
+    - name: financial-master-analytics
+      provider: azure
+      endpoint: https://financial-master-analytics.powerbi.com
+      backup:
+        - provider: gcp
+          endpoint: https://financial-master-analytics.bigquery.google.com
+  
+  routing:
+    primary: aws
+    failover:
+      - azure
+      - gcp
+    loadBalancing: round_robin
+  
+  monitoring:
+    provider: grafana
+    dashboards:
+      - aws-cloudwatch
+      - azure-monitor
+      - gcp-monitoring

@@ -1,0 +1,52 @@
+{
+  "total_monthly_costs": {
+    "startup": {
+      "description": "All providers, minimum tiers",
+      "aws": 50,
+      "azure": 40,
+      "gcp": 45,
+      "total": 135
+    },
+    "growth": {
+      "description": "Scaled based on usage",
+      "aws": 150,
+      "azure": 120,
+      "gcp": 135,
+      "total": 405
+    },
+    "enterprise": {
+      "description": "Full features, high performance",
+      "aws": 200,
+      "azure": 150,
+      "gcp": 180,
+      "total": 530
+    }
+  },
+  "cost_optimization_strategies": {
+    "aws": {
+      "reserved_instances": "Use Reserved Instances for predictable workloads",
+      "savings_plans": "Enroll in AWS Savings Plans",
+      "spot_instances": "Use Spot Instances for non-critical workloads"
+    },
+    "azure": {
+      "hybrid_benefit": "Use Hybrid Benefit with existing licenses",
+      "reserved_capacity": "Use Azure Reserved Instances",
+      "spot_pricing": "Use Azure Spot pricing for flexible workloads"
+    },
+    "gcp": {
+      "sustained_use": "Use Sustained Use Discounts for steady workloads",
+      "committed_use": "Use Committed Use Discounts for predictable usage",
+      "preemptible_vms": "Use Preemptible VMs for fault-tolerant workloads"
+    }
+  },
+  "cost_monitoring": {
+    "aws_budgets": "Set alerts at 80% and 100% of budget",
+    "azure_cost_management": "Daily cost reports and optimization recommendations",
+    "gcp_budgets": "Monthly budget tracking and anomaly detection"
+  },
+  "unified_monitoring": {
+    "dashboard": "Grafana with all cloud metrics",
+    "alerts": "Cross-cloud cost and performance alerts",
+    "reporting": "Monthly cost analysis and optimization recommendations"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "provider": "aws",
+  "name": "Amazon Web Services",
+  "role": "Enterprise Foundation",
+  "cost": "$50-200/month",
+  "strengths": [
+    "Most mature cloud platform",
+    "Enterprise-grade security",
+    "Global infrastructure",
+    "99.99%+ SLA reliability"
+  ],
+  "services": {
+    "core": [
+      "ECS/Fargate",
+      "RDS PostgreSQL",
+      "CloudFront CDN"
+    ],
+    "enterprise": [
+      "IAM",
+      "CloudTrail",
+      "GuardDuty",
+      "Organizations"
+    ],
+    "backup": [
+      "Lambda",
+      "S3",
+      "CloudWatch"
+    ]
+  },
+  "deployment_files": [
+    "terraform/main.tf",
+    "terraform/variables.tf",
+    "scripts/deploy-aws.sh"
+  ]
+}

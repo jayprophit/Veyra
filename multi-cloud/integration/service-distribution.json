@@ -1,0 +1,75 @@
+{
+  "strategy": "multi-cloud",
+  "description": "Distribute services across providers based on strengths",
+  "allocation": {
+    "frontend_static_assets": {
+      "primary": "aws",
+      "backup": "azure",
+      "reason": "AWS CloudFront has best global CDN performance"
+    },
+    "api_gateway": {
+      "primary": "aws",
+      "backup": "azure",
+      "reason": "AWS API Gateway has enterprise features"
+    },
+    "container_orchestration": {
+      "primary": "aws",
+      "backup": "azure",
+      "reason": "AWS ECS/Fargate has most mature orchestration"
+    },
+    "primary_database": {
+      "primary": "aws",
+      "backup": "azure",
+      "reason": "AWS RDS has enterprise reliability"
+    },
+    "ai_ml_training": {
+      "primary": "gcp",
+      "backup": "aws",
+      "reason": "GCP Vertex AI has superior ML platform"
+    },
+    "data_analytics": {
+      "primary": "gcp",
+      "backup": "azure",
+      "reason": "GCP BigQuery has best analytics performance"
+    },
+    "file_storage": {
+      "primary": "aws",
+      "backup": "gcp",
+      "reason": "AWS S3 has cost optimization, GCP has data lake capabilities"
+    },
+    "serverless_functions": {
+      "primary": "aws",
+      "backup": "azure",
+      "reason": "AWS Lambda has maturity, Azure Functions have features"
+    },
+    "monitoring": {
+      "primary": "aws",
+      "backup": [
+        "azure",
+        "gcp"
+      ],
+      "reason": "AWS CloudWatch is comprehensive, Azure Monitor and GCP Monitoring provide backup"
+    },
+    "identity_sso": {
+      "primary": "azure",
+      "backup": "aws",
+      "reason": "Azure AD has enterprise auth, AWS Cognito provides backup"
+    },
+    "business_intelligence": {
+      "primary": "azure",
+      "backup": "aws",
+      "reason": "Azure Power BI has Microsoft ecosystem integration"
+    },
+    "office_integration": {
+      "primary": "azure",
+      "backup": "none",
+      "reason": "Only Azure has Office 365 integration"
+    }
+  },
+  "failover_strategy": {
+    "primary_to_backup": "automatic",
+    "backup_to_tertiary": "manual",
+    "health_checks": "continuous",
+    "dns_failover": "5_minutes"
+  }
+}
