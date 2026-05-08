@@ -149,7 +149,6 @@ class BiometricMonitor:
         except Exception as e:
             logger.error(f"Failed to get biometric reading: {e}")
             return None
-        )
     
     async def _connect_apple_watch(self):
         """Connect to Apple Watch via HealthKit."""

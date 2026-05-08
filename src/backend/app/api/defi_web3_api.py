@@ -217,7 +217,7 @@ async def execute_smart_contract(contract_address: str = Body(...), function_nam
 @router.get("/bridge/chains", summary="Supported chains")
 async def list_supported_chains():
     """List all supported blockchain networks."""
-    return {"chains": [{"id": 1, "name": "Ethereum", "type": "EVM"}, {"id": 137, "name": "Polygon", "type": "EVM"}, {"id": 42161, "name": "Arbitrum", "type": "EVM"}, {"id": 10, "name": "Optimism", "type": "EVM"}, {"id": "8453, "name": "Base", "type": "EVM"}, {"id": "solana", "name": "Solana", "type": "SVM"}], "count": 15}
+    return {"chains": [{"id": 1, "name": "Ethereum", "type": "EVM"}, {"id": 137, "name": "Polygon", "type": "EVM"}, {"id": 42161, "name": "Arbitrum", "type": "EVM"}, {"id": 10, "name": "Optimism", "type": "EVM"}, {"id": "8453", "name": "Base", "type": "EVM"}, {"id": "solana", "name": "Solana", "type": "SVM"}], "count": 15}
 
 @router.get("/bridge/quotes", summary="Bridge quotes")
 async def get_bridge_quotes(from_chain: str = Query(...), to_chain: str = Query(...), token: str = Query(...), amount: float = Query(...)):

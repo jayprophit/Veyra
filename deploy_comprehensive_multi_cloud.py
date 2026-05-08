@@ -393,7 +393,7 @@ class ComprehensiveMultiCloudDeployer:
                     "components": ["Computer Vision", "Speech", "Language", "Translator"],
                     "cost_range": "$1-50/month",
                     "features": ["Pre-trained models", "Custom training", "Real-time APIs"]
-                }
+                },
             },
             "devops": {
                 "azure_devops": {

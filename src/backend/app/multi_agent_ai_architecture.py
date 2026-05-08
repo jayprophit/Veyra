@@ -1200,8 +1200,8 @@ class AIBlockchain(BaseAgent):
             
             # Predict optimal timing
             optimal_timing = await self._predict_optimal_gas_timing(gas_history)
-        
-        if current_gas > self.gas_thresholds['ethereum']['high']:
+            
+            if current_gas > self.gas_thresholds['ethereum']['high']:
             return AgentDecision(
                 agent_type=self.agent_type,
                 timestamp=datetime.now(),
@@ -1222,6 +1222,11 @@ class AIBlockchain(BaseAgent):
                 compliance_check_passed=True,
                 risk_level="LOW"
             )
+        
+        except Exception as e:
+            logger.error(f"Error checking gas prices: {e}")
+            return None
+        
         return None
     
     async def _get_current_gas_price(self) -> float:
