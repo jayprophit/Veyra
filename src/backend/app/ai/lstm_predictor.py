@@ -346,7 +346,8 @@ class LSTMPredictor:
                     pred = self.predict(test_data.iloc[i]['symbol'] if 'symbol' in test_data.columns else 'TEST', window)
                     predictions.append(pred.predicted_price)
                     actuals.append(test_data.iloc[i]['close'])
-                except:
+                except Exception as e:
+                    logger.error(f"Error in prediction: {e}")
                     continue
         
         if len(predictions) > 0:

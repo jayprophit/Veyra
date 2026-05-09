@@ -62,12 +62,13 @@ test("Restaurant", test_restaurant)
 
 # Fleet Management - CORRECTED
 def test_fleet():
-    from app.transportation.fleet_tracker import FleetTracker, Trip
+    from app.transportation.fleet_tracker import FleetTracker, FleetTrip
+    from datetime import date
     ft = FleetTracker()
-    trip = Trip('T001', 150.0, 45.0, 30.0)
+    trip = FleetTrip('T001', 'V001', 150.0, 45.0, 30.0, 20.0, 10.0, date.today())
     ft.add_trip(trip)
-    result = ft.get_metrics()
-    assert result['trips'] == 1
+    result = ft.get_fleet_metrics()
+    assert result['total_trips'] == 1
 
 test("Fleet Management", test_fleet)
 
