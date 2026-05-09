@@ -44,21 +44,29 @@ aiocache==0.12.2
 # Caching & Message Queue
 redis==5.0.1
 
-# FactSet Integrations
+# FactSet Integrations (Paid - Optional)
 factset-enterprise-sdk>=1.0.0
 factset-analyticsapi-engines-python-sdk>=1.0.0
 factset-realtime-quotes>=1.0.0
 factset-fundamentals>=1.0.0
 factset-signals>=1.0.0
-factset-open-risk>=1.0.0
+factset-openrisk>=1.0.0
 factset-estimates>=1.0.0
 factset-optimization>=1.0.0
 factset-nlp>=1.0.0
 factset-entity>=1.0.0
-factset-mergers-acquisitions>=1.0.0
+factset-mergers>=1.0.0
 factset-security-intelligence>=1.0.0
 factset-quant-factors>=1.0.0
 factset-conversational>=1.0.0
+
+# FREE ALTERNATIVES TO FACTSET (No API Keys Required)
+openbb>=4.2.0
+yfinance>=0.2.18
+financetoolkit>=1.0.0
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
 
 # STACH Schema
 stachschema>=1.0.0
