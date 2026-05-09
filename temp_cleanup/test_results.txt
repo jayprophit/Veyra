@@ -1,0 +1,35 @@
+Passed: 24
+Failed: 3
+
+Passed Modules:
+  ✓ Mushroom Farming
+  ✓ AI Automation
+  ✓ Cybersecurity
+  ✓ AI Integrations
+  ✓ Beekeeping
+  ✓ Carbon Capture
+  ✓ Cellular Agriculture
+  ✓ Climate Finance
+  ✓ Circular Economy
+  ✓ Wealth Engines
+  ✓ Pattern Detection
+  ✓ Visual Learning
+  ✓ Personal Trainer
+  ✓ Construction
+  ✓ Restaurant
+  ✓ Fleet Management
+  ✓ Manufacturing
+  ✓ Farm Business
+  ✓ Distribution
+  ✓ Cleaning
+  ✓ Pet Services
+  ✓ Event Planning
+  ✓ Core Portfolio
+  ✓ Merger Arbitrage
+
+Failed Modules:
+  ✗ AI Models: assert 'total_patterns' in {'status': 'NO_PATTERNS'}
+ +  where {'status': 'NO_PATTERNS'} = get_summary()
+ +    where get_summary = <app.ai_models.pattern_recognizer.PatternRecognizer object at 0x0000020A1214C6E0>.get_summary
+  ✗ Alternative Investments: No module named 'app.alternative_investments.art_investing'
+  ✗ Behavioral Finance: cannot import name 'BiasDetector' from 'app.behavioral_finance.bias_detector' (c:\Users\jpowe\Desktop\Financial Master\tests\..\src\backend\app\behavioral_finance\bias_detector.py)
