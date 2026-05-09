@@ -29,7 +29,7 @@ class DeFiProtocol(Enum):
     YEARN = "yearn"
     MAKERDAO = "makerdao"
     SYNTHETIX = "synthetix"
-    1INCH = "1inch"
+    ONEINCH = "1inch"
 
 
 class PoolType(Enum):

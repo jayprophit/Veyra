@@ -280,7 +280,7 @@ async def _fetch_polar_data(self):
             temperature=36.4 + random.uniform(-1.5, 2)
         )
 
-def _simulate_variation(self) -> float:
+    def _simulate_variation(self) -> float:
         """Simulate natural biometric variation (-1 to 1)."""
         import random
         return random.gauss(0, 0.5)

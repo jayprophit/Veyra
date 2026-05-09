@@ -1202,26 +1202,26 @@ class AIBlockchain(BaseAgent):
             optimal_timing = await self._predict_optimal_gas_timing(gas_history)
             
             if current_gas > self.gas_thresholds['ethereum']['high']:
-            return AgentDecision(
-                agent_type=self.agent_type,
-                timestamp=datetime.now(),
-                decision_id=self.generate_decision_id("gas_optimization"),
-                category="Transaction Optimization",
-                priority="MEDIUM",
-                title="High Gas Prices - Delay Non-Urgent Transactions",
-                description=f"Current gas: {current_gas} gwei. Wait for <{self.gas_thresholds['ethereum']['medium']} gwei.",
-                recommended_action="Delay non-urgent transactions until gas drops",
-                confidence_score=0.80,
-                supporting_data={
-                    'current_gas_gwei': current_gas,
-                    'recommended_max': self.gas_thresholds['ethereum']['medium'],
-                    'estimated_savings': f"{(current_gas - 30) * 21000 / 1e9 * 2000:.2f} ETH"
-                },
-                requires_approval=False,
-                auto_executable=False,
-                compliance_check_passed=True,
-                risk_level="LOW"
-            )
+                return AgentDecision(
+                    agent_type=self.agent_type,
+                    timestamp=datetime.now(),
+                    decision_id=self.generate_decision_id("gas_optimization"),
+                    category="Transaction Optimization",
+                    priority="MEDIUM",
+                    title="High Gas Prices - Delay Non-Urgent Transactions",
+                    description=f"Current gas: {current_gas} gwei. Wait for <{self.gas_thresholds['ethereum']['medium']} gwei.",
+                    recommended_action="Delay non-urgent transactions until gas drops",
+                    confidence_score=0.80,
+                    supporting_data={
+                        'current_gas_gwei': current_gas,
+                        'recommended_max': self.gas_thresholds['ethereum']['medium'],
+                        'estimated_savings': f"{(current_gas - 30) * 21000 / 1e9 * 2000:.2f} ETH"
+                    },
+                    requires_approval=False,
+                    auto_executable=False,
+                    compliance_check_passed=True,
+                    risk_level="LOW"
+                )
         
         except Exception as e:
             logger.error(f"Error checking gas prices: {e}")

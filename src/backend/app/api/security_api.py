@@ -357,7 +357,7 @@ async def upload_kyc_document(
             "verified_timestamp": document.verified_timestamp.isoformat() if document.verified_timestamp else None
         }
     except Exception as e:
-        raise HTTPException(status_code=500, detail(str(e))
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.get("/kyc/customer-profile/{customer_id}")
@@ -532,7 +532,7 @@ async def sign_with_hsm(key_id: str, data: str):
         
         return {"signature": signature}
     except Exception as e:
-        raise HTTPException(status_code=500, detail(str(e))
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.post("/hsm/verify")

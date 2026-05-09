@@ -350,7 +350,7 @@ async def leave_trading_room(room_id: str, user_id: str):
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail(str(e))
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.get("/rooms")
@@ -382,7 +382,7 @@ async def get_trading_rooms(
             "count": len(rooms[:limit])
         }
     except Exception as e:
-        raise HTTPException(status_code=500, detail(str(e))
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 # Social Trading Dashboard

@@ -366,8 +366,8 @@ class Web3Integration:
             return 0.0
             
     async def send_transaction(self, from_address: str, to_address: str,
-                             value_eth: float, data: str = "",
-                             network: BlockchainNetwork) -> str:
+                             value_eth: float, network: BlockchainNetwork,
+                             data: str = "") -> str:
         """Send transaction (simplified - would need actual signing)"""
         try:
             config = self.network_configs[network]
