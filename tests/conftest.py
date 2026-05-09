@@ -125,3 +125,99 @@ def event_loop():
     loop = asyncio.get_event_loop_policy().new_event_loop()
     yield loop
     loop.close()
+
+
+# ============================================================================
+# TRADING FIXTURES - Financial Master
+# ============================================================================
+
+@pytest.fixture(scope="function")
+def sample_trade() -> dict:
+    """Sample trade for testing."""
+    return {
+        'ticker': 'AAPL',
+        'quantity': 100,
+        'price': 150.25,
+        'trade_type': 'BUY',
+        'timestamp': datetime.now(),
+        'order_id': 'ORD-001'
+    }
+
+
+@pytest.fixture(scope="function")
+def sample_portfolio() -> dict:
+    """Sample portfolio for testing."""
+    return {
+        'user_id': 'test-user-1',
+        'name': 'Main Portfolio',
+        'cash_balance': 100000.00,
+        'positions': {
+            'AAPL': {'shares': 100, 'avg_cost': 150.00},
+            'GOOGL': {'shares': 50, 'avg_cost': 2000.00},
+        }
+    }
+
+
+@pytest.fixture(scope="function")
+def sample_market_data() -> dict:
+    """Sample market data for testing."""
+    return {
+        'ticker': 'AAPL',
+        'price': 150.25,
+        'bid': 150.20,
+        'ask': 150.30,
+        'volume': 1000000,
+        'market_cap': 2000000000000,
+        'timestamp': datetime.now(),
+    }
+
+
+@pytest.fixture(scope="function")
+def sample_user_profile() -> dict:
+    """Sample user profile."""
+    return {
+        'user_id': 'test-user-1',
+        'email': 'test@example.com',
+        'username': 'testuser',
+        'full_name': 'Test User',
+        'is_verified': True,
+        'is_active': True,
+        'created_at': datetime.now(),
+    }
+
+
+# ============================================================================
+# AUTHENTICATION FIXTURES
+# ============================================================================
+
+@pytest.fixture(scope="function")
+def mock_auth_token() -> str:
+    """Mock JWT token for testing."""
+    # In production, use real JWT generation
+    return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidGVzdC11c2VyLTEifQ.mock"
+
+
+@pytest.fixture(scope="function")
+def mock_auth_headers(mock_auth_token: str) -> dict:
+    """Mock authorization headers."""
+    return {
+        'Authorization': f'Bearer {mock_auth_token}',
+        'Content-Type': 'application/json',
+    }
+
+
+# ============================================================================
+# ERROR RESPONSE FIXTURES
+# ============================================================================
+
+@pytest.fixture(scope="function")
+def mock_error_responses() -> dict:
+    """Mock API error responses."""
+    return {
+        'unauthorized': {'status': 401, 'detail': 'Not authenticated'},
+        'forbidden': {'status': 403, 'detail': 'Forbidden'},
+        'not_found': {'status': 404, 'detail': 'Not found'},
+        'bad_request': {'status': 400, 'detail': 'Bad request'},
+        'server_error': {'status': 500, 'detail': 'Internal server error'},
+        'validation_error': {'status': 422, 'detail': 'Validation failed'},
+    }
