@@ -139,6 +139,44 @@ class FactSetIntegrationConfig:
             max_concurrent_jobs=int(os.getenv('ANALYTICS_MAX_CONCURRENT_JOBS', '5'))
         )
     
+    def _load_additional_repositories_config(self) -> Dict[str, Any]:
+        """Load Additional Repositories configuration"""
+        return {
+            'alpha_vantage': {
+                'api_key': os.getenv('ALPHA_VANTAGE_API_KEY'),
+                'timeout': int(os.getenv('ALPHA_VANTAGE_TIMEOUT', '30')),
+                'rate_limit': int(os.getenv('ALPHA_VANTAGE_RATE_LIMIT', '5'))
+            },
+            'yahoo_finance': {
+                'enabled': os.getenv('YAHOO_FINANCE_ENABLED', 'true').lower() == 'true',
+                'rate_limit': int(os.getenv('YAHOO_FINANCE_RATE_LIMIT', '2000'))
+            },
+            'polygon': {
+                'api_key': os.getenv('POLYGON_API_KEY'),
+                'timeout': int(os.getenv('POLYGON_TIMEOUT', '30')),
+                'rate_limit': int(os.getenv('POLYGON_RATE_LIMIT', '100000'))
+            },
+            'quantconnect': {
+                'api_key': os.getenv('QUANTCONNECT_API_KEY'),
+                'timeout': int(os.getenv('QUANTCONNECT_TIMEOUT', '60')),
+                'rate_limit': int(os.getenv('QUANTCONNECT_RATE_LIMIT', '100'))
+            },
+            'technical_analysis': {
+                'library': os.getenv('TECHNICAL_ANALYSIS_LIBRARY', 'talib'),
+                'indicators': os.getenv('TECHNICAL_INDICATORS', 'sma,ema,rsi,macd,bollinger').split(',')
+            },
+            'machine_learning': {
+                'enabled': os.getenv('ML_ENABLED', 'true').lower() == 'true',
+                'models': os.getenv('ML_MODELS', 'random_forest,linear_regression').split(','),
+                'framework': os.getenv('ML_FRAMEWORK', 'scikit-learn')
+            },
+            'enhanced_data': {
+                'cache_ttl': int(os.getenv('ENHANCED_DATA_CACHE_TTL', '300')),
+                'max_data_points': int(os.getenv('ENHANCED_DATA_MAX_POINTS', '10000')),
+                'enable_mock': os.getenv('ENHANCED_DATA_ENABLE_MOCK', 'false').lower() == 'true'
+            }
+        }
+    
     def _load_stach_config(self) -> STACHConfig:
         """Load STACH Schema configuration"""
         return STACHConfig(

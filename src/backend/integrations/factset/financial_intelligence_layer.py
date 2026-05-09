@@ -325,7 +325,9 @@ class FinancialIntelligenceLayer:
         self.config = config
         self.providers: Dict[DataSource, DataProvider] = {}
         self.entity_cache: Dict[str, FinancialEntity] = {}
+        self.additional_apis = None
         self._init_providers()
+        self._init_additional_apis()
     
     def _init_providers(self):
         """Initialize all configured data providers"""
@@ -338,9 +340,19 @@ class FinancialIntelligenceLayer:
             )
         
         # Initialize other providers as needed
-        # Polygon, CoinGecko, Binance, etc.
+        # Polygon, CoinGecko, Binance, FRED, SEC, DeFi APIs
         
         logger.info(f"Initialized {len(self.providers)} data providers")
+    
+    def _init_additional_apis(self):
+        """Initialize additional FactSet APIs"""
+        try:
+            from .additional_apis_integration import get_additional_factset_apis
+            self.additional_apis = get_additional_factset_apis(self.config)
+            logger.info("Additional FactSet APIs initialized successfully")
+        except Exception as e:
+            logger.warning(f"Failed to initialize additional FactSet APIs: {e}")
+            self.additional_apis = None
     
     async def get_entity(self, symbol: str, preferred_source: DataSource = DataSource.FACTSET) -> Optional[FinancialEntity]:
         """Get entity information with fallback to other providers"""
@@ -422,15 +434,88 @@ class FinancialIntelligenceLayer:
                         symbols=symbols,
                         signal_types=signal_types
                     )
+                    
                     return response.signals
                 except Exception as e:
                     logger.error(f"Error getting signals: {e}")
-        
         return []
+    
+    # Enhanced methods for additional FactSet APIs
+    async def get_real_time_quotes(self, symbols: List[str]) -> List[Dict[str, Any]]:
+        """Get real-time quotes using additional FactSet APIs"""
+        if self.additional_apis:
+            return await self.additional_apis.get_real_time_quotes(symbols)
+        return []
+    
+    async def get_fundamentals_data(self, symbols: List[str], periods: int = 4) -> Dict[str, List[Dict[str, Any]]]:
+        """Get fundamental data using additional FactSet APIs"""
+        if self.additional_apis:
+            return await self.additional_apis.get_fundamentals(symbols, periods)
+        return {}
+    
+    async def get_advanced_risk_metrics(self, symbols: List[str], factor_model: str = "fama_french_3_factor") -> Dict[str, Dict[str, Any]]:
+        """Get advanced risk metrics using Open:Risk API"""
+        if self.additional_apis:
+            return await self.additional_apis.get_risk_metrics(symbols, factor_model)
+        return {}
+    
+    async def get_estimates_data(self, symbols: List[str], metrics: List[str] = None) -> Dict[str, List[Dict[str, Any]]]:
+        """Get consensus estimates using additional FactSet APIs"""
+        if self.additional_apis:
+            return await self.additional_apis.get_estimates(symbols, metrics)
+        return {}
+    
+    async def optimize_portfolio_advanced(self, symbols: List[str], constraints: Dict[str, Any] = None) -> Dict[str, Any]:
+        """Optimize portfolio using Optimization Engine API"""
+        if self.additional_apis:
+            return await self.additional_apis.optimize_portfolio(symbols, constraints)
+        return {}
+    
+    async def analyze_text_financial(self, text: str, analysis_types: List[str] = None) -> Dict[str, Any]:
+        """Analyze financial text using Natural Language Processing API"""
+        if self.additional_apis:
+            return await self.additional_apis.analyze_text(text, analysis_types)
+        return {}
+    
+    async def get_entity_comprehensive(self, identifiers: List[str]) -> Dict[str, Dict[str, Any]]:
+        """Get comprehensive entity data using Entity API"""
+        if self.additional_apis:
+            return await self.additional_apis.get_entity_data(identifiers)
+        return {}
+    
+    async def get_merger_data(self, symbols: List[str] = None, date_range: Dict[str, datetime] = None) -> List[Dict[str, Any]]:
+        """Get M&A data using Mergers and Acquisitions API"""
+        if self.additional_apis:
+            return await self.additional_apis.get_merger_data(symbols, date_range)
+        return []
+    
+    async def get_security_intelligence_data(self, symbols: List[str]) -> Dict[str, Dict[str, Any]]:
+        """Get security intelligence using Security Intelligence API"""
+        if self.additional_apis:
+            return await self.additional_apis.get_security_intelligence(symbols)
+        return {}
+    
+    async def get_quant_factors_data(self, factor_universe: str = 'global_equity') -> Dict[str, Any]:
+        """Get quantitative factors using Quant Factor Library API"""
+        if self.additional_apis:
+            return await self.additional_apis.get_quant_factors(factor_universe)
+        return {}
+    
+    async def conversational_query_financial(self, query: str, context: Dict[str, Any] = None) -> Dict[str, Any]:
+        """Process conversational financial query using Mercury API"""
+        if self.additional_apis:
+            return await self.additional_apis.conversational_query(query, context)
+        return {}
     
     def get_supported_sources(self) -> List[DataSource]:
         """Get list of supported data sources"""
         return list(self.providers.keys())
+    
+    def get_additional_apis_status(self) -> Dict[str, bool]:
+        """Get status of additional FactSet APIs"""
+        if self.additional_apis:
+            return self.additional_apis.get_additional_apis_status()
+        return {}
 
 
 # Singleton instance for global access

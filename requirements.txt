@@ -44,7 +44,105 @@ aiocache==0.12.2
 # Caching & Message Queue
 redis==5.0.1
 
-# Data Providers
+# FactSet Integrations
+factset-enterprise-sdk>=1.0.0
+factset-analyticsapi-engines-python-sdk>=1.0.0
+factset-realtime-quotes>=1.0.0
+factset-fundamentals>=1.0.0
+factset-signals>=1.0.0
+factset-open-risk>=1.0.0
+factset-estimates>=1.0.0
+factset-optimization>=1.0.0
+factset-nlp>=1.0.0
+factset-entity>=1.0.0
+factset-mergers-acquisitions>=1.0.0
+factset-security-intelligence>=1.0.0
+factset-quant-factors>=1.0.0
+factset-conversational>=1.0.0
+
+# STACH Schema
+stachschema>=1.0.0
+
+# Go-Drill
+godrill>=1.0.0
+
+# Quart-OpenAPI
+quart>=0.18.0
+quart-openapi>=0.8.0
+quart-cors>=0.6.0
+pydantic>=1.10.0
+
+# Enhanced Financial Repositories
+alpha-vantage>=2.31.0
+yfinance>=0.2.18
+polygon-rest-client>=0.9.0
+quantconnect>=0.6.0
+talib-binary>=0.4.24
+scikit-learn>=1.3.0
+tensorflow>=2.13.0
+
+# Technical Analysis
+ta>=0.10.2
+ta-lib>=0.4.24
+backtrader>=0.3.0
+zipline>=1.6.0
+quantlib>=0.4.23
+
+# Machine Learning
+xgboost>=1.7.0
+lightgbm>=3.3.0
+catboost>=1.2.0
+prophet>=1.1.0
+statsmodels>=0.14.0
+
+# Natural Language Processing
+nltk>=3.8.0
+spacy>=3.7.0
+transformers>=4.30.0
+torch>=2.1.0
+
+# Options and Derivatives
+yfinance>=0.2.18
+option-pricing>=1.3.0
+py-vollib>=1.0.0
+
+# Portfolio Optimization
+cvxpy>=1.3.0
+pyportfolioopt>=1.5.0
+riskparity>=1.2.0
+
+# Financial Calculations
+empyrical>=0.5.2
+ffn>=3.6.0
+pypfopt>=1.0.5
+
+# Data Sources
+requests>=2.31.0
+aiohttp>=3.8.0
+websockets>=11.0.0
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+
+# Database and Caching
+redis>=4.5.0
+psycopg2-binary>=2.9.0
+sqlalchemy>=2.0.0
+cachetools>=5.3.0
+
+# API and Web
+fastapi>=0.104.1
+uvicorn[standard]==0.24.0
+celery>=5.3.0
+kombu>=5.3.0
+
+# Utilities
+python-dotenv>=1.0.0
+pytz>=2023.3
+schedule>=1.2.0
+tqdm>=4.65.0
+colorlog>=6.7.0
+
+# Legacy Data Providers
 alpaca-trade-api==3.0.2
 polygon-api-client==1.13.4
 alpha-vantage==2.3.1
