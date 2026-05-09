@@ -15,51 +15,85 @@ import os
 import sys
 import asyncio
 import argparse
-import logging
 from datetime import datetime
 from dotenv import load_dotenv
-import json
-
-# Setup logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.StreamHandler(),
-        logging.FileHandler(f'logs/financial_master_{datetime.now():%Y%m%d}.log')
-    ]
-)
-logger = logging.getLogger('FinancialMaster')
-
-# Ensure logs directory exists
-os.makedirs('logs', exist_ok=True)
 
 # Load environment
 load_dotenv()
 
-# Import components
-from database_layer import DatabaseManager, DatabaseConfig
-from autonomous_agent_framework import AgentOrchestrator, GuardrailConfig, create_default_agents
-from websocket_real_time_feeds import DataFeedManager, WebSocketConfig, DataProvider
-from llm_integration_free_tier import LLMManager, LLMConfig
+# Import structured logging (replaces print statements)
+from .monitoring.logging_setup import setup_logging, logger
+logger = setup_logging('FinancialMaster')
+
+logger.info("="*60)
+logger.info("Financial Master - Application Starting")
+logger.info("="*60)
+
+# Load environment
+load_dotenv()
+
+# Import components (relative imports within app module)
+from .database_layer import DatabaseManager, DatabaseConfig
+from .autonomous_agent_framework import AgentOrchestrator, GuardrailConfig, create_default_agents
+from .websocket_real_time_feeds import DataFeedManager, WebSocketConfig, DataProvider
+from .llm_integration_free_tier import LLMManager, LLMConfig
 
 # Import FastAPI
 from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 
-# Import all trading module routers
+# Import all trading module routers - wrapped in try/except for graceful degradation
 try:
-    from trading.strategy_builder_api import router as strategy_builder_router
-    from trading.copy_trading_api import router as copy_trading_router
-    from trading.bot_manager_api import router as bot_manager_router
-    from trading.metatrader_api import router as metatrader_router
-    from marketplace.marketplace_api import router as marketplace_router
-    from blockchain.token_economy_api import router as token_economy_router
-    from treasury.treasury_api import router as treasury_router
-    TRADING_MODULES_AVAILABLE = True
-except ImportError as e:
-    logger.warning(f"Some trading modules not available: {e}")
-    TRADING_MODULES_AVAILABLE = False
+    from .api.trading.strategy_builder_api import router as strategy_builder_router
+except ImportError:
+    strategy_builder_router = None
+    logger.warning("Strategy builder API not available")
+
+try:
+    from .api.trading.copy_trading_api import router as copy_trading_router
+except ImportError:
+    copy_trading_router = None
+    logger.warning("Copy trading API not available")
+
+try:
+    from .api.trading.bot_manager_api import router as bot_manager_router
+except ImportError:
+    bot_manager_router = None
+    logger.warning("Bot manager API not available")
+
+try:
+    from .api.trading.metatrader_api import router as metatrader_router
+except ImportError:
+    metatrader_router = None
+    logger.warning("MetaTrader API not available")
+
+try:
+    from .api.marketplace.marketplace_api import router as marketplace_router
+except ImportError:
+    marketplace_router = None
+    logger.warning("Marketplace API not available")
+
+try:
+    from .api.blockchain.token_economy_api import router as token_economy_router
+except ImportError:
+    token_economy_router = None
+    logger.warning("Token economy API not available")
+
+try:
+    from .api.treasury.treasury_api import router as treasury_router
+except ImportError:
+    treasury_router = None
+    logger.warning("Treasury API not available")
+
+TRADING_MODULES_AVAILABLE = any([
+    strategy_builder_router,
+    copy_trading_router,
+    bot_manager_router,
+    metatrader_router,
+    marketplace_router,
+    token_economy_router,
+    treasury_router
+])
 
 
 class FinancialMasterSystem:
@@ -192,16 +226,41 @@ def create_fastapi_app() -> FastAPI:
         allow_headers=["*"],
     )
     
-    # Include all routers
-    if TRADING_MODULES_AVAILABLE:
+    # Include routers that are available
+    available_routers = []
+    
+    if strategy_builder_router:
         app.include_router(strategy_builder_router, prefix="/api/v1")
+        available_routers.append("strategy-builder")
+    
+    if copy_trading_router:
         app.include_router(copy_trading_router, prefix="/api/v1")
+        available_routers.append("copy-trading")
+    
+    if bot_manager_router:
         app.include_router(bot_manager_router, prefix="/api/v1")
+        available_routers.append("bot-manager")
+    
+    if metatrader_router:
         app.include_router(metatrader_router, prefix="/api/v1")
+        available_routers.append("metatrader")
+    
+    if marketplace_router:
         app.include_router(marketplace_router, prefix="/api/v1")
+        available_routers.append("marketplace")
+    
+    if token_economy_router:
         app.include_router(token_economy_router, prefix="/api/v1")
+        available_routers.append("token-economy")
+    
+    if treasury_router:
         app.include_router(treasury_router, prefix="/api/v1")
-        logger.info("✓ All trading API routers loaded")
+        available_routers.append("treasury")
+    
+    if available_routers:
+        logger.info(f"✓ Loaded {len(available_routers)} API routers: {', '.join(available_routers)}")
+    else:
+        logger.info("⚠ No optional trading routers loaded, using core endpoints only")
     
     # Root endpoint
     @app.get("/")

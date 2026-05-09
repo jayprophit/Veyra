@@ -324,7 +324,7 @@ class ApprovalGate:
 # BASE AGENT CLASS
 # ============================================================================
 
-class BaseAgent(BaseAgentHelpers):
+class BaseAgent:
     """
     Base class for all Financial Master agents.
     Provides common functionality: guardrails, approval gates, logging.
