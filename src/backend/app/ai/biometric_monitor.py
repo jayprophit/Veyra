@@ -284,6 +284,9 @@ async def _fetch_polar_data(self):
         """Simulate natural biometric variation (-1 to 1)."""
         import random
         return random.gauss(0, 0.5)
+        """Simulate natural biometric variation (-1 to 1)."""
+        import random
+        return random.gauss(0, 0.5)
     
     def _establish_baselines(self):
         """Establish personal baseline metrics."""

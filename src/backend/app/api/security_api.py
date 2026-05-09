@@ -544,7 +544,7 @@ async def verify_with_hsm(key_id: str, data: str, signature: str):
         
         return {"valid": is_valid}
     except Exception as e:
-        raise HTTPException(status_code=500, detail(str(e))
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.get("/hsm/keys")
