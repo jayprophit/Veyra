@@ -1,31 +1,32 @@
 # 💰 Financial Master - Zero Cost Deployment Guide
-## Deploy Your 5-STAR+ Platform for £0/month
+
+## Deploy Your 100% Open-Source Platform for $0/month
 
 ---
 
-## 🎯 **ZERO-COST ARCHITECTURE OVERVIEW**
+## 🎯 Zero-Cost Architecture Overview
 
-```
+```text
 ┌─────────────────────────────────────┐
 │  Frontend/Docs: Cloudflare Pages    │ ✅ FREE (Unlimited)
 │  Domain: Cloudflare Registrar       │ ✅ ~$8/year (optional)
 └─────────────────────────────────────┘
-                  │
+                 │
 ┌─────────────────────────────────────┐
 │  Python Backend: Render             │ ✅ FREE (spins down after 15min)
 │  Alternative: Fly.io ($1.94/GB)     │ ✅ Ultra cheap
 └─────────────────────────────────────┘
-                  │
+                 │
 ┌─────────────────────────────────────┐
 │  Database: Neon Postgres             │ ✅ FREE (500MB, 190hrs/mo)
 │  Alternative: Supabase              │ ✅ FREE (500MB)
 └─────────────────────────────────────┘
-                  │
+                 │
 ┌─────────────────────────────────────┐
 │  API Gateway: Cloudflare Workers    │ ✅ FREE (100k requests/day)
 │  Cache: Redis Cloud                 │ ✅ FREE (30MB)
 └─────────────────────────────────────┘
-                  │
+                 │
 ┌─────────────────────────────────────┐
 │  Storage: Cloudflare R2              │ ✅ FREE (10GB storage)
 │  Monitoring: Sentry + UptimeRobot    │ ✅ FREE tiers
@@ -35,22 +36,23 @@
 
 ---
 
-## 📊 **COST BREAKDOWN**
+## 📊 Cost Breakdown
 
-### **✅ TRULY FREE COMPONENTS**
+### ✅ Truly Free Components
+
 | Component | Service | Cost | Limits |
 |-----------|---------|------|--------|
-| Documentation | Cloudflare Pages | £0 | Unlimited sites, 1 build/min |
-| API Backend | Render | £0 | Free web services, spins down after 15min |
-| Database | Neon Postgres | £0 | 500MB storage, 190 compute hours/mo |
-| API Gateway | Cloudflare Workers | £0 | 100,000 requests/day |
-| File Storage | Cloudflare R2 | £0 | 10GB storage, 10M reads/mo |
-| Monitoring | Sentry | £0 | 5,000 errors/mo, 1 user |
-| Monitoring | UptimeRobot | £0 | 50 monitors, 5min checks |
-| Secrets | GitHub Secrets | £0 | Unlimited repos |
-| CI/CD | GitHub Actions | £0 | 2,000 minutes/mo |
+| Documentation | Cloudflare Pages | $0 | Unlimited sites, 1 build/min |
+| API Backend | Render | $0 | Free web services, spins down after 15min |
+| Database | Neon Postgres | $0 | 500MB storage, 190 compute hours/mo |
+| API Gateway | Cloudflare Workers | $0 | 100,000 requests/day |
+| File Storage | Cloudflare R2 | $0 | 10GB storage, 10M reads/mo |
+| Monitoring | Sentry | $0 | 5,000 errors/mo, 1 user |
+| Monitoring | UptimeRobot | $0 | 50 monitors, 5min checks |
+| Secrets | GitHub Secrets | $0 | Unlimited repos |
+| CI/CD | GitHub Actions | $0 | 2,000 minutes/mo |
 
-### **💰 OPTIONAL PAID UPGRADES**
+### 💰 OPTIONAL PAID UPGRADES
 | Component | Service | Cost | When to Upgrade |
 |-----------|---------|------|-----------------|
 | Domain | Cloudflare Registrar | ~$8/year | Custom domain name |
@@ -60,7 +62,9 @@
 
 ---
 
-## 🚀 **STEP-BY-STEP DEPLOYMENT**
+---
+
+## 🚀 Step-by-Step Deployment
 
 ### **1. 📋 GitHub Repository Setup**
 ```bash

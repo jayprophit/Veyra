@@ -1,8 +1,9 @@
 # Development Setup Guide
+## 100% Open-Source Financial Master Development
 
 ## Overview
 
-This guide provides comprehensive setup instructions for developing Financial Master with all FactSet and enhanced financial repository integrations.
+This guide provides comprehensive setup instructions for developing **100% open-source** Financial Master. No API keys required, all dependencies are free and open-source.
 
 ## Prerequisites
 
@@ -13,8 +14,8 @@ This guide provides comprehensive setup instructions for developing Financial Ma
 - **Git** (for version control)
 - **Docker** (optional, for containerized development)
 - **VS Code** (recommended IDE)
-- **PostgreSQL 15+** (for production database)
-- **Redis 6+** (for caching and session management)
+- **PostgreSQL 15+** (optional, for production database)
+- **Redis 6+** (optional, for caching and session management)
 
 ### Development Tools
 
@@ -36,10 +37,11 @@ cd financial-master
 
 # Create virtual environment
 python -m venv venv
-source venv/bin/activate
+source venv/bin/activate  # Linux/Mac
+# venv\Scripts\activate  # Windows
 
-# Install dependencies
-pip install -r requirements.txt
+# Install open-source dependencies
+pip install -r requirements_opensource.txt
 ```
 
 ### 2. Environment Configuration
@@ -50,37 +52,50 @@ pip install -r requirements.txt
 # Copy environment template
 cp .env.example .env
 
-# Edit with your credentials
+# No API keys required for open-source version!
+# All data sources are free and open
+# See: docs/opensource/OPENSOURCE_GUIDE.md
 nano .env
 ```
 
 #### Environment Variables
 
 ```bash
-# Core Configuration
+# Core Configuration (Open-Source)
 DEBUG=true
 LOG_LEVEL=DEBUG
 SECRET_KEY=your-secret-key-here
 JWT_ALGORITHM=HS256
 JWT_EXPIRE_MINUTES=30
 
+# Open-Source Data Sources (NO API KEYS REQUIRED)
+OPENSOURCE_ENABLED=true
+YFINANCE_ENABLED=true
+PANDAS_DATAREADER_ENABLED=true
+FRED_ENABLED=true
+HUGGINGFACE_ENABLED=true
+
 # Database Configuration
 DATABASE_URL=postgresql://localhost:5432/financial_master
 REDIS_URL=redis://localhost:6379/0
 
-# FactSet Configuration
-FACTSET_USERNAME=your_factset_username
-FACTSET_PASSWORD=your_factset_password
-FACTSET_API_KEY=your_factset_api_key
+# OPTIONAL PAID DEPENDENCIES (COMMENTED OUT - UNLOCK IF NEEDED)
+# ================================================================
+# FactSet Configuration (Optional - Paid)
+# FACTSET_USERNAME=your_factset_username
+# FACTSET_PASSWORD=your_factset_password
+# FACTSET_API_KEY=your_factset_api_key
 
-# Enhanced Repositories Configuration
-ALPHA_VANTAGE_API_KEY=your_alpha_vantage_key
+# Enhanced Repositories Configuration (100% Open-Source)
+ALPHA_VANTAGE_API_KEY=your_alpha_vantage_key  # Optional - Free Tier Available
 YAHOO_FINANCE_ENABLED=true
-POLYGON_API_KEY=your_polygon_key
-QUANTCONNECT_API_KEY=your_quantconnect_key
+POLYGON_API_KEY=your_polygon_key  # Optional - Free Tier Available
+QUANTCONNECT_API_KEY=your_quantconnect_key  # Optional - Free Tier Available
 TECHNICAL_ANALYSIS_LIBRARY=talib
 ML_ENABLED=true
 ML_FRAMEWORK=scikit-learn
+
+# NOTE: All core functionality works without optional API keys
 ```
 
 ### 3. Database Setup

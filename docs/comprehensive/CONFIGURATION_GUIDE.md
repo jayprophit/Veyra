@@ -1,8 +1,9 @@
 # Comprehensive Configuration Guide
+## 100% Open-Source Financial Master Configuration
 
 ## Overview
 
-This guide provides complete configuration instructions for all FactSet and enhanced financial repository integrations in Financial Master.
+This guide provides complete configuration instructions for **100% open-source** Financial Master. No API keys required, all data sources are free and open.
 
 ## Environment Configuration
 
@@ -11,82 +12,122 @@ This guide provides complete configuration instructions for all FactSet and enha
 Create a `.env` file in your project root with the following variables:
 
 ```bash
-# FactSet Core Integration
-FACTSET_USERNAME=your_factset_username
-FACTSET_PASSWORD=your_factset_password
-FACTSET_API_KEY=your_factset_api_key
-FACTSET_BASE_URL=https://api.factset.com
-FACTSET_TIMEOUT=30
-FACTSET_RETRY_ATTEMPTS=3
-FACTSET_RETRY_DELAY=1.0
+# Open-Source Data Sources (NO API KEYS REQUIRED)
+OPENSOURCE_ENABLED=true
+OPENSOURCE_CACHE_TTL=300
+OPENSOURCE_RATE_LIMIT_ENABLED=true
 
-# Additional FactSet APIs
-FACTSET_REALTIME_QUOTES_USERNAME=your_factset_username
-FACTSET_REALTIME_QUOTES_PASSWORD=your_factset_password
-FACTSET_REALTIME_QUOTES_API_KEY=your_factset_api_key
-FACTSET_FUNDAMENTALS_USERNAME=your_factset_username
-FACTSET_FUNDAMENTALS_PASSWORD=your_factset_password
-FACTSET_FUNDAMENTALS_API_KEY=your_factset_api_key
-FACTSET_SIGNALS_USERNAME=your_factset_username
-FACTSET_SIGNALS_PASSWORD=your_factset_password
-FACTSET_SIGNALS_API_KEY=your_factset_api_key
-FACTSET_OPEN_RISK_USERNAME=your_factset_username
-FACTSET_OPEN_RISK_PASSWORD=your_factset_password
-FACTSET_OPEN_RISK_API_KEY=your_factset_api_key
-FACTSET_ESTIMATES_USERNAME=your_factset_username
-FACTSET_ESTIMATES_PASSWORD=your_factset_password
-FACTSET_ESTIMATES_API_KEY=your_factset_api_key
-FACTSET_OPTIMIZATION_USERNAME=your_factset_username
-FACTSET_OPTIMIZATION_PASSWORD=your_factset_password
-FACTSET_OPTIMIZATION_API_KEY=your_factset_api_key
-FACTSET_NLP_USERNAME=your_factset_username
-FACTSET_NLP_PASSWORD=your_factset_password
-FACTSET_NLP_API_KEY=your_factset_api_key
-FACTSET_ENTITY_USERNAME=your_factset_username
-FACTSET_ENTITY_PASSWORD=your_factset_password
-FACTSET_ENTITY_API_KEY=your_factset_api_key
-FACTSET_MA_USERNAME=your_factset_username
-FACTSET_MA_PASSWORD=your_factset_password
-FACTSET_MA_API_KEY=your_factset_api_key
-FACTSET_SECURITY_INTELLIGENCE_USERNAME=your_factset_username
-FACTSET_SECURITY_INTELLIGENCE_PASSWORD=your_factset_password
-FACTSET_SECURITY_INTELLIGENCE_API_KEY=your_factset_api_key
-FACTSET_QUANT_FACTORS_USERNAME=your_factset_username
-FACTSET_QUANT_FACTORS_PASSWORD=your_factset_password
-FACTSET_QUANT_FACTORS_API_KEY=your_factset_api_key
-FACTSET_CONVERSATIONAL_USERNAME=your_factset_username
-FACTSET_CONVERSATIONAL_PASSWORD=your_factset_password
-FACTSET_CONVERSATIONAL_API_KEY=your_factset_api_key
+# Primary Data Sources Configuration
+YFINANCE_ENABLED=true
+YFINANCE_RATE_LIMIT=2000
+PANDAS_DATAREADER_ENABLED=true
+PANDAS_DATAREADER_RATE_LIMIT=1000
+INVESTPY_ENABLED=true
+INVESTPY_RATE_LIMIT=100
 
-# Enhanced Financial Repositories
-ALPHA_VANTAGE_API_KEY=your_alpha_vantage_key
+# Secondary Data Sources Configuration
+FRED_ENABLED=true
+FRED_RATE_LIMIT=120
+WORLD_BANK_ENABLED=true
+WORLD_BANK_RATE_LIMIT=100
+ALPHA_VANTAGE_ENABLED=false
 ALPHA_VANTAGE_RATE_LIMIT=5
-ALPHA_VANTAGE_TIMEOUT=30
 
-YAHOO_FINANCE_ENABLED=true
-YAHOO_FINANCE_RATE_LIMIT=2000
+# Fallback Data Sources Configuration
+CRYPTOCOMPARE_ENABLED=true
+CRYPTOCOMPARE_RATE_LIMIT=100
+POLYGON_ENABLED=false
+POLYGON_RATE_LIMIT=5
+IEX_CLOUD_ENABLED=false
+IEX_CLOUD_RATE_LIMIT=100
 
-POLYGON_API_KEY=your_polygon_key
-POLYGON_TIMEOUT=30
-POLYGON_RATE_LIMIT=100000
+# AI/ML Configuration
+HUGGINGFACE_ENABLED=true
+HUGGINGFACE_CACHE_MODELS=true
+SCIKIT_LEARN_ENABLED=true
+TENSORFLOW_ENABLED=true
 
-QUANTCONNECT_API_KEY=your_quantconnect_key
-QUANTCONNECT_TIMEOUT=60
-QUANTCONNECT_RATE_LIMIT=100
+# GitHub Integration
+GITHUB_ENABLED=true
+GITHUB_CACHE_REPOSITORIES=true
 
+# Kaggle Integration
+KAGGLE_ENABLED=true
+KAGGLE_CACHE_DATASETS=true
+
+# Database Configuration
+DATABASE_URL=sqlite:///./financial_master.db
+DATABASE_POOL_SIZE=10
+DATABASE_MAX_OVERFLOW=20
+
+# Redis Configuration (Optional)
+REDIS_URL=redis://localhost:6379
+REDIS_CACHE_TTL=300
+
+# Application Configuration
+APP_NAME=Financial Master
+APP_VERSION=2.0.0
+APP_DEBUG=false
+APP_LOG_LEVEL=INFO
+
+# Security Configuration
+SECRET_KEY=your_secret_key_here
+JWT_SECRET_KEY=your_jwt_secret_key_here
+CORS_ORIGINS=*
+
+# Performance Configuration
+CACHE_ENABLED=true
+CACHE_TTL=300
+RATE_LIMIT_ENABLED=true
+RATE_LIMIT_REQUESTS=1000
+
+# OPTIONAL PAID DEPENDENCIES (COMMENTED OUT - UNLOCK IF NEEDED)
+# ================================================================
+# Alpha Vantage (Optional - Free Tier Available)
+# ALPHA_VANTAGE_API_KEY=your_alpha_vantage_key
+# ALPHA_VANTAGE_RATE_LIMIT=5
+# ALPHA_VANTAGE_TIMEOUT=30
+
+# Polygon.io (Optional - Free Tier Available)
+# POLYGON_API_KEY=your_polygon_key
+# POLYGON_RATE_LIMIT=5
+
+# Quandl (Optional - Free Tier Available)
+# QUANDL_API_KEY=your_quandl_key
+# QUANDL_RATE_LIMIT=50
+
+# NOTE: All core functionality works without these optional keys
+# Only enable if you need higher rate limits or premium features
+
+# Open-Source Technical Analysis
 TECHNICAL_ANALYSIS_LIBRARY=talib
 TECHNICAL_INDICATORS=sma,ema,rsi,macd,bollinger
 
+# Open-Source Machine Learning
+ML_FRAMEWORK=scikit-learn
+ML_MODEL_CACHE=true
+
+# Open-Source Data Processing
+DATA_PROCESSING_BACKEND=pandas
+DATA_CACHE_ENABLED=true
+
+# Open-Source Machine Learning
 ML_ENABLED=true
-ML_MODELS=random_forest,linear_regression
+ML_MODELS=random_forest,linear_regression,xgboost
 ML_FRAMEWORK=scikit-learn
 
+# Open-Source Data Cache
 ENHANCED_DATA_CACHE_TTL=300
 ENHANCED_DATA_MAX_POINTS=10000
 ENHANCED_DATA_ENABLE_MOCK=false
 
-# FREE ALTERNATIVES TO FACTSET (No API Keys Required)
+# FREE ALTERNATIVES TO FACTSET (100% Open-Source)
 OPENBB_ENABLED=true
+OPENBB_CACHE_ENABLED=true
+YFINANCE_ENABLED=true
+YFINANCE_CACHE_ENABLED=true
+EDGAR_ENABLED=true
+FINANCE_TOOLKIT_ENABLED=true
 OPENBB_CACHE_TTL=300
 OPENBB_RATE_LIMIT=none
 
