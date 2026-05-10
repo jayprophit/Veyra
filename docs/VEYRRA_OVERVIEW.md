@@ -1,8 +1,8 @@
-# Financial Master - 100% Open-Source Financial Platform Overview
+# Veyra - 100% Open-Source Financial Platform Overview
 
 ## Executive Summary
 
-Financial Master is a **100% open-source, industry-leading** financial platform that provides institutional-grade tools with complete intellectual property ownership. Built entirely with free, open-source technologies, the platform offers a comprehensive suite of tools for investment management, portfolio analytics, AI-powered insights, and wealth management - all at zero cost with no API keys required.
+veyra is a **100% open-source, industry-leading** financial platform that provides institutional-grade tools with complete intellectual property ownership. Built entirely with free, open-source technologies, the platform offers a comprehensive suite of tools for investment management, portfolio analytics, AI-powered insights, and wealth management - all at zero cost with no API keys required.
 
 ### Vision Statement
 To democratize sophisticated wealth management by providing institutional-grade tools and insights to everyone, from individual investors to financial institutions, while maintaining the highest standards of security, compliance, and user experience.
