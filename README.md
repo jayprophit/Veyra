@@ -1,4 +1,4 @@
-# Financial Master
+# Veyra → VRA
 
 **The 100% Open-Source Bloomberg Terminal Alternative**
 
