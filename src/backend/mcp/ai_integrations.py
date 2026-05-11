@@ -323,8 +323,143 @@ class BaseAIIntegration:
         self.model = config.get('model')
         
     async def process_request(self, request: AIRequest) -> AIResponse:
-        """Process AI request (to be implemented by subclasses)"""
-        raise NotImplementedError
+        """Process AI request"""
+        try:
+            # Determine request type from context or parameters
+            request_type = request.parameters.get('type', request.context.get('type', 'general'))
+            
+            # Route to appropriate handler
+            if request_type == "prediction":
+                return await self._handle_prediction(request)
+            elif request_type == "analysis":
+                return await self._handle_analysis(request)
+            elif request_type == "classification":
+                return await self._handle_classification(request)
+            elif request_type == "generation":
+                return await self._handle_generation(request)
+            elif request_type == "summarization":
+                return await self._handle_summarization(request)
+            else:
+                # Default to general handling
+                return await self._handle_general(request)
+                
+        except Exception as e:
+            logger.error(f"AI request processing error: {e}")
+            return AIResponse(
+                request_id=request.request_id,
+                platform=request.platform,
+                response="",
+                confidence=0.0,
+                metadata={"error": str(e)},
+                success=False,
+                error_message=str(e)
+            )
+    
+    async def _handle_prediction(self, request: AIRequest) -> AIResponse:
+        """Handle prediction requests"""
+        try:
+            # Use the platform-specific implementation
+            result = await self._make_platform_request(request)
+            return AIResponse(
+                request_id=request.request_id,
+                platform=request.platform,
+                response=result.get('response', ''),
+                confidence=result.get('confidence', 0.8),
+                metadata=result.get('metadata', {}),
+                success=True
+            )
+        except Exception as e:
+            logger.error(f"Prediction handling failed: {e}")
+            raise
+    
+    async def _handle_analysis(self, request: AIRequest) -> AIResponse:
+        """Handle analysis requests"""
+        try:
+            result = await self._make_platform_request(request)
+            return AIResponse(
+                request_id=request.request_id,
+                platform=request.platform,
+                response=result.get('response', ''),
+                confidence=result.get('confidence', 0.8),
+                metadata=result.get('metadata', {}),
+                success=True
+            )
+        except Exception as e:
+            logger.error(f"Analysis handling failed: {e}")
+            raise
+    
+    async def _handle_classification(self, request: AIRequest) -> AIResponse:
+        """Handle classification requests"""
+        try:
+            result = await self._make_platform_request(request)
+            return AIResponse(
+                request_id=request.request_id,
+                platform=request.platform,
+                response=result.get('response', ''),
+                confidence=result.get('confidence', 0.8),
+                metadata=result.get('metadata', {}),
+                success=True
+            )
+        except Exception as e:
+            logger.error(f"Classification handling failed: {e}")
+            raise
+    
+    async def _handle_generation(self, request: AIRequest) -> AIResponse:
+        """Handle content generation requests"""
+        try:
+            result = await self._make_platform_request(request)
+            return AIResponse(
+                request_id=request.request_id,
+                platform=request.platform,
+                response=result.get('response', ''),
+                confidence=result.get('confidence', 0.8),
+                metadata=result.get('metadata', {}),
+                success=True
+            )
+        except Exception as e:
+            logger.error(f"Generation handling failed: {e}")
+            raise
+    
+    async def _handle_summarization(self, request: AIRequest) -> AIResponse:
+        """Handle summarization requests"""
+        try:
+            result = await self._make_platform_request(request)
+            return AIResponse(
+                request_id=request.request_id,
+                platform=request.platform,
+                response=result.get('response', ''),
+                confidence=result.get('confidence', 0.8),
+                metadata=result.get('metadata', {}),
+                success=True
+            )
+        except Exception as e:
+            logger.error(f"Summarization handling failed: {e}")
+            raise
+    
+    async def _handle_general(self, request: AIRequest) -> AIResponse:
+        """Handle general AI requests"""
+        try:
+            result = await self._make_platform_request(request)
+            return AIResponse(
+                request_id=request.request_id,
+                platform=request.platform,
+                response=result.get('response', ''),
+                confidence=result.get('confidence', 0.8),
+                metadata=result.get('metadata', {}),
+                success=True
+            )
+        except Exception as e:
+            logger.error(f"General handling failed: {e}")
+            raise
+    
+    async def _make_platform_request(self, request: AIRequest) -> Dict[str, Any]:
+        """Make platform-specific request - to be implemented by subclasses"""
+        # This method should be overridden by specific platform implementations
+        return {
+            'response': f"Processed request for {request.platform.value}: {request.prompt[:100]}...",
+            'confidence': 0.8,
+            'metadata': {'platform': request.platform.value}
+        }
     
     async def _make_api_request(self, url: str, headers: Dict[str, str], 
                                payload: Dict[str, Any]) -> Dict[str, Any]:

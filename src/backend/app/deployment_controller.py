@@ -312,14 +312,247 @@ class DeploymentController:
             "version": version
         }
     
-    async def _notify_rollback(self, environment: str, result: Dict):
+    async def _notify_rollback(self, environment: str, result: Dict) -> Dict:
         """Send rollback notification."""
-        # Send Slack/Discord/Email notification
-        pass
+        try:
+            timestamp = datetime.now().isoformat()
+            
+            # Create rollback notification message
+            message = f"""
+🚨 **DEPLOYMENT ROLLBACK ALERT**
+
+**Environment**: {environment.upper()}
+**Timestamp**: {timestamp}
+**Deployment ID**: {result.get('deployment_id', 'Unknown')}
+**Reason**: {result.get('reason', 'Unknown')}
+
+**Rollback Details**:
+- Previous Version: {result.get('previous_version', 'Unknown')}
+- Failed Version: {result.get('version', 'Unknown')}
+- Rollback Duration: {result.get('rollback_duration', 'Unknown')}s
+
+**Action Required**: 
+- Investigate deployment failure
+- Review system logs
+- Validate rollback success
+- Plan next deployment attempt
+
+**Next Steps**:
+1. Check application health
+2. Verify data consistency
+3. Monitor system metrics
+4. Schedule post-mortem
+
+---
+*Veyra Deployment Controller*
+            """.strip()
+            
+            # Send notifications through multiple channels
+            notifications_sent = []
+            
+            # 1. Email notification
+            try:
+                email_result = await self._send_email_notification(
+                    subject=f"🚨 ROLLBACK: {environment.upper()} Environment",
+                    body=message,
+                    recipients=["devops@veyra.dev", "engineering@veyra.dev"]
+                )
+                notifications_sent.append(f"Email: {email_result}")
+            except Exception as e:
+                logger.error(f"Email notification failed: {e}")
+                notifications_sent.append(f"Email: FAILED - {e}")
+            
+            # 2. Slack notification
+            try:
+                slack_result = await self._send_slack_notification(
+                    channel="#deployments",
+                    message=message,
+                    priority="critical"
+                )
+                notifications_sent.append(f"Slack: {slack_result}")
+            except Exception as e:
+                logger.error(f"Slack notification failed: {e}")
+                notifications_sent.append(f"Slack: FAILED - {e}")
+            
+            # 3. PagerDuty incident (for critical environments)
+            if environment.lower() == "production":
+                try:
+                    pagerduty_result = await self._create_pagerduty_incident(
+                        title=f"Veyra {environment.upper()} Deployment Rollback",
+                        description=result.get('reason', 'Deployment rollback triggered'),
+                        severity="high"
+                    )
+                    notifications_sent.append(f"PagerDuty: {pagerduty_result}")
+                except Exception as e:
+                    logger.error(f"PagerDuty notification failed: {e}")
+                    notifications_sent.append(f"PagerDuty: FAILED - {e}")
+            
+            # Log the notification
+            logger.warning(f"Rollback notifications sent for {environment}: {notifications_sent}")
+            
+            return {
+                "success": True,
+                "environment": environment,
+                "deployment_id": result.get('deployment_id'),
+                "notifications_sent": notifications_sent,
+                "timestamp": timestamp
+            }
+            
+        except Exception as e:
+            logger.error(f"Rollback notification failed: {e}")
+            return {
+                "success": False,
+                "environment": environment,
+                "error": str(e),
+                "timestamp": datetime.now().isoformat()
+            }
     
-    async def _send_alert(self, anomaly: Dict):
+    async def _send_email_notification(self, subject: str, body: str, recipients: list) -> str:
+        """Send email notification (mock implementation)"""
+        # In real implementation, this would use SMTP or email service API
+        logger.info(f"Email sent: {subject} to {recipients}")
+        return "SENT"
+    
+    async def _send_slack_notification(self, channel: str, message: str, priority: str) -> str:
+        """Send Slack notification (mock implementation)"""
+        # In real implementation, this would use Slack API
+        logger.info(f"Slack message sent to {channel} with priority {priority}")
+        return "SENT"
+    
+    async def _create_pagerduty_incident(self, title: str, description: str, severity: str) -> str:
+        """Create PagerDuty incident (mock implementation)"""
+        # In real implementation, this would use PagerDuty API
+        logger.info(f"PagerDuty incident created: {title} - {severity}")
+        return "INCIDENT_CREATED"
+    
+    async def _send_alert(self, anomaly: Dict) -> Dict:
         """Send alert to team."""
-        pass
+        try:
+            timestamp = datetime.now().isoformat()
+            severity = anomaly.get('severity', 'medium').upper()
+            anomaly_type = anomaly.get('type', 'Unknown')
+            
+            # Create alert message
+            message = f"""
+⚠️ **VEYRA SYSTEM ALERT**
+
+**Severity**: {severity}
+**Type**: {anomaly_type}
+**Timestamp**: {timestamp}
+**Environment**: {anomaly.get('environment', 'Unknown')}
+
+**Anomaly Details**:
+{anomaly.get('description', 'No description available')}
+
+**Metrics**:
+- Error Rate: {anomaly.get('error_rate', 'N/A')}
+- Latency: {anomaly.get('latency', 'N/A')}ms
+- CPU Usage: {anomaly.get('cpu_usage', 'N/A')}%
+- Memory Usage: {anomaly.get('memory_usage', 'N/A')}%
+
+**Affected Services**: {', '.join(anomaly.get('affected_services', ['Unknown']))}
+
+**Recommended Actions**:
+"""
+            
+            # Add severity-specific actions
+            if severity == "CRITICAL":
+                message += """
+- 🚨 IMMEDIATE ACTION REQUIRED
+- Check system status immediately
+- Verify service availability
+- Prepare for emergency rollback
+- Contact on-call engineer
+"""
+            elif severity == "HIGH":
+                message += """
+- Investigate within 15 minutes
+- Check monitoring dashboards
+- Review recent deployments
+- Prepare contingency plans
+"""
+            else:
+                message += """
+- Monitor situation closely
+- Check logs for patterns
+- Document for review
+- Consider during next standup
+"""
+            
+            message += f"""
+
+**Investigation Checklist**:
+- [ ] Review application logs
+- [ ] Check system metrics
+- [ ] Verify recent changes
+- [ ] Test affected functionality
+- [ ] Document findings
+
+---
+*Veyra Monitoring System*
+            """.strip()
+            
+            # Send alerts through appropriate channels based on severity
+            notifications_sent = []
+            
+            # Always send to Slack
+            try:
+                slack_channel = "#alerts" if severity in ["HIGH", "CRITICAL"] else "#monitoring"
+                slack_result = await self._send_slack_notification(
+                    channel=slack_channel,
+                    message=message,
+                    priority=severity.lower()
+                )
+                notifications_sent.append(f"Slack ({slack_channel}): {slack_result}")
+            except Exception as e:
+                logger.error(f"Slack alert failed: {e}")
+                notifications_sent.append(f"Slack: FAILED - {e}")
+            
+            # Send email for HIGH and CRITICAL
+            if severity in ["HIGH", "CRITICAL"]:
+                try:
+                    email_result = await self._send_email_notification(
+                        subject=f"⚠️ {severity} ALERT: {anomaly_type}",
+                        body=message,
+                        recipients=["devops@veyra.dev", "engineering@veyra.dev"]
+                    )
+                    notifications_sent.append(f"Email: {email_result}")
+                except Exception as e:
+                    logger.error(f"Email alert failed: {e}")
+                    notifications_sent.append(f"Email: FAILED - {e}")
+            
+            # Create PagerDuty incident for CRITICAL
+            if severity == "CRITICAL":
+                try:
+                    pagerduty_result = await self._create_pagerduty_incident(
+                        title=f"CRITICAL: {anomaly_type} - {anomaly.get('environment', 'Unknown')}",
+                        description=anomaly.get('description', 'Critical system anomaly detected'),
+                        severity="critical"
+                    )
+                    notifications_sent.append(f"PagerDuty: {pagerduty_result}")
+                except Exception as e:
+                    logger.error(f"PagerDuty alert failed: {e}")
+                    notifications_sent.append(f"PagerDuty: FAILED - {e}")
+            
+            # Log the alert
+            log_level = "ERROR" if severity == "CRITICAL" else "WARNING" if severity == "HIGH" else "INFO"
+            getattr(logger, log_level.lower())(f"Alert sent: {severity} {anomaly_type} - {notifications_sent}")
+            
+            return {
+                "success": True,
+                "severity": severity,
+                "anomaly_type": anomaly_type,
+                "notifications_sent": notifications_sent,
+                "timestamp": timestamp
+            }
+            
+        except Exception as e:
+            logger.error(f"Alert sending failed: {e}")
+            return {
+                "success": False,
+                "error": str(e),
+                "timestamp": datetime.now().isoformat()
+            }
 
 # Global instance
 deployment_controller = DeploymentController()

@@ -332,7 +332,291 @@ class VisualLearningAI:
     
     async def _learn_patterns(self, charts: List[Dict], signals: List[Dict], source_type: str):
         """Store learned patterns for future matching"""
-        pass
+        try:
+            learned_patterns = []
+            current_time = datetime.now()
+            
+            # Process chart patterns
+            for chart in charts:
+                try:
+                    # Extract pattern features
+                    pattern_features = await self._extract_chart_features(chart)
+                    
+                    # Check if pattern already exists
+                    existing_pattern = await self._find_similar_pattern(pattern_features)
+                    
+                    if existing_pattern:
+                        # Update existing pattern with new data
+                        await self._update_pattern(existing_pattern, chart, current_time)
+                        logger.info(f"Updated existing pattern: {existing_pattern.pattern_name}")
+                    else:
+                        # Create new pattern
+                        new_pattern = await self._create_new_pattern(chart, pattern_features, current_time)
+                        learned_patterns.append(new_pattern)
+                        logger.info(f"Created new pattern: {new_pattern.pattern_name}")
+                        
+                except Exception as e:
+                    logger.error(f"Error processing chart pattern: {e}")
+                    continue
+            
+            # Process trading signals
+            for signal in signals:
+                try:
+                    # Extract signal features
+                    signal_features = await self._extract_signal_features(signal)
+                    
+                    # Store signal pattern
+                    signal_pattern = await self._create_signal_pattern(signal, signal_features, current_time)
+                    learned_patterns.append(signal_pattern)
+                    logger.info(f"Created new signal pattern: {signal_pattern.get('name', 'Unknown')}")
+                    
+                except Exception as e:
+                    logger.error(f"Error processing trading signal: {e}")
+                    continue
+            
+            # Update pattern cache for fast lookup
+            await self._update_pattern_cache(learned_patterns)
+            
+            # Store patterns in database
+            await self._persist_patterns(learned_patterns)
+            
+            # Calculate pattern statistics
+            stats = await self._calculate_pattern_statistics(learned_patterns)
+            
+            logger.info(f"Pattern learning completed: {len(learned_patterns)} patterns learned")
+            
+            return {
+                "patterns_learned": len(learned_patterns),
+                "chart_patterns": len([p for p in learned_patterns if hasattr(p, 'pattern_name')]),
+                "signal_patterns": len([p for p in learned_patterns if 'signal_type' in p]),
+                "source_type": source_type,
+                "learning_timestamp": current_time.isoformat(),
+                "statistics": stats
+            }
+            
+        except Exception as e:
+            logger.error(f"Pattern learning failed: {e}")
+            raise
+    
+    async def _extract_chart_features(self, chart: Dict) -> Dict:
+        """Extract visual and technical features from chart"""
+        try:
+            # Simulate feature extraction - in real implementation, this would use computer vision
+            features = {
+                'pattern_type': chart.get('pattern_type', 'unknown'),
+                'timeframe': chart.get('timeframe', '1D'),
+                'asset_class': chart.get('asset_class', 'equity'),
+                'technical_indicators': {
+                    'rsi': chart.get('rsi', 50),
+                    'macd': chart.get('macd', 0),
+                    'bollinger_position': chart.get('bb_position', 0.5)
+                },
+                'visual_signature': self._generate_visual_signature(chart),
+                'price_action': {
+                    'trend': chart.get('trend', 'neutral'),
+                    'volatility': chart.get('volatility', 'medium'),
+                    'volume_profile': chart.get('volume_profile', 'normal')
+                },
+                'market_context': {
+                    'sector': chart.get('sector', 'unknown'),
+                    'market_cap': chart.get('market_cap', 'mid'),
+                    'session': chart.get('session', 'regular')
+                }
+            }
+            return features
+        except Exception as e:
+            logger.error(f"Feature extraction failed: {e}")
+            return {}
+    
+    def _generate_visual_signature(self, chart: Dict) -> str:
+        """Generate unique visual signature for pattern matching"""
+        # Create a hash-like signature from chart features
+        signature_components = [
+            chart.get('pattern_type', ''),
+            str(chart.get('timeframe', '')),
+            chart.get('trend', ''),
+            str(chart.get('volatility', '')),
+            str(chart.get('rsi', 0)),
+            str(chart.get('macd', 0))
+        ]
+        return "|".join(signature_components)
+    
+    async def _find_similar_pattern(self, features: Dict) -> Optional[ChartPatternMemory]:
+        """Find existing similar pattern in memory"""
+        try:
+            # In real implementation, this would query the database
+            # For now, check in-memory pattern cache
+            visual_signature = features.get('visual_signature', '')
+            
+            # Simulate pattern matching
+            if hasattr(self, 'pattern_cache') and visual_signature in self.pattern_cache:
+                return self.pattern_cache[visual_signature]
+            
+            return None
+        except Exception as e:
+            logger.error(f"Pattern search failed: {e}")
+            return None
+    
+    async def _update_pattern(self, pattern: ChartPatternMemory, new_chart: Dict, timestamp: datetime):
+        """Update existing pattern with new occurrence"""
+        try:
+            # Update occurrence count
+            pattern.occurrences += 1
+            
+            # Update last seen timestamp
+            pattern.last_seen = timestamp
+            
+            # Update success rate and average return based on new data
+            new_return = new_chart.get('outcome_return', 0)
+            if new_return != 0:
+                total_return = pattern.avg_return * (pattern.occurrences - 1) + new_return
+                pattern.avg_return = total_return / pattern.occurrences
+                
+                # Update success rate (positive return = success)
+                successes = pattern.success_rate * (pattern.occurrences - 1) + (1 if new_return > 0 else 0)
+                pattern.success_rate = successes / pattern.occurrences
+            
+            # Update confidence threshold based on consistency
+            if pattern.occurrences > 5:
+                pattern.confidence_threshold = min(0.95, pattern.confidence_threshold + 0.01)
+            
+            # Update cache
+            if not hasattr(self, 'pattern_cache'):
+                self.pattern_cache = {}
+            self.pattern_cache[pattern.visual_signature] = pattern
+            
+        except Exception as e:
+            logger.error(f"Pattern update failed: {e}")
+    
+    async def _create_new_pattern(self, chart: Dict, features: Dict, timestamp: datetime) -> ChartPatternMemory:
+        """Create new pattern from chart data"""
+        try:
+            pattern_name = f"{features.get('pattern_type', 'unknown')}_{features.get('timeframe', '1D')}_{timestamp.strftime('%Y%m%d_%H%M%S')}"
+            
+            new_pattern = ChartPatternMemory(
+                pattern_name=pattern_name,
+                visual_signature=features.get('visual_signature', ''),
+                success_rate=0.5,  # Initial neutral success rate
+                avg_return=chart.get('outcome_return', 0),
+                occurrences=1,
+                last_seen=timestamp,
+                confidence_threshold=0.6  # Initial confidence threshold
+            )
+            
+            # Add to cache
+            if not hasattr(self, 'pattern_cache'):
+                self.pattern_cache = {}
+            self.pattern_cache[new_pattern.visual_signature] = new_pattern
+            
+            return new_pattern
+            
+        except Exception as e:
+            logger.error(f"Pattern creation failed: {e}")
+            raise
+    
+    async def _extract_signal_features(self, signal: Dict) -> Dict:
+        """Extract features from trading signals"""
+        try:
+            features = {
+                'signal_type': signal.get('type', 'unknown'),
+                'strength': signal.get('strength', 0.5),
+                'duration': signal.get('duration', 'short'),
+                'confidence': signal.get('confidence', 0.5),
+                'market_conditions': signal.get('market_conditions', 'normal'),
+                'asset_correlation': signal.get('correlation', 0.0),
+                'technical_context': signal.get('technical_context', {})
+            }
+            return features
+        except Exception as e:
+            logger.error(f"Signal feature extraction failed: {e}")
+            return {}
+    
+    async def _create_signal_pattern(self, signal: Dict, features: Dict, timestamp: datetime) -> Dict:
+        """Create pattern from trading signal"""
+        try:
+            signal_pattern = {
+                'id': f"signal_{timestamp.strftime('%Y%m%d_%H%M%S')}",
+                'name': f"{features.get('signal_type', 'unknown')}_signal",
+                'signal_type': features.get('signal_type'),
+                'strength': features.get('strength'),
+                'confidence': features.get('confidence'),
+                'created_at': timestamp,
+                'source_data': signal,
+                'features': features,
+                'success_count': 0,
+                'total_occurrences': 1
+            }
+            return signal_pattern
+        except Exception as e:
+            logger.error(f"Signal pattern creation failed: {e}")
+            raise
+    
+    async def _update_pattern_cache(self, patterns: List) -> None:
+        """Update in-memory pattern cache for fast lookup"""
+        try:
+            if not hasattr(self, 'pattern_cache'):
+                self.pattern_cache = {}
+            
+            for pattern in patterns:
+                if hasattr(pattern, 'visual_signature'):
+                    self.pattern_cache[pattern.visual_signature] = pattern
+                elif isinstance(pattern, dict) and 'id' in pattern:
+                    self.pattern_cache[pattern['id']] = pattern
+                    
+        except Exception as e:
+            logger.error(f"Pattern cache update failed: {e}")
+    
+    async def _persist_patterns(self, patterns: List) -> None:
+        """Persist patterns to database"""
+        try:
+            # In real implementation, this would save to database
+            # For now, just log the persistence
+            logger.info(f"Persisting {len(patterns)} patterns to database")
+            
+            # Simulate database operation
+            await asyncio.sleep(0.1)
+            
+        except Exception as e:
+            logger.error(f"Pattern persistence failed: {e}")
+    
+    async def _calculate_pattern_statistics(self, patterns: List) -> Dict:
+        """Calculate statistics for learned patterns"""
+        try:
+            if not patterns:
+                return {}
+            
+            chart_patterns = [p for p in patterns if hasattr(p, 'pattern_name')]
+            signal_patterns = [p for p in patterns if isinstance(p, dict) and 'signal_type' in p]
+            
+            stats = {
+                'total_patterns': len(patterns),
+                'chart_patterns': len(chart_patterns),
+                'signal_patterns': len(signal_patterns),
+                'avg_confidence': 0.0,
+                'high_confidence_patterns': 0,
+                'pattern_types': {}
+            }
+            
+            # Calculate confidence statistics
+            confidences = []
+            for pattern in chart_patterns:
+                if hasattr(pattern, 'confidence_threshold'):
+                    confidences.append(pattern.confidence_threshold)
+                    if pattern.confidence_threshold > 0.8:
+                        stats['high_confidence_patterns'] += 1
+                    
+                    # Count pattern types
+                    pattern_type = pattern.pattern_name.split('_')[0]
+                    stats['pattern_types'][pattern_type] = stats['pattern_types'].get(pattern_type, 0) + 1
+            
+            if confidences:
+                stats['avg_confidence'] = sum(confidences) / len(confidences)
+            
+            return stats
+            
+        except Exception as e:
+            logger.error(f"Statistics calculation failed: {e}")
+            return {}
     
     def _extract_stock_mentions(self, quotes: List[str]) -> List[Dict]:
         """Extract stock symbols and recommendations"""

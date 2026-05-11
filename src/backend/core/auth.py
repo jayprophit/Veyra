@@ -9,8 +9,11 @@ from typing import Optional, Dict
 from passlib.context import CryptContext
 from jose import JWTError, jwt
 from pydantic import BaseModel, EmailStr
+from fastapi import HTTPException
 
 from src.backend.core.config import settings
+from src.backend.app.database.models import User
+from src.backend.app.database.session import get_db
 
 logger = logging.getLogger(__name__)
 
@@ -183,8 +186,7 @@ class AuthManager:
 
     async def authenticate_user(self, email: str, password: str) -> Optional[Dict]:
         """
-        Authenticate user with email and password
-        NOTE: This is a stub - implement with your user database
+        Authenticate user with email and password against database
         Args:
             email: User email
             password: Plain text password
@@ -192,27 +194,52 @@ class AuthManager:
             Token data dict if authentication successful, None otherwise
         """
         logger.info(f"Authenticating user: {email}")
-
-        # TODO: Query user from database
-        # For now, accept any email/password (development only)
-        if settings.DEBUG and email and password:
-            logger.warning("⚠️  DEBUG MODE: Accepting any credentials")
+        
+        try:
+            # Get database session
+            db = next(get_db())
+            
+            # Query user from database
+            user = db.query(User).filter(User.email == email).first()
+            
+            if not user:
+                logger.warning(f"Authentication failed: User not found - {email}")
+                return None
+            
+            if not user.is_active:
+                logger.warning(f"Authentication failed: User inactive - {email}")
+                return None
+            
+            # Verify password
+            if not self.verify_password(password, user.password_hash):
+                logger.warning(f"Authentication failed: Invalid password - {email}")
+                return None
+            
+            # Authentication successful - create tokens
             access_token = self.create_access_token(
-                user_id=1,
-                email=email
+                user_id=user.id,
+                email=user.email
             )
             refresh_token = self.create_refresh_token(
-                user_id=1,
-                email=email
+                user_id=user.id,
+                email=user.email
             )
+            
+            logger.info(f"Authentication successful: {user.email}")
             return {
                 "access_token": access_token,
                 "refresh_token": refresh_token,
-                "token_type": "bearer"
+                "token_type": "bearer",
+                "user_id": user.id,
+                "username": user.username,
+                "full_name": user.full_name
             }
-
-        logger.error("Authentication failed - implement with real database")
-        return None
+            
+        except Exception as e:
+            logger.error(f"Authentication error: {e}")
+            return None
+        finally:
+            db.close()
 
     async def refresh_access_token(self, refresh_token: str) -> Optional[str]:
         """
