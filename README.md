@@ -13,7 +13,7 @@
 
 ## Overview
 
-Financial Master is a **100% open-source, industry-leading** financial platform that provides institutional-grade tools with complete intellectual property ownership. Built entirely with free, open-source technologies and designed for both retail traders and professionals.
+Veyra is a **100% open-source, industry-leading** financial platform that provides institutional-grade tools with complete intellectual property ownership. Built entirely with free, open-source technologies and designed for both retail traders and professionals.
 
 **🏆 Key Achievements:**
 - ✅ **100% Open-Source** - Zero paid dependencies
