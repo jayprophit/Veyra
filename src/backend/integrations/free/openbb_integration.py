@@ -406,7 +406,6 @@ class OpenBBIntegration:
     
     def _get_mock_historical_data(self, symbol: str, start_date: datetime, end_date: datetime) -> List[Dict[str, Any]]:
         """Generate mock historical data"""
-        import random
         data = []
         current_date = start_date
         base_price = 100.0 + random.uniform(-50, 150)
@@ -431,7 +430,6 @@ class OpenBBIntegration:
     
     def _get_mock_fundamentals(self, symbol: str) -> CompanyFundamentals:
         """Generate mock fundamentals data"""
-        import random
         return CompanyFundamentals(
             symbol=symbol,
             market_cap=random.uniform(1e9, 1e12),
@@ -449,7 +447,6 @@ class OpenBBIntegration:
     
     def _get_mock_technical_indicators(self, symbol: str, indicators: List[str]) -> List[TechnicalIndicator]:
         """Generate mock technical indicators"""
-        import random
         indicators_data = []
         
         for indicator in indicators:
@@ -477,7 +474,6 @@ class OpenBBIntegration:
     
     def _get_mock_economic_data(self, indicators: List[str]) -> List[EconomicData]:
         """Generate mock economic data"""
-        import random
         economic_data = []
         
         for indicator in indicators:
@@ -504,7 +500,6 @@ class OpenBBIntegration:
     
     def _get_mock_news(self, limit: int) -> List[Dict[str, Any]]:
         """Generate mock news"""
-        import random
         mock_titles = [
             "Stock Market Reaches New Heights",
             "Tech Stocks Show Strong Performance",

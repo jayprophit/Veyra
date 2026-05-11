@@ -30,55 +30,55 @@ echo "=================="
 echo ""
 echo "STEP 1: ACCOUNT SETUP"
 echo "======================"
-~/financial-master/setup-scripts/account-setup.sh
+~/veyra/setup-scripts/account-setup.sh
 
 # Local setup
 echo ""
 echo "STEP 2: LOCAL DEVELOPMENT SETUP"
 echo "================================="
-~/financial-master/setup-scripts/local-setup.sh
+~/veyra/setup-scripts/local-setup.sh
 
 # GitHub setup
 echo ""
 echo "STEP 3: GITHUB SETUP"
 echo "======================"
-~/financial-master/setup-scripts/github-setup.sh
+~/veyra/setup-scripts/github-setup.sh
 
 # Cloud setup
 echo ""
 echo "STEP 4: CLOUD SERVICES SETUP"
 echo "=============================="
-~/financial-master/setup-scripts/cloud-setup.sh
+~/veyra/setup-scripts/cloud-setup.sh
 
 # Deployment
 echo ""
 echo "STEP 5: DEPLOYMENT"
 echo "=================="
-~/financial-master/setup-scripts/deployment.sh
+~/veyra/setup-scripts/deployment.sh
 
 # Verification
 echo ""
 echo "STEP 6: VERIFICATION"
 echo "===================="
-~/financial-master/setup-scripts/verification.sh
+~/veyra/setup-scripts/verification.sh
 
 # Update workflow
 echo ""
 echo "STEP 7: UPDATE WORKFLOW"
 echo "========================"
-~/financial-master/setup-scripts/update-workflow.sh
+~/veyra/setup-scripts/update-workflow.sh
 
 echo ""
 echo "SETUP COMPLETE!"
 echo "================="
 echo ""
-echo "Your Financial Master is fully deployed:"
-echo "   Frontend: https://financial-master.pages.dev"
-echo "   Backend: https://financial-master-api.onrender.com"
-echo "   API Gateway: https://financial-master-api.workers.dev"
+echo "Your Veyra is fully deployed:"
+echo "   Frontend: https://veyra.pages.dev"
+echo "   Backend: https://veyra-api.onrender.com"
+echo "   API Gateway: https://veyra-api.workers.dev"
 echo ""
-echo "Project directory: ~/financial-master"
-echo "Setup scripts: ~/financial-master/setup-scripts/"
+echo "Project directory: ~/veyra"
+echo "Setup scripts: ~/veyra/setup-scripts/"
 echo ""
 echo "Development workflow:"
 echo "   1. Edit code in WindSurf"

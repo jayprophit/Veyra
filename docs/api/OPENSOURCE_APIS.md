@@ -3,7 +3,7 @@
 
 ### Overview
 
-Financial Master provides **100% open-source API endpoints** that integrate with free financial data sources. No API keys required, no subscriptions, complete intellectual property ownership.
+Veyra provides **100% open-source API endpoints** that integrate with free financial data sources. No API keys required, no subscriptions, complete intellectual property ownership.
 
 ---
 
@@ -608,7 +608,7 @@ export default FinancialData;
 - **Troubleshooting**: [Troubleshooting](../TROUBLESHOOTING.md)
 
 ### Community
-- **GitHub**: [Financial Master](https://github.com/jpowell/financial-master)
+- **GitHub**: [Veyra](https://github.com/jpowell/veyra)
 - **Issues**: Report bugs and request features
 - **Discussions**: Community support and questions
 - **Wiki**: Additional documentation and examples
@@ -617,7 +617,7 @@ export default FinancialData;
 
 ## 🎉 Conclusion
 
-**Financial Master Open-Source APIs provide:**
+**Veyra Open-Source APIs provide:**
 
 ✅ **100% Free Access** - No API keys, no subscriptions  
 ✅ **Professional Quality** - Institutional-grade data and analytics  

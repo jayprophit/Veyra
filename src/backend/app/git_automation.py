@@ -248,7 +248,7 @@ class GitHubManager:
             return False
         
         # Add, commit, push
-        git.auto_commit_all("Auto-sync from Financial Master")
+        git.auto_commit_all("Auto-sync from Veyra")
         return git.push(remote_name)
 
 class RepositoryBackup:
@@ -299,7 +299,7 @@ class CICDManager:
         workflow_dir = os.path.join(self.repo, ".github", "workflows")
         os.makedirs(workflow_dir, exist_ok=True)
         
-        workflow_content = """name: Financial Master CI
+        workflow_content = """name: Veyra CI
 
 on:
   push:
@@ -329,7 +329,7 @@ jobs:
     
     - name: Build Docker
       run: |
-        docker build -t financial-master:test .
+        docker build -t veyra:test .
 """
         
         workflow_file = os.path.join(workflow_dir, "ci.yml")

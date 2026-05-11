@@ -72,7 +72,7 @@ LOGGING_CONFIG = {
             "level": os.getenv("LOG_LEVEL", "INFO"),
             "handlers": ["console", "file", "error_file"]
         },
-        "financial_master": {
+        "veyra": {
             "level": "DEBUG",
             "handlers": ["console", "file", "error_file"],
             "propagate": False
@@ -114,12 +114,12 @@ LOGGING_CONFIG = {
 logging.config.dictConfig(LOGGING_CONFIG)
 
 # Get loggers for different components
-logger = logging.getLogger("financial_master")
+logger = logging.getLogger("veyra")
 app_logger = logging.getLogger("app")
 performance_logger = logging.getLogger("performance")
 
 
-def setup_logging(name: str = "financial_master") -> logging.Logger:
+def setup_logging(name: str = "veyra") -> logging.Logger:
     """Get configured logger instance"""
     return logging.getLogger(name)
 

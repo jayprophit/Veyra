@@ -20,10 +20,6 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src', 'backend', 'ap
 # Import required libraries at the top
 import numpy as np
 import pandas as pd
-import time
-import traceback
-from datetime import datetime
-from pathlib import Path
 
 try:
     from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
@@ -54,7 +50,7 @@ except ImportError as e:
     os.system("pip install transformers")
 
 class ComprehensiveTestRunner:
-    """Comprehensive test runner for Financial Master"""
+    """Comprehensive test runner for Veyra"""
     
     def __init__(self):
         self.test_results = {}
@@ -1169,7 +1165,7 @@ async def main():
 
 
 if __name__ == "__main__":
-    print("🚀 Financial Master - Comprehensive Testing & Refinement")
+    print("🚀 Veyra - Comprehensive Testing & Refinement")
     print("=" * 60)
     
     try:

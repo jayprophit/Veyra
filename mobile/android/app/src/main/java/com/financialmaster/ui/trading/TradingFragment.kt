@@ -1,4 +1,4 @@
-package com.financialmaster.ui.trading
+package com.veyra.ui.trading
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,16 +9,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.financialmaster.R
-import com.financialmaster.databinding.FragmentTradingBinding
-import com.financialmaster.ui.adapters.OrderAdapter
-import com.financialmaster.ui.adapters.PriceDataAdapter
-import com.financialmaster.ui.models.Order
-import com.financialmaster.ui.models.OrderSide
-import com.financialmaster.ui.models.OrderType
-import com.financialmaster.ui.models.OrderStatus
-import com.financialmaster.ui.models.PriceDataPoint
-import com.financialmaster.ui.trading.viewmodel.TradingViewModel
+import com.veyra.R
+import com.veyra.databinding.FragmentTradingBinding
+import com.veyra.ui.adapters.OrderAdapter
+import com.veyra.ui.adapters.PriceDataAdapter
+import com.veyra.ui.models.Order
+import com.veyra.ui.models.OrderSide
+import com.veyra.ui.models.OrderType
+import com.veyra.ui.models.OrderStatus
+import com.veyra.ui.models.PriceDataPoint
+import com.veyra.ui.trading.viewmodel.TradingViewModel
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData

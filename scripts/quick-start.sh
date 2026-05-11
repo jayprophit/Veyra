@@ -1,11 +1,11 @@
 #!/bin/bash
-# Financial Master - Quick Start Script
+# Veyra - Quick Start Script
 # =======================================
 # One-command setup for development
 
 set -e
 
-echo "🚀 Financial Master v2.50.0 - Quick Start"
+echo "🚀 Veyra v2.50.0 - Quick Start"
 echo "=========================================="
 
 # Check Python

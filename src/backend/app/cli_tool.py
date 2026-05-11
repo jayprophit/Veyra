@@ -1,4 +1,4 @@
-"""Financial Master CLI - Command-line interface for all operations.
+"""Veyra CLI - Command-line interface for all operations.
 
 Usage:
     python cli.py --help
@@ -16,7 +16,7 @@ import json
 from pathlib import Path
 
 class FinancialMasterCLI:
-    """Command-line interface for Financial Master."""
+    """Command-line interface for Veyra."""
     
     def __init__(self):
         self.parser = self._create_parser()
@@ -24,8 +24,8 @@ class FinancialMasterCLI:
     def _create_parser(self) -> argparse.ArgumentParser:
         """Create argument parser with subcommands."""
         parser = argparse.ArgumentParser(
-            prog='fm',
-            description='Financial Master - 5-Star Portfolio Management System',
+            prog='vra',
+            description='Veyra - 5-Star Portfolio Management System',
             formatter_class=argparse.RawDescriptionHelpFormatter,
             epilog="""
 Examples:
@@ -219,7 +219,6 @@ Examples:
                 return 1
                 
         elif args.backup_action == 'list':
-            from backup_recovery import BackupManager
             bm = BackupManager()
             
             backups = bm.list_backups()
@@ -233,7 +232,6 @@ Examples:
         elif args.backup_action == 'restore':
             print(f"📦 Restoring backup: {args.name}")
             
-            from backup_recovery import BackupManager
             bm = BackupManager()
             
             if bm.restore_backup(args.name):
@@ -373,7 +371,6 @@ Examples:
         """Handle test command."""
         print(f"🧪 Running {args.type} tests...")
         
-        import subprocess
         
         if args.type in ['integration', 'all']:
             result = subprocess.run(['python', '26_Integration_Tests.py'])
@@ -386,7 +383,6 @@ Examples:
         """Handle validate command."""
         print("🔍 Validating setup...")
         
-        import subprocess
         result = subprocess.run(['python', 'VALIDATE_SETUP.py'])
         
         return result.returncode

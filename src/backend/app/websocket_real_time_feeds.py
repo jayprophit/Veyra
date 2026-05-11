@@ -1,4 +1,4 @@
-"""Financial Master - WebSocket Real-Time Data Feeds. Cost: £0 (free tier)."""
+"""Veyra - WebSocket Real-Time Data Feeds. Cost: £0 (free tier)."""
 
 import os, json, asyncio, websockets, aiohttp
 from typing import Optional, Dict, List, Any, Callable, Set
@@ -161,7 +161,7 @@ class DataFeedManager:
 
 if __name__ == "__main__":
     print("="*60)
-    print("Financial Master - WebSocket Real-Time Feeds")
+    print("Veyra - WebSocket Real-Time Feeds")
     print("="*60)
     
     # Mock mode (no API key needed)

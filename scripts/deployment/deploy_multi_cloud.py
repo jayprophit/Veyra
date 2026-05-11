@@ -2,7 +2,7 @@
 """
 Multi-Cloud Deployment Script
 ==========================
-Deploy Financial Master across AWS, Azure, and GCP
+Deploy Veyra across AWS, Azure, and GCP
 for complete industrial coverage
 """
 
@@ -106,7 +106,7 @@ class MultiCloudDeployer:
         
         # AWS Terraform configuration
         aws_terraform = """
-# AWS Enterprise Foundation - Financial Master
+# AWS Enterprise Foundation - Veyra
 terraform {
   required_providers {
     aws = {
@@ -115,7 +115,7 @@ terraform {
     }
   
   backend "s3" {
-    bucket = "financial-master-aws-terraform-state"
+    bucket = "veyra-aws-terraform-state"
     key    = "aws-infrastructure.tfstate"
     region = "us-east-1"
   }
@@ -126,7 +126,7 @@ provider "aws" {
   
   default_tags {
     Environment = "production"
-    Application = "Financial Master"
+    Application = "Veyra"
     Provider = "AWS"
     Role = "Enterprise-Foundation"
   }
@@ -139,9 +139,9 @@ resource "aws_vpc" "main" {
   enable_dns_support   = true
   
   tags = {
-    Name        = "financial-master-enterprise-vpc"
+    Name        = "veyra-enterprise-vpc"
     Environment = "production"
-    Application = "Financial Master"
+    Application = "Veyra"
     Provider = "AWS"
   }
 }
@@ -165,7 +165,7 @@ resource "aws_subnet" "public" {
   map_public_ip_on_launch = true
   
   tags = {
-    Name = "financial-master-public-${count.index + 1}"
+    Name = "veyra-public-${count.index + 1}"
     Type = "Public"
     AZ = data.aws_availability_zones.available.names[count.index]
   }
@@ -180,7 +180,7 @@ resource "aws_subnet" "private" {
   availability_zone = data.aws_availability_zones.available.names[count.index]
   
   tags = {
-    Name = "financial-master-private-${count.index + 1}"
+    Name = "veyra-private-${count.index + 1}"
     Type = "Private"
     AZ = data.aws_availability_zones.available.names[count.index]
   }
@@ -188,7 +188,7 @@ resource "aws_subnet" "private" {
 
 # Enterprise ECS Cluster with Fargate
 resource "aws_ecs_cluster" "enterprise" {
-  name = "financial-master-enterprise"
+  name = "veyra-enterprise"
   
   setting {
     name  = "containerInsights"
@@ -202,14 +202,14 @@ resource "aws_ecs_cluster" "enterprise" {
   }
   
   tags = {
-    Name = "financial-master-enterprise-ecs"
+    Name = "veyra-enterprise-ecs"
     Role = "Enterprise-Foundation"
   }
 }
 
 # Application Load Balancer with Cross-Zone
 resource "aws_lb" "enterprise" {
-  name               = "financial-master-enterprise-alb"
+  name               = "veyra-enterprise-alb"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb.id]
@@ -224,24 +224,24 @@ resource "aws_lb" "enterprise" {
   }
   
   tags = {
-    Name = "financial-master-enterprise-alb"
+    Name = "veyra-enterprise-alb"
     Role = "Enterprise-Foundation"
   }
 }
 
 # Enterprise RDS PostgreSQL with Multi-AZ
 resource "aws_db_subnet_group" "enterprise" {
-  name       = "financial-master-enterprise-db-subnet-group"
+  name       = "veyra-enterprise-db-subnet-group"
   subnet_ids = aws_subnet.private[*].id
   
   tags = {
-    Name = "financial-master-enterprise-db-subnet-group"
+    Name = "veyra-enterprise-db-subnet-group"
     Role = "Enterprise-Foundation"
   }
 }
 
 resource "aws_security_group" "rds_enterprise" {
-  name_prefix = "financial-master-enterprise-rds-"
+  name_prefix = "veyra-enterprise-rds-"
   vpc_id      = aws_vpc.main.id
   
   ingress {
@@ -259,13 +259,13 @@ resource "aws_security_group" "rds_enterprise" {
   }
   
   tags = {
-    Name = "financial-master-enterprise-rds"
+    Name = "veyra-enterprise-rds"
     Role = "Enterprise-Foundation"
   }
 }
 
 resource "aws_db_instance" "enterprise" {
-  identifier = "financial-master-enterprise-db"
+  identifier = "veyra-enterprise-db"
   engine         = "postgres"
   engine_version = "15.4"
   instance_class = "db.t3.medium"
@@ -275,7 +275,7 @@ resource "aws_db_instance" "enterprise" {
   storage_type          = "gp2"
   storage_encrypted    = true
   
-  db_name  = "financial_master"
+  db_name  = "veyra"
   username = var.db_username
   password = var.db_password
   
@@ -294,7 +294,7 @@ resource "aws_db_instance" "enterprise" {
   performance_insights_enabled = true
   
   tags = {
-    Name = "financial-master-enterprise-db"
+    Name = "veyra-enterprise-db"
     Role = "Enterprise-Foundation"
     Environment = "production"
   }
@@ -302,18 +302,18 @@ resource "aws_db_instance" "enterprise" {
 
 # Enterprise ElastiCache Redis with Cluster Mode
 resource "aws_elasticache_subnet_group" "enterprise" {
-  name       = "financial-master-enterprise-cache-subnet"
+  name       = "veyra-enterprise-cache-subnet"
   subnet_ids = aws_subnet.private[*].id
   
   tags = {
-    Name = "financial-master-enterprise-cache-subnet-group"
+    Name = "veyra-enterprise-cache-subnet-group"
     Role = "Enterprise-Foundation"
   }
 }
 
 resource "aws_elasticache_replication_group" "enterprise" {
-  replication_group_id       = "financial-master-enterprise-cache"
-  description              = "Enterprise Redis cluster for Financial Master"
+  replication_group_id       = "veyra-enterprise-cache"
+  description              = "Enterprise Redis cluster for Veyra"
   node_type               = "cache.t3.micro"
   port                    = 6379
   parameter_group_name     = "default.redis7"
@@ -325,7 +325,7 @@ resource "aws_elasticache_replication_group" "enterprise" {
   transit_encryption_enabled = true
   
   tags = {
-    Name = "financial-master-enterprise-cache"
+    Name = "veyra-enterprise-cache"
     Role = "Enterprise-Foundation"
   }
 }
@@ -404,17 +404,17 @@ resource "aws_cloudfront_distribution" "enterprise" {
   }
   
   tags = {
-    Name = "financial-master-enterprise-cdn"
+    Name = "veyra-enterprise-cdn"
     Role = "Enterprise-Foundation"
   }
 }
 
 # Enterprise S3 with Versioning and Logging
 resource "aws_s3_bucket" "enterprise_assets" {
-  bucket = "financial-master-enterprise-assets-${random_string.bucket_suffix.result}"
+  bucket = "veyra-enterprise-assets-${random_string.bucket_suffix.result}"
   
   tags = {
-    Name = "financial-master-enterprise-assets"
+    Name = "veyra-enterprise-assets"
     Role = "Enterprise-Foundation"
   }
 }
@@ -437,7 +437,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "enterprise_assets
 
 # Enterprise Lambda Functions
 resource "aws_iam_role" "lambda_exec" {
-  name = "financial-master-enterprise-lambda-exec"
+  name = "veyra-enterprise-lambda-exec"
   
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -453,13 +453,13 @@ resource "aws_iam_role" "lambda_exec" {
   })
   
   tags = {
-    Name = "financial-master-enterprise-lambda-exec"
+    Name = "veyra-enterprise-lambda-exec"
     Role = "Enterprise-Foundation"
   }
 }
 
 resource "aws_lambda_function" "data_processor" {
-  function_name = "financial-master-data-processor"
+  function_name = "veyra-data-processor"
   handler       = "index.handler"
   runtime       = "python3.11"
   role          = aws_iam_role.lambda_exec.arn
@@ -478,24 +478,24 @@ resource "aws_lambda_function" "data_processor" {
   }
   
   tags = {
-    Name = "financial-master-data-processor"
+    Name = "veyra-data-processor"
     Role = "Enterprise-Foundation"
   }
 }
 
 # Enterprise CloudWatch for Monitoring
 resource "aws_cloudwatch_log_group" "application" {
-  name              = "/aws/lambda/financial-master-data-processor"
+  name              = "/aws/lambda/veyra-data-processor"
   retention_in_days = 14
   
   tags = {
-    Name = "financial-master-application-logs"
+    Name = "veyra-application-logs"
     Role = "Enterprise-Foundation"
   }
 }
 
 resource "aws_cloudwatch_metric_alarm" "lambda_errors" {
-  alarm_name          = "financial-master-lambda-errors"
+  alarm_name          = "veyra-lambda-errors"
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = "2"
   metric_name         = "Errors"
@@ -507,17 +507,17 @@ resource "aws_cloudwatch_metric_alarm" "lambda_errors" {
   alarm_actions     = [aws_sns_topic.alerts.arn]
   
   tags = {
-    Name = "financial-master-lambda-error-alarm"
+    Name = "veyra-lambda-error-alarm"
     Role = "Enterprise-Foundation"
   }
 }
 
 # Enterprise SNS for Alerts
 resource "aws_sns_topic" "alerts" {
-  name = "financial-master-alerts"
+  name = "veyra-alerts"
   
   tags = {
-    Name = "financial-master-alerts"
+    Name = "veyra-alerts"
     Role = "Enterprise-Foundation"
   }
 }
@@ -550,7 +550,7 @@ variable "environment" {
 variable "db_username" {
   description = "Database username"
   type        = string
-  default     = "financial_master"
+  default     = "veyra"
 }
 
 variable "db_password" {
@@ -574,7 +574,7 @@ variable "redis_url" {
 variable "app_image" {
   description = "Docker image for the application"
   type        = string
-  default     = "financial-master:latest"
+  default     = "veyra:latest"
 }
 
 variable "app_port" {
@@ -609,9 +609,9 @@ variable "max_capacity" {
         
         # Azure Bicep configuration
         azure_bicep = """
-# Azure Microsoft Ecosystem - Financial Master
+# Azure Microsoft Ecosystem - Veyra
 @description('Environment name')
-param environmentName string = 'financial-master-azure-prod'
+param environmentName string = 'veyra-azure-prod'
 
 @description('Azure region')
 param location string = resourceGroup().location
@@ -621,7 +621,7 @@ param location string = resourceGroup().location
 param adminPassword string
 
 @description('Docker image for the application')
-param appImage string = 'financial-master:latest'
+param appImage string = 'veyra:latest'
 
 @description('Microsoft 365 tenant ID')
 param m365TenantId string
@@ -635,7 +635,7 @@ resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
   location: location
   tags: {
     Environment = 'production'
-    Application = 'Financial Master'
+    Application = 'Veyra'
     Provider = 'Azure'
     Role = 'Microsoft-Ecosystem'
   }
@@ -643,14 +643,14 @@ resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
 
 // Azure AD for Identity Management
 resource aad 'Microsoft.Graph/directoryObjects@v1.0' = {
-  displayName: 'Financial Master Users'
-  description: 'User group for Financial Master application'
-  mailNickname: 'financial-master-users'
+  displayName: 'Veyra Users'
+  description: 'User group for Veyra application'
+  mailNickname: 'veyra-users'
   securityEnabled = true
   mailEnabled = true
   
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
     Provider = 'Azure'
     Role = 'Microsoft-Ecosystem'
   }
@@ -667,7 +667,7 @@ resource acr 'Microsoft.ContainerRegistry/registries@2023-01-01-preview' = {
   adminUserEnabled = true
   
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
     Provider = 'Azure'
     Role = 'Microsoft-Ecosystem'
   }
@@ -686,7 +686,7 @@ resource la 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
   }
   
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
     Provider = 'Azure'
     Role = 'Microsoft-Ecosystem'
   }
@@ -708,7 +708,7 @@ resource cae 'Microsoft.App/managedEnvironments@2023-05-01' = {
   }
   
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
     Provider = 'Azure'
     Role = 'Microsoft-Ecosystem'
   }
@@ -728,7 +728,7 @@ resource vnet 'Microsoft.Network/virtualNetworks@2021-02-01' = {
   }
   
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
     Provider = 'Azure'
     Role = 'Microsoft-Ecosystem'
   }
@@ -754,7 +754,7 @@ resource subnet 'Microsoft.Network/virtualNetworks/subnets@2021-02-01' = {
   }
   
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
     Provider = 'Azure'
     Role = 'Microsoft-Ecosystem'
   }
@@ -767,7 +767,7 @@ resource postgres 'Microsoft.DBforPostgreSQL/flexibleServers@2022-12-01' = {
   resourceGroup: rg.name
   properties: {
     version: '15'
-    administratorLogin: 'financialmaster'
+    administratorLogin: 'veyra'
     administratorLoginPassword: adminPassword
     storage: {
       storageSizeGB: 200
@@ -789,7 +789,7 @@ resource postgres 'Microsoft.DBforPostgreSQL/flexibleServers@2022-12-01' = {
   }
   
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
     Provider = 'Azure'
     Role = 'Microsoft-Ecosystem'
   }
@@ -811,7 +811,7 @@ resource redis 'Microsoft.Cache/redis@2022-06-01' = {
   }
   
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
     Provider = 'Azure'
     Role = 'Microsoft-Ecosystem'
   }
@@ -840,7 +840,7 @@ resource ca 'Microsoft.App/containerApps@2023-05-01' = {
       env: [
         {
           name: 'DATABASE_URL'
-          value: 'postgresql://financialmaster:${adminPassword}@${postgres.properties.fullyQualifiedDomainName}:5432/financial_master'
+          value: 'postgresql://veyra:${adminPassword}@${postgres.properties.fullyQualifiedDomainName}:5432/veyra'
         }
         {
           name: 'REDIS_URL'
@@ -864,7 +864,7 @@ resource ca 'Microsoft.App/containerApps@2023-05-01' = {
       containers: [
         {
           image: appImage
-          name: 'financial-master-api'
+          name: 'veyra-api'
           resources: {
             cpu: json('1')
             memory: '2Gi'
@@ -899,7 +899,7 @@ resource ca 'Microsoft.App/containerApps@2023-05-01' = {
   }
   
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
     Provider = 'Azure'
     Role = 'Microsoft-Ecosystem'
   }
@@ -911,7 +911,7 @@ resource powerBiWorkspace 'Microsoft.PowerBI/workspace@2020-06-01' = {
   location: location
   
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
     Provider = 'Azure'
     Role = 'Microsoft-Ecosystem'
   }
@@ -919,7 +919,7 @@ resource powerBiWorkspace 'Microsoft.PowerBI/workspace@2020-06-01' = {
 
 // Office 365 Integration
 resource office365 'Microsoft.Graph/servicePrincipals@v1.0' = {
-  displayName: 'Financial Master Office Integration'
+  displayName: 'Veyra Office Integration'
   description: 'Service principal for Office 365 integration'
   appId: azureApp.applicationId
   
@@ -947,7 +947,7 @@ resource fd 'Microsoft.Cdn/profiles@2021-06-01' = {
   }
   
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
     Provider = 'Azure'
     Role = 'Microsoft-Ecosystem'
   }
@@ -985,7 +985,7 @@ resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
   }
   
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
     Provider = 'Azure'
     Role = 'Microsoft-Ecosystem'
   }
@@ -993,12 +993,12 @@ resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
 
 // Application Registration for OAuth
 resource azureApp 'Microsoft.Graph/applications@v1.0' = {
-  displayName: 'Financial Master'
+  displayName: 'Veyra'
   signInAudience = 'AzureADMyOrg'
   
   web: {
     redirectUris: [
-      'https://financial-master.azurewebsites.net/.auth/login/aad/callback'
+      'https://veyra.azurewebsites.net/.auth/login/aad/callback'
     ]
   }
   
@@ -1015,7 +1015,7 @@ resource azureApp 'Microsoft.Graph/applications@v1.0' = {
   ]
   
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
     Provider = 'Azure'
     Role = 'Microsoft-Ecosystem'
   }
@@ -1035,7 +1035,7 @@ resource azureApp 'Microsoft.Graph/applications@v1.0' = {
         
         # GCP Terraform configuration
         gcp_terraform = """
-# GCP AI/ML & Analytics Platform - Financial Master
+# GCP AI/ML & Analytics Platform - Veyra
 terraform {
   required_providers {
     google = {
@@ -1044,7 +1044,7 @@ terraform {
     }
   
   backend "gcs" {
-    bucket = "financial-master-gcp-terraform-state"
+    bucket = "veyra-gcp-terraform-state"
     prefix = "terraform/state"
   }
 }
@@ -1054,7 +1054,7 @@ provider "google" {
   region  = var.region
   
   default_tags = {
-    Application = "Financial Master"
+    Application = "Veyra"
     Provider = "GCP"
     Role = "AI-ML-Analytics"
   }
@@ -1062,7 +1062,7 @@ provider "google" {
 
 # Vertex AI for ML Training and Serving
 resource "google_ai_platform_notebook_runtime_template" "ml_training" {
-  name = "financial-master-ml-template"
+  name = "veyra-ml-template"
   location = var.region
   
   container_image {
@@ -1079,7 +1079,7 @@ resource "google_ai_platform_notebook_runtime_template" "ml_training" {
   }
   
   tags = {
-    Application = "Financial Master"
+    Application = "Veyra"
     Provider = "GCP"
     Role = "AI-ML-Analytics"
   }
@@ -1090,10 +1090,10 @@ resource "google_bigquery_dataset" "financial_data" {
   dataset_id = "financial_master_data"
   location = "US"
   
-  description = "Financial Master data warehouse for analytics"
+  description = "Veyra data warehouse for analytics"
   
   tags = {
-    Application = "Financial Master"
+    Application = "Veyra"
     Provider = "GCP"
     Role = "AI-ML-Analytics"
   }
@@ -1149,7 +1149,7 @@ resource "google_bigquery_table" "transactions" {
   }
   
   tags = {
-    Application = "Financial Master"
+    Application = "Veyra"
     Provider = "GCP"
     Role = "AI-ML-Analytics"
   }
@@ -1157,7 +1157,7 @@ resource "google_bigquery_table" "transactions" {
 
 # Vertex AI Model Endpoint
 resource "google_ai_platform_endpoint" "model_serving" {
-  name = "financial-master-model-endpoint"
+  name = "veyra-model-endpoint"
   location = var.region
   
   deployment {
@@ -1169,7 +1169,7 @@ resource "google_ai_platform_endpoint" "model_serving" {
   }
   
   tags = {
-    Application = "Financial Master"
+    Application = "Veyra"
     Provider = "GCP"
     Role = "AI-ML-Analytics"
   }
@@ -1177,14 +1177,14 @@ resource "google_ai_platform_endpoint" "model_serving" {
 
 # Cloud Run for AI Model Serving
 resource "google_cloud_run_v2_service" "ai_models" {
-  name     = "financial-master-ai-models"
+  name     = "veyra-ai-models"
   location = var.region
   project  = var.project_id
   
   template {
     containers {
-      name  = "financial-master-ai"
-      image = "gcr.io/${var.project_id}/financial-master-ai:latest"
+      name  = "veyra-ai"
+      image = "gcr.io/${var.project_id}/veyra-ai:latest"
       
       ports {
         container_port = 8080
@@ -1230,7 +1230,7 @@ resource "google_cloud_run_v2_service" "ai_models" {
   }
   
   tags = {
-    Application = "Financial Master"
+    Application = "Veyra"
     Provider = "GCP"
     Role = "AI-ML-Analytics"
   }
@@ -1238,7 +1238,7 @@ resource "google_cloud_run_v2_service" "ai_models" {
 
 # Cloud Storage for Data Lake
 resource "google_storage_bucket" "data_lake" {
-  name          = "financial-master-data-lake-${random_string.bucket_suffix.result}"
+  name          = "veyra-data-lake-${random_string.bucket_suffix.result}"
   location      = "US"
   force_destroy = true
   
@@ -1254,7 +1254,7 @@ resource "google_storage_bucket" "data_lake" {
   }
   
   tags = {
-    Application = "Financial Master"
+    Application = "Veyra"
     Provider = "GCP"
     Role = "AI-ML-Analytics"
   }
@@ -1262,10 +1262,10 @@ resource "google_storage_bucket" "data_lake" {
 
 # Dataflow for ETL Pipelines
 resource "google_dataflow_job" "etl_pipeline" {
-  name = "financial-master-etl-pipeline"
+  name = "veyra-etl-pipeline"
   region = var.region
   
-  template_gcs_path = "gs://financial-master-templates/dataflow-template"
+  template_gcs_path = "gs://veyra-templates/dataflow-template"
   temp_gcs_location = google_storage_bucket.temp_files.name
   
   environment {
@@ -1274,7 +1274,7 @@ resource "google_dataflow_job" "etl_pipeline" {
   }
   
   tags = {
-    Application = "Financial Master"
+    Application = "Veyra"
     Provider = "GCP"
     Role = "AI-ML-Analytics"
   }
@@ -1282,7 +1282,7 @@ resource "google_dataflow_job" "etl_pipeline" {
 
 # AutoML for Automated Machine Learning
 resource "google_ml_model" "automl_model" {
-  name = "financial-master-automl"
+  name = "veyra-automl"
   region = var.region
   
   dataset {
@@ -1295,7 +1295,7 @@ resource "google_ml_model" "automl_model" {
   }
   
   tags = {
-    Application = "Financial Master"
+    Application = "Veyra"
     Provider = "GCP"
     Role = "AI-ML-Analytics"
   }
@@ -1303,7 +1303,7 @@ resource "google_ml_model" "automl_model" {
 
 # Notebooks for Data Science
 resource "google_notebooks_instance" "data_science" {
-  name = "financial-master-data-science"
+  name = "veyra-data-science"
   location = var.region
   machine_type = "n1-standard-4"
   
@@ -1313,7 +1313,7 @@ resource "google_notebooks_instance" "data_science" {
   }
   
   tags = {
-    Application = "Financial Master"
+    Application = "Veyra"
     Provider = "GCP"
     Role = "AI-ML-Analytics"
   }
@@ -1352,7 +1352,7 @@ variable "zone" {
 variable "app_image" {
   description = "Docker image for the application"
   type        = string
-  default     = "financial-master:latest"
+  default     = "veyra:latest"
 }
 
 variable "app_port" {
@@ -1391,42 +1391,42 @@ variable "max_instances" {
 apiVersion: v1
 kind: ServiceMesh
 metadata:
-  name: financial-master-mesh
+  name: veyra-mesh
 spec:
   providers:
     aws:
       region: us-east-1
       account: "123456789012"
     azure:
-      subscription: "financial-master-subscription"
-      resourceGroup: "financial-master-azure"
+      subscription: "veyra-subscription"
+      resourceGroup: "veyra-azure"
     gcp:
-      project: "financial-master-gcp"
+      project: "veyra-gcp"
       region: "us-central1"
   
   services:
-    - name: financial-master-api
+    - name: veyra-api
       provider: aws
-      endpoint: https://financial-master-api.us-east-1.elb.amazonaws.com
+      endpoint: https://veyra-api.us-east-1.elb.amazonaws.com
       backup:
         - provider: azure
-          endpoint: https://financial-master-api.azurewebsites.net
+          endpoint: https://veyra-api.azurewebsites.net
         - provider: gcp
-          endpoint: https://financial-master-api-xxxxxx-uc.a.run.app
+          endpoint: https://veyra-api-xxxxxx-uc.a.run.app
     
-    - name: financial-master-ai
+    - name: veyra-ai
       provider: gcp
-      endpoint: https://financial-master-ai-xxxxxx-uc.a.run.app
+      endpoint: https://veyra-ai-xxxxxx-uc.a.run.app
       backup:
         - provider: aws
-          endpoint: https://financial-master-ai.us-east-1.elb.amazonaws.com
+          endpoint: https://veyra-ai.us-east-1.elb.amazonaws.com
     
-    - name: financial-master-analytics
+    - name: veyra-analytics
       provider: azure
-      endpoint: https://financial-master-analytics.powerbi.com
+      endpoint: https://veyra-analytics.powerbi.com
       backup:
         - provider: gcp
-          endpoint: https://financial-master-analytics.bigquery.google.com
+          endpoint: https://veyra-analytics.bigquery.google.com
   
   routing:
     primary: aws
@@ -1452,7 +1452,7 @@ spec:
 apiVersion: v1
 kind: Network
 metadata:
-  name: financial-master-network
+  name: veyra-network
 spec:
   type: multi-cloud
   providers:
@@ -1465,16 +1465,16 @@ spec:
         - subnet-3
     
     azure:
-      vnetId: /subscriptions/12345678-1234-5678-1234-567812345678/resourceGroups/financial-master-azure/providers/Microsoft.Network/virtualNetworks/financial-master-vnet
+      vnetId: /subscriptions/12345678-1234-5678-1234-567812345678/resourceGroups/veyra-azure/providers/Microsoft.Network/virtualNetworks/veyra-vnet
       subnets:
         - container-apps-subnet
         - database-subnet
     
     gcp:
-      networkId: projects/financial-master-gcp/global/networks/financial-master-network
+      networkId: projects/veyra-gcp/global/networks/veyra-network
       subnets:
-        - financial-master-private
-        - financial-master-public
+        - veyra-private
+        - veyra-public
   
   peering:
     aws-azure:
@@ -1499,13 +1499,13 @@ spec:
     firewall:
       aws:
         securityGroups:
-          - financial-master-sg
+          - veyra-sg
         networkAcls:
-          - financial-master-nacl
+          - veyra-nacl
       
       azure:
         networkSecurityGroups:
-          - financial-master-nsg
+          - veyra-nsg
         networkSecurityGroupRules:
           - allow-https
           - allow-ssh
@@ -1530,7 +1530,7 @@ spec:
         
         # Grafana configuration
         grafana_config = """
-# Unified Monitoring for Multi-Cloud Financial Master
+# Unified Monitoring for Multi-Cloud Veyra
 apiVersion: 1
 
 datasources:
@@ -1549,11 +1549,11 @@ datasources:
     
   - name: GCP Cloud Monitoring
     type: stackdriver
-    projectId: financial-master-gcp
+    projectId: veyra-gcp
     keyFile: ${GOOGLE_APPLICATION_CREDENTIALS}
 
 dashboards:
-  - name: Financial Master Overview
+  - name: Veyra Overview
     panels:
       - title: API Response Time
         type: graph
@@ -1605,7 +1605,7 @@ alerts:
     
     for: 5m
     annotations:
-      summary: "High error rate detected in Financial Master"
+      summary: "High error rate detected in Veyra"
       description: "Error rate is above threshold"
       severity: critical
     
@@ -1649,7 +1649,7 @@ alerts:
         # AWS deployment script
         aws_script = """#!/bin/bash
 # AWS Enterprise Deployment Script
-echo "Deploying Financial Master to AWS Enterprise..."
+echo "Deploying Veyra to AWS Enterprise..."
 
 # Set AWS credentials
 aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
@@ -1664,12 +1664,12 @@ terraform apply tfplan
 
 # Build and push Docker image
 aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 123456789012.dkr.ecr.us-east-1.amazonaws.com
-docker build -t financial-master:latest .
-docker tag financial-master:latest 123456789012.dkr.ecr.us-east-1.amazonaws.com/financial-master:latest
-docker push 123456789012.dkr.ecr.us-east-1.amazonaws.com/financial-master:latest
+docker build -t veyra:latest .
+docker tag veyra:latest 123456789012.dkr.ecr.us-east-1.amazonaws.com/veyra:latest
+docker push 123456789012.dkr.ecr.us-east-1.amazonaws.com/veyra:latest
 
 # Deploy to ECS
-aws ecs update-service --cluster financial-master-enterprise --service financial-master-api --force-new-deployment
+aws ecs update-service --cluster veyra-enterprise --service veyra-api --force-new-deployment
 
 echo "AWS Enterprise deployment completed!"
 """
@@ -1681,7 +1681,7 @@ echo "AWS Enterprise deployment completed!"
         azure_script = """
 #!/bin/bash
 # Azure Microsoft Ecosystem Deployment Script
-echo "Deploying Financial Master to Azure Microsoft Ecosystem..."
+echo "Deploying Veyra to Azure Microsoft Ecosystem..."
 
 # Login to Azure
 az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID
@@ -1689,15 +1689,15 @@ az account set --subscription "$AZURE_SUBSCRIPTION_ID"
 
 # Deploy infrastructure
 cd multi-cloud/azure/bicep
-az deployment group create --resource-group financial-master-azure --template-file main.bicep
+az deployment group create --resource-group veyra-azure --template-file main.bicep
 
 # Build and push Docker image
 az acr login --name financial-masteracr
-docker build -t financial-master.azurecr.io/financial-master:latest .
-docker push financial-master.azurecr.io/financial-master:latest
+docker build -t veyra.azurecr.io/veyra:latest .
+docker push veyra.azurecr.io/veyra:latest
 
 # Deploy to Container Apps
-az containerapp update --name financial-master-api --resource-group financial-master-azure --image financial-master.azurecr.io/financial-master:latest
+az containerapp update --name veyra-api --resource-group veyra-azure --image veyra.azurecr.io/veyra:latest
 
 echo "✅ Azure Microsoft Ecosystem deployment completed!"
 """
@@ -1709,11 +1709,11 @@ echo "✅ Azure Microsoft Ecosystem deployment completed!"
         gcp_script = """
 #!/bin/bash
 # GCP AI/ML & Analytics Deployment Script
-echo "Deploying Financial Master to GCP AI/ML Platform..."
+echo "Deploying Veyra to GCP AI/ML Platform..."
 
 # Login to GCP
 gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
-gcloud config set project financial-master-gcp
+gcloud config set project veyra-gcp
 gcloud config set region us-central1
 
 # Deploy infrastructure
@@ -1724,14 +1724,14 @@ terraform apply tfplan
 
 # Build and push Docker image
 gcloud auth configure-docker us-central1-docker.pkg.dev
-docker build -t us-central1-docker.pkg.dev/financial-master-gcp/financial-master:latest .
-docker push us-central1-docker.pkg.dev/financial-master-gcp/financial-master:latest
+docker build -t us-central1-docker.pkg.dev/veyra-gcp/veyra:latest .
+docker push us-central1-docker.pkg.dev/veyra-gcp/veyra:latest
 
 # Deploy to Cloud Run
-gcloud run deploy financial-master-ai --image us-central1-docker.pkg.dev/financial-master-gcp/financial-master:latest --region us-central1 --platform managed
+gcloud run deploy veyra-ai --image us-central1-docker.pkg.dev/veyra-gcp/veyra:latest --region us-central1 --platform managed
 
 # Deploy Vertex AI model
-gcloud ai models upload --model-file financial_master_model.pkl --display-name="Financial Master Model" --region=us-central1
+gcloud ai models upload --model-file financial_master_model.pkl --display-name="Veyra Model" --region=us-central1
 
 echo "✅ GCP AI/ML & Analytics deployment completed!"
 """

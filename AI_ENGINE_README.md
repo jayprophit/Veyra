@@ -10,7 +10,7 @@
 ## Drop-in Location
 
 ```
-financial-master/
+veyra/
 └── src/
     └── backend/
         └── ai/

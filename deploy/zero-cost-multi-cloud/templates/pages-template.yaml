@@ -1,5 +1,5 @@
 # Cloudflare Pages Template
-name: financial-master-zero-cost
+name: veyra-zero-cost
 compatibility_date: "2024-01-01"
 
 build:
@@ -8,7 +8,7 @@ build:
 
 env:
   NODE_ENV: "production"
-  API_URL: "https://financial-master-api.workers.dev"
+  API_URL: "https://veyra-api.workers.dev"
   DATABASE_URL: "$DATABASE_URL"
   AUTH0_DOMAIN: "$AUTH0_DOMAIN"
   AUTH0_CLIENT_ID: "$AUTH0_CLIENT_ID"

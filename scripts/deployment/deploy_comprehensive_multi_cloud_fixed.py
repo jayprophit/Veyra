@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Comprehensive Multi-Cloud Deployment Script for Financial Master Platform
+Comprehensive Multi-Cloud Deployment Script for Veyra Platform
 Supports AWS, Azure, GCP, and hybrid deployments with cost optimization
 """
 
@@ -43,7 +43,7 @@ class MultiCloudDeployer:
     
     def __init__(self, config: DeploymentConfig):
         self.config = config
-        self.deployment_id = f"financial-master-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
+        self.deployment_id = f"veyra-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
         self.infrastructure = self._load_infrastructure_config()
         
     def _load_infrastructure_config(self) -> Dict[str, Any]:
@@ -216,7 +216,7 @@ class MultiCloudDeployer:
     def generate_deployment_report(self, results: Dict[str, Any]) -> str:
         """Generate comprehensive deployment report"""
         report = f"""
-# Financial Master Multi-Cloud Deployment Report
+# Veyra Multi-Cloud Deployment Report
 **Deployment ID:** {self.deployment_id}
 **Environment:** {self.config.environment}
 **Timestamp:** {datetime.now().isoformat()}
@@ -250,7 +250,7 @@ class MultiCloudDeployer:
 
 def main():
     """Main deployment function"""
-    logger.info("Starting Financial Master Multi-Cloud Deployment...")
+    logger.info("Starting Veyra Multi-Cloud Deployment...")
     
     # Create deployment configuration
     config = DeploymentConfig(

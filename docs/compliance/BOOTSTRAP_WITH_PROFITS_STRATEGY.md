@@ -1,7 +1,7 @@
 # Bootstrap with Profits Strategy
 ## Self-Fund Regulatory Pathway Through Personal Trading
 
-**Strategy:** Use Financial Master with your own capital → Generate profits → Fund FCA/SEC authorization → Launch public robo-adviser  
+**Strategy:** Use Veyra with your own capital → Generate profits → Fund FCA/SEC authorization → Launch public robo-adviser  
 **Philosophy:** Let the system prove itself while building your war chest  
 
 ---
@@ -354,7 +354,7 @@ Tax Efficiency Strategies:
 ### Company Structure (Month 6)
 
 ```
-Financial Master Wealth Management Ltd
+Veyra Wealth Management Ltd
 
 Benefits:
 - Corporation Tax: 19-25% (vs 20-45% personal)
@@ -448,7 +448,7 @@ Track these weekly:
 
 **When you can say this with confidence:**
 
-> "I've used Financial Master for 18 months with my own money. It turned £10,000 into £100,000. I've documented every trade, every decision, every edge case. The system is robust, profitable, and ready for clients. I've also set aside £100,000 in regulatory capital and obtained FCA authorization. I'm not asking you to trust a backtest—I'm asking you to trust 18 months of real money results."
+> "I've used Veyra for 18 months with my own money. It turned £10,000 into £100,000. I've documented every trade, every decision, every edge case. The system is robust, profitable, and ready for clients. I've also set aside £100,000 in regulatory capital and obtained FCA authorization. I'm not asking you to trust a backtest—I'm asking you to trust 18 months of real money results."
 
 **That's when you launch.**
 

@@ -1,7 +1,7 @@
 """
 Comprehensive Test Suite
 =======================
-Unit tests, integration tests, and validation for Financial Master
+Unit tests, integration tests, and validation for Veyra
 """
 import unittest
 import numpy as np
@@ -37,7 +37,6 @@ class TestVisualAI(unittest.TestCase):
     
     def test_deception_detection(self):
         """Test deception signal generation"""
-        from ai.visual_advanced import AdvancedVisualAI
         
         analyzer = AdvancedVisualAI()
         
@@ -107,7 +106,6 @@ class TestRiskManager(unittest.TestCase):
     
     def test_stress_testing(self):
         """Test stress test scenarios"""
-        from risk.risk_manager import RiskManager
         
         rm = RiskManager()
         
@@ -199,7 +197,6 @@ class TestPortfolioOptimizer(unittest.TestCase):
     
     def test_efficient_frontier(self):
         """Test efficient frontier generation"""
-        from portfolio_opt.optimizer import PortfolioOptimizer
         
         optimizer = PortfolioOptimizer()
         
@@ -232,7 +229,6 @@ class TestCrisisDetector(unittest.TestCase):
     
     def test_crisis_signal_detection(self):
         """Test crisis signal detection"""
-        from risk.crisis_alpha_detector import CrisisAlphaDetector
         
         detector = CrisisAlphaDetector()
         detector.fetch_market_data()  # Simulate
@@ -313,9 +309,6 @@ class IntegrationTests(unittest.TestCase):
     
     def test_end_to_end_signal_generation(self):
         """Test complete signal generation pipeline"""
-        from signal_aggregator import SignalAggregator, SignalSource
-        from ai.visual_advanced import AdvancedVisualAI
-        from sentiment.news_sentiment_engine import NewsSentimentEngine
         
         # This would be a full integration test
         # Mocking components for speed

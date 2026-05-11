@@ -1,4 +1,4 @@
-# Financial Master - Roadmap to Production
+# Veyra - Roadmap to Production
 ## From Personal Project → Public Platform → Monetized Business
 
 **Current Stage:** Personal Testing  
@@ -51,7 +51,7 @@ You can start **today** with personal use and paper trading. The key is building
 ```bash
 # 1. Industrial-grade architecture
 helm/                          # Kubernetes deployment ready
-├── financial-master/          # Production Helm chart
+├── veyra/          # Production Helm chart
 ├── values-dev.yaml            # Development config
 ├── values-staging.yaml        # Staging config
 └── values-production.yaml     # Production config
@@ -161,7 +161,7 @@ This determines EVERYTHING about registration requirements.
 
 **Legal structure:**
 ```
-Financial Master Ltd
+Veyra Ltd
 - Technology company
 - "Software as a Service" (SaaS)
 - NOT a financial adviser
@@ -243,7 +243,7 @@ Financial Master Ltd
 ```bash
 # 1. Register Limited Company
 #    - Companies House: £12
-#    - Name: "Financial Master Technology Ltd"
+#    - Name: "Veyra Technology Ltd"
 #    - SIC Code: 62012 (Business and domestic software development)
 
 # 2. Register with ICO
@@ -566,7 +566,7 @@ Answer these questions:
 # - Easier to raise funding later
 # - Clean cap table from start
 
-1. Register "Financial Master Technology Ltd"
+1. Register "Veyra Technology Ltd"
 2. Set up business bank account
 3. Transfer IP (code) to company
 4. Set up basic accounting

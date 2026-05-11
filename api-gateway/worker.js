@@ -4,7 +4,7 @@ export default {
     
     // Route to backend
     if (url.pathname.startsWith('/api/')) {
-      const backendUrl = 'https://financial-master.onrender.com' + url.pathname + url.search;
+      const backendUrl = 'https://veyra.onrender.com' + url.pathname + url.search;
       
       const response = await fetch(backendUrl, {
         method: request.method,
@@ -25,7 +25,7 @@ export default {
       return env.ASSETS.fetch(request);
     }
     
-    return new Response('Financial Master API - 5-STAR+ Platform', { 
+    return new Response('Veyra API - 5-STAR+ Platform', { 
       status: 200,
       headers: { 'Content-Type': 'text/plain' }
     });

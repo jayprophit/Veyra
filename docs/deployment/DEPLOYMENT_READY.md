@@ -1,4 +1,4 @@
-# Financial Master - Deployment Ready
+# Veyra - Deployment Ready
 
 ## Complete Test Suite & Production Deployment Package
 
@@ -101,7 +101,7 @@ pytest tests/test_phase10_transcendent.py::TestBrainComputerInterface -v
 
 ```
 k8s/
-├── namespace.yaml          # financial-master namespace
+├── namespace.yaml          # veyra namespace
 ├── configmap.yaml          # Environment configuration
 ├── deployment.yaml         # API, Frontend, Celery deployments
 ├── service.yaml            # ClusterIP services
@@ -112,7 +112,7 @@ k8s/
 ### 2.3 Helm Chart (Recommended for K8s)
 
 ```
-helm/financial-master/
+helm/veyra/
 ├── Chart.yaml              # Chart metadata
 ├── values.yaml             # Default configuration
 ├── README.md               # Helm usage guide
@@ -129,8 +129,8 @@ helm/financial-master/
 **Quick Helm Deploy:**
 
 ```bash
-helm install financial-master ./helm/financial-master \
-  --namespace financial-master \
+helm install veyra ./helm/veyra \
+  --namespace veyra \
   --create-namespace \
   --set global.environment=production
 ```
@@ -209,18 +209,18 @@ curl http://localhost/api/v4/transcendent/status
 ```bash
 # 1. Create namespace and secrets
 kubectl apply -f k8s/namespace.yaml
-kubectl create secret generic fm-secrets --from-env-file=.env.prod -n financial-master
+kubectl create secret generic vra-secrets --from-env-file=.env.prod -n veyra
 
 # 2. Deploy all manifests
 kubectl apply -f k8s/
 
 # 3. Verify deployment
-kubectl get pods -n financial-master
-kubectl get svc -n financial-master
-kubectl get ingress -n financial-master
+kubectl get pods -n veyra
+kubectl get svc -n veyra
+kubectl get ingress -n veyra
 
 # 4. Check status
-curl https://api.financialmaster.com/api/v4/transcendent/status
+curl https://api.veyra.com/api/v4/transcendent/status
 ```
 
 ### Option C: Helm (Recommended for Production)
@@ -230,19 +230,19 @@ curl https://api.financialmaster.com/api/v4/transcendent/status
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 
-# 2. Install Financial Master
-helm install financial-master ./helm/financial-master \
-  --namespace financial-master \
+# 2. Install Veyra
+helm install veyra ./helm/veyra \
+  --namespace veyra \
   --create-namespace \
   --set global.environment=production
 
 # 3. Verify deployment
-helm list -n financial-master
-kubectl get pods -n financial-master
+helm list -n veyra
+kubectl get pods -n veyra
 
 # 4. Upgrade when needed
-helm upgrade financial-master ./helm/financial-master \
-  --namespace financial-master \
+helm upgrade veyra ./helm/veyra \
+  --namespace veyra \
   --set api.image.tag=v4.0.1
 ```
 
@@ -349,8 +349,8 @@ helm upgrade financial-master ./helm/financial-master \
 
 ```bash
 # Build images
-docker build -t fm-api:v4.0.0 .
-docker build -t fm-frontend:v4.0.0 ./frontend
+docker build -t vra-api:v4.0.0 .
+docker build -t vra-frontend:v4.0.0 ./frontend
 
 # Run tests
 pytest tests/ -v --cov=app
@@ -364,13 +364,13 @@ kubectl apply -f k8s/ingress.yaml
 kubectl apply -f k8s/hpa.yaml
 
 # Verify
-kubectl get all -n financial-master
+kubectl get all -n veyra
 
 # Rollback (if needed)
-kubectl rollout undo deployment/fm-api -n financial-master
+kubectl rollout undo deployment/vra-api -n veyra
 
 # View logs
-kubectl logs -f deployment/fm-api -n financial-master
+kubectl logs -f deployment/vra-api -n veyra
 ```
 
 ---
@@ -379,10 +379,10 @@ kubectl logs -f deployment/fm-api -n financial-master
 
 ### Monitoring URLs
 
-- Application: `https://app.financialmaster.com`
-- API: `https://api.financialmaster.com`
-- Grafana: `https://grafana.financialmaster.com`
-- Prometheus: `https://prometheus.financialmaster.com`
+- Application: `https://app.veyra.com`
+- API: `https://api.veyra.com`
+- Grafana: `https://grafana.veyra.com`
+- Prometheus: `https://prometheus.veyra.com`
 
 ### Emergency Procedures
 
@@ -404,9 +404,9 @@ kubectl logs -f deployment/fm-api -n financial-master
 - ✅ Monitoring & alerting
 - ✅ Documentation complete
 
-**Financial Master v4.0.0 - Grade 500/100**
+**Veyra v4.0.0 - Grade 500/100**
 **Ready to deploy the most advanced trading platform ever built.** 🚀
 
 ---
 
-*For questions or support, contact: <devops@financialmaster.com>*
+*For questions or support, contact: <devops@veyra.com>*

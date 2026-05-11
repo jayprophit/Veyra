@@ -1,8 +1,8 @@
-# Financial Master - API Integration Catalog
+# Veyra - API Integration Catalog
 
 ## Overview
 
-This document provides a comprehensive catalog of all APIs integrated or planned for the Financial Master platform, organized by category with **Free Tier** and **Paid Tier** options.
+This document provides a comprehensive catalog of all APIs integrated or planned for the Veyra platform, organized by category with **Free Tier** and **Paid Tier** options.
 
 ---
 
@@ -477,5 +477,5 @@ async def fetch_with_retry(client, symbol, max_retries=3):
 ---
 
 **Last Updated:** May 3, 2026  
-**Maintained by:** Financial Master Development Team  
+**Maintained by:** Veyra Development Team  
 **Questions?** See `@/docs/api/API_SETUP_GUIDE.md` for setup instructions.

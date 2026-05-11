@@ -1,5 +1,5 @@
 # Fix Windsurf automation issues
-$ProjectRoot = "c:\Users\jpowe\Desktop\Financial Master"
+$ProjectRoot = "c:\Users\jpowe\Desktop\Veyra"
 Set-Location $ProjectRoot
 
 Write-Host "Fixing Windsurf configuration..."

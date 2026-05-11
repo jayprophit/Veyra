@@ -76,7 +76,7 @@ class DatabaseManager:
     async def _init_connection(self, conn):
         """Initialize new connection with optimizations."""
         # Set application name
-        await conn.execute("SET application_name = 'financial_master'")
+        await conn.execute("SET application_name = 'veyra'")
         
         # Optimize for trading workload
         await conn.execute("SET synchronous_commit = off")  # Faster writes
@@ -275,7 +275,7 @@ def get_database() -> DatabaseManager:
         import os
         dsn = os.getenv(
             "DATABASE_URL",
-            "postgresql://localhost/financial_master"
+            "postgresql://localhost/veyra"
         )
         _db_manager = DatabaseManager(dsn)
     return _db_manager

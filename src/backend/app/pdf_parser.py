@@ -79,7 +79,7 @@ class StatementParser:
         lines = text.split('\n')
         for line in lines:
             # Look for ticker symbols (ALL CAPS, 2-5 chars)
-            tickers = re.findall(r'\b[A-Z]{2,5}\b', line)
+            tickers = re.findall(r'\b[A-Z]{2,5}\\\b', line)
             # Look for numbers
             numbers = re.findall(r'\d+\.?\d*', line)
             

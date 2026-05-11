@@ -8,7 +8,7 @@
 
 ## 📋 System Overview
 
-Your Financial Master now supports **multi-jurisdiction tax compliance** for users anywhere in the world. Whether you're:
+Your Veyra now supports **multi-jurisdiction tax compliance** for users anywhere in the world. Whether you're:
 - A UK resident with US investments
 - A US expat living in Singapore
 - A German citizen trading UK stocks
@@ -533,7 +533,7 @@ pytest tests/integration/test_international_tax.py -v
 
 ---
 
-**Your Financial Master is now a truly GLOBAL tax compliance platform.**
+**Your Veyra is now a truly GLOBAL tax compliance platform.**
 
 🌍💰📊
 

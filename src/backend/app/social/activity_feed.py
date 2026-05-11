@@ -1,5 +1,5 @@
 """
-Social Activity Feed System for Financial Master
+Social Activity Feed System for Veyra
 
 Implements:
 - Real-time activity stream
@@ -114,7 +114,7 @@ class UserSocialProfile:
 
 class ActivityFeed:
     """
-    Social activity feed system for Financial Master.
+    Social activity feed system for Veyra.
     
     Features:
     - Real-time activity streaming

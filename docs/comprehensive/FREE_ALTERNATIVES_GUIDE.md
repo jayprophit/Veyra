@@ -637,7 +637,7 @@ valuations = await manager.get_valuation_metrics('AAPL')
 - [r/ValueInvesting](https://reddit.com/r/ValueInvesting)
 
 ### Examples
-- [Financial Master Examples](https://github.com/jpowell/financial-master/tree/main/examples)
+- [Veyra Examples](https://github.com/jpowell/veyra/tree/main/examples)
 - [OpenBB Examples](https://github.com/OpenBB-finance/OpenBB/tree/main/examples)
 
 ## 🎉 Conclusion

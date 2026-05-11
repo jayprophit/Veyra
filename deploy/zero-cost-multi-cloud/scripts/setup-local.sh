@@ -18,7 +18,7 @@ npm run seed
 npm run dev
 
 echo "Local development environment started:"
-echo "- Database: postgresql://localhost:5432/financial_master"
+echo "- Database: postgresql://localhost:5432/veyra"
 echo "- Redis: redis://localhost:6379"
 echo "- Ollama: http://localhost:11434"
 echo "- Application: http://localhost:8000"

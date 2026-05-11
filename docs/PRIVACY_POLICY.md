@@ -1,8 +1,8 @@
-# Privacy Policy for Financial Master
+# Privacy Policy for Veyra
 
 ## 1. Introduction
 
-Financial Master ("we", "our", "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our financial platform.
+Veyra ("we", "our", "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our financial platform.
 
 ## 2. Information We Collect
 
@@ -50,6 +50,6 @@ Under GDPR, you have the right to:
 
 ## 7. Contact Us
 
-For privacy concerns, contact: privacy@financialmaster.com
+For privacy concerns, contact: privacy@veyra.com
 
 Last updated: May 2026

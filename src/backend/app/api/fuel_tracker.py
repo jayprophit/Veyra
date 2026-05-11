@@ -1,5 +1,5 @@
 # ================================================================
-# FinOS Fuel & Mileage Tracker — Merged into Financial Master
+# FinOS Fuel & Mileage Tracker — Merged into Veyra
 # HMRC Mileage Allowance Payment (MAP) rates 2026/27:
 #   Car/Van:     45p/mile (first 10,000) | 25p/mile (over 10,000)
 #   Motorcycle:  24p/mile (all)

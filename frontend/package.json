@@ -1,7 +1,7 @@
 {
-  "name": "financial-master-dashboard",
+  "name": "veyra-dashboard",
   "version": "2.50.0",
-  "description": "Financial Master React Dashboard",
+  "description": "Veyra React Dashboard",
   "private": true,
   "dependencies": {
     "react": "^18.2.0",

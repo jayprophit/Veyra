@@ -1,8 +1,8 @@
-# PowerShell script to fix all lint warnings in Financial Master
+# PowerShell script to fix all lint warnings in Veyra
 # Fixes: Markdown lint, Python format, general project cleanup
 
 Write-Host "========================================" -ForegroundColor Cyan
-Write-Host "Financial Master - Lint Fix Script" -ForegroundColor Cyan
+Write-Host "Veyra - Lint Fix Script" -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
 

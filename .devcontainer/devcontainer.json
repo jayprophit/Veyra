@@ -1,0 +1,56 @@
+{
+  "name": "Veyra - Autonomous Wealth Platform",
+  "image": "mcr.microsoft.com/devcontainers/python:3.11",
+  "features": {
+    "ghcr.io/devcontainers/features/node:latest": {},
+    "ghcr.io/devcontainers/features/git:latest": {}
+  },
+  "containerEnv": {
+    "PYTHONUNBUFFERED": "1",
+    "VEYRA_ENV": "development"
+  },
+  "remoteEnv": {
+    "PATH": "${containerEnv:PATH}:/workspaces/Veyra/venv/bin"
+  },
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+  "forwardPorts": [5000, 8000, 8080, 3000, 5432],
+  "portsAttributes": {
+    "5000": {
+      "label": "Veyra Demo Server",
+      "onAutoForward": "notify"
+    },
+    "8000": {
+      "label": "FastAPI Backend",
+      "onAutoForward": "notify"
+    },
+    "3000": {
+      "label": "Frontend Dev",
+      "onAutoForward": "notify"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.debugpy",
+        "charliermarsh.ruff",
+        "ms-vscode.makefile-tools",
+        "GitHub.copilot",
+        "REST Client.rest-client"
+      ],
+      "settings": {
+        "[python]": {
+          "editor.defaultFormatter": "ms-python.python",
+          "editor.formatOnSave": true,
+          "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+          }
+        },
+        "python.linting.enabled": true,
+        "python.linting.pylintEnabled": true,
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  }
+}

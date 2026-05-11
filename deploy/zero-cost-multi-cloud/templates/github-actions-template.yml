@@ -1,5 +1,5 @@
 # GitHub Actions Template
-name: Deploy Financial Master
+name: Deploy Veyra
 
 on:
   push:
@@ -41,7 +41,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: financial-master
+          projectName: veyra
           directory: dist
 
   deploy-backend:

@@ -2,42 +2,42 @@
 apiVersion: v1
 kind: ServiceMesh
 metadata:
-  name: financial-master-mesh
+  name: veyra-mesh
 spec:
   providers:
     aws:
       region: us-east-1
       account: "123456789012"
     azure:
-      subscription: "financial-master-subscription"
-      resourceGroup: "financial-master-azure"
+      subscription: "veyra-subscription"
+      resourceGroup: "veyra-azure"
     gcp:
-      project: "financial-master-gcp"
+      project: "veyra-gcp"
       region: "us-central1"
   
   services:
-    - name: financial-master-api
+    - name: veyra-api
       provider: aws
-      endpoint: https://financial-master-api.us-east-1.elb.amazonaws.com
+      endpoint: https://veyra-api.us-east-1.elb.amazonaws.com
       backup:
         - provider: azure
-          endpoint: https://financial-master-api.azurewebsites.net
+          endpoint: https://veyra-api.azurewebsites.net
         - provider: gcp
-          endpoint: https://financial-master-api-xxxxxx-uc.a.run.app
+          endpoint: https://veyra-api-xxxxxx-uc.a.run.app
     
-    - name: financial-master-ai
+    - name: veyra-ai
       provider: gcp
-      endpoint: https://financial-master-ai-xxxxxx-uc.a.run.app
+      endpoint: https://veyra-ai-xxxxxx-uc.a.run.app
       backup:
         - provider: aws
-          endpoint: https://financial-master-ai.us-east-1.elb.amazonaws.com
+          endpoint: https://veyra-ai.us-east-1.elb.amazonaws.com
     
-    - name: financial-master-analytics
+    - name: veyra-analytics
       provider: azure
-      endpoint: https://financial-master-analytics.powerbi.com
+      endpoint: https://veyra-analytics.powerbi.com
       backup:
         - provider: gcp
-          endpoint: https://financial-master-analytics.bigquery.google.com
+          endpoint: https://veyra-analytics.bigquery.google.com
   
   routing:
     primary: aws

@@ -1,5 +1,5 @@
 """
-TradingView Webhook Bridge for Financial Master
+TradingView Webhook Bridge for Veyra
 Receives TradingView alerts and executes trades via broker APIs
 Based on TradersPost-style integration
 """
@@ -119,7 +119,7 @@ class TradingViewWebhookBridge:
             Dict with webhook_id, webhook_url, and secret_key (if HMAC enabled)
         """
         webhook_id = f"{user_id}_{strategy_id}_{uuid.uuid4().hex[:8]}"
-        webhook_url = f"https://api.financialmaster.com/webhook/{webhook_id}"
+        webhook_url = f"https://api.veyra.com/webhook/{webhook_id}"
         
         # Generate secret key for HMAC verification
         secret_key = None

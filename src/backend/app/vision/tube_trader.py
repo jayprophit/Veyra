@@ -33,8 +33,8 @@ class TubeTrader:
     """
     
     def __init__(self):
-        self.ticker_pattern = re.compile(r'\b[A-Z]{1,5}\b')  # Stock tickers
-        self.crypto_pattern = re.compile(r'\b(BTC|ETH|ADA|SOL|DOT|AVAX|MATIC|LINK)\b', re.IGNORECASE)
+        self.ticker_pattern = re.compile(r'\b[A-Z]{1,5}\\\b')  # Stock tickers
+        self.crypto_pattern = re.compile(r'\b(BTC|ETH|ADA|SOL|DOT|AVAX|MATIC|LINK)\\\b', re.IGNORECASE)
     
     async def analyze_video(self, video_url: str) -> Dict[str, Any]:
         """

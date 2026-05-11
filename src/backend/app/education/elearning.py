@@ -1,4 +1,4 @@
-"""E-Learning System for Financial Master."""
+"""E-Learning System for Veyra."""
 import logging
 from typing import Dict, List, Optional, Any
 from dataclasses import dataclass, field

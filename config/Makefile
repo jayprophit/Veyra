@@ -1,10 +1,10 @@
-# Financial Master - Makefile for Unix-like systems
+# Veyra - Makefile for Unix-like systems
 # Use this on WSL2, macOS, or Linux
 
 .PHONY: help install start stop test clean docker backup
 
 help:
-	@echo "Financial Master v2.50.0 - Industry Leader (270/100)"
+	@echo "Veyra v2.50.0 - Industry Leader (270/100)"
 	@echo ""
 	@echo "Setup Commands:"
 	@echo "  make install       - Install Python and Node dependencies"
@@ -40,7 +40,7 @@ install:
 	cd frontend && npm install
 
 start:
-	@echo "Starting Financial Master..."
+	@echo "Starting Veyra..."
 	python -m src.backend.app.api.unified_api &
 	cd frontend && npm start &
 	@echo "API: http://localhost:8000"

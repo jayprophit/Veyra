@@ -31,7 +31,7 @@ def demo_basic_usage():
         
         # Text file
         with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as f:
-            f.write("Financial Master - Automated Trading Platform\n")
+            f.write("Veyra - Automated Trading Platform\n")
             f.write("Features: Multi-broker, AI predictions, Portfolio management\n")
             text_path = f.name
         

@@ -3,7 +3,7 @@
 echo "FINANCIAL MASTER - DEPLOYMENT"
 echo "==============================="
 
-cd ~/financial-master
+cd ~/veyra
 
 echo ""
 echo "CREATING GITHUB ACTIONS WORKFLOW"
@@ -14,7 +14,7 @@ mkdir -p .github/workflows
 
 # Create deployment workflow
 cat > .github/workflows/deploy.yml << 'EOF'
-name: Deploy Financial Master
+name: Deploy Veyra
 
 on:
   push:
@@ -58,7 +58,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: financial-master
+          projectName: veyra
           directory: dist
 
   health-check:
@@ -69,7 +69,7 @@ jobs:
         run: sleep 30
       - name: Health check
         run: |
-          curl -f https://financial-master.pages.dev || exit 1
+          curl -f https://veyra.pages.dev || exit 1
           echo "Frontend deployment successful"
 EOF
 
@@ -102,7 +102,7 @@ echo "Waiting for Cloudflare Pages to deploy..."
 # Wait and check deployment
 for i in {1..10}; do
     echo "Checking deployment... (Attempt $i/10)"
-    if curl -s https://financial-master.pages.dev > /dev/null; then
+    if curl -s https://veyra.pages.dev > /dev/null; then
         echo "Frontend deployed successfully!"
         break
     fi
@@ -115,7 +115,7 @@ echo "===================="
 
 # Test frontend
 echo "Testing frontend..."
-if curl -s https://financial-master.pages.dev | grep -q "Financial Master"; then
+if curl -s https://veyra.pages.dev | grep -q "Veyra"; then
     echo "Frontend is working!"
 else
     echo "Frontend deployment failed"
@@ -127,7 +127,7 @@ echo "=================="
 
 # Test backend
 echo "Testing backend..."
-if curl -s https://financial-master-api.onrender.com/health > /dev/null; then
+if curl -s https://veyra-api.onrender.com/health > /dev/null; then
     echo "Backend is working!"
 else
     echo "Backend may still be deploying (Render takes a few minutes)"
@@ -139,7 +139,7 @@ echo "======================"
 
 # Test API gateway
 echo "Testing API gateway..."
-if curl -s https://financial-master-api.workers.dev > /dev/null; then
+if curl -s https://veyra-api.workers.dev > /dev/null; then
     echo "API Gateway is working!"
 else
     echo "API Gateway may still be deploying"
@@ -149,14 +149,14 @@ echo ""
 echo "DEPLOYMENT COMPLETE!"
 echo "======================"
 echo ""
-echo "Your Financial Master is deployed:"
-echo "   Frontend: https://financial-master.pages.dev"
-echo "   Backend: https://financial-master-api.onrender.com"
-echo "   API Gateway: https://financial-master-api.workers.dev"
+echo "Your Veyra is deployed:"
+echo "   Frontend: https://veyra.pages.dev"
+echo "   Backend: https://veyra-api.onrender.com"
+echo "   API Gateway: https://veyra-api.workers.dev"
 echo ""
 echo "Check deployment status:"
-echo "   Frontend: Open https://financial-master.pages.dev"
-echo "   Backend: Open https://financial-master-api.onrender.com/health"
+echo "   Frontend: Open https://veyra.pages.dev"
+echo "   Backend: Open https://veyra-api.onrender.com/health"
 echo "   Monitoring: Uptime Robot dashboard"
 echo ""
 echo "Automatic updates:"

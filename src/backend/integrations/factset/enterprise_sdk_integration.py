@@ -1,5 +1,5 @@
 """
-FactSet Enterprise SDK Integration for Financial Master
+FactSet Enterprise SDK Integration for Veyra
 
 This module provides integration with FactSet's Enterprise SDK for:
 - Portfolio analytics

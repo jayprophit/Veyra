@@ -163,7 +163,6 @@ class ReceiptOCR:
         """Extract text using Google Vision API"""
         try:
             from google.cloud import vision
-            import io
             
             # Create Vision client
             client = vision.ImageAnnotatorClient()
@@ -191,7 +190,6 @@ class ReceiptOCR:
         """Extract text using AWS Textract"""
         try:
             import boto3
-            import io
             
             # Create Textract client
             client = boto3.client('textract')
@@ -220,7 +218,6 @@ class ReceiptOCR:
         try:
             from azure.ai.formrecognizer import DocumentAnalysisClient
             from azure.core.credentials import AzureKeyCredential
-            import io
             
             # Create Form Recognizer client
             endpoint = os.getenv('AZURE_FORM_ENDPOINT', '')
@@ -253,7 +250,6 @@ class ReceiptOCR:
         try:
             import openai
             import base64
-            import io
             
             # Convert image to base64
             base64_image = base64.b64encode(image_data).decode('utf-8')

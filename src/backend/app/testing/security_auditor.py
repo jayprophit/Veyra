@@ -500,7 +500,7 @@ class SecurityAuditor:
                 "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
                 "version": "2.1.0",
                 "runs": [{
-                    "tool": {"driver": {"name": "Financial Master Security Auditor"}},
+                    "tool": {"driver": {"name": "Veyra Security Auditor"}},
                     "results": []
                 }]
             }
@@ -516,7 +516,7 @@ async def quick_security_scan():
     auditor = SecurityAuditor()
     
     report = await auditor.run_full_audit(
-        target_system="Financial Master API",
+        target_system="Veyra API",
         include_penetration_tests=True
     )
     

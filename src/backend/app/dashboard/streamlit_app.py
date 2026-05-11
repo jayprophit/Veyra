@@ -1,7 +1,7 @@
 """
-Streamlit Dashboard - Financial Master UI
+Streamlit Dashboard - Veyra UI
 =========================================
-Interactive web interface for the Financial Master platform
+Interactive web interface for the Veyra platform
 Real-time charts, portfolio visualization, trading signals
 """
 
@@ -19,7 +19,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Page config
 st.set_page_config(
-    page_title="Financial Master Dashboard",
+    page_title="Veyra Dashboard",
     page_icon="📈",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -55,7 +55,7 @@ def render_header():
     col1, col2, col3 = st.columns([2, 1, 1])
     
     with col1:
-        st.markdown('<p class="main-header">📈 Financial Master</p>', 
+        st.markdown('<p class="main-header">📈 Veyra</p>', 
                    unsafe_allow_html=True)
         st.markdown("**Transcendent Trading Platform - Grade: SSS++ (910/100)**")
     
@@ -405,7 +405,7 @@ def main():
     st.markdown("---")
     st.markdown("""
     <div style='text-align: center; color: gray;'>
-        Financial Master © 2026 | Grade: SSS++ (910/100) | 
+        Veyra © 2026 | Grade: SSS++ (910/100) | 
         Target: 1000/100 (TRANSCENDENT)
     </div>
     """, unsafe_allow_html=True)

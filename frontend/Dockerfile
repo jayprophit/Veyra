@@ -1,4 +1,4 @@
-# Financial Master - Frontend Dockerfile
+# Veyra - Frontend Dockerfile
 # =======================================
 
 # Build stage

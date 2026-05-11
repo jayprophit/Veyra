@@ -1,12 +1,12 @@
 #!/bin/bash
 # ================================================================
-# Setup automated backups for Financial Master
+# Setup automated backups for Veyra
 # Run this once to configure nightly backups
 # ================================================================
 
 set -e
 
-echo "🏦 Financial Master Backup Setup"
+echo "🏦 Veyra Backup Setup"
 echo "================================="
 echo ""
 
@@ -31,7 +31,7 @@ if [ ! -f "$ENV_FILE" ]; then
     echo "   Creating template .env file..."
     
     cat > "$ENV_FILE" << 'EOF'
-# Financial Master Environment Configuration
+# Veyra Environment Configuration
 
 # Database
 POSTGRES_USER=postgres
@@ -87,7 +87,7 @@ fi
 # Test backup directory
 echo ""
 echo "📁 Testing backup directory..."
-BACKUP_DIR="$HOME/financial-master-backups"
+BACKUP_DIR="$HOME/veyra-backups"
 mkdir -p "$BACKUP_DIR"
 
 if [ -d "$BACKUP_DIR" ]; then
@@ -122,13 +122,13 @@ if [[ $SETUP_CRON =~ ^[Yy]$ ]]; then
         crontab -l | grep "$BACKUP_SCRIPT"
     else
         # Add cron job
-        (crontab -l 2>/dev/null; echo "0 2 * * * $BACKUP_SCRIPT >> $HOME/financial-master-backups/cron.log 2>&1") | crontab -
+        (crontab -l 2>/dev/null; echo "0 2 * * * $BACKUP_SCRIPT >> $HOME/veyra-backups/cron.log 2>&1") | crontab -
         echo "✅ Cron job added: 0 2 * * * (daily at 2:00 AM)"
     fi
     
     echo ""
     echo "📋 Current crontab entries:"
-    crontab -l | grep -E "(financial-master|backup)" || echo "   (no entries yet)"
+    crontab -l | grep -E "(veyra|backup)" || echo "   (no entries yet)"
 else
     echo "ℹ️  Skipping cron setup"
     echo "   To manually run backups: $BACKUP_SCRIPT"

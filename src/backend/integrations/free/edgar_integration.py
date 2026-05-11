@@ -84,7 +84,7 @@ class EDGARIntegration:
         # Set user agent to be respectful
         self.session = requests.Session()
         self.session.headers.update({
-            'User-Agent': 'Financial Master (https://github.com/jpowell/financial-master) - educational/research purposes'
+            'User-Agent': 'Veyra (https://github.com/jpowell/veyra) - educational/research purposes'
         })
         
         logger.info("EDGAR integration initialized successfully")
@@ -530,7 +530,6 @@ class EDGARIntegration:
     
     def _get_mock_filings(self, cik: str, filing_type: str, count: int) -> List[SECFiling]:
         """Generate mock filings"""
-        import random
         filings = []
         
         for i in range(min(count, 10)):
@@ -568,7 +567,6 @@ class EDGARIntegration:
     
     def _get_mock_insider_trades(self, cik: str, count: int) -> List[InsiderTrade]:
         """Generate mock insider trades"""
-        import random
         trades = []
         
         for i in range(min(count, 10)):
@@ -590,7 +588,6 @@ class EDGARIntegration:
     
     def _get_mock_filings_by_text(self, text: str, count: int) -> List[SECFiling]:
         """Generate mock filings for text search"""
-        import random
         filings = []
         
         for i in range(min(count, 10)):

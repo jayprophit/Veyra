@@ -1,4 +1,4 @@
-# Financial Master Directory Organization Plan
+# Veyra Directory Organization Plan
 
 ## Current Issues
 - Many Python files scattered in root directory
@@ -9,7 +9,7 @@
 
 ## Target Directory Structure
 ```
-Financial Master/
+Veyra/
 ├── README.md                    # Main documentation
 ├── LICENSE                      # License file
 ├── .gitignore                   # Git ignore file

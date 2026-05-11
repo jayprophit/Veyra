@@ -1,8 +1,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: fm-ingress
-  namespace: financial-master
+  name: vra-ingress
+  namespace: veyra
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
@@ -15,27 +15,27 @@ metadata:
 spec:
   tls:
   - hosts:
-    - api.financialmaster.com
-    - app.financialmaster.com
-    secretName: fm-tls-secret
+    - api.veyra.com
+    - app.veyra.com
+    secretName: vra-tls-secret
   rules:
-  - host: api.financialmaster.com
+  - host: api.veyra.com
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: fm-api-service
+            name: vra-api-service
             port:
               number: 80
-  - host: app.financialmaster.com
+  - host: app.veyra.com
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: fm-frontend-service
+            name: vra-frontend-service
             port:
               number: 80

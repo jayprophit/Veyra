@@ -1,4 +1,4 @@
-# DeepSeek Requirements - IMPLEMENTED in Financial Master
+# DeepSeek Requirements - IMPLEMENTED in Veyra
 
 ## PLATFORMS & BROKERS (8/32)
 | Platform | Status | File |

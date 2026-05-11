@@ -1,4 +1,4 @@
-package com.financialmaster.ui.portfolio
+package com.veyra.ui.portfolio
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,14 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.financialmaster.R
-import com.financialmaster.databinding.FragmentPortfolioBinding
-import com.financialmaster.ui.adapters.HoldingAdapter
-import com.financialmaster.ui.adapters.TransactionAdapter
-import com.financialmaster.ui.models.Holding
-import com.financialmaster.ui.models.Transaction
-import com.financialmaster.ui.models.TransactionType
-import com.financialmaster.ui.portfolio.viewmodel.PortfolioViewModel
+import com.veyra.R
+import com.veyra.databinding.FragmentPortfolioBinding
+import com.veyra.ui.adapters.HoldingAdapter
+import com.veyra.ui.adapters.TransactionAdapter
+import com.veyra.ui.models.Holding
+import com.veyra.ui.models.Transaction
+import com.veyra.ui.models.TransactionType
+import com.veyra.ui.portfolio.viewmodel.PortfolioViewModel
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
@@ -237,7 +237,7 @@ class PortfolioFragment : Fragment() {
         }
     }
     
-    private fun updatePieChart(allocation: List<com.financialmaster.ui.models.AssetAllocation>) {
+    private fun updatePieChart(allocation: List<com.veyra.ui.models.AssetAllocation>) {
         if (allocation.isEmpty()) return
         
         val entries = allocation.map { asset ->
@@ -259,7 +259,7 @@ class PortfolioFragment : Fragment() {
         binding.allocationPieChart.invalidate()
     }
     
-    private fun updateAllocationLegend(allocation: List<com.financialmaster.ui.models.AssetAllocation>) {
+    private fun updateAllocationLegend(allocation: List<com.veyra.ui.models.AssetAllocation>) {
         // Clear existing legend items
         binding.allocationLegendLinearLayout.removeAllViews()
         
@@ -288,7 +288,7 @@ class PortfolioFragment : Fragment() {
         }
     }
     
-    private fun updatePerformanceChart(data: List<com.financialmaster.ui.models.PerformanceDataPoint>) {
+    private fun updatePerformanceChart(data: List<com.veyra.ui.models.PerformanceDataPoint>) {
         if (data.isEmpty()) return
         
         val entries = data.mapIndexed { index, point ->

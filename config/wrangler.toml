@@ -1,10 +1,10 @@
-name = "financial-master-api"
+name = "veyra-api"
 main = "api-gateway/worker.js"
 compatibility_date = "2024-01-01"
 
 [[r2_buckets]]
 binding = "ASSETS"
-bucket_name = "financial-master-assets"
+bucket_name = "veyra-assets"
 
 [env.production]
 vars = { ENVIRONMENT = "production" }

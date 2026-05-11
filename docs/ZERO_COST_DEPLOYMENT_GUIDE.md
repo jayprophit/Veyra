@@ -1,4 +1,4 @@
-# 💰 Financial Master - Zero Cost Deployment Guide
+# 💰 Veyra - Zero Cost Deployment Guide
 
 ## Deploy Your 100% Open-Source Platform for $0/month
 
@@ -71,8 +71,8 @@
 # Create GitHub repository
 git init
 git add .
-git commit -m "Initial commit: Financial Master 5-STAR+ platform"
-git remote add origin https://github.com/yourusername/financial-master.git
+git commit -m "Initial commit: Veyra 5-STAR+ platform"
+git remote add origin https://github.com/yourusername/veyra.git
 git push -u origin main
 
 # Set up GitHub Secrets (Settings > Secrets and variables > Actions)
@@ -95,7 +95,7 @@ git push -u origin main
 
 # Create wrangler.toml for Workers
 cat > wrangler.toml << EOF
-name = "financial-master-api"
+name = "veyra-api"
 main = "api-gateway/worker.js"
 compatibility_date = "2024-01-01"
 
@@ -109,9 +109,9 @@ EOF
 # Create render.yaml
 services:
   - type: web
-    name: financial-master-api
+    name: veyra-api
     env: python
-    repo: https://github.com/yourusername/financial-master.git
+    repo: https://github.com/yourusername/veyra.git
     rootDir: src/backend
     buildCommand: pip install -r requirements.txt
     startCommand: python main.py
@@ -170,7 +170,7 @@ export default {
       return env.ASSETS.fetch(request);
     }
     
-    return new Response('Financial Master API', { status: 200 });
+    return new Response('Veyra API', { status: 200 });
   }
 };
 ```
@@ -178,14 +178,14 @@ export default {
 ### **6. 📊 Cloudflare R2 Storage Setup**
 ```bash
 # 1. Go to Cloudflare Dashboard > R2 Object Storage
-# 2. Create bucket: financial-master-assets
+# 2. Create bucket: veyra-assets
 # 3. Add to wrangler.toml:
 [[r2_buckets]]
 binding = "ASSETS"
-bucket_name = "financial-master-assets"
+bucket_name = "veyra-assets"
 
 # Upload assets
-wrangler r2 object put financial-master-assets/logo.png --file=assets/logo.png
+wrangler r2 object put veyra-assets/logo.png --file=assets/logo.png
 ```
 
 ### **7. 📱 Sentry Monitoring Setup**
@@ -210,7 +210,7 @@ async def global_exception_handler(request: Request, exc: Exception):
 ### **8. 🤖 GitHub Actions CI/CD**
 ```yaml
 # .github/workflows/deploy.yml
-name: Deploy Financial Master
+name: Deploy Veyra
 
 on:
   push:
@@ -246,7 +246,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: financial-master-docs
+          projectName: veyra-docs
           directory: docs
 
   deploy-backend:
@@ -300,7 +300,7 @@ torch==2.1.2
 ```yaml
 services:
   - type: web
-    name: financial-master
+    name: veyra
     runtime: python
     plan: free
     buildCommand: pip install -r requirements.txt
@@ -491,5 +491,5 @@ async def expensive_operation():
 **🏆 RESULT: Fully functional 5-STAR+ financial platform for £0/month!**
 
 *Last updated: 2026-05-07*  
-*Platform: Financial Master*  
+*Platform: Veyra*  
 *Cost: £0/month (optional upgrades available)*

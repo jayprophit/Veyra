@@ -16,7 +16,7 @@ echo "      - Framework preset: None"
 echo "      - Build command: mkdir -p dist && cp src/frontend/index.html dist/"
 echo "      - Build output directory: dist"
 echo "   4. Environment variables:"
-echo "      - API_URL: https://financial-master-api.workers.dev"
+echo "      - API_URL: https://veyra-api.workers.dev"
 
 read -p "Press Enter after setting up Cloudflare Pages..."
 
@@ -51,7 +51,7 @@ async function handleRequest(request) {
   
   // Route to backend
   if (url.pathname.startsWith('/api/')) {
-    const backendUrl = 'https://financial-master-api.onrender.com' + url.pathname
+    const backendUrl = 'https://veyra-api.onrender.com' + url.pathname
     try {
       const response = await fetch(backendUrl, {
         method: request.method,
@@ -80,7 +80,7 @@ async function handleRequest(request) {
     }
   }
   
-  return new Response('Financial Master API Gateway', { status: 200 })
+  return new Response('Veyra API Gateway', { status: 200 })
 }
 WORKER_CODE
 
@@ -95,7 +95,7 @@ echo "Setup details:"
 echo "   1. Go to Render Dashboard -> New -> Web Service"
 echo "   2. Connect to GitHub repository"
 echo "   3. Configuration:"
-echo "      - Name: financial-master-api"
+echo "      - Name: veyra-api"
 echo "      - Environment: Node"
 echo "      - Plan: Free"
 echo "      - Build Command: npm install"
@@ -119,8 +119,8 @@ echo "=============================="
 echo "Opening Neon setup..."
 echo "Setup details:"
 echo "   1. Go to Neon Dashboard -> New Project"
-echo "   2. Project name: financial-master"
-echo "   3. Database name: financial_master"
+echo "   2. Project name: veyra"
+echo "   3. Database name: veyra"
 echo "   4. Region: Choose closest to you"
 echo "   5. Get connection string and add to Render environment variables"
 
@@ -133,15 +133,15 @@ echo "====================="
 echo "Opening Auth0 setup..."
 echo "Setup details:"
 echo "   1. Go to Auth0 Dashboard -> Applications -> Create Application"
-echo "   2. Application name: Financial Master"
+echo "   2. Application name: Veyra"
 echo "   3. Application type: Single Page Application"
 echo "   4. Technologies: React"
 echo "   5. Callback URLs:"
 echo "      - http://localhost:8000"
-echo "      - https://financial-master.pages.dev"
+echo "      - https://veyra.pages.dev"
 echo "   6. Logout URLs:"
 echo "      - http://localhost:8000"
-echo "      - https://financial-master.pages.dev"
+echo "      - https://veyra.pages.dev"
 
 read -p "Press Enter after setting up Auth0..."
 
@@ -153,12 +153,12 @@ echo "Opening Uptime Robot setup..."
 echo "Setup details:"
 echo "   1. Go to Uptime Robot Dashboard -> Add New Monitor"
 echo "   2. Monitor Type: HTTP"
-echo "   3. Monitor Name: Financial Master Frontend"
-echo "   4. URL: https://financial-master.pages.dev"
+echo "   3. Monitor Name: Veyra Frontend"
+echo "   4. URL: https://veyra.pages.dev"
 echo "   5. Interval: 5 minutes"
 echo "   6. Create additional monitors:"
-echo "      - Backend: https://financial-master-api.onrender.com/health"
-echo "      - API Gateway: https://financial-master-api.workers.dev"
+echo "      - Backend: https://veyra-api.onrender.com/health"
+echo "      - API Gateway: https://veyra-api.workers.dev"
 
 read -p "Press Enter after setting up Uptime Robot..."
 
@@ -184,9 +184,9 @@ echo "CLOUD SERVICES SETUP COMPLETE!"
 echo "================================"
 echo ""
 echo "Your services are being deployed:"
-echo "   Frontend: https://financial-master.pages.dev"
-echo "   Backend: https://financial-master-api.onrender.com"
-echo "   API Gateway: https://financial-master-api.workers.dev"
+echo "   Frontend: https://veyra.pages.dev"
+echo "   Backend: https://veyra-api.onrender.com"
+echo "   API Gateway: https://veyra-api.workers.dev"
 echo "   Database: Neon PostgreSQL"
 echo "   Authentication: Auth0"
 echo "   Monitoring: Uptime Robot"

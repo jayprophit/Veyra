@@ -122,7 +122,7 @@ These are nice-to-have but not critical for your use case.
 
 ## Your Phase Plan Now Supported
 
-| Phase | Research Requirement | Financial Master Support |
+| Phase | Research Requirement | Veyra Support |
 |-------|---------------------|-------------------------|
 | 1 | Crypto DCA Bot | ✅ DCA Bot + Pionex (0.05% fees) |
 | 2 | ETFs/ISA | ✅ ISA Tracker + Fractional ETFs |

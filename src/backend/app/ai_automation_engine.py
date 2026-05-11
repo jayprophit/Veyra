@@ -1,5 +1,5 @@
 """
-Financial Master AI Automation Engine
+Veyra AI Automation Engine
 Autonomous Wealth Management System
 Version: 1.0 | Python 3.8+
 """
@@ -310,7 +310,7 @@ class FinancialMasterEngine:
         self.tax_optimizer = TaxOptimizer()
         self.scheduler = AutonomousScheduler()
         
-        logger.info("Financial Master Engine initialized")
+        logger.info("Veyra Engine initialized")
     
     def load_config(self, path: str) -> Dict:
         """Load engine configuration"""

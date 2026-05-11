@@ -1,1 +1,1 @@
-# Financial Master - ai module
+# Veyra - ai module

@@ -1,5 +1,5 @@
 /**
- * Financial Master - Preload Script
+ * Veyra - Preload Script
  * 
  * Secure bridge between main and renderer processes.
  * Exposes safe APIs to the frontend.
@@ -40,4 +40,4 @@ contextBridge.exposeInMainWorld('electronAPI', {
 });
 
 // Notify when preload has loaded
-console.log('Financial Master - Preload script loaded');
+console.log('Veyra - Preload script loaded');

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Financial Master - Comprehensive Codebase Audit Tool
+Veyra - Comprehensive Codebase Audit Tool
 ==================================================
 Systematic testing of all files, folders, and components for consistency and errors.
 """
@@ -23,7 +23,7 @@ except ImportError:
     HAS_YAML = False
 
 class ComprehensiveAuditor:
-    """Comprehensive auditor for Financial Master codebase"""
+    """Comprehensive auditor for Veyra codebase"""
     
     def __init__(self):
         self.project_root = Path(__file__).parent
@@ -53,7 +53,7 @@ class ComprehensiveAuditor:
     
     def run_full_audit(self) -> Dict[str, Any]:
         """Run complete audit of all codebase components"""
-        self.logger.info("Starting comprehensive Financial Master audit...")
+        self.logger.info("Starting comprehensive Veyra audit...")
         
         # 1. Check Python files
         self.audit_python_files()
@@ -496,7 +496,7 @@ class ComprehensiveAuditor:
         total_warnings = sum(result['warnings'] for result in self.results.values())
         
         summary = f"""
-# Financial Master - Comprehensive Audit Report
+# Veyra - Comprehensive Audit Report
 
 ## Summary
 - **Total Files Checked**: {total_checked}

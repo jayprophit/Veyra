@@ -542,7 +542,7 @@ INSPIRED_MODULES_CONFIG = {
         'email': {
             'smtp_server': 'smtp.gmail.com',
             'smtp_port': 587,
-            'username': 'reports@financialmaster.com'
+            'username': 'reports@veyra.com'
         },
         'output_directory': 'reports/'
     },
@@ -707,7 +707,7 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler('financial_master.log'),
+        logging.FileHandler('veyra.log'),
         logging.StreamHandler()
     ]
 )
@@ -783,7 +783,7 @@ The **FactSet-inspired integration modules** provide a comprehensive, free, open
 ✅ **Production Ready** - Caching, error handling, monitoring  
 ✅ **Easy Integration** - Simple API, comprehensive documentation  
 
-**Financial Master** now offers the **most comprehensive free financial platform** available, combining the best of open-source financial data with professional-grade analytics and reporting capabilities.
+**Veyra** now offers the **most comprehensive free financial platform** available, combining the best of open-source financial data with professional-grade analytics and reporting capabilities.
 
 ---
 

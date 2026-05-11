@@ -1,5 +1,5 @@
 """
-Financial Master - Comprehensive Codebase Audit Report
+Veyra - Comprehensive Codebase Audit Report
 ==================================================
 Complete analysis of gaps, incomplete implementations, and missing components.
 """
@@ -17,7 +17,7 @@ def comprehensive_audit():
     print(f"Audit Date: {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC')}")
     print()
     
-    base_path = Path("c:/Users/jpowe/Desktop/Financial Master")
+    base_path = Path("c:/Users/jpowe/Desktop/Veyra")
     
     # 1. TODO/PLACEHOLDER Analysis
     print("🔍 1. INCOMPLETE IMPLEMENTATIONS & PLACEHOLDERS:")
@@ -318,9 +318,9 @@ def comprehensive_audit():
     print(f"  Overall Grade: {grade}")
     
     if score >= 80:
-        print("  🎉 Financial Master is well-structured and largely complete!")
+        print("  🎉 Veyra is well-structured and largely complete!")
     else:
-        print("  ⚠️  Financial Master needs additional work to reach production readiness")
+        print("  ⚠️  Veyra needs additional work to reach production readiness")
     
     print("\n" + "=" * 80)
 

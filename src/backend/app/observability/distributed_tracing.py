@@ -1,7 +1,7 @@
 """
 Distributed Tracing System
 ===========================
-Enterprise-grade distributed tracing for Financial Master
+Enterprise-grade distributed tracing for Veyra
 """
 
 import asyncio
@@ -74,7 +74,7 @@ class Span:
 class DistributedTracing:
     """Enterprise distributed tracing with Jaeger/Zipkin compatibility"""
     
-    def __init__(self, service_name: str = "financial-master"):
+    def __init__(self, service_name: str = "veyra"):
         self.service_name = service_name
         self.spans: Dict[str, Span] = {}
         self.active_spans: Dict[str, Span] = {}
@@ -323,7 +323,7 @@ class ZipkinExporter(SpanExporter):
             "timestamp": int(span.start_time.timestamp() * 1000000),  # microseconds
             "duration": int(span.duration_ms or 0) * 1000,  # microseconds
             "localEndpoint": {
-                "serviceName": span.attributes.get("service.name", "financial-master")
+                "serviceName": span.attributes.get("service.name", "veyra")
             },
             "tags": {
                 **span.attributes,
@@ -427,7 +427,7 @@ async def trace_middleware(request, call_next):
             "http.url": str(request.url),
             "http.host": request.url.hostname,
             "http.scheme": request.url.scheme,
-            "service.name": "financial-master"
+            "service.name": "veyra"
         }
     )
     

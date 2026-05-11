@@ -1,6 +1,6 @@
-# Financial Master Helm Chart
+# Veyra Helm Chart
 
-This Helm chart deploys Financial Master - The Open-Source Bloomberg Terminal Alternative - on Kubernetes.
+This Helm chart deploys Veyra - The Open-Source Bloomberg Terminal Alternative - on Kubernetes.
 
 ## Prerequisites
 
@@ -18,9 +18,9 @@ This Helm chart deploys Financial Master - The Open-Source Bloomberg Terminal Al
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 
-# Install Financial Master
-helm install financial-master ./helm/financial-master \
-  --namespace financial-master \
+# Install Veyra
+helm install veyra ./helm/veyra \
+  --namespace veyra \
   --create-namespace \
   --set global.environment=production
 ```
@@ -44,8 +44,8 @@ postgresql:
 EOF
 
 # Install with custom values
-helm install financial-master ./helm/financial-master \
-  --namespace financial-master \
+helm install veyra ./helm/veyra \
+  --namespace veyra \
   --create-namespace \
   -f my-values.yaml
 ```
@@ -54,19 +54,19 @@ helm install financial-master ./helm/financial-master \
 
 ```bash
 # Update dependencies
-helm dependency update ./helm/financial-master
+helm dependency update ./helm/veyra
 
 # Upgrade release
-helm upgrade financial-master ./helm/financial-master \
-  --namespace financial-master \
+helm upgrade veyra ./helm/veyra \
+  --namespace veyra \
   -f my-values.yaml
 ```
 
 ## Uninstallation
 
 ```bash
-helm uninstall financial-master --namespace financial-master
-kubectl delete namespace financial-master
+helm uninstall veyra --namespace veyra
+kubectl delete namespace veyra
 ```
 
 ## Configuration
@@ -112,7 +112,7 @@ api:
   replicaCount: 2
   ingress:
     hosts:
-      - host: api-staging.financialmaster.app
+      - host: api-staging.veyra.app
 ```
 
 #### Production
@@ -137,8 +137,8 @@ api:
 Create a Kubernetes secret for sensitive data:
 
 ```bash
-kubectl create secret generic financial-master-secrets \
-  --namespace financial-master \
+kubectl create secret generic veyra-secrets \
+  --namespace veyra \
   --from-literal=JWT_SECRET_KEY=$(openssl rand -hex 32) \
   --from-literal=API_KEY=$(openssl rand -hex 16) \
   --from-literal=ALPACA_API_KEY=your-alpaca-key \
@@ -153,7 +153,7 @@ The chart includes Prometheus and Grafana for monitoring:
 
 ```bash
 # Access Grafana
-kubectl port-forward svc/financial-master-grafana 3000:3000 -n financial-master
+kubectl port-forward svc/veyra-grafana 3000:3000 -n veyra
 
 # Login with admin/admin (change in values.yaml)
 ```
@@ -162,14 +162,14 @@ kubectl port-forward svc/financial-master-grafana 3000:3000 -n financial-master
 
 ```bash
 # Check pod status
-kubectl get pods -n financial-master
+kubectl get pods -n veyra
 
 # View API logs
-kubectl logs -n financial-master -l app.kubernetes.io/component=api
+kubectl logs -n veyra -l app.kubernetes.io/component=api
 
 # Check events
-kubectl get events -n financial-master --sort-by='.lastTimestamp'
+kubectl get events -n veyra --sort-by='.lastTimestamp'
 
 # Debug ingress
-kubectl describe ingress -n financial-master
+kubectl describe ingress -n veyra
 ```

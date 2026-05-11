@@ -110,8 +110,6 @@ class QuantumSafeCrypto:
         shared_secret = self.decapsulate_secret(ciphertext, private_key)
         
         # Decrypt data
-        from cryptography.fernet import Fernet
-        import base64
         
         key = base64.urlsafe_b64encode(shared_secret.ljust(32, b'0')[:32])
         f = Fernet(key)

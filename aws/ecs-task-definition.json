@@ -1,5 +1,5 @@
 {
-  "family": "financial-master",
+  "family": "veyra",
   "networkMode": "awsvpc",
   "requiresCompatibilities": [
     "FARGATE"
@@ -10,8 +10,8 @@
   "taskRoleArn": "${aws_iam_role.ecs_task_role.arn}",
   "containerDefinitions": [
     {
-      "name": "financial-master-api",
-      "image": "YOUR_ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/financial-master:latest",
+      "name": "veyra-api",
+      "image": "YOUR_ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/veyra:latest",
       "portMappings": [
         {
           "containerPort": 8000,
@@ -21,7 +21,7 @@
       "environment": [
         {
           "name": "DATABASE_URL",
-          "value": "postgresql://username:password@db-host:5432/financial_master"
+          "value": "postgresql://username:password@db-host:5432/veyra"
         },
         {
           "name": "REDIS_URL",
@@ -35,13 +35,13 @@
       "secrets": [
         {
           "name": "ALPHA_VANTAGE_KEY",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:ACCOUNT:secret:financial-master/secrets"
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:ACCOUNT:secret:veyra/secrets"
         }
       ],
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/financial-master",
+          "awslogs-group": "/ecs/veyra",
           "awslogs-region": "us-east-1",
           "awslogs-stream-prefix": "ecs"
         }

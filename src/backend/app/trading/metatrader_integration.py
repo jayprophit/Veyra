@@ -1,5 +1,5 @@
 """
-MetaTrader 4/5 Integration for Financial Master
+MetaTrader 4/5 Integration for Veyra
 Connects with MT4/MT5 Expert Advisors and handles trade signals
 
 Features:
@@ -531,8 +531,8 @@ class MetaTraderIntegration:
             f"// MetaTrader {version}",
             f"// Generated: {datetime.now().isoformat()}",
             "",
-            "#property copyright \"Financial Master\"",
-            f"#property link \"https://financialmaster.com\"",
+            "#property copyright \"Veyra\"",
+            f"#property link \"https://veyra.com\"",
             f"#property version   \"1.00\"",
             "",
             "// Input Parameters",
@@ -554,7 +554,7 @@ class MetaTraderIntegration:
             "//+------------------------------------------------------------------+",
             "int OnInit()",
             "{",
-            "   // Initialize connection to Financial Master",
+            "   // Initialize connection to Veyra",
             f"   Print(\"EA {ea.name} initialized\");",
             "   return(INIT_SUCCEEDED);",
             "}",
@@ -586,12 +586,12 @@ class MetaTraderIntegration:
             "   // Your strategy logic here",
             "   // ...",
             "",
-            "   // Send signal to Financial Master when trade triggered",
+            "   // Send signal to Veyra when trade triggered",
             "   // SendSignal(action, symbol, volume, price, sl, tp);",
             "}",
             "",
             "//+------------------------------------------------------------------+",
-            "//| Send signal to Financial Master                                  |",
+            "//| Send signal to Veyra                                  |",
             "//+------------------------------------------------------------------+",
             f"void SendSignal(string action, string symbol, double volume, ",
             f"               double price, double sl, double tp)",

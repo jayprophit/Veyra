@@ -22,7 +22,7 @@ class BuildAutomator:
     
     def build_docker(self) -> bool:
         print("Building Docker image...")
-        s, out = self.run(["docker", "build", "-t", "financial-master:latest", "."])
+        s, out = self.run(["docker", "build", "-t", "veyra:latest", "."])
         return s
     
     def run_tests(self) -> bool:

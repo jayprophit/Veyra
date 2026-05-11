@@ -1,4 +1,4 @@
-"""Advanced Order Types for Financial Master."""
+"""Advanced Order Types for Veyra."""
 import logging
 from typing import Dict, List, Optional, Any
 from dataclasses import dataclass

@@ -1,7 +1,7 @@
 """
 KYC/AML Integration Module
 =========================
-Know Your Customer and Anti-Money Laundering compliance for Financial Master
+Know Your Customer and Anti-Money Laundering compliance for Veyra
 """
 
 import asyncio

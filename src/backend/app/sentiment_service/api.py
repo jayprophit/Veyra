@@ -13,7 +13,7 @@ from .scraper import SentimentScraper
 from .ml_models import SentimentAnalyzer
 from .websocket_handler import SentimentWebSocket
 
-app = FastAPI(title="Financial Master Sentiment API", version="1.0.0")
+app = FastAPI(title="Veyra Sentiment API", version="1.0.0")
 
 # Initialize components
 scraper = SentimentScraper()

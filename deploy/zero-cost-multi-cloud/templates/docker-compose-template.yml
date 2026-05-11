@@ -5,8 +5,8 @@ services:
   postgres:
     image: postgres:15
     environment:
-      POSTGRES_DB: financial_master
-      POSTGRES_USER: financial_master
+      POSTGRES_DB: veyra
+      POSTGRES_USER: veyra
       POSTGRES_PASSWORD: password
     ports:
       - "5432:5432"
@@ -51,7 +51,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DATABASE_URL=postgresql://financial_master:password@postgres:5432/financial_master
+      - DATABASE_URL=postgresql://veyra:password@postgres:5432/veyra
       - REDIS_URL=redis://redis:6379
       - OLLAMA_URL=http://localhost:11434
     depends_on:

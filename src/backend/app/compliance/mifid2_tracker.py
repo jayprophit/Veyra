@@ -350,7 +350,7 @@ class BestExecutionAnalyzer:
 # Example usage
 if __name__ == "__main__":
     tracker = MiFID2ComplianceTracker(
-        firm_name="Financial Master Trading LLC",
+        firm_name="Veyra Trading LLC",
         lei="549300ABCD1234567890"
     )
     

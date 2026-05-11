@@ -1,5 +1,5 @@
 """
-Copy Trading System for Financial Master
+Copy Trading System for Veyra
 Follow and copy top traders automatically
 
 Features:

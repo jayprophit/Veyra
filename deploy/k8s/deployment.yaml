@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fm-api
-  namespace: financial-master
+  name: vra-api
+  namespace: veyra
   labels:
-    app: fm-api
+    app: vra-api
     version: v4.0.0
 spec:
   replicas: 3
@@ -15,16 +15,16 @@ spec:
       maxUnavailable: 0
   selector:
     matchLabels:
-      app: fm-api
+      app: vra-api
   template:
     metadata:
       labels:
-        app: fm-api
+        app: vra-api
         version: v4.0.0
     spec:
       containers:
       - name: api
-        image: financial-master/api:v4.0.0
+        image: veyra/api:v4.0.0
         imagePullPolicy: Always
         ports:
         - containerPort: 8000
@@ -32,9 +32,9 @@ spec:
           protocol: TCP
         envFrom:
         - configMapRef:
-            name: fm-config
+            name: vra-config
         - secretRef:
-            name: fm-secrets
+            name: vra-secrets
         resources:
           requests:
             memory: "2Gi"
@@ -78,31 +78,31 @@ spec:
                 - key: app
                   operator: In
                   values:
-                  - fm-api
+                  - vra-api
               topologyKey: kubernetes.io/hostname
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fm-frontend
-  namespace: financial-master
+  name: vra-frontend
+  namespace: veyra
   labels:
-    app: fm-frontend
+    app: vra-frontend
     version: v4.0.0
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: fm-frontend
+      app: vra-frontend
   template:
     metadata:
       labels:
-        app: fm-frontend
+        app: vra-frontend
         version: v4.0.0
     spec:
       containers:
       - name: frontend
-        image: financial-master/frontend:v4.0.0
+        image: veyra/frontend:v4.0.0
         imagePullPolicy: Always
         ports:
         - containerPort: 80
@@ -130,31 +130,31 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fm-celery-worker
-  namespace: financial-master
+  name: vra-celery-worker
+  namespace: veyra
   labels:
-    app: fm-celery-worker
+    app: vra-celery-worker
     version: v4.0.0
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: fm-celery-worker
+      app: vra-celery-worker
   template:
     metadata:
       labels:
-        app: fm-celery-worker
+        app: vra-celery-worker
         version: v4.0.0
     spec:
       containers:
       - name: worker
-        image: financial-master/api:v4.0.0
+        image: veyra/api:v4.0.0
         command: ["celery", "-A", "app.celery_app", "worker", "--loglevel=info"]
         envFrom:
         - configMapRef:
-            name: fm-config
+            name: vra-config
         - secretRef:
-            name: fm-secrets
+            name: vra-secrets
         resources:
           requests:
             memory: "1Gi"

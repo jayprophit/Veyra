@@ -18,7 +18,7 @@ variable "zone" {
 variable "app_image" {
   description = "Docker image for the application"
   type        = string
-  default     = "financial-master:latest"
+  default     = "veyra:latest"
 }
 
 variable "app_port" {

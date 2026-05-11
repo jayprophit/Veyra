@@ -148,7 +148,7 @@ const Dashboard: React.FC = () => {
         <div>
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Dashboard</h2>
           <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            Real-time overview of your financial master system
+            Real-time overview of your veyra system
           </p>
         </div>
         <div className="flex items-center space-x-4">

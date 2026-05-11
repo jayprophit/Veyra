@@ -32,7 +32,6 @@ class ExcelHandler:
     def read_sheet(self, file_path: str, sheet_name: Optional[str] = None) -> Dict:
         """Read data from Excel sheet"""
         try:
-            import openpyxl
             
             wb = openpyxl.load_workbook(file_path, data_only=True)
             
@@ -109,7 +108,6 @@ class ExcelHandler:
     def create_excel(self, data: List[Dict], output_path: str) -> str:
         """Create new Excel file from data"""
         try:
-            import openpyxl
             from openpyxl.styles import Font, PatternFill
             
             wb = openpyxl.Workbook()
@@ -159,7 +157,6 @@ class ExcelHandler:
     
     def create_csv(self, data: List[Dict], output_path: str) -> str:
         """Create CSV file from data"""
-        import csv
         
         if not data:
             return output_path
@@ -185,7 +182,6 @@ class ExcelHandler:
     def merge_excel_files(self, file_paths: List[str], output_path: str) -> str:
         """Merge multiple Excel files into one"""
         try:
-            import openpyxl
             
             wb = openpyxl.Workbook()
             wb.remove(wb.active)  # Remove default sheet

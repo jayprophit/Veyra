@@ -2,7 +2,7 @@
 # ================================
 # Deploy with: npx wrangler deploy
 
-name = "financial-master-gateway"
+name = "veyra-gateway"
 main = "api-gateway.js"
 compatibility_date = "2024-01-01"
 

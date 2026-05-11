@@ -741,7 +741,7 @@ class RiskComplianceModule:
         """Configure SAML SSO"""
         return {
             'provider': 'saml',
-            'entity_id': config.get('entity_id', 'https://financialmaster.com'),
+            'entity_id': config.get('entity_id', 'https://veyra.com'),
             'sso_url': config.get('sso_url', 'https://idp.example.com/sso'),
             'certificate': config.get('certificate', 'mock_certificate'),
             'attribute_mapping': {
@@ -776,8 +776,8 @@ class RiskComplianceModule:
         return {
             'user_id_attribute': config.get('user_id_attribute', 'email'),
             'role_mapping': config.get('role_mapping', {
-                'admin': ['admin@financialmaster.com'],
-                'advisor': ['advisor@financialmaster.com'],
+                'admin': ['admin@veyra.com'],
+                'advisor': ['advisor@veyra.com'],
                 'client': ['*']
             }),
             'default_role': config.get('default_role', 'client')
@@ -816,7 +816,7 @@ class RiskComplianceModule:
         """Configure key management"""
         return {
             'key_provider': config.get('key_provider', 'azure_key_vault'),
-            'key_name': config.get('key_name', 'financial-master-key'),
+            'key_name': config.get('key_name', 'veyra-key'),
             'key_version': config.get('key_version', 'latest'),
             'encryption_algorithm': 'AES-256-GCM',
             'key_rotation_period': config.get('key_rotation_period', 90)  # days

@@ -1,7 +1,7 @@
 """
 Enterprise Metrics Collector
 =============================
-Advanced metrics collection for Financial Master systems
+Advanced metrics collection for Veyra systems
 """
 
 import asyncio
@@ -264,7 +264,7 @@ class MetricsCollector:
         label_pairs = [f'{k}="{v}"' for k, v in labels.items()]
         return "{" + ",".join(label_pairs) + "}"
         
-    async def push_to_gateway(self, gateway_url: str, job: str = "financial_master"):
+    async def push_to_gateway(self, gateway_url: str, job: str = "veyra"):
         """Push metrics to Prometheus Pushgateway"""
         try:
             metrics_data = self.get_prometheus_metrics()

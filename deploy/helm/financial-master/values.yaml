@@ -1,4 +1,4 @@
-# Financial Master - Helm Chart Values
+# Veyra - Helm Chart Values
 
 # Global settings
 global:
@@ -12,7 +12,7 @@ api:
   replicaCount: 3
   
   image:
-    repository: financial-master/api
+    repository: veyra/api
     tag: v4.0.0
     pullPolicy: Always
   
@@ -28,14 +28,14 @@ api:
       nginx.ingress.kubernetes.io/rate-limit: "100"
       cert-manager.io/cluster-issuer: "letsencrypt-prod"
     hosts:
-      - host: api.financialmaster.app
+      - host: api.veyra.app
         paths:
           - path: /
             pathType: Prefix
     tls:
       - secretName: api-tls-secret
         hosts:
-          - api.financialmaster.app
+          - api.veyra.app
   
   resources:
     requests:
@@ -90,7 +90,7 @@ frontend:
   replicaCount: 2
   
   image:
-    repository: financial-master/frontend
+    repository: veyra/frontend
     tag: v4.0.0
     pullPolicy: Always
   
@@ -105,14 +105,14 @@ frontend:
     annotations:
       nginx.ingress.kubernetes.io/ssl-redirect: "true"
     hosts:
-      - host: app.financialmaster.app
+      - host: app.veyra.app
         paths:
           - path: /
             pathType: Prefix
     tls:
       - secretName: frontend-tls-secret
         hosts:
-          - app.financialmaster.app
+          - app.veyra.app
   
   resources:
     requests:
@@ -128,7 +128,7 @@ worker:
   replicaCount: 2
   
   image:
-    repository: financial-master/api
+    repository: veyra/api
     tag: v4.0.0
     pullPolicy: Always
   
@@ -153,7 +153,7 @@ scheduler:
   replicaCount: 1
   
   image:
-    repository: financial-master/api
+    repository: veyra/api
     tag: v4.0.0
     pullPolicy: Always
   
@@ -178,7 +178,7 @@ postgresql:
   auth:
     username: postgres
     password: postgres
-    database: financial_master
+    database: veyra
   primary:
     persistence:
       enabled: true

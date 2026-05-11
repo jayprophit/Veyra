@@ -1,5 +1,5 @@
 # Quick Reference Summary
-**Financial Master - Grade 181/100 → 250/100**
+**Veyra - Grade 181/100 → 250/100**
 
 ---
 

@@ -432,7 +432,6 @@ class YFinanceIntegration:
     
     def _get_mock_historical_data(self, symbol: str, start_date: datetime, end_date: datetime) -> List[Dict[str, Any]]:
         """Generate mock historical data"""
-        import random
         data = []
         current_date = start_date
         base_price = 100.0 + random.uniform(-50, 150)
@@ -458,7 +457,6 @@ class YFinanceIntegration:
     
     def _get_mock_company_info(self, symbol: str) -> CompanyInfo:
         """Generate mock company info"""
-        import random
         return CompanyInfo(
             symbol=symbol,
             company_name=f"{symbol} Corporation",
@@ -474,7 +472,6 @@ class YFinanceIntegration:
     
     def _get_mock_financial_statements(self, symbol: str, statement_type: str, period: str) -> List[FinancialStatement]:
         """Generate mock financial statements"""
-        import random
         statements = []
         
         # Generate 4 periods of data
@@ -496,7 +493,6 @@ class YFinanceIntegration:
     
     def _get_mock_options_data(self, symbol: str) -> List[OptionData]:
         """Generate mock options data"""
-        import random
         options = []
         
         # Generate mock options for different strikes
@@ -521,7 +517,6 @@ class YFinanceIntegration:
     
     def _get_mock_recommendations(self, symbol: str) -> Dict[str, Any]:
         """Generate mock recommendations"""
-        import random
         return {
             'strong_buy': random.randint(0, 10),
             'buy': random.randint(0, 10),
@@ -533,7 +528,6 @@ class YFinanceIntegration:
     
     def _get_mock_dividend_info(self, symbol: str) -> List[Dict[str, Any]]:
         """Generate mock dividend info"""
-        import random
         dividends = []
         
         # Generate 8 quarters of dividend data

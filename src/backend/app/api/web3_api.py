@@ -1,7 +1,7 @@
 """
 Web3 API Endpoints
 ==================
-Comprehensive Web3 and blockchain API for Financial Master
+Comprehensive Web3 and blockchain API for Veyra
 """
 
 from fastapi import APIRouter, HTTPException, Query, Depends
@@ -392,7 +392,6 @@ async def supply_to_lending_pool(
 ):
     """Supply assets to lending pool"""
     try:
-        from decimal import Decimal
         defi = get_defi_integration()
         tx_hash = await defi.supply_to_lending_pool(
             address, pool_address, Decimal(str(amount))
@@ -433,7 +432,6 @@ async def calculate_impermanent_loss(
 ):
     """Calculate impermanent loss"""
     try:
-        from decimal import Decimal
         defi = get_defi_integration()
         loss = await defi.calculate_impermanent_loss(
             pool_address,

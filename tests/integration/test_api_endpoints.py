@@ -33,7 +33,7 @@ class TestHealthEndpoints:
         response = client.get("/")
         assert response.status_code == 200
         data = response.json()
-        assert data["name"] == "Financial Master API"
+        assert data["name"] == "Veyra API"
         assert data["status"] == "operational"
 
 

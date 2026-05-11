@@ -1,6 +1,6 @@
 apiVersion: v2
-name: financial-master
-description: A Helm chart for Financial Master - The Open-Source Bloomberg Terminal Alternative
+name: veyra
+description: A Helm chart for Veyra - The Open-Source Bloomberg Terminal Alternative
 type: application
 version: 1.0.0
 appVersion: "4.0.0"
@@ -14,8 +14,8 @@ home: https://github.com/jayprophit/Financial-Master
 sources:
   - https://github.com/jayprophit/Financial-Master
 maintainers:
-  - name: Financial Master Team
-    email: dev@financialmaster.app
+  - name: Veyra Team
+    email: dev@veyra.app
 dependencies:
   - name: postgresql
     version: 12.x.x

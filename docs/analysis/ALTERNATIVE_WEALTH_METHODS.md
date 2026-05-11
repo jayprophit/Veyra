@@ -12,7 +12,7 @@
 
 **Strategy:**
 - Create educational trading/investing content
-- Showcase Financial Master features in action
+- Showcase Veyra features in action
 - Build authority in wealth building niche
 - Monetize through multiple streams
 
@@ -24,7 +24,7 @@
 - Super chats/donations
 - Merchandise
 
-**Integration with Financial Master:**
+**Integration with Veyra:**
 - Auto-generate video scripts from AI analysis
 - Screen record trading sessions using platform
 - "Portfolio Update" weekly series
@@ -113,7 +113,7 @@
 **Revenue Potential:** $100,000 - $1,000,000/year
 
 **Licensing Model:**
-- License Financial Master technology to brokers
+- License Veyra technology to brokers
 - Monthly licensing fees ($5,000 - $50,000/month)
 - Revenue share on trades (0.001% - 0.01%)
 - Setup and customization fees
@@ -176,7 +176,7 @@
 - Guest screening AI
 - Maintenance automation
 
-**Financial Master Integration:**
+**Veyra Integration:**
 - Track rental income vs projections
 - Calculate true ROI (including time cost)
 - Compare to stock market returns
@@ -238,7 +238,7 @@
 - Recession-resistant (people always need clean clothes)
 - Can be largely automated
 
-**Financial Master Tracking:**
+**Veyra Tracking:**
 - Daily cash flow monitoring
 - Machine utilization analytics
 - Maintenance cost tracking
@@ -362,7 +362,7 @@
 **Revenue Potential:** $5,000 - $50,000/year
 
 **Products:**
-- "The Financial Master Playbook" ($29)
+- "The Veyra Playbook" ($29)
 - "100 Passive Income Strategies" ($19)
 - "Tax Loopholes for Investors" ($39)
 - "AI Trading Strategies" ($49)
@@ -405,7 +405,7 @@
 **Revenue Potential:** $20,000 - $200,000
 
 **Books:**
-- "The Financial Master Method" (flagship)
+- "The Veyra Method" (flagship)
 - "Building Wealth in the AI Age"
 - "The Complete Guide to Alternative Investments"
 - "Tax Optimization for High Earners"
@@ -512,7 +512,7 @@ class AlternativeIncomeTracker:
 ---
 
 **Next Steps:**
-1. Build income source tracking in Financial Master
+1. Build income source tracking in Veyra
 2. Create AI advisor for alternative wealth paths
 3. Develop ROI calculators for each method
 4. Integrate real-time tracking APIs

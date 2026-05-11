@@ -18,7 +18,7 @@ class Settings(BaseSettings):
     )
 
     # ========== Application ==========
-    APP_NAME: str = "Financial Master"
+    APP_NAME: str = "Veyra"
     VERSION: str = "1.0.0"
     DEBUG: bool = False
 
@@ -32,7 +32,7 @@ class Settings(BaseSettings):
     CORS_ORIGINS: str = "http://localhost:3000,http://localhost:8000,http://127.0.0.1:3000"
 
     # ========== Database ==========
-    DATABASE_URL: str = "sqlite+aiosqlite:///./financial_master.db"
+    DATABASE_URL: str = "sqlite+aiosqlite:///./veyra.db"
     DATABASE_ECHO: bool = False
     DATABASE_POOL_SIZE: int = 20
     DATABASE_MAX_OVERFLOW: int = 40
@@ -60,7 +60,7 @@ class Settings(BaseSettings):
 
     # ========== Logging ==========
     LOG_LEVEL: str = "INFO"
-    LOG_FILE: str = "logs/financial_master.log"
+    LOG_FILE: str = "logs/veyra.log"
     LOG_FORMAT: str = "json"
 
     # ========== Sentry ==========

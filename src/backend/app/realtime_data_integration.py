@@ -238,7 +238,7 @@ async def initialize_realtime_data(
     use_live: bool = True
 ) -> RealtimeDataIntegration:
     """
-    Initialize real-time data for Financial Master.
+    Initialize real-time data for Veyra.
     
     Usage:
         data = await initialize_realtime_data(['AAPL', 'MSFT', 'TSLA'])

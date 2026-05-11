@@ -16,7 +16,7 @@ platform :ios do
       export_method: "app-store",
       export_options: {
         provisioningProfiles: {
-          "com.financialmaster.app" => "Financial Master App Store"
+          "com.veyra.app" => "Veyra App Store"
         }
       }
     )

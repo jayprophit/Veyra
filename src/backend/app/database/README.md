@@ -1,6 +1,6 @@
 # Local Database System
 
-A unified local database manager for Financial Master that handles SQL databases, Excel spreadsheets, documents (PDF, PowerPoint, Word), media files (images, video, audio), and other data formats.
+A unified local database manager for Veyra that handles SQL databases, Excel spreadsheets, documents (PDF, PowerPoint, Word), media files (images, video, audio), and other data formats.
 
 ## Features
 
@@ -232,7 +232,7 @@ print(f"By type: {stats['by_type']}")
 
 ## API Integration
 
-The database module can be used within the Financial Master API:
+The database module can be used within the Veyra API:
 
 ```python
 from fastapi import APIRouter, UploadFile, File

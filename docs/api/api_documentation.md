@@ -1,9 +1,9 @@
-# Financial Master API Documentation
+# Veyra API Documentation
 
 ## Complete REST API Reference - 1000 Features
 
 **Version:** 10.0.0 - TRANSCENDENT
-**Base URL:** `https://api.financialmaster.com`
+**Base URL:** `https://api.veyra.com`
 **Status:** MISSION ACCOMPLISHED
 **Total Endpoints:** 900+ API Endpoints
 **Coverage:** 99.99% Test Coverage
@@ -820,7 +820,7 @@ ws://localhost:8000/ws/market
 ### Python Client
 
 ```python
-from financial_master import Client
+from veyra import Client
 
 client = Client(api_key="your_key")
 
@@ -838,7 +838,7 @@ client.expenses.add_transaction(
 ### JavaScript/TypeScript Client
 
 ```typescript
-import { FinancialMasterClient } from '@financial-master/sdk';
+import { FinancialMasterClient } from '@veyra/sdk';
 
 const client = new FinancialMasterClient({ apiKey: 'your_key' });
 
@@ -1412,11 +1412,11 @@ GET /wealth/international/summary
 
 ## SUPPORT
 
-- **Documentation:** <https://docs.financialmaster.io>
-- **API Status:** <https://status.financialmaster.io>
-- **Support Email:** <api-support@financialmaster.io>
-- **GitHub:** <https://github.com/financialmaster/api>
+- **Documentation:** <https://docs.veyra.io>
+- **API Status:** <https://status.veyra.io>
+- **Support Email:** <api-support@veyra.io>
+- **GitHub:** <https://github.com/veyra/api>
 
 ---
 
-**© 2026 Financial Master. All rights reserved.**
+**© 2026 Veyra. All rights reserved.**

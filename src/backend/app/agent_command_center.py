@@ -1,5 +1,5 @@
 """
-Financial Master Agent Command Center
+Veyra Agent Command Center
 Central Controller for Multi-Agent AI System
 Coordinates 8 specialized agents with existing automation engine
 Version: 2.0 | Agent-Oriented Architecture
@@ -457,7 +457,7 @@ Commands:
 
 def main():
     """Main entry point"""
-    parser = argparse.ArgumentParser(description='Financial Master Agent Command Center')
+    parser = argparse.ArgumentParser(description='Veyra Agent Command Center')
     parser.add_argument('--mode', choices=['single', 'interactive', 'continuous'], 
                        default='single',
                        help='Operation mode')

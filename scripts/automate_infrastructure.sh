@@ -1,5 +1,5 @@
 #!/bin/bash
-# Financial Master - Infrastructure Automation (Linux/WSL)
+# Veyra - Infrastructure Automation (Linux/WSL)
 # =========================================================
 # Automates Docker and Ollama setup for Linux/WSL environments
 # Run: ./scripts/automate_infrastructure.sh
@@ -181,11 +181,11 @@ optimize_for_ollama() {
 }
 
 # ============================================================================
-# Financial Master Stack
+# Veyra Stack
 # ============================================================================
 
 start_financial_master() {
-    print_status "Starting Financial Master..." "info"
+    print_status "Starting Veyra..." "info"
     
     local project_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
     cd "$project_root"
@@ -199,13 +199,13 @@ start_financial_master() {
     # Start Docker Compose
     if [ -f docker-compose.yml ]; then
         docker-compose up --build -d
-        print_status "Financial Master stack started" "success"
+        print_status "Veyra stack started" "success"
         print_status "API: http://localhost:8000" "info"
         print_status "Frontend: http://localhost:3000" "info"
     else
         # Start native Python
         python3 -m src.backend.app.api.unified_api &
-        print_status "Financial Master API started (native)" "success"
+        print_status "Veyra API started (native)" "success"
     fi
 }
 
@@ -226,7 +226,7 @@ stop_all() {
 show_status() {
     echo ""
     echo "========================================"
-    echo "  Financial Master - Infrastructure Status"
+    echo "  Veyra - Infrastructure Status"
     echo "========================================"
     echo ""
     
@@ -249,7 +249,7 @@ show_status() {
     if check_docker; then
         echo ""
         echo "Docker Containers:"
-        docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}" 2>/dev/null | grep financial-master || echo "  No Financial Master containers"
+        docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}" 2>/dev/null | grep veyra || echo "  No Veyra containers"
     fi
     
     echo ""
@@ -258,7 +258,7 @@ show_status() {
 show_help() {
     cat << EOF
 
-Financial Master - Infrastructure Automation (Linux/WSL)
+Veyra - Infrastructure Automation (Linux/WSL)
 ========================================================
 
 Usage: ./scripts/automate_infrastructure.sh [COMMAND]
@@ -289,7 +289,7 @@ main() {
     
     case $command in
         start)
-            echo "🚀 Starting Financial Master Infrastructure..."
+            echo "🚀 Starting Veyra Infrastructure..."
             echo ""
             start_docker
             start_ollama

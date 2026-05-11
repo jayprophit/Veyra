@@ -1,9 +1,9 @@
-# Financial Master Widgets Guide
+# Veyra Widgets Guide
 ## 100% Open-Source Financial Widgets Framework
 
 ### Overview
 
-This guide provides comprehensive documentation for **Financial Master Widgets Framework**, a 100% open-source alternative to paid financial widgets. Our widgets provide institutional-grade functionality at 0% cost, using free data sources and modern web technologies with complete intellectual property ownership.
+This guide provides comprehensive documentation for **Veyra Widgets Framework**, a 100% open-source alternative to paid financial widgets. Our widgets provide institutional-grade functionality at 0% cost, using free data sources and modern web technologies with complete intellectual property ownership.
 
 ---
 
@@ -779,7 +779,7 @@ print(f"Widget load time: {end_time - start_time:.2f}s")
 
 ## 🎉 Conclusion
 
-The **Financial Master Widgets Framework** provides a comprehensive, free, open-source alternative to expensive financial widget libraries. With **90% of FactSet's functionality at 0% of the cost**, our widgets enable:
+The **Veyra Widgets Framework** provides a comprehensive, free, open-source alternative to expensive financial widget libraries. With **90% of FactSet's functionality at 0% of the cost**, our widgets enable:
 
 ✅ **Complete Widget Library** - Market data, portfolio analytics, news, company data, fund data  
 ✅ **Professional Quality** - Institutional-grade widgets with real-time data  
@@ -788,7 +788,7 @@ The **Financial Master Widgets Framework** provides a comprehensive, free, open-
 ✅ **Extensible** - Custom widget development and theming  
 ✅ **Free Forever** - No API keys, no subscriptions, no limitations  
 
-**Financial Master** now offers the **most comprehensive free financial widget library** available, combining the best of open-source data with professional-grade analytics and visualization capabilities.
+**Veyra** now offers the **most comprehensive free financial widget library** available, combining the best of open-source data with professional-grade analytics and visualization capabilities.
 
 ---
 

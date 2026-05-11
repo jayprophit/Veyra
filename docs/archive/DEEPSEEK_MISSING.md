@@ -1,4 +1,4 @@
-# DeepSeek Requirements - NOT IMPLEMENTED in Financial Master
+# DeepSeek Requirements - NOT IMPLEMENTED in Veyra
 
 ## PLATFORMS & SERVICES NOT IN PROGRAM (24 items)
 

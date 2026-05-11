@@ -1,8 +1,8 @@
-# Financial Master - Multi-Platform Feature Integration Roadmap
+# Veyra - Multi-Platform Feature Integration Roadmap
 
 ## Executive Summary
 
-This document outlines the integration of best-in-class features from leading financial platforms into Financial Master:
+This document outlines the integration of best-in-class features from leading financial platforms into Veyra:
 - **Accounting**: Xero, QuickBooks, ANNA, Pandle, Bigcapital (open-source)
 - **Scheduling**: Gymcatch, Future Fit
 - **Marketplace**: Whop
@@ -35,7 +35,7 @@ src/modules/accounting/
 
 ### 1.2 AI-Powered Automation (ANNA Inspired)
 
-| Feature | ANNA Capability | Financial Master Implementation |
+| Feature | ANNA Capability | Veyra Implementation |
 |---------|----------------|--------------------------------|
 | **Smart Categorization** | AI transaction categorization | ML model training on transaction history |
 | **Receipt Capture** | Photo → OCR → Expense | Mobile app camera integration |
@@ -182,7 +182,7 @@ interface TaxDashboard {
 
 ### 5.1 Digital Product Selling
 
-| Feature | Whop Implementation | Financial Master Adaptation |
+| Feature | Whop Implementation | Veyra Adaptation |
 |---------|---------------------|----------------------------|
 | **Digital Downloads** | PDFs, courses, templates | Investment templates, reports |
 | **Membership Tiers** | Bronze/Silver/Gold access | Premium analysis tiers |
@@ -360,7 +360,7 @@ const ledger = new Ledger({
 
 ## 12. REVENUE MODEL OPTIONS
 
-| Model | Example Platforms | Financial Master Approach |
+| Model | Example Platforms | Veyra Approach |
 |-------|------------------|--------------------------|
 | **Freemium** | Pandle, Wave | Free basic accounting, premium AI features |
 | **Subscription** | Xero, QuickBooks | Tiered by transaction volume/features |

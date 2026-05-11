@@ -1,7 +1,7 @@
 {
-  "name": "financial-master-e2e",
+  "name": "veyra-e2e",
   "version": "1.0.0",
-  "description": "End-to-end tests for Financial Master",
+  "description": "End-to-end tests for Veyra",
   "scripts": {
     "test": "playwright test",
     "test:ui": "playwright test --ui",

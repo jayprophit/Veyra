@@ -1,7 +1,7 @@
 """
 Zero-Trust Architecture Implementation
 =====================================
-Enterprise-grade zero-trust security for Financial Master
+Enterprise-grade zero-trust security for Veyra
 """
 
 import asyncio

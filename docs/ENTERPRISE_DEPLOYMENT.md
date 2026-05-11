@@ -1,7 +1,7 @@
-# Financial Master - Enterprise Deployment Guide
+# Veyra - Enterprise Deployment Guide
 
 ## Overview
-Financial Master is now enterprise-grade with production-ready deployment configurations, monitoring, security, and scalability features.
+Veyra is now enterprise-grade with production-ready deployment configurations, monitoring, security, and scalability features.
 
 ## Prerequisites
 - Kubernetes 1.25+
@@ -18,7 +18,7 @@ Financial Master is now enterprise-grade with production-ready deployment config
 kubectl apply -f k8s/namespace.yaml
 
 # Deploy secrets
-kubectl create secret generic financial-master-secrets \
+kubectl create secret generic veyra-secrets \
   --from-literal=database-url="postgresql://user:pass@postgres:5432/finmaster" \
   --from-literal=redis-url="redis://redis:6379/0" \
   --from-literal=jwt-secret="your-production-secret"

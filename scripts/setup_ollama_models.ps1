@@ -1,5 +1,5 @@
 #!/usr/bin/env pwsh
-# Financial Master - Ollama Model Manager
+# Veyra - Ollama Model Manager
 # ======================================
 # Manage Ollama models for AI features
 # Run: .\scripts\setup_ollama_models.ps1
@@ -100,7 +100,7 @@ function Install-OllamaModel {
     }
 }
 
-# Recommended models for Financial Master
+# Recommended models for Veyra
 $RecommendedModels = @(
     @{
         Name        = "llama3.2:3b"
@@ -163,7 +163,7 @@ if ($PullModel) {
 }
 
 if ($PullRecommended) {
-    Write-Host "`n📦 Pulling Recommended Models for Financial Master" -ForegroundColor Cyan
+    Write-Host "`n📦 Pulling Recommended Models for Veyra" -ForegroundColor Cyan
     Write-Host "==================================================`n" -ForegroundColor Cyan
     
     foreach ($model in $RecommendedModels) {
@@ -216,13 +216,13 @@ if ($RemoveAll) {
 
 if (-not ($PullRecommended -or $PullAll -or $ListModels -or $RemoveAll -or $PullModel)) {
     Write-Host "
-Financial Master - Ollama Model Manager
+Veyra - Ollama Model Manager
 ======================================
 
 Usage: .\scripts\setup_ollama_models.ps1 [Options]
 
 Options:
-  -PullRecommended    Pull recommended models for Financial Master
+  -PullRecommended    Pull recommended models for Veyra
   -PullAll           Pull all available models (50+ GB)
   -ListModels        List installed models
   -RemoveAll         Remove all installed models

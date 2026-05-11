@@ -1,1 +1,1 @@
-# Financial Master - institutional module
+# Veyra - institutional module

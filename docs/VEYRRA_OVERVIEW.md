@@ -82,7 +82,7 @@ To democratize sophisticated wealth management by providing institutional-grade 
 
 ### Architecture Overview
 
-Financial Master employs a **100% open-source** microservices architecture with the following key components:
+Veyra employs a **100% open-source** microservices architecture with the following key components:
 
 #### 1. Frontend Architecture
 - **Technology Stack**: React.js with TypeScript, Material-UI, and Redux
@@ -382,8 +382,8 @@ Financial Master employs a **100% open-source** microservices architecture with 
 
 ## Conclusion
 
-Financial Master represents a paradigm shift in wealth management, combining cutting-edge technology with sophisticated financial expertise to create a platform that serves everyone from individual investors to institutional clients. With its comprehensive feature set, robust security architecture, and ambitious roadmap, the platform is positioned to become the global leader in digital wealth management.
+Veyra represents a paradigm shift in wealth management, combining cutting-edge technology with sophisticated financial expertise to create a platform that serves everyone from individual investors to institutional clients. With its comprehensive feature set, robust security architecture, and ambitious roadmap, the platform is positioned to become the global leader in digital wealth management.
 
 The combination of AI-powered decision making, biometric stress monitoring, social trading, and blockchain integration creates a unique value proposition that addresses the evolving needs of modern investors while maintaining the highest standards of security, compliance, and user experience.
 
-As the platform continues to evolve through its ambitious roadmap, it will not only transform how individuals and institutions manage their wealth but also contribute to greater financial inclusion and literacy worldwide. Financial Master is not just a financial application—it's the future of wealth management.
+As the platform continues to evolve through its ambitious roadmap, it will not only transform how individuals and institutions manage their wealth but also contribute to greater financial inclusion and literacy worldwide. Veyra is not just a financial application—it's the future of wealth management.

@@ -1,6 +1,6 @@
 #!/bin/bash
 # ================================================================
-# Financial Master — Automated Encrypted Backup Script
+# Veyra — Automated Encrypted Backup Script
 # Merged from FinOS
 # Runs nightly at 02:00 via cron
 # Schedule: crontab -e → 0 2 * * * /path/to/backup.sh
@@ -10,14 +10,14 @@ set -e
 
 FINOS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DATE=$(date +%Y%m%d_%H%M%S)
-BACKUP_DIR="$HOME/financial-master-backups"
+BACKUP_DIR="$HOME/veyra-backups"
 LOG_FILE="$BACKUP_DIR/backup.log"
 
 mkdir -p "$BACKUP_DIR"
 
 log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOG_FILE"; }
 
-log "🏦 Starting Financial Master backup..."
+log "🏦 Starting Veyra backup..."
 
 # ── Load environment ────────────────────────────────────────────
 if [ -f "$FINOS_DIR/.env" ]; then
@@ -26,7 +26,7 @@ fi
 
 if [ -z "$BACKUP_PASSPHRASE" ]; then
     log "⚠️  BACKUP_PASSPHRASE not set — using default (INSECURE - set in .env)"
-    BACKUP_PASSPHRASE="financial-master-default"
+    BACKUP_PASSPHRASE="veyra-default"
 fi
 
 # ── PostgreSQL dump ─────────────────────────────────────────────

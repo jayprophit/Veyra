@@ -2,10 +2,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: financial-master-api
-  namespace: financial-master
+  name: veyra-api
+  namespace: veyra
   labels:
-    app: financial-master
+    app: veyra
     component: api
     version: v1
 spec:
@@ -17,12 +17,12 @@ spec:
       maxUnavailable: 0
   selector:
     matchLabels:
-      app: financial-master
+      app: veyra
       component: api
   template:
     metadata:
       labels:
-        app: financial-master
+        app: veyra
         component: api
         version: v1
       annotations:
@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: ghcr.io/financialmaster/financial-master:latest
+        image: ghcr.io/veyra/veyra:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8000
@@ -42,17 +42,17 @@ spec:
         - name: DATABASE_URL
           valueFrom:
             secretKeyRef:
-              name: financial-master-secrets
+              name: veyra-secrets
               key: database-url
         - name: REDIS_URL
           valueFrom:
             secretKeyRef:
-              name: financial-master-secrets
+              name: veyra-secrets
               key: redis-url
         - name: JWT_SECRET_KEY
           valueFrom:
             secretKeyRef:
-              name: financial-master-secrets
+              name: veyra-secrets
               key: jwt-secret
         - name: ENVIRONMENT
           value: "production"
@@ -108,7 +108,7 @@ spec:
       tolerations:
       - key: "workload"
         operator: "Equal"
-        value: "financial-master"
+        value: "veyra"
         effect: "NoSchedule"
       affinity:
         podAntiAffinity:
@@ -120,17 +120,17 @@ spec:
                 - key: app
                   operator: In
                   values:
-                  - financial-master
+                  - veyra
               topologyKey: kubernetes.io/hostname
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: financial-master-api-service
-  namespace: financial-master
+  name: veyra-api-service
+  namespace: veyra
   labels:
-    app: financial-master
+    app: veyra
     component: api
   annotations:
     prometheus.io/scrape: "true"
@@ -143,24 +143,24 @@ spec:
     protocol: TCP
     name: http
   selector:
-    app: financial-master
+    app: veyra
     component: api
 
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: financial-master
-  namespace: financial-master
+  name: veyra
+  namespace: veyra
   annotations:
-    iam.amazonaws.com/role: "financial-master-api-role"
+    iam.amazonaws.com/role: "veyra-api-role"
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: financial-master-role
-  namespace: financial-master
+  name: veyra-role
+  namespace: veyra
 rules:
 - apiGroups: [""]
   resources: ["pods", "services", "configmaps", "secrets"]
@@ -173,41 +173,41 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: financial-master-rolebinding
-  namespace: financial-master
+  name: veyra-rolebinding
+  namespace: veyra
 subjects:
 - kind: ServiceAccount
-  name: financial-master
-  namespace: financial-master
+  name: veyra
+  namespace: veyra
 roleRef:
   kind: Role
-  name: financial-master-role
+  name: veyra-role
   apiGroup: rbac.authorization.k8s.io
 
 ---
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: financial-master-api-pdb
-  namespace: financial-master
+  name: veyra-api-pdb
+  namespace: veyra
 spec:
   minAvailable: 2
   selector:
     matchLabels:
-      app: financial-master
+      app: veyra
       component: api
 
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: financial-master-api-hpa
-  namespace: financial-master
+  name: veyra-api-hpa
+  namespace: veyra
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: financial-master-api
+    name: veyra-api
   minReplicas: 3
   maxReplicas: 10
   metrics:
@@ -241,12 +241,12 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: financial-master-api-netpol
-  namespace: financial-master
+  name: veyra-api-netpol
+  namespace: veyra
 spec:
   podSelector:
     matchLabels:
-      app: financial-master
+      app: veyra
       component: api
   policyTypes:
   - Ingress
@@ -275,7 +275,7 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
-          name: financial-master
+          name: veyra
     ports:
     - protocol: TCP
       port: 5432

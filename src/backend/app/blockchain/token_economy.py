@@ -1,5 +1,5 @@
 """
-Dual-Token Economy System for Financial Master
+Dual-Token Economy System for Veyra
 Work Token (WT) and Governance Token (GT) Implementation
 
 Features:

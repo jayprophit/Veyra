@@ -16,7 +16,7 @@ class PowerBIConnector:
     def export_portfolio(self, portfolio_data: Dict) -> str:
         """Export portfolio to Power BI JSON format"""
         pbix_data = {
-            "name": "Financial Master Portfolio",
+            "name": "Veyra Portfolio",
             "tables": [
                 {
                     "name": "Holdings",
@@ -82,7 +82,7 @@ class TableauConnector:
         """Create Tableau Hyper extract"""
         # Simulated Hyper format (would use tableauhyperapi in production)
         tableau_data = {
-            "schema": "FinancialMaster",
+            "schema": "Veyra",
             "tables": {
                 "Portfolio": data.get("holdings", []),
                 "Trades": data.get("trades", []),
@@ -127,7 +127,7 @@ class UnifiedBIConnector:
             return self.connectors["powerbi"].export_portfolio(data)
         elif platform == "tableau":
             return self.connectors["tableau"].generate_tdsx(
-                "localhost", "FinancialMaster"
+                "localhost", "Veyra"
             )
         
         return None

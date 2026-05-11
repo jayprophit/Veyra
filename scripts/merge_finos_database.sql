@@ -1,5 +1,5 @@
 -- ================================================================
--- FinOS Database Schema Extensions for Financial Master
+-- FinOS Database Schema Extensions for Veyra
 -- Merge these tables into your existing database
 -- ================================================================
 

@@ -1,4 +1,4 @@
-# Complete File Inventory - Financial Master
+# Complete File Inventory - Veyra
 ## Grade 600/100 - Divine Tier
 
 **Generated:** April 25, 2026
@@ -94,7 +94,7 @@ docs/
 
 ```
 k8s/                               # KUBERNETES MANIFESTS
-├── namespace.yaml                 # financial-master namespace
+├── namespace.yaml                 # veyra namespace
 ├── configmap.yaml                 # Environment config
 ├── deployment.yaml                # API, Frontend, Celery
 ├── service.yaml                   # ClusterIP services
@@ -268,7 +268,7 @@ scripts/
 ## Complete File Tree (Summary)
 
 ```
-Financial Master/
+Veyra/
 ├── src/
 │   ├── backend/          # 63+ Python modules
 │   │   ├── app/

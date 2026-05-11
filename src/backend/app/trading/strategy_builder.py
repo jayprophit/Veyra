@@ -1,5 +1,5 @@
 """
-No-Code Strategy Builder for Financial Master
+No-Code Strategy Builder for Veyra
 Visual drag-drop strategy creation backend
 
 Features:

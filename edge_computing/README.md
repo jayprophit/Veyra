@@ -1,9 +1,9 @@
-# Financial Master Edge Computing & IoT Integration
+# Veyra Edge Computing & IoT Integration
 ================================================
-Enterprise edge computing and IoT integration for Financial Master
+Enterprise edge computing and IoT integration for Veyra
 
 ## Overview
-Financial Master edge computing provides low-latency processing, real-time data collection, and distributed intelligence for financial operations.
+Veyra edge computing provides low-latency processing, real-time data collection, and distributed intelligence for financial operations.
 
 ## Edge Computing Architecture
 - **Edge Nodes** - Regional edge computing clusters

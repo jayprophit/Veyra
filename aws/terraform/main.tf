@@ -7,7 +7,7 @@ terraform {
   }
   
   backend "s3" {
-    bucket = "financial-master-terraform-state"
+    bucket = "veyra-terraform-state"
     key    = "terraform.tfstate"
     region = "us-east-1"
   }
@@ -31,7 +31,7 @@ resource "aws_vpc" "main" {
   enable_dns_support   = true
   
   tags = {
-    Name        = "financial-master-vpc"
+    Name        = "veyra-vpc"
     Environment = var.environment
   }
 }
@@ -41,7 +41,7 @@ resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
   
   tags = {
-    Name = "financial-master-igw"
+    Name = "veyra-igw"
   }
 }
 
@@ -55,7 +55,7 @@ resource "aws_subnet" "public" {
   map_public_ip_on_launch = true
   
   tags = {
-    Name = "financial-master-public-${count.index + 1}"
+    Name = "veyra-public-${count.index + 1}"
     Type = "Public"
   }
 }
@@ -69,7 +69,7 @@ resource "aws_subnet" "private" {
   availability_zone = data.aws_availability_zones.available.names[count.index]
   
   tags = {
-    Name = "financial-master-private-${count.index + 1}"
+    Name = "veyra-private-${count.index + 1}"
     Type = "Private"
   }
 }
@@ -84,7 +84,7 @@ resource "aws_route_table" "public" {
   }
   
   tags = {
-    Name = "financial-master-public-rt"
+    Name = "veyra-public-rt"
   }
 }
 
@@ -96,7 +96,7 @@ resource "aws_route_table_association" "public" {
 
 # ECS Cluster
 resource "aws_ecs_cluster" "main" {
-  name = "financial-master"
+  name = "veyra"
   
   setting {
     name  = "containerInsights"
@@ -104,13 +104,13 @@ resource "aws_ecs_cluster" "main" {
   }
   
   tags = {
-    Name = "financial-master-ecs"
+    Name = "veyra-ecs"
   }
 }
 
 # Application Load Balancer
 resource "aws_lb" "main" {
-  name               = "financial-master-alb"
+  name               = "veyra-alb"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb.id]
@@ -119,13 +119,13 @@ resource "aws_lb" "main" {
   enable_deletion_protection = false
   
   tags = {
-    Name = "financial-master-alb"
+    Name = "veyra-alb"
   }
 }
 
 # ALB Target Group
 resource "aws_lb_target_group" "main" {
-  name     = "financial-master-tg"
+  name     = "veyra-tg"
   port     = 8000
   protocol = "HTTP"
   vpc_id   = aws_vpc.main.id
@@ -143,7 +143,7 @@ resource "aws_lb_target_group" "main" {
   }
   
   tags = {
-    Name = "financial-master-tg"
+    Name = "veyra-tg"
   }
 }
 
@@ -161,16 +161,16 @@ resource "aws_lb_listener" "main" {
 
 # RDS PostgreSQL
 resource "aws_db_subnet_group" "main" {
-  name       = "financial-master-db-subnet-group"
+  name       = "veyra-db-subnet-group"
   subnet_ids = aws_subnet.private[*].id
   
   tags = {
-    Name = "financial-master-db-subnet-group"
+    Name = "veyra-db-subnet-group"
   }
 }
 
 resource "aws_security_group" "rds" {
-  name_prefix = "financial-master-rds-"
+  name_prefix = "veyra-rds-"
   vpc_id      = aws_vpc.main.id
   
   ingress {
@@ -188,12 +188,12 @@ resource "aws_security_group" "rds" {
   }
   
   tags = {
-    Name = "financial-master-rds"
+    Name = "veyra-rds"
   }
 }
 
 resource "aws_db_instance" "main" {
-  identifier     = "financial-master-db"
+  identifier     = "veyra-db"
   engine         = "postgres"
   engine_version = "15.4"
   instance_class = var.db_instance_class
@@ -203,7 +203,7 @@ resource "aws_db_instance" "main" {
   storage_type          = "gp2"
   storage_encrypted    = true
   
-  db_name  = "financial_master"
+  db_name  = "veyra"
   username = var.db_username
   password = var.db_password
   
@@ -218,19 +218,19 @@ resource "aws_db_instance" "main" {
   publicly_accessible  = false
   
   tags = {
-    Name = "financial-master-db"
+    Name = "veyra-db"
   }
 }
 
 # ElastiCache Redis Subnet Group
 resource "aws_elasticache_subnet_group" "main" {
-  name       = "financial-master-cache-subnet"
+  name       = "veyra-cache-subnet"
   subnet_ids = aws_subnet.private[*].id
 }
 
 # ElastiCache Security Group
 resource "aws_security_group" "redis" {
-  name_prefix = "financial-master-redis-"
+  name_prefix = "veyra-redis-"
   vpc_id      = aws_vpc.main.id
   
   ingress {
@@ -248,13 +248,13 @@ resource "aws_security_group" "redis" {
   }
   
   tags = {
-    Name = "financial-master-redis"
+    Name = "veyra-redis"
   }
 }
 
 # ElastiCache Redis Cluster
 resource "aws_elasticache_cluster" "main" {
-  cluster_id           = "financial-master-cache"
+  cluster_id           = "veyra-cache"
   engine               = "redis"
   node_type            = "cache.t3.micro"
   num_cache_nodes      = 2
@@ -264,13 +264,13 @@ resource "aws_elasticache_cluster" "main" {
   security_group_ids   = [aws_security_group.redis.id]
   
   tags = {
-    Name = "financial-master-cache"
+    Name = "veyra-cache"
   }
 }
 
 # ECS Task Execution Role
 resource "aws_iam_role" "ecs_task_execution_role" {
-  name = "financial-master-ecs-task-execution-role"
+  name = "veyra-ecs-task-execution-role"
   
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -293,7 +293,7 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_policy" {
 
 # ECS Task Role
 resource "aws_iam_role" "ecs_task_role" {
-  name = "financial-master-ecs-task-role"
+  name = "veyra-ecs-task-role"
   
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -311,7 +311,7 @@ resource "aws_iam_role" "ecs_task_role" {
 
 # Security Groups
 resource "aws_security_group" "alb" {
-  name_prefix = "financial-master-alb-"
+  name_prefix = "veyra-alb-"
   vpc_id      = aws_vpc.main.id
   
   ingress {
@@ -329,12 +329,12 @@ resource "aws_security_group" "alb" {
   }
   
   tags = {
-    Name = "financial-master-alb"
+    Name = "veyra-alb"
   }
 }
 
 resource "aws_security_group" "ecs_tasks" {
-  name_prefix = "financial-master-ecs-tasks-"
+  name_prefix = "veyra-ecs-tasks-"
   vpc_id      = aws_vpc.main.id
   
   ingress {
@@ -352,16 +352,16 @@ resource "aws_security_group" "ecs_tasks" {
   }
   
   tags = {
-    Name = "financial-master-ecs-tasks"
+    Name = "veyra-ecs-tasks"
   }
 }
 
 # S3 Bucket for static assets
 resource "aws_s3_bucket" "assets" {
-  bucket = "financial-master-assets-${random_string.bucket_suffix.result}"
+  bucket = "veyra-assets-${random_string.bucket_suffix.result}"
   
   tags = {
-    Name = "financial-master-assets"
+    Name = "veyra-assets"
   }
 }
 
@@ -446,7 +446,7 @@ resource "aws_cloudfront_distribution" "main" {
   }
   
   tags = {
-    Name = "financial-master-cdn"
+    Name = "veyra-cdn"
   }
 }
 

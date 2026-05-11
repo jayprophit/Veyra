@@ -1,5 +1,5 @@
 #!/bin/bash
-# Deployment Script for Financial Master
+# Deployment Script for Veyra
 # Supports: local, staging, production
 
 set -e
@@ -8,7 +8,7 @@ ENVIRONMENT=${1:-"local"}
 VERSION=$(git describe --tags --always --dirty 2>/dev/null || echo "dev")
 
 echo "========================================"
-echo "Financial Master Deployment"
+echo "Veyra Deployment"
 echo "Environment: $ENVIRONMENT"
 echo "Version: $VERSION"
 echo "========================================"
@@ -31,7 +31,7 @@ case $ENVIRONMENT in
         echo "Deploying to production..."
         # Blue-green deployment
         echo "Building production image..."
-        docker build -t financial-master:$VERSION .
+        docker build -t veyra:$VERSION .
         echo "Running health checks..."
         ./health-check.sh
         echo "Production deployment complete!"

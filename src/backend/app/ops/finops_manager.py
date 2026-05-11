@@ -260,11 +260,9 @@ class FinOpsManager:
     
     # Helper methods (placeholders)
     def _get_railway_token(self) -> Optional[str]:
-        import os
         return os.getenv('RAILWAY_TOKEN')
     
     def _get_vercel_token(self) -> Optional[str]:
-        import os
         return os.getenv('VERCEL_TOKEN')
     
     def _parse_railway_usage(self, data: Dict) -> float:

@@ -107,13 +107,13 @@ class BackupManager:
     
     def _backup_database(self, backup_path: Path) -> str:
         """Backup SQLite database."""
-        db_file = self.data_dir / "financial_master.db"
+        db_file = self.data_dir / "veyra.db"
         
         if not db_file.exists():
             logger.warning(f"Database file not found: {db_file}")
             return ""
         
-        backup_db = backup_path / "database" / "financial_master.db"
+        backup_db = backup_path / "database" / "veyra.db"
         backup_db.parent.mkdir(parents=True, exist_ok=True)
         
         # Copy database (SQLite supports hot backup)
@@ -293,7 +293,7 @@ class CloudSync:
             
             for backup in self.backup_manager.list_backups():
                 backup_path = Path(backup["path"])
-                key = f"financial-master/{backup_path.name}"
+                key = f"veyra/{backup_path.name}"
                 
                 s3.upload_file(str(backup_path), bucket, key)
                 logger.info(f"Synced to S3: {key}")

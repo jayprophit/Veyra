@@ -223,7 +223,6 @@ class KrakenClient:
     
     def _generate_signature(self, urlpath: str, data: Dict) -> str:
         """Generate API-Sign"""
-        import json
         import base64
         
         postdata = json.dumps(data)
@@ -239,7 +238,6 @@ class KrakenClient:
     
     async def get_balance(self) -> Dict[str, Any]:
         """Get account balance"""
-        import json
         
         nonce = int(datetime.utcnow().timestamp() * 1000)
         data = {"nonce": nonce}

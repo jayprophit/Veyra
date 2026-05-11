@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: financial-master
+    name: veyra
     runtime: python
     plan: free
     buildCommand: pip install -r requirements.txt

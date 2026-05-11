@@ -1,5 +1,5 @@
 """
-Financial Master ML Prediction Engine
+Veyra ML Prediction Engine
 Machine Learning models for price prediction and risk assessment
 Version: 1.0
 """

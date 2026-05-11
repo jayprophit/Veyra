@@ -1,5 +1,5 @@
 /**
- * Financial Master - Cloudflare Workers API Gateway
+ * Veyra - Cloudflare Workers API Gateway
  * =================================================
  * Provides:
  * - DDoS protection
@@ -16,7 +16,7 @@
 // Configuration
 const CONFIG = {
   // Your Render backend URL (update after deploying to Render)
-  BACKEND_URL: 'https://financial-master-api.onrender.com',
+  BACKEND_URL: 'https://veyra-api.onrender.com',
 
   // Rate limiting (requests per minute per IP)
   RATE_LIMIT: 60,

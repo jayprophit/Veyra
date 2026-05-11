@@ -95,7 +95,6 @@ class TestFuelTrackerAPI:
     
     def test_mileage_tiered_rates(self):
         """Test tiered rates (45p then 25p)."""
-        from datetime import date
         
         user_id = "test_tiered"
         

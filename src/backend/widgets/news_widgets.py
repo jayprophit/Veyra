@@ -264,7 +264,7 @@ class MarketNewsWidget(BaseWidget):
         word_counts = {}
         
         for text in all_text:
-            words = re.findall(r'\b\w+\b', text.lower())
+            words = re.findall(r'\b\w+\\\b', text.lower())
             for word in words:
                 if word not in common_words and len(word) > 3:
                     word_counts[word] = word_counts.get(word, 0) + 1

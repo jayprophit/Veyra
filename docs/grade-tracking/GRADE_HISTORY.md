@@ -1,5 +1,5 @@
 # Grade History & Achievement Log
-**Financial Master - SSS+ Grade Journey**
+**Veyra - SSS+ Grade Journey**
 
 ---
 
@@ -77,7 +77,7 @@
 
 | Platform | Grade | Cost | Why We're Better |
 |----------|-------|------|------------------|
-| Financial Master | **101/100** | **£0** | Open source, all features |
+| Veyra | **101/100** | **£0** | Open source, all features |
 | Bloomberg Terminal | 95/100 | £24k/year | Proprietary, no AI |
 | TradingView Pro | 85/100 | £180/year | No trading, no taxes |
 | Robinhood | 70/100 | £0 | Limited features, US only |

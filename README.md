@@ -1,4 +1,4 @@
-# Veyra → VRA
+# 🌟 Veyra → VRA
 
 **The 100% Open-Source Bloomberg Terminal Alternative**
 
@@ -8,6 +8,17 @@
 [![Zero-Cost](https://img.shields.io/badge/Zero-Cost-Forever-green)]()
 [![IP-Ownership](https://img.shields.io/badge/IP-Ownership-100%25-blue)]()
 [![No-API-Keys](https://img.shields.io/badge/No-API-Keys-Required-brightgreen)]()
+
+## 🚀 Quick Start - Try Veyra Now
+
+```bash
+bash scripts/launch_demo.sh
+```
+
+**In Codespaces?** The script will automatically provide your public URL.  
+**Locally?** Visit http://localhost:5000
+
+👉 **[Full Demo Guide](VEYRA_DEMO_SERVER_GUIDE.md)**
 
 ---
 
@@ -36,7 +47,7 @@ Veyra is a **100% open-source, industry-leading** financial platform that provid
 |-------------|----------------|-----------------|--------------|
 | **Bloomberg Terminal** | $24,000+ | ❌ None | Required |
 | **FactSet** | $12,000+ | ❌ None | Required |
-| **Financial Master** | **$0** | ✅ **100%** | ❌ **None** |
+| **Veyra** | **$0** | ✅ **100%** | ❌ **None** |
 
 ### 🚀 **NEW: 100% Open-Source Implementation (May 2026)**
 
@@ -320,8 +331,8 @@ cd setup-scripts
 
 ```bash
 # Clone repository
-git clone https://github.com/jpowell/financial-master.git
-cd financial-master
+git clone https://github.com/jpowell/veyra.git
+cd veyra
 
 # Setup environment
 cp .env.example .env
@@ -522,7 +533,7 @@ Hedge fund data at your fingertips:
 ## Project Structure
 
 ```
-Financial Master/
+Veyra/
 ├── 📚 Documentation & Guides
 │   ├── ZERO_COST_STEP_BY_STEP_GUIDE.md     # Complete zero-cost setup
 │   ├── ZERO_COST_MULTI_CLOUD_GUIDE.md       # Free-tier deployment
@@ -647,8 +658,8 @@ docker-compose up -d
 
 ```bash
 # Deploy with Helm (recommended)
-helm install financial-master ./helm/financial-master \
-  --namespace financial-master \
+helm install veyra ./helm/veyra \
+  --namespace veyra \
   --create-namespace \
   --set global.environment=production
 
@@ -827,4 +838,4 @@ MIT License - See [LICENSE](LICENSE)
 
 ---
 
-**Financial Master** - The Future of Financial Technology, Today. 🚀🌍💰
+**Veyra** - The Future of Financial Technology, Today. 🚀🌍💰

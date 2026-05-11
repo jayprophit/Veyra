@@ -1,5 +1,5 @@
 """
-AI/ML Predictive Engine for Financial Master
+AI/ML Predictive Engine for Veyra
 Grade SSS Feature: Machine Learning Core
 """
 

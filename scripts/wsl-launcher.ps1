@@ -1,11 +1,11 @@
 #!/usr/bin/env pwsh
-# WSL Launcher for Financial Master
-# Run this to start Financial Master in WSL2 Ubuntu
+# WSL Launcher for Veyra
+# Run this to start Veyra in WSL2 Ubuntu
 
-$projectPath = "C:\Users\jpowe\Desktop\Financial Master"
-$wslPath = "/mnt/c/Users/jpowe/Desktop/Financial Master"
+$projectPath = "C:\Users\jpowe\Desktop\Veyra"
+$wslPath = "/mnt/c/Users/jpowe/Desktop/Veyra"
 
-Write-Host "🚀 Starting Financial Master in WSL2 Ubuntu..." -ForegroundColor Cyan
+Write-Host "🚀 Starting Veyra in WSL2 Ubuntu..." -ForegroundColor Cyan
 
 # Start WSL
 wsl -d Ubuntu -e true

@@ -1,4 +1,4 @@
-# 🆓 Financial Master - Zero-Cost Step-by-Step Setup Guide
+# 🆓 Veyra - Zero-Cost Step-by-Step Setup Guide
 ## Complete Setup from CPU to Cloud with WindSurf + GitHub + Cloud Services
 
 ---
@@ -77,8 +77,8 @@ psql --version
 
 #### **2.2 Create New Repository**
 1. Click "New repository" in GitHub
-2. Repository name: `financial-master`
-3. Description: `Financial Master - Zero-Cost Multi-Cloud Platform`
+2. Repository name: `veyra`
+3. Description: `Veyra - Zero-Cost Multi-Cloud Platform`
 4. Make it **Public** (free)
 5. Add README.md
 6. Add .gitignore (Node.js)
@@ -101,8 +101,8 @@ cat ~/.ssh/id_ed25519.pub
 #### **2.4 Clone Repository Locally**
 ```bash
 # Clone your repository
-git clone git@github.com:yourusername/financial-master.git
-cd financial-master
+git clone git@github.com:yourusername/veyra.git
+cd veyra
 
 # Set up user info
 git config --global user.name "Your Name"
@@ -117,7 +117,7 @@ git config --global user.email "your-email@example.com"
 
 #### **3.1 Open WindSurf**
 1. Launch WindSurf
-2. Open folder: `financial-master`
+2. Open folder: `veyra`
 3. Install recommended extensions (Node.js, Docker, Git)
 
 #### **3.2 Create Project Structure**
@@ -133,9 +133,9 @@ mkdir -p tests
 #### **3.3 Create Package.json**
 ```json
 {
-  "name": "financial-master",
+  "name": "veyra",
   "version": "1.0.0",
-  "description": "Financial Master - Zero-Cost Multi-Cloud Platform",
+  "description": "Veyra - Zero-Cost Multi-Cloud Platform",
   "main": "src/backend/index.js",
   "scripts": {
     "start": "node src/backend/index.js",
@@ -192,12 +192,12 @@ app.get('/health', (req, res) => {
 });
 
 app.get('/api/test', (req, res) => {
-  res.json({ message: 'Financial Master API is working!' });
+  res.json({ message: 'Veyra API is working!' });
 });
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`Financial Master API running on port ${PORT}`);
+  console.log(`Veyra API running on port ${PORT}`);
 });
 ```
 
@@ -209,7 +209,7 @@ app.listen(PORT, () => {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financial Master</title>
+    <title>Veyra</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: Arial, sans-serif; background: #f5f5f5; }
@@ -223,7 +223,7 @@ app.listen(PORT, () => {
 <body>
     <div class="container">
         <div class="header">
-            <h1>🌐 Financial Master</h1>
+            <h1>🌐 Veyra</h1>
             <p>Zero-Cost Multi-Cloud Financial Platform</p>
         </div>
         
@@ -267,7 +267,7 @@ app.listen(PORT, () => {
 #### **3.6 Create Environment Files**
 ```bash
 # .env.example
-DATABASE_URL=postgresql://username:password@localhost:5432/financial_master
+DATABASE_URL=postgresql://username:password@localhost:5432/veyra
 REDIS_URL=redis://localhost:6379
 AUTH0_DOMAIN=your-domain.auth0.com
 AUTH0_CLIENT_ID=your-client-id
@@ -294,8 +294,8 @@ services:
   postgres:
     image: postgres:15
     environment:
-      POSTGRES_DB: financial_master
-      POSTGRES_USER: financial_master
+      POSTGRES_DB: veyra
+      POSTGRES_USER: veyra
       POSTGRES_PASSWORD: password
     ports:
       - "5432:5432"
@@ -358,14 +358,14 @@ npm run dev
 ```bash
 # In WindSurf terminal:
 git add .
-git commit -m "Initial commit: Financial Master zero-cost setup"
+git commit -m "Initial commit: Veyra zero-cost setup"
 git push origin main
 ```
 
 #### **5.2 Create GitHub Actions Workflow**
 ```yaml
 # .github/workflows/deploy.yml
-name: Deploy Financial Master
+name: Deploy Veyra
 
 on:
   push:
@@ -409,7 +409,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: financial-master
+          projectName: veyra
           directory: dist
 ```
 
@@ -439,7 +439,7 @@ git push origin main
    - Build command: `mkdir -p dist && cp src/frontend/index.html dist/`
    - Build output directory: `dist`
 4. Environment variables:
-   - Add API_URL: `https://financial-master-api.workers.dev`
+   - Add API_URL: `https://veyra-api.workers.dev`
 
 #### **6.3 Setup Cloudflare Workers**
 ```javascript
@@ -475,7 +475,7 @@ async function handleRequest(request) {
     })
   }
   
-  return new Response('Financial Master API Gateway', { status: 200 })
+  return new Response('Veyra API Gateway', { status: 200 })
 }
 ```
 
@@ -488,7 +488,7 @@ async function handleRequest(request) {
 1. Create New → Web Service
 2. Connect to GitHub repository
 3. Settings:
-   - Name: `financial-master-api`
+   - Name: `veyra-api`
    - Environment: `Node`
    - Plan: `Free`
    - Build Command: `npm install`
@@ -501,8 +501,8 @@ async function handleRequest(request) {
 1. Go to https://neon.tech/signup
 2. Create free account
 3. Create new project:
-   - Project name: `financial-master`
-   - Database name: `financial_master`
+   - Project name: `veyra`
+   - Database name: `veyra`
    - Region: Choose closest
 4. Get connection string and add to Render environment variables
 
@@ -516,7 +516,7 @@ async function handleRequest(request) {
 1. Go to https://auth0.com/signup
 2. Create free account
 3. Create new application:
-   - Name: `Financial Master`
+   - Name: `Veyra`
    - Application Type: `Single Page Application`
    - Technologies: `React`
 
@@ -524,10 +524,10 @@ async function handleRequest(request) {
 1. Get Domain and Client ID
 2. Add callback URLs:
    - `http://localhost:8000` (development)
-   - `https://financial-master.pages.dev` (production)
+   - `https://veyra.pages.dev` (production)
 3. Add logout URLs:
    - `http://localhost:8000`
-   - `https://financial-master.pages.dev`
+   - `https://veyra.pages.dev`
 
 #### **7.3 Add Auth0 to Environment**
 ```bash
@@ -555,7 +555,7 @@ AUTH0_AUDIENCE=your-api-identifier
 ollama pull llama2
 
 # Test the model
-ollama run llama2 "Hello, I'm setting up Financial Master"
+ollama run llama2 "Hello, I'm setting up Veyra"
 ```
 
 #### **8.3 Create API Integration**
@@ -609,9 +609,9 @@ module.exports = FinancialAPI;
 1. Go to https://uptimerobot.com/register
 2. Create free account
 3. Add monitors:
-   - Frontend: `https://financial-master.pages.dev`
-   - Backend: `https://financial-master-api.onrender.com`
-   - API Gateway: `https://financial-master-api.workers.dev`
+   - Frontend: `https://veyra.pages.dev`
+   - Backend: `https://veyra-api.onrender.com`
+   - API Gateway: `https://veyra-api.workers.dev`
 
 #### **9.2 Setup Local Monitoring**
 ```yaml
@@ -660,7 +660,7 @@ docker-compose -f monitoring/docker-compose.monitoring.yml up -d
 ```html
 <!-- src/frontend/manifest.json -->
 {
-  "name": "Financial Master",
+  "name": "Veyra",
   "short_name": "FinMaster",
   "description": "Zero-Cost Multi-Cloud Financial Platform",
   "start_url": "/",
@@ -685,7 +685,7 @@ docker-compose -f monitoring/docker-compose.monitoring.yml up -d
 #### **10.2 Create Service Worker**
 ```javascript
 // src/frontend/sw.js
-const CACHE_NAME = 'financial-master-v1';
+const CACHE_NAME = 'veyra-v1';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -716,7 +716,7 @@ self.addEventListener('fetch', event => {
 <meta name="theme-color" content="#007bff">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Financial Master">
+<meta name="apple-mobile-web-app-title" content="Veyra">
 
 <!-- Add before closing body tag -->
 <script>
@@ -760,10 +760,10 @@ git push origin main
 ```
 
 #### **11.3 Verify Deployment**
-1. **Frontend**: `https://financial-master.pages.dev`
-2. **Backend**: `https://financial-master-api.onrender.com`
-3. **API Gateway**: `https://financial-master-api.workers.dev`
-4. **Health Check**: `https://financial-master-api.onrender.com/health`
+1. **Frontend**: `https://veyra.pages.dev`
+2. **Backend**: `https://veyra-api.onrender.com`
+3. **API Gateway**: `https://veyra-api.workers.dev`
+4. **Health Check**: `https://veyra-api.onrender.com/health`
 
 ---
 
@@ -772,7 +772,7 @@ git push origin main
 ### **📱 Step 12: Multi-Device Testing**
 
 #### **12.1 Desktop Testing**
-1. Open `https://financial-master.pages.dev` in Chrome/Firefox
+1. Open `https://veyra.pages.dev` in Chrome/Firefox
 2. Test all features
 3. Check responsive design
 

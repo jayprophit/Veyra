@@ -1,4 +1,4 @@
-# Financial Master - Master Integration Roadmap
+# Veyra - Master Integration Roadmap
 **Document Version:** 1.0  
 **Last Updated:** May 2026  
 **Status:** IN PROGRESS
@@ -7,7 +7,7 @@
 
 ## Executive Summary
 
-Financial Master is a comprehensive multi-asset trading and financial management platform integrating:
+Veyra is a comprehensive multi-asset trading and financial management platform integrating:
 - **AI Employees System** (5 Core Agents) ✅
 - **Trading Infrastructure** (Webhooks, Bots, Strategies) 🔄
 - **Blockchain & Tokenomics** (Dual-Token Economy) 📋
@@ -503,7 +503,7 @@ GET /freqtrade/bots/{bot_id}/performance
 
 ## Contact & Support
 
-**Project Lead:** Financial Master Team  
+**Project Lead:** Veyra Team  
 **Documentation:** `/docs/` directory  
 **Issues:** GitHub Issues  
 **Updates:** This roadmap updated weekly

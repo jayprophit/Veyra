@@ -4,8 +4,8 @@ echo "FINANCIAL MASTER - ZERO-COST ACCOUNT SETUP"
 echo "=============================================="
 
 # Create accounts directory
-mkdir -p ~/financial-master-accounts
-cd ~/financial-master-accounts
+mkdir -p ~/veyra-accounts
+cd ~/veyra-accounts
 
 echo ""
 echo "STEP 1: CREATE FREE ACCOUNTS"
@@ -61,7 +61,7 @@ read -p "Press Enter after creating Uptime Robot account..."
 
 # Save API keys template
 cat > api-keys.txt << EOF
-# Financial Master API Keys
+# Veyra API Keys
 # Fill in these values after creating accounts
 
 # Cloudflare
@@ -92,6 +92,6 @@ EOF
 
 echo ""
 echo "ACCOUNT SETUP COMPLETE!"
-echo "API keys template saved to: ~/financial-master-accounts/api-keys.txt"
+echo "API keys template saved to: ~/veyra-accounts/api-keys.txt"
 echo "Fill in the API keys in the template file"
 echo "Next step: Run local-setup.sh"

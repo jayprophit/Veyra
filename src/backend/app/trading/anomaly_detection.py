@@ -1,5 +1,5 @@
 """
-Anomaly Detection Module for Financial Master
+Anomaly Detection Module for Veyra
 
 Implements advanced anomaly detection for:
 - Trading pattern anomalies

@@ -13,8 +13,8 @@ Write-Host ""
 
 # 1. Check if we're in the right directory
 if (-not (Test-Path (Join-Path $projectRoot "src"))) {
-    Write-Error "ERROR: Not in Financial Master project directory!"
-    Write-Host "Please run this script from the Financial Master folder." -ForegroundColor Red
+    Write-Error "ERROR: Not in Veyra project directory!"
+    Write-Host "Please run this script from the Veyra folder." -ForegroundColor Red
     exit 1
 }
 

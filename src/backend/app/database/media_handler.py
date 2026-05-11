@@ -147,7 +147,6 @@ class MediaHandler:
     def _create_image_thumbnail(self, file_path: str, size: Tuple[int, int]) -> str:
         """Create image thumbnail"""
         try:
-            from PIL import Image
             
             output_dir = Path(self.base_path) / "images" / "thumbnails"
             output_dir.mkdir(exist_ok=True)
@@ -175,7 +174,6 @@ class MediaHandler:
     def _create_video_thumbnail(self, file_path: str, size: Tuple[int, int]) -> str:
         """Create video thumbnail from first frame"""
         try:
-            from moviepy.editor import VideoFileClip
             
             output_dir = Path(self.base_path) / "video" / "thumbnails"
             output_dir.mkdir(exist_ok=True)
@@ -199,7 +197,6 @@ class MediaHandler:
     def convert_image_format(self, file_path: str, output_format: str, output_path: str) -> str:
         """Convert image to different format"""
         try:
-            from PIL import Image
             
             with Image.open(file_path) as img:
                 if img.mode in ('RGBA', 'LA') and output_format.upper() == 'JPEG':
@@ -223,7 +220,6 @@ class MediaHandler:
     def resize_image(self, file_path: str, new_size: Tuple[int, int], output_path: str) -> str:
         """Resize image to new dimensions"""
         try:
-            from PIL import Image
             
             with Image.open(file_path) as img:
                 resized = img.resize(new_size, Image.Resampling.LANCZOS)
@@ -239,7 +235,6 @@ class MediaHandler:
     def compress_image(self, file_path: str, quality: int = 75, output_path: Optional[str] = None) -> str:
         """Compress image with specified quality"""
         try:
-            from PIL import Image
             
             if output_path is None:
                 output_path = file_path
@@ -260,7 +255,6 @@ class MediaHandler:
     def extract_audio_from_video(self, video_path: str, output_path: str) -> str:
         """Extract audio track from video"""
         try:
-            from moviepy.editor import VideoFileClip
             
             with VideoFileClip(video_path) as clip:
                 if clip.audio:
@@ -277,7 +271,6 @@ class MediaHandler:
     def trim_video(self, video_path: str, start: float, end: float, output_path: str) -> str:
         """Trim video to specified time range"""
         try:
-            from moviepy.editor import VideoFileClip
             
             with VideoFileClip(video_path) as clip:
                 trimmed = clip.subclip(start, end)

@@ -1,7 +1,7 @@
 {
-  "name": "financial-master-mobile",
+  "name": "veyra-mobile",
   "version": "1.0.0",
-  "description": "Financial Master - React Native Mobile App",
+  "description": "Veyra - React Native Mobile App",
   "main": "index.js",
   "scripts": {
     "start": "react-native start",

@@ -20,7 +20,7 @@ class DatabaseSettings(BaseSettings):
     """Database configuration"""
     db_type: str = "sqlite"
     db_url: Optional[str] = None
-    sqlite_path: str = "./data/financial_master.db"
+    sqlite_path: str = "./data/veyra.db"
     pool_size: int = 10
     max_overflow: int = 20
     echo_sql: bool = False
@@ -51,7 +51,7 @@ class APISettings(BaseSettings):
     workers: int = 4
     log_level: str = "INFO"
     cors_origins: list = ["*"]
-    title: str = "Financial Master API"
+    title: str = "Veyra API"
     version: str = "1.0.0"
     
     class Config:

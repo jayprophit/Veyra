@@ -258,7 +258,7 @@ TEST_CONFIG = {
     "target_users": 10000,
     "spawn_rate": 100,  # users per second
     "test_duration": 2400,  # 40 minutes
-    "host": "https://staging-api.financialmaster.com",
+    "host": "https://staging-api.veyra.com",
     "headless": False,
     "autostart": True
 }

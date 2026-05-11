@@ -1,4 +1,4 @@
-# Financial Master - Production Deployment Guide
+# Veyra - Production Deployment Guide
 
 ## 🎉 Project Status: PRODUCTION READY
 
@@ -73,7 +73,7 @@ source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r src/backend/requirements.txt
 
 # Environment Variables
-export DATABASE_URL="sqlite:///financial_master.db"  # or PostgreSQL
+export DATABASE_URL="sqlite:///veyra.db"  # or PostgreSQL
 export JWT_SECRET_KEY="your-secret-key"
 export REDIS_URL="redis://localhost:6379"
 ```
@@ -81,13 +81,13 @@ export REDIS_URL="redis://localhost:6379"
 ### Production Environment
 ```bash
 # Docker Deployment
-docker build -t financial-master .
+docker build -t veyra .
 docker run -d \
   -p 8000:8000 \
   -e DATABASE_URL="postgresql://user:pass@localhost:5432/finmaster" \
   -e JWT_SECRET_KEY="${JWT_SECRET}" \
   -e REDIS_URL="redis://redis:6379" \
-  --name financial-master-prod
+  --name veyra-prod
 ```
 
 ---
@@ -117,7 +117,7 @@ docker run -d \
 # Automatic database creation
 from app.database_layer import DatabaseManager
 db = DatabaseManager()
-db.connect()  # Creates financial_master.db if not exists
+db.connect()  # Creates veyra.db if not exists
 ```
 
 ### PostgreSQL (Production)
@@ -176,13 +176,13 @@ npm run dev
 docker-compose up -d
 
 # Manual Docker
-docker build -t financial-master:latest .
+docker build -t veyra:latest .
 docker run -d \
-  --name financial-master-prod \
+  --name veyra-prod \
   -p 443:8000 \
   -v /path/to/data:/app/data \
   -v /path/to/logs:/app/logs \
-  financial-master:latest
+  veyra:latest
 ```
 
 ### 3. Cloud Deployment (AWS/Azure/GCP)
@@ -191,20 +191,20 @@ docker run -d \
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: financial-master
+  name: veyra
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: financial-master
+      app: veyra
   template:
     metadata:
       labels:
-        app: financial-master
+        app: veyra
     spec:
       containers:
-      - name: financial-master
-        image: financial-master:latest
+      - name: veyra
+        image: veyra:latest
         ports:
         - containerPort: 8000
         env:
@@ -222,10 +222,10 @@ spec:
 ### Application Logs
 ```bash
 # View logs
-docker logs financial-master-prod -f
+docker logs veyra-prod -f
 
 # Log rotation
-tail -f /var/log/financial-master/app.log | grep ERROR
+tail -f /var/log/veyra/app.log | grep ERROR
 ```
 
 ### Health Checks
@@ -399,7 +399,7 @@ uvicorn app.main:app --reload --log-level debug
 - [x] **Production Documentation:** Complete deployment guide
 
 ### 🏆 Final Status
-**Financial Master is PRODUCTION-READY** for enterprise deployment with:
+**Veyra is PRODUCTION-READY** for enterprise deployment with:
 - World-class fintech capabilities
 - Grade SSS achievement (208% of requirement)
 - Robust, scalable architecture
@@ -425,7 +425,7 @@ uvicorn app.main:app --reload --log-level debug
 
 ---
 
-**🎉 Financial Master - Enterprise-Grade Fintech Platform**
+**🎉 Veyra - Enterprise-Grade Fintech Platform**
 **Status: PRODUCTION READY ✅**
 **Grade: SSS ACHIEVED ✅**
 **Quality: A (Very Good) ✅**

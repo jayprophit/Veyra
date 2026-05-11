@@ -268,7 +268,7 @@ class SSSSecurityManager:
         totp = pyotp.TOTP(secret)
         provisioning_uri = totp.provisioning_uri(
             name=user.email,
-            issuer_name="Financial Master"
+            issuer_name="Veyra"
         )
         
         # Create QR code image

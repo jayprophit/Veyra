@@ -1,7 +1,7 @@
 # DataSphere v4 Integration Summary
 
 ## Overview
-Successfully forked and integrated key features from **DataSphere v4** into Financial Master frontend.
+Successfully forked and integrated key features from **DataSphere v4** into Veyra frontend.
 
 ---
 

@@ -1,5 +1,5 @@
 {
-  "name": "financial-master-gateway",
+  "name": "veyra-gateway",
   "version": "1.0.0",
   "scripts": {
     "deploy": "wrangler deploy",

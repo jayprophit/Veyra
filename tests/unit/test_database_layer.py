@@ -210,7 +210,6 @@ class TestDatabasePerformance:
         for i in range(10000):
             db.add_holding(f'STOCK{i}', f'Company {i}', 10, 100.0)
         
-        import time
         start = time.time()
         
         # Query should be fast with index

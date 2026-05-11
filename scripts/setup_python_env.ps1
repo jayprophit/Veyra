@@ -1,8 +1,8 @@
-# PowerShell script to set up Python environment for Financial Master
+# PowerShell script to set up Python environment for Veyra
 # Resolves "Select Python Interpreter" issue in Windsurf/VS Code
 
 Write-Host "========================================" -ForegroundColor Cyan
-Write-Host "Financial Master - Python Environment Setup" -ForegroundColor Cyan
+Write-Host "Veyra - Python Environment Setup" -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
 

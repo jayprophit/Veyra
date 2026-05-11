@@ -1,4 +1,4 @@
-# Financial Master - Compliance & Security Audit
+# Veyra - Compliance & Security Audit
 ## Comprehensive Assessment | May 2026
 
 ---

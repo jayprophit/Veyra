@@ -114,7 +114,7 @@ class SystemStatus(BaseModel):
 
 # Create FastAPI app
 app = FastAPI(
-    title="Financial Master Unified API",
+    title="Veyra Unified API",
     description="Complete trading and wealth management API with 99%+ DeepSeek coverage including MT5, DEXs, L2s, Cross-Chain Bridges, NFTs, Debt Management, Scoring, Expense/Income Tracking, Budget Rules, Employment Types, Tax Identifiers (UTR, VAT, NINO, PAYE, CT), Multi-Jurisdiction (32 countries), Comprehensive Wealth Tracking (ALL asset types, ALL income types, ALL wealth sources)",
     version="6.0.9",
     docs_url="/docs",

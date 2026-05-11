@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: financial-master
+  name: veyra
   labels:
-    name: financial-master
+    name: veyra
     tier: production

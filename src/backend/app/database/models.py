@@ -1,5 +1,5 @@
 """
-Database Models - Financial Master
+Database Models - Veyra
 ===================================
 SQLAlchemy ORM models for data persistence
 

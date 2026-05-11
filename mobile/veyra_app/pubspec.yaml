@@ -1,7 +1,7 @@
-name: financial_master
+name: veyra
 version: 1.0.0+1
 publish_to: none
-description: Financial Master - Complete Wealth Management
+description: Veyra - Complete Wealth Management
 
 environment:
   sdk: '>=3.0.0 <4.0.0'

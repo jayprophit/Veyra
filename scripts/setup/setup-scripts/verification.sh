@@ -9,26 +9,26 @@ echo "========================"
 
 # Test Frontend
 echo "Testing Frontend..."
-if curl -s https://financial-master.pages.dev | grep -q "Financial Master"; then
-    echo "Frontend: https://financial-master.pages.dev - WORKING"
+if curl -s https://veyra.pages.dev | grep -q "Veyra"; then
+    echo "Frontend: https://veyra.pages.dev - WORKING"
 else
-    echo "Frontend: https://financial-master.pages.dev - FAILED"
+    echo "Frontend: https://veyra.pages.dev - FAILED"
 fi
 
 # Test Backend
 echo "Testing Backend..."
-if curl -s https://financial-master-api.onrender.com/health | grep -q "healthy"; then
-    echo "Backend: https://financial-master-api.onrender.com - WORKING"
+if curl -s https://veyra-api.onrender.com/health | grep -q "healthy"; then
+    echo "Backend: https://veyra-api.onrender.com - WORKING"
 else
-    echo "Backend: https://financial-master-api.onrender.com - FAILED"
+    echo "Backend: https://veyra-api.onrender.com - FAILED"
 fi
 
 # Test API Gateway
 echo "Testing API Gateway..."
-if curl -s https://financial-master-api.workers.dev > /dev/null; then
-    echo "API Gateway: https://financial-master-api.workers.dev - WORKING"
+if curl -s https://veyra-api.workers.dev > /dev/null; then
+    echo "API Gateway: https://veyra-api.workers.dev - WORKING"
 else
-    echo "API Gateway: https://financial-master-api.workers.dev - FAILED"
+    echo "API Gateway: https://veyra-api.workers.dev - FAILED"
 fi
 
 echo ""
@@ -36,7 +36,7 @@ echo "TESTING MULTI-DEVICE COMPATIBILITY"
 echo "===================================="
 
 echo "Device Testing Checklist:"
-echo "   Desktop: Open https://financial-master.pages.dev in Chrome/Firefox"
+echo "   Desktop: Open https://veyra.pages.dev in Chrome/Firefox"
 echo "   Mobile: Open on mobile browser and test PWA installation"
 echo "   Tablet: Test on iPad/Android tablet"
 echo "   Smart TV: Test on TV browser if available"
@@ -93,18 +93,18 @@ echo ""
 echo "VERIFICATION COMPLETE!"
 echo "========================"
 echo ""
-echo "Your Financial Master is fully deployed and verified!"
+echo "Your Veyra is fully deployed and verified!"
 echo ""
 echo "Summary:"
-echo "   Frontend: https://financial-master.pages.dev"
-echo "   Backend: https://financial-master-api.onrender.com"
-echo "   API Gateway: https://financial-master-api.workers.dev"
+echo "   Frontend: https://veyra.pages.dev"
+echo "   Backend: https://veyra-api.onrender.com"
+echo "   API Gateway: https://veyra-api.workers.dev"
 echo "   PWA: Installable on mobile devices"
 echo "   Monitoring: Uptime Robot + service dashboards"
 echo "   Security: HTTPS + Auth0 + security headers"
 echo "   CI/CD: Automatic deployment on push"
 echo ""
-echo "Your Financial Master is ready for first customers!"
+echo "Your Veyra is ready for first customers!"
 echo "Monthly cost: $0 (free tiers)"
 echo "Capacity: 100+ users"
 echo "Growth path: Upgrade to paid tiers when needed"

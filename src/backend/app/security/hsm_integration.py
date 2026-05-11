@@ -1,7 +1,7 @@
 """
 Hardware Security Modules (HSM) Integration
 ===========================================
-Enterprise-grade HSM integration for Financial Master
+Enterprise-grade HSM integration for Veyra
 """
 
 import asyncio

@@ -1,4 +1,4 @@
-# Coverage configuration for Financial Master
+# Coverage configuration for Veyra
 [run]
 branch = True
 source = src
@@ -25,7 +25,7 @@ exclude_lines =
 
 [html]
 directory = htmlcov
-title = Financial Master - Code Coverage Report
+title = Veyra - Code Coverage Report
 
 [xml]
 output = coverage.xml

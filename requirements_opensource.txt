@@ -1,4 +1,4 @@
-# Financial Master - Open-Source Dependencies Only
+# Veyra - Open-Source Dependencies Only
 # 100% FREE - No API Keys Required - Full IP Ownership
 # ================================================================
 

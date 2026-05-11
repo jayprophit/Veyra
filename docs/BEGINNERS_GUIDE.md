@@ -1,13 +1,13 @@
-# Financial Master - Beginner's Guide
+# Veyra - Beginner's Guide
 ## For Users with No-Code Experience
 
 **Welcome!** This guide assumes you have never coded before. We'll walk you through everything step-by-step.
 
 ---
 
-## What Is Financial Master?
+## What Is Veyra?
 
-Financial Master is an **automated trading platform** that:
+Veyra is an **automated trading platform** that:
 - Tracks your wealth across all accounts
 - Analyzes stocks, crypto, and other assets
 - Can automatically trade for you (optional)
@@ -51,7 +51,7 @@ You'll need to create these accounts (takes ~30 minutes total):
 
 2. **Navigate to your project folder**
    ```powershell
-   cd "C:\Users\jpowe\Desktop\Financial Master"
+   cd "C:\Users\jpowe\Desktop\Veyra"
    ```
 
 3. **Run the setup script**
@@ -120,11 +120,11 @@ You'll need to create these accounts (takes ~30 minutes total):
 
 ### Step 3: Add Your API Keys (5 minutes)
 
-**What this does:** Tells Financial Master how to connect to your accounts.
+**What this does:** Tells Veyra how to connect to your accounts.
 
 1. **Find your .env file**
    - Open File Explorer
-   - Go to: `C:\Users\jpowe\Desktop\Financial Master`
+   - Go to: `C:\Users\jpowe\Desktop\Veyra`
    - Find the file named `.env` (if you don't see it, look for `.env.example`)
 
 2. **Open the file**
@@ -171,7 +171,7 @@ You should see all green checkmarks ✅. If you see any red ❌, run:
 
 ### Step 5: Start the Application (1 minute)
 
-**Launch Financial Master:**
+**Launch Veyra:**
 ```powershell
 .\scripts\start_local.ps1
 ```
@@ -184,7 +184,7 @@ You'll see:
 **Open in your browser:**
 1. Open Chrome/Edge/Firefox
 2. Go to: http://localhost:8000
-3. You should see the Financial Master interface!
+3. You should see the Veyra interface!
 
 **To stop the application:**
 - Go back to PowerShell
@@ -193,7 +193,7 @@ You'll see:
 
 ---
 
-## Your First Steps in Financial Master
+## Your First Steps in Veyra
 
 ### 1. Check Your Setup
 
@@ -236,7 +236,7 @@ This shows all the API endpoints (think of them as features). You can:
 
 ```powershell
 # 1. Save your work
-cd "C:\Users\jpowe\Desktop\Financial Master"
+cd "C:\Users\jpowe\Desktop\Veyra"
 git add .
 git commit -m "Before update"
 
@@ -250,8 +250,8 @@ git pull origin main
 ### How to Backup Your Data
 
 Your data is stored in:
-- `C:\Users\jpowe\Desktop\Financial Master\financial_master.db` (database)
-- `C:\Users\jpowe\Desktop\Financial Master\.env` (settings)
+- `C:\Users\jpowe\Desktop\Veyra\veyra.db` (database)
+- `C:\Users\jpowe\Desktop\Veyra\.env` (settings)
 
 **Backup method:**
 ```powershell
@@ -271,7 +271,7 @@ Your data is stored in:
 ### What Are These Files?
 
 ```
-Financial Master/
+Veyra/
 ├── 📁 .venv/           ← Your isolated workspace (don't touch)
 ├── 📁 docs/            ← Documentation (help files)
 ├── 📁 scripts/         ← Helper scripts (run these)
@@ -339,7 +339,7 @@ Think of it like a text-based control panel:
 - https://www.youtube.com/watch?v=GZvSYJDk-us
 - 15-minute video explaining APIs
 
-**Financial Master Docs:**
+**Veyra Docs:**
 - `API_DOCUMENTATION.md` - All the technical details
 - `DEPLOYMENT_GUIDE.md` - How to deploy to the cloud
 - `COMPLETE_SETUP_GUIDE.md` - Complete reference
@@ -417,6 +417,6 @@ If you've made it this far, you have:
 ---
 
 **Last Updated:** May 2026  
-**For:** Financial Master v1.0  
+**For:** Veyra v1.0  
 **Difficulty:** Beginner (No coding experience required)
 

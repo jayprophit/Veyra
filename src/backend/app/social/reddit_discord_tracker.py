@@ -25,7 +25,7 @@ class SocialSentimentV2:
     def __init__(self):
         self.subreddits = ["wallstreetbets", "stocks", "investing", "options"]
         self.discord_servers = ["AtlasTrading", "WallStreetBets"]
-        self.ticker_pattern = re.compile(r'\b[A-Z]{1,5}\b')
+        self.ticker_pattern = re.compile(r'\b[A-Z]{1,5}\\\b')
         
     def analyze_wsb_post(self, title: str, content: str, upvotes: int) -> List[SocialSignal]:
         """Extract ticker mentions and sentiment from WSB post."""

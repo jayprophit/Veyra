@@ -1,5 +1,5 @@
 """
-Financial Master MCP Server
+Veyra MCP Server
 Inspired by FactSet MCP - Free open-source alternative
 Provides seamless AI integration with financial data
 """
@@ -58,11 +58,11 @@ class MCPResponse:
     timestamp: datetime = field(default_factory=datetime.now)
 
 class FinancialMCPServer:
-    """Financial Master MCP Server - Free alternative to FactSet MCP"""
+    """Veyra MCP Server - Free alternative to FactSet MCP"""
     
     def __init__(self, config: Dict[str, Any] = None):
         self.config = config or {}
-        self.server = Server("financial-master-mcp")
+        self.server = Server("veyra-mcp")
         self.data_manager = self._get_data_manager()
         self.cache = {}
         self.cache_ttl = 300  # 5 minutes cache
@@ -238,28 +238,28 @@ class FinancialMCPServer:
         
         # Data resources
         self.server.add_resource(Resource(
-            uri="financial-master://data/fundamentals/{symbol}",
+            uri="veyra://data/fundamentals/{symbol}",
             name="Company Fundamentals",
             description="Comprehensive company fundamentals data",
             mime_type="application/json"
         ))
         
         self.server.add_resource(Resource(
-            uri="financial-master://data/estimates/{symbol}",
+            uri="veyra://data/estimates/{symbol}",
             name="Analyst Estimates",
             description="Analyst estimates and forecasts",
             mime_type="application/json"
         ))
         
         self.server.add_resource(Resource(
-            uri="financial-master://data/ownership/{symbol}",
+            uri="veyra://data/ownership/{symbol}",
             name="Ownership Data",
             description="Institutional and insider ownership",
             mime_type="application/json"
         ))
         
         self.server.add_resource(Resource(
-            uri="financial-master://data/pricing/{symbol}",
+            uri="veyra://data/pricing/{symbol}",
             name="Pricing Data",
             description="Real-time and historical pricing",
             mime_type="application/json"
@@ -267,21 +267,21 @@ class FinancialMCPServer:
         
         # Workflow resources
         self.server.add_resource(Resource(
-            uri="financial-master://workflows/ma/{company}",
+            uri="veyra://workflows/ma/{company}",
             name="M&A Analysis",
             description="Mergers and acquisitions analysis",
             mime_type="application/json"
         ))
         
         self.server.add_resource(Resource(
-            uri="financial-master://workflows/credit/{company}",
+            uri="veyra://workflows/credit/{company}",
             name="Credit Analysis",
             description="Credit risk analysis",
             mime_type="application/json"
         ))
         
         self.server.add_resource(Resource(
-            uri="financial-master://workflows/capital/{company}",
+            uri="veyra://workflows/capital/{company}",
             name="Capital Structure",
             description="Capital structure analysis",
             mime_type="application/json"

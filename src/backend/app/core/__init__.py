@@ -1,1 +1,1 @@
-# Financial Master - core module
+# Veyra - core module

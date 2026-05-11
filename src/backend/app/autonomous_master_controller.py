@@ -1,5 +1,5 @@
 """
-Financial Master Autonomous Controller
+Veyra Autonomous Controller
 Main orchestrator that runs the entire system autonomously
 Version: 1.0
 """
@@ -421,7 +421,7 @@ def main():
     """Main entry point for autonomous system"""
     import argparse
     
-    parser = argparse.ArgumentParser(description='Financial Master Autonomous System')
+    parser = argparse.ArgumentParser(description='Veyra Autonomous System')
     parser.add_argument('--mode', choices=['single', 'continuous'], default='single',
                        help='Run mode: single cycle or continuous')
     parser.add_argument('--config', default='system_config.json',

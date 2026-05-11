@@ -1,5 +1,5 @@
 """
-Freqtrade Adapter for Financial Master
+Freqtrade Adapter for Veyra
 Integrates with open-source Freqtrade bot framework
 https://github.com/freqtrade/freqtrade
 

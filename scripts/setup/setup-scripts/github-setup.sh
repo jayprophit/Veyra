@@ -4,7 +4,7 @@ echo "FINANCIAL MASTER - GITHUB SETUP"
 echo "=================================="
 
 # Navigate to project directory
-cd ~/financial-master
+cd ~/veyra
 
 echo ""
 echo "CONFIGURING GIT"
@@ -59,8 +59,8 @@ echo "=============================="
 
 echo "Opening GitHub to create repository..."
 echo "Repository details:"
-echo "   Name: financial-master"
-echo "   Description: Financial Master - Zero-Cost Multi-Cloud Platform"
+echo "   Name: veyra"
+echo "   Description: Veyra - Zero-Cost Multi-Cloud Platform"
 echo "   Visibility: Public (free)"
 echo "   Include: README.md, .gitignore (Node.js)"
 
@@ -82,7 +82,7 @@ fi
 echo "Please enter your GitHub username:"
 read -r GITHUB_USERNAME
 
-git remote add origin "git@github.com:$GITHUB_USERNAME/financial-master.git"
+git remote add origin "git@github.com:$GITHUB_USERNAME/veyra.git"
 echo "Remote origin added"
 
 echo ""
@@ -93,7 +93,7 @@ echo "===================="
 git add .
 
 # Initial commit
-git commit -m "Initial commit: Financial Master zero-cost setup
+git commit -m "Initial commit: Veyra zero-cost setup
 
 - Complete zero-cost multi-cloud platform
 - Frontend: Responsive web application
@@ -113,6 +113,6 @@ echo ""
 echo "GITHUB SETUP COMPLETE!"
 echo "========================"
 echo ""
-echo "Repository: https://github.com/$GITHUB_USERNAME/financial-master"
-echo "Repository will be available at: https://$GITHUB_USERNAME.github.io/financial-master"
+echo "Repository: https://github.com/$GITHUB_USERNAME/veyra"
+echo "Repository will be available at: https://$GITHUB_USERNAME.github.io/veyra"
 echo "Next step: Run cloud-setup.sh"

@@ -1,4 +1,4 @@
-"""Windows System Tray Application - Quick access to Financial Master."""
+"""Windows System Tray Application - Quick access to Veyra."""
 
 import sys
 import threading
@@ -34,7 +34,7 @@ class SystemTrayApp:
     def on_run_setup(self, icon=None, item=None):
         """Run automated setup."""
         import subprocess
-        subprocess.Popen(["powershell", "-Command", ".\AUTO_SETUP.ps1"], shell=True)
+        subprocess.Popen(["powershell", "-Command", ".\\AUTO_SETUP.ps1"], shell=True)
     
     def on_ollama_status(self, icon=None, item=None):
         """Check Ollama status."""
@@ -55,7 +55,7 @@ class SystemTrayApp:
             self.icon.stop()
         sys.exit()
     
-    def show_notification(self, message: str, title: str = "Financial Master"):
+    def show_notification(self, message: str, title: str = "Veyra"):
         """Show system notification."""
         if self.icon:
             self.icon.notify(message, title)
@@ -77,7 +77,7 @@ class SystemTrayApp:
             )
             
             # Create icon
-            self.icon = pystray.Icon("Financial Master", self.create_icon(), "Financial Master", menu)
+            self.icon = pystray.Icon("Veyra", self.create_icon(), "Veyra", menu)
             print("✓ System tray app running. Right-click icon for menu.")
             self.icon.run()
             
@@ -89,7 +89,7 @@ class SystemTrayApp:
     def console_mode(self):
         """Fallback console menu."""
         while True:
-            print("\n=== Financial Master ===")
+            print("\n=== Veyra ===")
             print("1. Open Dashboard")
             print("2. Open API Docs")
             print("3. Run Setup")
@@ -111,7 +111,7 @@ class SystemTrayApp:
                 break
 
 if __name__ == "__main__":
-    print("Starting Financial Master System Tray...")
+    print("Starting Veyra System Tray...")
     print("Requirements: pip install pystray pillow requests")
     app = SystemTrayApp()
     app.run()

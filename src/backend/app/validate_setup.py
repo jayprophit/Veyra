@@ -7,7 +7,7 @@ import json
 from datetime import datetime
 
 class SetupValidator:
-    """Validate Financial Master setup."""
+    """Validate Veyra setup."""
     
     def __init__(self):
         self.results = {}
@@ -127,7 +127,7 @@ class SetupValidator:
     def generate_report(self):
         """Generate validation report."""
         print("\n" + "="*60)
-        print("Financial Master - Setup Validation Report")
+        print("Veyra - Setup Validation Report")
         print("="*60)
         
         all_ok = True
@@ -150,7 +150,7 @@ class SetupValidator:
             print("\033[91m✗ Some checks failed. See above.\033[0m")
             print("\nQuick fixes:")
             print("  1. Run: .\\COMPLETE_SETUP.bat")
-            print("  2. Or: .\\AUTO_SETUP.ps1 -FullSetup")
+            print("  2. Or: .\\\AUTO_SETUP.ps1 -FullSetup")
         
         print("="*60)
         

@@ -1,9 +1,9 @@
-# Financial Master Mobile Applications
+# Veyra Mobile Applications
 =====================================
 Enterprise-grade mobile applications for iOS and Android
 
 ## Overview
-Financial Master mobile applications provide full-featured financial management, trading, and portfolio tracking capabilities with enterprise-grade security and real-time synchronization.
+Veyra mobile applications provide full-featured financial management, trading, and portfolio tracking capabilities with enterprise-grade security and real-time synchronization.
 
 ## Features
 - Real-time trading and portfolio management
@@ -34,4 +34,4 @@ Financial Master mobile applications provide full-featured financial management,
 See platform-specific installation guides in respective directories.
 
 ## Support
-For support and documentation, visit: https://docs.financial-master.com/mobile
+For support and documentation, visit: https://docs.veyra.com/mobile

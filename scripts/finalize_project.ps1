@@ -1,8 +1,8 @@
-# Finalization Script for Financial Master SSS+ Platform
+# Finalization Script for Veyra SSS+ Platform
 # Creates missing __init__.py files and generates module index
 
 Write-Host "========================================" -ForegroundColor Cyan
-Write-Host "Financial Master - Project Finalization" -ForegroundColor Cyan
+Write-Host "Veyra - Project Finalization" -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
 
@@ -20,7 +20,7 @@ Get-ChildItem -Path "src\backend\app" -Directory -Recurse | ForEach-Object {
     if (-not (Test-Path $initFile)) {
         $missingCount++
         # Create minimal __init__.py
-        "# Financial Master - $($_.Name) module" | Set-Content $initFile
+        "# Veyra - $($_.Name) module" | Set-Content $initFile
         $createdCount++
         Write-Host "   Created: $($_.FullName.Replace($projectRoot, ''))\__init__.py" -ForegroundColor Green
     }
@@ -72,7 +72,7 @@ Write-Host "4. Generating module index..." -ForegroundColor Yellow
 
 $moduleListFile = Join-Path $projectRoot "docs\MODULE_INDEX.md"
 $moduleContent = @"
-# Financial Master - Module Index
+# Veyra - Module Index
 
 **Generated:** $(Get-Date -Format "yyyy-MM-dd HH:mm:ss")
 **Total Modules:** $($moduleDirs.Count) directories

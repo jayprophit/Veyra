@@ -101,7 +101,7 @@ struct LoginView: View {
                         .font(.system(size: 60))
                         .foregroundColor(.blue)
                     
-                    Text("Financial Master")
+                    Text("Veyra")
                         .font(.largeTitle)
                         .fontWeight(.bold)
                     
@@ -152,7 +152,7 @@ struct LoginView: View {
                         .font(.caption)
                         .foregroundColor(.secondary)
                     
-                    Text("© 2026 Financial Master")
+                    Text("© 2026 Veyra")
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }

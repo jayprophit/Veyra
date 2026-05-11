@@ -1,5 +1,5 @@
 """
-Multi-Agent Manager for Financial Master
+Multi-Agent Manager for Veyra
 Implements Hive Mind and Singular Mind coordination
 Based on AI Employees analysis
 """

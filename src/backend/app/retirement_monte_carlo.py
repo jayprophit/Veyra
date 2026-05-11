@@ -1,4 +1,4 @@
-"""Financial Master - Retirement Planning with Monte Carlo Simulation."""
+"""Veyra - Retirement Planning with Monte Carlo Simulation."""
 
 import numpy as np
 import json
@@ -326,7 +326,7 @@ class RetirementPlanner:
 
 if __name__ == "__main__":
     print("="*70)
-    print("Financial Master - Retirement Planning with Monte Carlo")
+    print("Veyra - Retirement Planning with Monte Carlo")
     print("="*70)
     
     planner = RetirementPlanner()

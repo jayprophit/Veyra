@@ -1,4 +1,4 @@
-# Financial Master - Go Live Script
+# Veyra - Go Live Script
 # ==================================
 # Quick deployment for testing with paper trading
 param(

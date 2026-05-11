@@ -1,4 +1,4 @@
-# AWS Enterprise Foundation - Financial Master
+# AWS Enterprise Foundation - Veyra
 terraform {
   required_providers {
     aws = {
@@ -7,7 +7,7 @@ terraform {
     }
   
   backend "s3" {
-    bucket = "financial-master-aws-terraform-state"
+    bucket = "veyra-aws-terraform-state"
     key    = "aws-infrastructure.tfstate"
     region = "us-east-1"
   }
@@ -18,7 +18,7 @@ provider "aws" {
   
   default_tags {
     Environment = "production"
-    Application = "Financial Master"
+    Application = "Veyra"
     Provider = "AWS"
     Role = "Enterprise-Foundation"
   }
@@ -31,9 +31,9 @@ resource "aws_vpc" "main" {
   enable_dns_support   = true
   
   tags = {
-    Name        = "financial-master-enterprise-vpc"
+    Name        = "veyra-enterprise-vpc"
     Environment = "production"
-    Application = "Financial Master"
+    Application = "Veyra"
     Provider = "AWS"
   }
 }
@@ -57,7 +57,7 @@ resource "aws_subnet" "public" {
   map_public_ip_on_launch = true
   
   tags = {
-    Name = "financial-master-public-${count.index + 1}"
+    Name = "veyra-public-${count.index + 1}"
     Type = "Public"
     AZ = data.aws_availability_zones.available.names[count.index]
   }
@@ -72,7 +72,7 @@ resource "aws_subnet" "private" {
   availability_zone = data.aws_availability_zones.available.names[count.index]
   
   tags = {
-    Name = "financial-master-private-${count.index + 1}"
+    Name = "veyra-private-${count.index + 1}"
     Type = "Private"
     AZ = data.aws_availability_zones.available.names[count.index]
   }
@@ -80,7 +80,7 @@ resource "aws_subnet" "private" {
 
 # Enterprise ECS Cluster with Fargate
 resource "aws_ecs_cluster" "enterprise" {
-  name = "financial-master-enterprise"
+  name = "veyra-enterprise"
   
   setting {
     name  = "containerInsights"
@@ -94,14 +94,14 @@ resource "aws_ecs_cluster" "enterprise" {
   }
   
   tags = {
-    Name = "financial-master-enterprise-ecs"
+    Name = "veyra-enterprise-ecs"
     Role = "Enterprise-Foundation"
   }
 }
 
 # Application Load Balancer with Cross-Zone
 resource "aws_lb" "enterprise" {
-  name               = "financial-master-enterprise-alb"
+  name               = "veyra-enterprise-alb"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb.id]
@@ -116,24 +116,24 @@ resource "aws_lb" "enterprise" {
   }
   
   tags = {
-    Name = "financial-master-enterprise-alb"
+    Name = "veyra-enterprise-alb"
     Role = "Enterprise-Foundation"
   }
 }
 
 # Enterprise RDS PostgreSQL with Multi-AZ
 resource "aws_db_subnet_group" "enterprise" {
-  name       = "financial-master-enterprise-db-subnet-group"
+  name       = "veyra-enterprise-db-subnet-group"
   subnet_ids = aws_subnet.private[*].id
   
   tags = {
-    Name = "financial-master-enterprise-db-subnet-group"
+    Name = "veyra-enterprise-db-subnet-group"
     Role = "Enterprise-Foundation"
   }
 }
 
 resource "aws_security_group" "rds_enterprise" {
-  name_prefix = "financial-master-enterprise-rds-"
+  name_prefix = "veyra-enterprise-rds-"
   vpc_id      = aws_vpc.main.id
   
   ingress {
@@ -151,13 +151,13 @@ resource "aws_security_group" "rds_enterprise" {
   }
   
   tags = {
-    Name = "financial-master-enterprise-rds"
+    Name = "veyra-enterprise-rds"
     Role = "Enterprise-Foundation"
   }
 }
 
 resource "aws_db_instance" "enterprise" {
-  identifier = "financial-master-enterprise-db"
+  identifier = "veyra-enterprise-db"
   engine         = "postgres"
   engine_version = "15.4"
   instance_class = "db.t3.medium"
@@ -167,7 +167,7 @@ resource "aws_db_instance" "enterprise" {
   storage_type          = "gp2"
   storage_encrypted    = true
   
-  db_name  = "financial_master"
+  db_name  = "veyra"
   username = var.db_username
   password = var.db_password
   
@@ -186,7 +186,7 @@ resource "aws_db_instance" "enterprise" {
   performance_insights_enabled = true
   
   tags = {
-    Name = "financial-master-enterprise-db"
+    Name = "veyra-enterprise-db"
     Role = "Enterprise-Foundation"
     Environment = "production"
   }
@@ -194,18 +194,18 @@ resource "aws_db_instance" "enterprise" {
 
 # Enterprise ElastiCache Redis with Cluster Mode
 resource "aws_elasticache_subnet_group" "enterprise" {
-  name       = "financial-master-enterprise-cache-subnet"
+  name       = "veyra-enterprise-cache-subnet"
   subnet_ids = aws_subnet.private[*].id
   
   tags = {
-    Name = "financial-master-enterprise-cache-subnet-group"
+    Name = "veyra-enterprise-cache-subnet-group"
     Role = "Enterprise-Foundation"
   }
 }
 
 resource "aws_elasticache_replication_group" "enterprise" {
-  replication_group_id       = "financial-master-enterprise-cache"
-  description              = "Enterprise Redis cluster for Financial Master"
+  replication_group_id       = "veyra-enterprise-cache"
+  description              = "Enterprise Redis cluster for Veyra"
   node_type               = "cache.t3.micro"
   port                    = 6379
   parameter_group_name     = "default.redis7"
@@ -217,7 +217,7 @@ resource "aws_elasticache_replication_group" "enterprise" {
   transit_encryption_enabled = true
   
   tags = {
-    Name = "financial-master-enterprise-cache"
+    Name = "veyra-enterprise-cache"
     Role = "Enterprise-Foundation"
   }
 }
@@ -296,17 +296,17 @@ resource "aws_cloudfront_distribution" "enterprise" {
   }
   
   tags = {
-    Name = "financial-master-enterprise-cdn"
+    Name = "veyra-enterprise-cdn"
     Role = "Enterprise-Foundation"
   }
 }
 
 # Enterprise S3 with Versioning and Logging
 resource "aws_s3_bucket" "enterprise_assets" {
-  bucket = "financial-master-enterprise-assets-${random_string.bucket_suffix.result}"
+  bucket = "veyra-enterprise-assets-${random_string.bucket_suffix.result}"
   
   tags = {
-    Name = "financial-master-enterprise-assets"
+    Name = "veyra-enterprise-assets"
     Role = "Enterprise-Foundation"
   }
 }
@@ -329,7 +329,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "enterprise_assets
 
 # Enterprise Lambda Functions
 resource "aws_iam_role" "lambda_exec" {
-  name = "financial-master-enterprise-lambda-exec"
+  name = "veyra-enterprise-lambda-exec"
   
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -345,13 +345,13 @@ resource "aws_iam_role" "lambda_exec" {
   })
   
   tags = {
-    Name = "financial-master-enterprise-lambda-exec"
+    Name = "veyra-enterprise-lambda-exec"
     Role = "Enterprise-Foundation"
   }
 }
 
 resource "aws_lambda_function" "data_processor" {
-  function_name = "financial-master-data-processor"
+  function_name = "veyra-data-processor"
   handler       = "index.handler"
   runtime       = "python3.11"
   role          = aws_iam_role.lambda_exec.arn
@@ -370,24 +370,24 @@ resource "aws_lambda_function" "data_processor" {
   }
   
   tags = {
-    Name = "financial-master-data-processor"
+    Name = "veyra-data-processor"
     Role = "Enterprise-Foundation"
   }
 }
 
 # Enterprise CloudWatch for Monitoring
 resource "aws_cloudwatch_log_group" "application" {
-  name              = "/aws/lambda/financial-master-data-processor"
+  name              = "/aws/lambda/veyra-data-processor"
   retention_in_days = 14
   
   tags = {
-    Name = "financial-master-application-logs"
+    Name = "veyra-application-logs"
     Role = "Enterprise-Foundation"
   }
 }
 
 resource "aws_cloudwatch_metric_alarm" "lambda_errors" {
-  alarm_name          = "financial-master-lambda-errors"
+  alarm_name          = "veyra-lambda-errors"
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = "2"
   metric_name         = "Errors"
@@ -399,17 +399,17 @@ resource "aws_cloudwatch_metric_alarm" "lambda_errors" {
   alarm_actions     = [aws_sns_topic.alerts.arn]
   
   tags = {
-    Name = "financial-master-lambda-error-alarm"
+    Name = "veyra-lambda-error-alarm"
     Role = "Enterprise-Foundation"
   }
 }
 
 # Enterprise SNS for Alerts
 resource "aws_sns_topic" "alerts" {
-  name = "financial-master-alerts"
+  name = "veyra-alerts"
   
   tags = {
-    Name = "financial-master-alerts"
+    Name = "veyra-alerts"
     Role = "Enterprise-Foundation"
   }
 }

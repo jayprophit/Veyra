@@ -4,7 +4,7 @@ from datetime import datetime
 import asyncio
 import aiohttp
 
-app = FastAPI(title="Financial Master API", version="1.0.0")
+app = FastAPI(title="Veyra API", version="1.0.0")
 
 @app.get("/health")
 async def health_check():
@@ -13,14 +13,14 @@ async def health_check():
         "status": "healthy",
         "timestamp": datetime.now().isoformat(),
         "version": "1.0.0",
-        "service": "Financial Master"
+        "service": "Veyra"
     }
 
 @app.get("/")
 async def root():
     """Root endpoint"""
     return {
-        "message": "Financial Master - 5-STAR+ Platform",
+        "message": "Veyra - 5-STAR+ Platform",
         "status": "operational",
         "docs": "/docs",
         "health": "/health"
@@ -32,7 +32,7 @@ async def keep_alive():
     while True:
         try:
             async with aiohttp.ClientSession() as session:
-                await session.get("https://financial-master.onrender.com/health")
+                await session.get("https://veyra.onrender.com/health")
         except Exception as e:
             print(f"Keep-alive ping failed: {e}")
         await asyncio.sleep(600)  # 10 minutes

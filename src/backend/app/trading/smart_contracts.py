@@ -44,7 +44,7 @@ class TradingToken:
     ERC20 token implementation for platform rewards
     """
     
-    def __init__(self, name: str = "FinancialMaster", symbol: str = "FMT"):
+    def __init__(self, name: str = "Veyra", symbol: str = "FMT"):
         self.name = name
         self.symbol = symbol
         self.total_supply = 1_000_000 * (10 ** 18)  # 1 million tokens

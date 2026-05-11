@@ -1,4 +1,4 @@
-"""Basic tests for Financial Master."""
+"""Basic tests for Veyra."""
 import pytest
 
 
@@ -15,7 +15,6 @@ def test_imports():
 
 def test_escalation_sim():
     """Test wealth escalation simulation."""
-    from src.backend.app.wealth_engine.escalation_sim import EscalationSim
     
     sim = EscalationSim()
     result = sim.simulate(20, 100, 5)
@@ -31,8 +30,6 @@ def test_escalation_sim():
 
 def test_report_exporter():
     """Test report export functionality."""
-    from src.backend.app.wealth_engine.report_exporter import ReportExporter
-    from src.backend.app.wealth_engine.escalation_sim import EscalationSim
     
     exporter = ReportExporter()
     sim = EscalationSim()

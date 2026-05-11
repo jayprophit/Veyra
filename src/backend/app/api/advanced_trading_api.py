@@ -1,7 +1,7 @@
 """
 Advanced Trading API Endpoints
 =============================
-Comprehensive advanced trading API for Financial Master
+Comprehensive advanced trading API for Veyra
 """
 
 from fastapi import APIRouter, HTTPException, Query, Depends

@@ -210,7 +210,7 @@ async def get_deployment_history(app_name: str = Query(default="all"), limit: in
 @router.get("/gitops/repositories", summary="Git repositories")
 async def list_git_repositories():
     """List configured Git repositories for GitOps."""
-    return {"repositories": [{"url": "https://github.com/org/financial-master", "branch": "main", "sync_interval_minutes": 5}], "count": 5}
+    return {"repositories": [{"url": "https://github.com/org/veyra", "branch": "main", "sync_interval_minutes": 5}], "count": 5}
 
 @router.post("/gitops/hook", summary="Git webhook")
 async def git_webhook(repository: str = Body(...), branch: str = Body(default="main"), revision: str = Body(...)):

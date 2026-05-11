@@ -1,5 +1,5 @@
 """
-Financial Master MCP Server
+Veyra MCP Server
 FactSet-inspired MCP integration with free data sources
 """
 

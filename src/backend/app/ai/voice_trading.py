@@ -164,7 +164,7 @@ class VoiceTradingAssistant:
                 params['quantity'] = int(numbers[0])
             
             # Find symbol (1-5 capital letters)
-            symbols = re.findall(r'\b[A-Z]{1,5}\b', text.upper())
+            symbols = re.findall(r'\b[A-Z]{1,5}\\\b', text.upper())
             if symbols:
                 params['symbol'] = symbols[0]
         
@@ -181,17 +181,17 @@ class VoiceTradingAssistant:
             elif numbers:
                 params['price'] = float(numbers[0])
             
-            symbols = re.findall(r'\b[A-Z]{1,5}\b', text.upper())
+            symbols = re.findall(r'\b[A-Z]{1,5}\\\b', text.upper())
             if symbols:
                 params['symbol'] = symbols[0]
         
         elif cmd_type == VoiceCommandType.GET_QUOTE:
-            symbols = re.findall(r'\b[A-Z]{1,5}\b', text.upper())
+            symbols = re.findall(r'\b[A-Z]{1,5}\\\b', text.upper())
             if symbols:
                 params['symbol'] = symbols[0]
         
         elif cmd_type == VoiceCommandType.SET_ALERT:
-            symbols = re.findall(r'\b[A-Z]{1,5}\b', text.upper())
+            symbols = re.findall(r'\b[A-Z]{1,5}\\\b', text.upper())
             if symbols:
                 params['symbol'] = symbols[0]
             

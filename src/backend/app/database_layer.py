@@ -1,4 +1,4 @@
-"""Financial Master - Database Layer. Free SQLite + scalable PostgreSQL/TimescaleDB."""
+"""Veyra - Database Layer. Free SQLite + scalable PostgreSQL/TimescaleDB."""
 
 import os, sqlite3, json, asyncio
 from typing import Optional, Dict, List, Any, Union
@@ -19,13 +19,13 @@ class DatabaseType(Enum):
 class DatabaseConfig:
     db_type: DatabaseType = DatabaseType.SQLITE
     # SQLite (free tier)
-    sqlite_path: str = "./data/financial_master.db"
+    sqlite_path: str = "./data/veyra.db"
     # PostgreSQL (optional upgrade)
     postgres_host: str = "localhost"
     postgres_port: int = 5432
     postgres_user: str = "finmaster"
     postgres_password: str = ""
-    postgres_db: str = "financial_master"
+    postgres_db: str = "veyra"
     # Connection pooling
     min_connections: int = 1
     max_connections: int = 10
@@ -830,7 +830,7 @@ class DatabaseManager:
 
 if __name__ == "__main__":
     print("="*60)
-    print("Financial Master - Database Layer")
+    print("Veyra - Database Layer")
     print("="*60)
     
     # Use SQLite (free, zero cost)

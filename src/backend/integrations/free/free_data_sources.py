@@ -461,7 +461,6 @@ class FreeDataSourcesManager:
     
     def _get_mock_historical_data(self, symbol: str, start_date: datetime, end_date: datetime) -> List[Dict[str, Any]]:
         """Generate mock historical data"""
-        import random
         data = []
         current_date = start_date
         base_price = 100.0 + random.uniform(-50, 150)
@@ -487,7 +486,6 @@ class FreeDataSourcesManager:
     
     def _get_mock_company_data(self, symbol: str) -> UnifiedCompanyData:
         """Generate mock company data"""
-        import random
         return UnifiedCompanyData(
             symbol=symbol,
             company_name=f"{symbol} Corporation",
@@ -504,7 +502,6 @@ class FreeDataSourcesManager:
     
     def _get_mock_financial_statements(self, symbol: str, statement_type: str, period: str) -> List[Dict[str, Any]]:
         """Generate mock financial statements"""
-        import random
         statements = []
         
         for i in range(4):
@@ -526,7 +523,6 @@ class FreeDataSourcesManager:
     
     def _get_mock_technical_indicators(self, symbol: str, indicators: List[str]) -> List[Dict[str, Any]]:
         """Generate mock technical indicators"""
-        import random
         mock_indicators = []
         
         for indicator in indicators:
@@ -544,7 +540,6 @@ class FreeDataSourcesManager:
     
     def _get_mock_sec_filings(self, symbol: str, filing_type: str, count: int) -> List[Dict[str, Any]]:
         """Generate mock SEC filings"""
-        import random
         filings = []
         
         for i in range(min(count, 10)):
@@ -565,7 +560,6 @@ class FreeDataSourcesManager:
     
     def _get_mock_financial_analysis(self, symbol: str) -> Dict[str, Any]:
         """Generate mock financial analysis"""
-        import random
         return {
             'ratios': [
                 {'name': 'Return on Equity', 'value': random.uniform(0.05, 0.25), 'category': 'Profitability', 'description': 'Measures profitability relative to shareholder equity'},

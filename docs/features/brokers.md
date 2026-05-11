@@ -20,7 +20,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                 Financial Master API                         │
+│                 Veyra API                         │
 │  ┌─────────────────────────────────────────────────────────┐│
 │  │           LiveBrokerManager (live_broker_manager.py)     ││
 │  │  ┌─────────────────────┐  ┌─────────────────────┐       ││
@@ -499,7 +499,7 @@ curl "https://api.polygon.io/v1/marketstatus/now?apiKey=$POLYGON_API_KEY"
 
 ---
 
-**Your Financial Master now has LIVE broker connections!** 🔗📈
+**Your Veyra now has LIVE broker connections!** 🔗📈
 
 **Files Created:**
 - ✅ `brokers/live_broker_manager.py` (500+ lines)

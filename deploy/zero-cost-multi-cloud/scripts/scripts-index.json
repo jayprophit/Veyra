@@ -2,7 +2,7 @@
   "setup_accounts": {
     "description": "Setup free accounts",
     "file": "setup-accounts.sh",
-    "content": "#!/bin/bash\n# Setup Free Accounts Script\necho \"Setting up free accounts for Financial Master...\"\n\necho \"1. Cloudflare - https://dash.cloudflare.com/sign-up\"\necho \"2. GitHub - https://github.com/signup\"\necho \"3. Render - https://render.com/register\"\necho \"4. Neon - https://neon.tech/signup\"\necho \"5. Auth0 - https://auth0.com/signup\"\necho \"6. Alpha Vantage - https://www.alphavantage.co/support/#api-key\"\n\necho \"Please sign up for all accounts and collect API keys\"\necho \"Then run the setup-environment.sh script\"\n"
+    "content": "#!/bin/bash\n# Setup Free Accounts Script\necho \"Setting up free accounts for Veyra...\"\n\necho \"1. Cloudflare - https://dash.cloudflare.com/sign-up\"\necho \"2. GitHub - https://github.com/signup\"\necho \"3. Render - https://render.com/register\"\necho \"4. Neon - https://neon.tech/signup\"\necho \"5. Auth0 - https://auth0.com/signup\"\necho \"6. Alpha Vantage - https://www.alphavantage.co/support/#api-key\"\n\necho \"Please sign up for all accounts and collect API keys\"\necho \"Then run the setup-environment.sh script\"\n"
   },
   "setup_environment": {
     "description": "Setup environment variables",
@@ -12,21 +12,21 @@
   "deploy_frontend": {
     "description": "Deploy frontend to Cloudflare Pages",
     "file": "deploy-frontend.sh",
-    "content": "#!/bin/bash\n# Deploy Frontend Script\necho \"Deploying frontend to Cloudflare Pages...\"\n\n# Build the application\nnpm run build\n\n# Deploy to Cloudflare Pages\nnpx wrangler pages publish dist --project-name=financial-master\n\necho \"Frontend deployed to Cloudflare Pages\"\necho \"URL: https://financial-master.pages.dev\"\n"
+    "content": "#!/bin/bash\n# Deploy Frontend Script\necho \"Deploying frontend to Cloudflare Pages...\"\n\n# Build the application\nnpm run build\n\n# Deploy to Cloudflare Pages\nnpx wrangler pages publish dist --project-name=veyra\n\necho \"Frontend deployed to Cloudflare Pages\"\necho \"URL: https://veyra.pages.dev\"\n"
   },
   "deploy_backend": {
     "description": "Deploy backend to Render",
     "file": "deploy-backend.sh",
-    "content": "#!/bin/bash\n# Deploy Backend Script\necho \"Deploying backend to Render...\"\n\n# Trigger Render deployment\ncurl -X POST https://api.render.com/v1/services/$RENDER_SERVICE_ID/deploys   -H \"Authorization: Bearer $RENDER_API_KEY\"   -H \"Content-Type: application/json\"   -d '{\"imageUrl\": \"ghcr.io/financial-master/backend:latest\"}'\n\necho \"Backend deployment triggered to Render\"\necho \"URL: https://financial-master.onrender.com\"\n"
+    "content": "#!/bin/bash\n# Deploy Backend Script\necho \"Deploying backend to Render...\"\n\n# Trigger Render deployment\ncurl -X POST https://api.render.com/v1/services/$RENDER_SERVICE_ID/deploys   -H \"Authorization: Bearer $RENDER_API_KEY\"   -H \"Content-Type: application/json\"   -d '{\"imageUrl\": \"ghcr.io/veyra/backend:latest\"}'\n\necho \"Backend deployment triggered to Render\"\necho \"URL: https://veyra.onrender.com\"\n"
   },
   "setup_monitoring": {
     "description": "Setup monitoring stack",
     "file": "setup-monitoring.sh",
-    "content": "#!/bin/bash\n# Setup Monitoring Script\necho \"Setting up monitoring stack...\"\n\n# Start monitoring services\ndocker-compose up -d grafana prometheus\n\necho \"Monitoring services started:\"\necho \"Grafana: http://localhost:3000 (admin/admin)\"\necho \"Prometheus: http://localhost:9090\"\n\n# Setup Uptime Robot monitors\necho \"Setup Uptime Robot monitors at: https://uptimerobot.com/dashboard\"\necho \"Monitor URLs:\"\necho \"- Frontend: https://financial-master.pages.dev\"\necho \"- Backend: https://financial-master.onrender.com\"\necho \"- API: https://financial-master-api.workers.dev\"\n"
+    "content": "#!/bin/bash\n# Setup Monitoring Script\necho \"Setting up monitoring stack...\"\n\n# Start monitoring services\ndocker-compose up -d grafana prometheus\n\necho \"Monitoring services started:\"\necho \"Grafana: http://localhost:3000 (admin/admin)\"\necho \"Prometheus: http://localhost:9090\"\n\n# Setup Uptime Robot monitors\necho \"Setup Uptime Robot monitors at: https://uptimerobot.com/dashboard\"\necho \"Monitor URLs:\"\necho \"- Frontend: https://veyra.pages.dev\"\necho \"- Backend: https://veyra.onrender.com\"\necho \"- API: https://veyra-api.workers.dev\"\n"
   },
   "setup_local": {
     "description": "Setup local development environment",
     "file": "setup-local.sh",
-    "content": "#!/bin/bash\n# Setup Local Development Script\necho \"Setting up local development environment...\"\n\n# Start local services\ndocker-compose up -d postgres redis ollama\n\n# Wait for services to start\nsleep 10\n\n# Run database migrations\nnpm run migrate\n\n# Seed database\nnpm run seed\n\n# Start application\nnpm run dev\n\necho \"Local development environment started:\"\necho \"- Database: postgresql://localhost:5432/financial_master\"\necho \"- Redis: redis://localhost:6379\"\necho \"- Ollama: http://localhost:11434\"\necho \"- Application: http://localhost:8000\"\n"
+    "content": "#!/bin/bash\n# Setup Local Development Script\necho \"Setting up local development environment...\"\n\n# Start local services\ndocker-compose up -d postgres redis ollama\n\n# Wait for services to start\nsleep 10\n\n# Run database migrations\nnpm run migrate\n\n# Seed database\nnpm run seed\n\n# Start application\nnpm run dev\n\necho \"Local development environment started:\"\necho \"- Database: postgresql://localhost:5432/veyra\"\necho \"- Redis: redis://localhost:6379\"\necho \"- Ollama: http://localhost:11434\"\necho \"- Application: http://localhost:8000\"\n"
   }
 }

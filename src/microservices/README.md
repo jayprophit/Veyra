@@ -1,9 +1,9 @@
-# Financial Master Microservices Architecture
+# Veyra Microservices Architecture
 =========================================
-Enterprise-grade microservices deployment for Financial Master
+Enterprise-grade microservices deployment for Veyra
 
 ## Overview
-Financial Master microservices architecture provides scalable, resilient, and maintainable deployment with service discovery, load balancing, and distributed tracing.
+Veyra microservices architecture provides scalable, resilient, and maintainable deployment with service discovery, load balancing, and distributed tracing.
 
 ## Services
 - **API Gateway** - Centralized routing and authentication

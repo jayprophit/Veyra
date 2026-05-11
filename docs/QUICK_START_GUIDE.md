@@ -1,4 +1,4 @@
-# 🚀 Financial Master - Quick Start Guide
+# 🚀 Veyra - Quick Start Guide
 
 ## Get Your TRANSCENDENT Platform Running in Minutes
 
@@ -78,11 +78,11 @@ cd setup-scripts
 # - Enable multi-device sync
 ```
 
-### **4. 🚀 Start Financial Master (Local)**
+### **4. 🚀 Start Veyra (Local)**
 
 ```bash
 # Navigate to project
-cd "c:\Users\jpowe\Desktop\Financial Master"
+cd "c:\Users\jpowe\Desktop\Veyra"
 
 # Run the platform
 python run_production_tests.py
@@ -95,7 +95,7 @@ python src/backend/app/main.py
 
 ## 🌐 **ACCESS YOUR PLATFORM**
 
-Once running, access your Financial Master at:
+Once running, access your Veyra at:
 
 - **Web Interface:** <http://localhost:8080>
 - **API Documentation:** <http://localhost:8080/docs>
@@ -144,14 +144,14 @@ ai_config = {
 ### **iOS Setup:**
 
 1. Open Xcode
-2. Load `mobile/ios/FinancialMaster.xcodeproj`
+2. Load `mobile/ios/Veyra.xcodeproj`
 3. Connect your iPhone
 4. Build and Run
 
 ### **Android Setup:**
 
 1. Open Android Studio
-2. Load `mobile/android/FinancialMaster`
+2. Load `mobile/android/Veyra`
 3. Connect your Android device
 4. Build and Run
 
@@ -252,7 +252,7 @@ curl -w "@curl-format.txt" http://localhost:8080/api/health
 
 ## 🎉 **SUCCESS METRICS**
 
-Your Financial Master is working when you see:
+Your Veyra is working when you see:
 
 ✅ Web interface loads at <http://localhost:8080>  
 ✅ AI responds to financial questions  
@@ -280,9 +280,9 @@ After basic setup:
 ### � **Zero-Cost Deployment Success**
 
 ✅ Complete platform deployed to cloud  
-✅ Frontend: <https://financial-master.pages.dev>  
-✅ Backend: <https://financial-master-api.onrender.com>  
-✅ API Gateway: <https://financial-master-api.workers.dev>  
+✅ Frontend: <https://veyra.pages.dev>  
+✅ Backend: <https://veyra-api.onrender.com>  
+✅ API Gateway: <https://veyra-api.workers.dev>  
 ✅ Database: Neon PostgreSQL (500MB)  
 ✅ Authentication: Auth0 (7,000 MAU)  
 ✅ Monitoring: Uptime Robot (50 monitors)  

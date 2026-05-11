@@ -57,7 +57,7 @@ class StructuredLogFormatter(logging.Formatter):
 class LoggerManager:
     """Centralized logging management."""
     
-    def __init__(self, log_dir: str = "./logs", app_name: str = "financial_master"):
+    def __init__(self, log_dir: str = "./logs", app_name: str = "veyra"):
         self.log_dir = Path(log_dir)
         self.log_dir.mkdir(exist_ok=True)
         self.app_name = app_name
@@ -294,7 +294,6 @@ class HealthChecker:
     def check_api(self) -> Dict:
         """Check API server."""
         try:
-            import requests
             start = time.time()
             r = requests.get("http://localhost:8000/api/health", timeout=5)
             response_time = (time.time() - start) * 1000

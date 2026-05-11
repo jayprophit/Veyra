@@ -1,14 +1,14 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "financial-master.name" -}}
+{{- define "veyra.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Create a default fully qualified app name.
 */}}
-{{- define "financial-master.fullname" -}}
+{{- define "veyra.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -24,16 +24,16 @@ Create a default fully qualified app name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "financial-master.chart" -}}
+{{- define "veyra.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "financial-master.labels" -}}
-helm.sh/chart: {{ include "financial-master.chart" . }}
-{{ include "financial-master.selectorLabels" . }}
+{{- define "veyra.labels" -}}
+helm.sh/chart: {{ include "veyra.chart" . }}
+{{ include "veyra.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -43,17 +43,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "financial-master.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "financial-master.name" . }}
+{{- define "veyra.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "veyra.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "financial-master.serviceAccountName" -}}
+{{- define "veyra.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "financial-master.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "veyra.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}

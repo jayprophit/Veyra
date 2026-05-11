@@ -362,7 +362,6 @@ def get_live_quote(ticker: str, api_key: str, provider: str = 'polygon') -> Dict
 
 def batch_get_quotes(tickers: List[str], api_keys: Dict) -> Dict[str, Dict]:
     """Batch fetch quotes for multiple tickers"""
-    import asyncio
     
     async def fetch_all():
         async with LiveDataManager() as manager:

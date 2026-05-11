@@ -1,5 +1,5 @@
 """
-Financial Master Data Ingestion Engine
+Veyra Data Ingestion Engine
 API integrations for live market data
 Version: 1.0
 """

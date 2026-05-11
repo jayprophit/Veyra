@@ -1,5 +1,5 @@
 """
-Production Security Layer for Financial Master
+Production Security Layer for Veyra
 ===============================================
 Critical safety features for live trading:
 - API authentication & authorization

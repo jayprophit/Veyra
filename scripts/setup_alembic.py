@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Database Migration Setup Script for Financial Master
+Database Migration Setup Script for Veyra
 Initialize Alembic for production-grade database versioning
 """
 
@@ -10,7 +10,7 @@ from pathlib import Path
 
 
 def create_alembic_structure():
-    """Create Alembic directory structure for Financial Master."""
+    """Create Alembic directory structure for Veyra."""
 
     alembic_config = """# Configuration for Alembic DB migration tool
 
@@ -86,7 +86,7 @@ datefmt = %H:%M:%S
 """
 
     env_py = '''"""
-Alembic environment for Financial Master
+Alembic environment for Veyra
 Auto-generates migrations from SQLAlchemy models
 """
 
@@ -175,7 +175,7 @@ def downgrade() -> None:
 def setup_alembic():
     """Set up Alembic directory structure."""
 
-    print("Setting up Alembic for Financial Master")
+    print("Setting up Alembic for Veyra")
     print("=" * 70)
 
     # Create alembic directory

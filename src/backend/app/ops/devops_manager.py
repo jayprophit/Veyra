@@ -347,7 +347,6 @@ class DevOpsManager:
             ('/api/market/prices', 200),
         ]
         
-        import aiohttp
         async with aiohttp.ClientSession() as session:
             for endpoint, expected in tests:
                 try:

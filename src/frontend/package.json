@@ -1,7 +1,7 @@
 {
-  "name": "financial-master-frontend",
+  "name": "veyra-frontend",
   "version": "1.0.0",
-  "description": "Financial Master - Frontend Dashboard",
+  "description": "Veyra - Frontend Dashboard",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -43,10 +43,10 @@
     "react",
     "typescript"
   ],
-  "author": "Financial Master Team",
+  "author": "Veyra Team",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/financial-master/frontend"
+    "url": "https://github.com/veyra/frontend"
   }
 }

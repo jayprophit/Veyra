@@ -571,7 +571,6 @@ class FinanceToolkitIntegration:
     
     def _get_mock_valuation_metrics(self, symbol: str) -> List[ValuationMetric]:
         """Generate mock valuation metrics"""
-        import random
         metrics = []
         
         mock_metrics = [
@@ -595,7 +594,6 @@ class FinanceToolkitIntegration:
     
     def _get_mock_technical_signals(self, symbol: str, period: int) -> List[TechnicalSignal]:
         """Generate mock technical signals"""
-        import random
         signals = []
         
         mock_signals = [
@@ -618,7 +616,6 @@ class FinanceToolkitIntegration:
     
     def _get_mock_risk_metrics(self, symbol: str, period: int) -> List[RiskMetric]:
         """Generate mock risk metrics"""
-        import random
         metrics = []
         
         mock_metrics = [
@@ -641,7 +638,6 @@ class FinanceToolkitIntegration:
     
     def _get_mock_financial_modeling(self, symbol: str, model_type: str) -> Dict[str, Any]:
         """Generate mock financial modeling results"""
-        import random
         
         if model_type.lower() == 'dcf':
             return {

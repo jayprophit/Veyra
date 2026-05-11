@@ -1,5 +1,5 @@
 /**
- * Financial Master - React Native Mobile App
+ * Veyra - React Native Mobile App
  * ============================================
  * Cross-platform iOS/Android application
  * Shared logic with web dashboard
@@ -130,7 +130,7 @@ export default function App() {
       <View style={styles.loadingContainer}>
         <StatusBar barStyle="light-content" />
         <Icon name="finance" size={80} color="#2196F3" />
-        <Text style={styles.loadingText}>Financial Master</Text>
+        <Text style={styles.loadingText}>Veyra</Text>
       </View>
     );
   }

@@ -1,4 +1,4 @@
-"""Self-Healing System for Financial Master."""
+"""Self-Healing System for Veyra."""
 import asyncio
 import logging
 from typing import Dict, List, Callable, Any

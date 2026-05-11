@@ -2,7 +2,7 @@
 """
 Comprehensive Multi-Cloud Deployment Script - Simple Version
 =====================================================
-Deploy Financial Master across AWS, Azure, GCP
+Deploy Veyra across AWS, Azure, GCP
 with all systems, services, APIs, and plugins
 """
 

@@ -1,7 +1,7 @@
 # Render Service Template
 services:
   - type: web
-    name: financial-master-api
+    name: veyra-api
     env: node
     plan: free
     buildCommand: "npm install && npm run build"
@@ -21,10 +21,10 @@ services:
         value: http://localhost:11434
 
 databases:
-  - name: financial-master-db
+  - name: veyra-db
     plan: free
-    databaseName: financial_master
-    user: financial_master
+    databaseName: veyra
+    user: veyra
 
 healthCheckPath: /health
 autoDeploy: true

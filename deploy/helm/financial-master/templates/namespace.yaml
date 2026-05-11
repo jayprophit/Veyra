@@ -4,5 +4,5 @@ kind: Namespace
 metadata:
   name: {{ .Release.Namespace }}
   labels:
-    {{- include "financial-master.labels" . | nindent 4 }}
+    {{- include "veyra.labels" . | nindent 4 }}
 {{- end }}

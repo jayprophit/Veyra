@@ -1,4 +1,4 @@
-# Financial Master - Health Check
+# Veyra - Health Check
 # Quick diagnostic script for troubleshooting
 
 $ErrorActionPreference = "Continue"

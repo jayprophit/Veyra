@@ -1,15 +1,15 @@
-# Financial Master vs Requirements Gap Analysis
+# Veyra vs Requirements Gap Analysis
 ## Comparing Against DeepSeek Research Document
 
 **Date:** April 25, 2026
-**Financial Master Grade:** 600/100 (Divine Tier)
+**Veyra Grade:** 600/100 (Divine Tier)
 **Analysis Status:** Comprehensive requirements check
 
 ---
 
 ## Executive Summary
 
-Financial Master **exceeds** the requirements from the DeepSeek research document in most areas. The platform was built for advanced/professional use but includes all the beginner-friendly features mentioned in the research.
+Veyra **exceeds** the requirements from the DeepSeek research document in most areas. The platform was built for advanced/professional use but includes all the beginner-friendly features mentioned in the research.
 
 ### Overall Match: **95%** ✅
 
@@ -47,7 +47,7 @@ Financial Master **exceeds** the requirements from the DeepSeek research documen
 
 ### 3. Multi-Broker Support ✅
 
-| Broker | Research Mentions | Financial Master Support |
+| Broker | Research Mentions | Veyra Support |
 |--------|-------------------|-------------------------|
 | Interactive Brokers | ✅ | ✅ `interactive_brokers.py` |
 | Coinbase | ✅ | ✅ `coinbase_client.py`, `coinbase_live.py` |
@@ -81,7 +81,7 @@ Financial Master **exceeds** the requirements from the DeepSeek research documen
 
 ### 5. Stocks, ETFs, Bonds Support ⚠️ PARTIAL
 
-| Asset Class | Research Priority | Financial Master Support |
+| Asset Class | Research Priority | Veyra Support |
 |-------------|-------------------|-------------------------|
 | Stocks (US/UK) | High | ✅ Full support via Alpaca, IBKR |
 | ETFs | High | ✅ Supported via all stock brokers |
@@ -190,9 +190,9 @@ Financial Master **exceeds** the requirements from the DeepSeek research documen
 
 ## Phase-by-Phase Comparison
 
-### User's Requested Learning Path vs Financial Master
+### User's Requested Learning Path vs Veyra
 
-| Phase (Research) | Features | Financial Master Match |
+| Phase (Research) | Features | Veyra Match |
 |------------------|----------|------------------------|
 | **Phase 1:** Crypto DCA bot | Pionex/low-fee, daily buying | 80% - Has DCA but not Pionex; has lower-fee options |
 | **Phase 2:** Fiat + ETFs | Trading 212 ISA, VWRP ETF | 70% - Has ETF support but no ISA wrapper |
@@ -269,7 +269,7 @@ class PionexBroker(BaseBroker):
 
 ## Current vs Required Stats
 
-| Metric | Research Requirement | Financial Master Current | Match |
+| Metric | Research Requirement | Veyra Current | Match |
 |--------|---------------------|------------------------|-------|
 | Min deposit | £10-50 | £0 (paper) / £1 (Alpaca) | ✅ 100% |
 | Trading fees | <0.1% | 0% (Alpaca) / 0.05% (DeFi) | ✅ 100% |
@@ -286,7 +286,7 @@ class PionexBroker(BaseBroker):
 
 ## Conclusion
 
-### Financial Master Status: **PRODUCTION READY** ✅
+### Veyra Status: **PRODUCTION READY** ✅
 
 The platform **exceeds** most requirements, especially in:
 - Advanced AI capabilities (Divine Tier features)
@@ -304,7 +304,7 @@ The missing features are primarily:
 
 ### Recommendation
 
-Financial Master is **ready for use** as described in the research document. The gaps are enhancements, not blockers.
+Veyra is **ready for use** as described in the research document. The gaps are enhancements, not blockers.
 
 **Priority:** Add GridBot and ISA tracking for UK users to reach 100% match.
 

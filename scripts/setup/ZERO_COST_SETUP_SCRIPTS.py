@@ -2,7 +2,7 @@
 """
 Zero-Cost Setup Scripts Generator
 ================================
-Automated setup scripts for Financial Master zero-cost deployment
+Automated setup scripts for Veyra zero-cost deployment
 """
 
 import os
@@ -41,8 +41,8 @@ echo "🚀 FINANCIAL MASTER - ZERO-COST ACCOUNT SETUP"
 echo "=============================================="
 
 # Create accounts directory
-mkdir -p ~/financial-master-accounts
-cd ~/financial-master-accounts
+mkdir -p ~/veyra-accounts
+cd ~/veyra-accounts
 
 echo ""
 echo "📋 STEP 1: CREATE FREE ACCOUNTS"
@@ -98,7 +98,7 @@ read -p "Press Enter after creating Uptime Robot account..."
 
 # Save API keys template
 cat > api-keys.txt << EOF
-# Financial Master API Keys
+# Veyra API Keys
 # Fill in these values after creating accounts
 
 # Cloudflare
@@ -129,7 +129,7 @@ EOF
 
 echo ""
 echo "✅ ACCOUNT SETUP COMPLETE!"
-echo "📁 API keys template saved to: ~/financial-master-accounts/api-keys.txt"
+echo "📁 API keys template saved to: ~/veyra-accounts/api-keys.txt"
 echo "📝 Fill in the API keys in the template file"
 echo "🚀 Next step: Run local-setup.sh"
 '''
@@ -184,7 +184,7 @@ echo "📁 CREATING PROJECT STRUCTURE"
 echo "============================"
 
 # Create project directory
-PROJECT_DIR="$HOME/financial-master"
+PROJECT_DIR="$HOME/veyra"
 mkdir -p "$PROJECT_DIR"
 cd "$PROJECT_DIR"
 
@@ -205,9 +205,9 @@ echo "============================"
 # Create package.json
 cat > package.json << 'EOF'
 {
-  "name": "financial-master",
+  "name": "veyra",
   "version": "1.0.0",
-  "description": "Financial Master - Zero-Cost Multi-Cloud Platform",
+  "description": "Veyra - Zero-Cost Multi-Cloud Platform",
   "main": "src/backend/index.js",
   "scripts": {
     "start": "node src/backend/index.js",
@@ -274,7 +274,7 @@ app.get('/health', (req, res) => {
 
 app.get('/api/test', (req, res) => {
   res.json({ 
-    message: 'Financial Master API is working!',
+    message: 'Veyra API is working!',
     environment: process.env.NODE_ENV || 'development'
   });
 });
@@ -287,7 +287,7 @@ app.use((err, req, res, next) => {
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`🚀 Financial Master API running on port ${PORT}`);
+  console.log(`🚀 Veyra API running on port ${PORT}`);
   console.log(`📊 Health check: http://localhost:${PORT}/health`);
   console.log(`🔗 API test: http://localhost:${PORT}/api/test`);
 });
@@ -306,7 +306,7 @@ cat > src/frontend/index.html << 'EOF'
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financial Master</title>
+    <title>Veyra</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
@@ -364,7 +364,7 @@ cat > src/frontend/index.html << 'EOF'
 <body>
     <div class="container">
         <div class="header">
-            <h1>🌐 Financial Master</h1>
+            <h1>🌐 Veyra</h1>
             <p>Zero-Cost Multi-Cloud Financial Platform</p>
         </div>
         
@@ -443,15 +443,15 @@ services:
   postgres:
     image: postgres:15
     environment:
-      POSTGRES_DB: financial_master
-      POSTGRES_USER: financial_master
+      POSTGRES_DB: veyra
+      POSTGRES_USER: veyra
       POSTGRES_PASSWORD: password
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U financial_master"]
+      test: ["CMD-SHELL", "pg_isready -U veyra"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -497,7 +497,7 @@ echo "=============================="
 # Create .env.example
 cat > .env.example << 'EOF'
 # Database Configuration
-DATABASE_URL=postgresql://financial_master:password@localhost:5432/financial_master
+DATABASE_URL=postgresql://veyra:password@localhost:5432/veyra
 REDIS_URL=redis://localhost:6379
 
 # Authentication
@@ -584,7 +584,7 @@ echo "📦 FINANCIAL MASTER - GITHUB SETUP"
 echo "=================================="
 
 # Navigate to project directory
-cd ~/financial-master
+cd ~/veyra
 
 echo ""
 echo "🔧 CONFIGURING GIT"
@@ -639,8 +639,8 @@ echo "=============================="
 
 echo "🌐 Opening GitHub to create repository..."
 echo "Repository details:"
-echo "   Name: financial-master"
-echo "   Description: Financial Master - Zero-Cost Multi-Cloud Platform"
+echo "   Name: veyra"
+echo "   Description: Veyra - Zero-Cost Multi-Cloud Platform"
 echo "   Visibility: Public (free)"
 echo "   Include: README.md, .gitignore (Node.js)"
 
@@ -662,7 +662,7 @@ fi
 echo "🔗 Please enter your GitHub username:"
 read -r GITHUB_USERNAME
 
-git remote add origin "git@github.com:$GITHUB_USERNAME/financial-master.git"
+git remote add origin "git@github.com:$GITHUB_USERNAME/veyra.git"
 echo "✅ Remote origin added"
 
 echo ""
@@ -673,7 +673,7 @@ echo "===================="
 git add .
 
 # Initial commit
-git commit -m "🚀 Initial commit: Financial Master zero-cost setup
+git commit -m "🚀 Initial commit: Veyra zero-cost setup
 
 - Complete zero-cost multi-cloud platform
 - Frontend: Responsive web application
@@ -693,8 +693,8 @@ echo ""
 echo "✅ GITHUB SETUP COMPLETE!"
 echo "========================"
 echo ""
-echo "📦 Repository: https://github.com/$GITHUB_USERNAME/financial-master"
-echo "🌐 Repository will be available at: https://$GITHUB_USERNAME.github.io/financial-master"
+echo "📦 Repository: https://github.com/$GITHUB_USERNAME/veyra"
+echo "🌐 Repository will be available at: https://$GITHUB_USERNAME.github.io/veyra"
 echo "🚀 Next step: Run cloud-setup.sh"
 '''
         
@@ -724,7 +724,7 @@ echo "      - Framework preset: None"
 echo "      - Build command: mkdir -p dist && cp src/frontend/index.html dist/"
 echo "      - Build output directory: dist"
 echo "   4. Environment variables:"
-echo "      - API_URL: https://financial-master-api.workers.dev"
+echo "      - API_URL: https://veyra-api.workers.dev"
 
 read -p "Press Enter after setting up Cloudflare Pages..."
 
@@ -759,7 +759,7 @@ async function handleRequest(request) {
   
   // Route to backend
   if (url.pathname.startsWith('/api/')) {
-    const backendUrl = 'https://financial-master-api.onrender.com' + url.pathname
+    const backendUrl = 'https://veyra-api.onrender.com' + url.pathname
     try {
       const response = await fetch(backendUrl, {
         method: request.method,
@@ -788,7 +788,7 @@ async function handleRequest(request) {
     }
   }
   
-  return new Response('Financial Master API Gateway', { status: 200 })
+  return new Response('Veyra API Gateway', { status: 200 })
 }
 WORKER_CODE
 
@@ -803,7 +803,7 @@ echo "Setup details:"
 echo "   1. Go to Render Dashboard → New → Web Service"
 echo "   2. Connect to GitHub repository"
 echo "   3. Configuration:"
-echo "      - Name: financial-master-api"
+echo "      - Name: veyra-api"
 echo "      - Environment: Node"
 echo "      - Plan: Free"
 echo "      - Build Command: npm install"
@@ -827,8 +827,8 @@ echo "=============================="
 echo "🌐 Opening Neon setup..."
 echo "Setup details:"
 echo "   1. Go to Neon Dashboard → New Project"
-echo "   2. Project name: financial-master"
-echo "   3. Database name: financial_master"
+echo "   2. Project name: veyra"
+echo "   3. Database name: veyra"
 echo "   4. Region: Choose closest to you"
 echo "   5. Get connection string and add to Render environment variables"
 
@@ -841,15 +841,15 @@ echo "====================="
 echo "🌐 Opening Auth0 setup..."
 echo "Setup details:"
 echo "   1. Go to Auth0 Dashboard → Applications → Create Application"
-echo "   2. Application name: Financial Master"
+echo "   2. Application name: Veyra"
 echo "   3. Application type: Single Page Application"
 echo "   4. Technologies: React"
 echo "   5. Callback URLs:"
 echo "      - http://localhost:8000"
-echo "      - https://financial-master.pages.dev"
+echo "      - https://veyra.pages.dev"
 echo "   6. Logout URLs:"
 echo "      - http://localhost:8000"
-echo "      - https://financial-master.pages.dev"
+echo "      - https://veyra.pages.dev"
 
 read -p "Press Enter after setting up Auth0..."
 
@@ -861,12 +861,12 @@ echo "🌐 Opening Uptime Robot setup..."
 echo "Setup details:"
 echo "   1. Go to Uptime Robot Dashboard → Add New Monitor"
 echo "   2. Monitor Type: HTTP"
-echo "   3. Monitor Name: Financial Master Frontend"
-echo "   4. URL: https://financial-master.pages.dev"
+echo "   3. Monitor Name: Veyra Frontend"
+echo "   4. URL: https://veyra.pages.dev"
 echo "   5. Interval: 5 minutes"
 echo "   6. Create additional monitors:"
-echo "      - Backend: https://financial-master-api.onrender.com/health"
-echo "      - API Gateway: https://financial-master-api.workers.dev"
+echo "      - Backend: https://veyra-api.onrender.com/health"
+echo "      - API Gateway: https://veyra-api.workers.dev"
 
 read -p "Press Enter after setting up Uptime Robot..."
 
@@ -892,9 +892,9 @@ echo "✅ CLOUD SERVICES SETUP COMPLETE!"
 echo "================================"
 echo ""
 echo "🌐 Your services are being deployed:"
-echo "   📱 Frontend: https://financial-master.pages.dev"
-echo "   🔧 Backend: https://financial-master-api.onrender.com"
-echo "   🌉 API Gateway: https://financial-master-api.workers.dev"
+echo "   📱 Frontend: https://veyra.pages.dev"
+echo "   🔧 Backend: https://veyra-api.onrender.com"
+echo "   🌉 API Gateway: https://veyra-api.workers.dev"
 echo "   🗄️  Database: Neon PostgreSQL"
 echo "   🔐 Authentication: Auth0"
 echo "   📊 Monitoring: Uptime Robot"
@@ -916,7 +916,7 @@ echo "🚀 Next step: Run deployment.sh"
 echo "🚀 FINANCIAL MASTER - DEPLOYMENT"
 echo "==============================="
 
-cd ~/financial-master
+cd ~/veyra
 
 echo ""
 echo "📦 CREATING GITHUB ACTIONS WORKFLOW"
@@ -927,7 +927,7 @@ mkdir -p .github/workflows
 
 # Create deployment workflow
 cat > .github/workflows/deploy.yml << 'EOF'
-name: Deploy Financial Master
+name: Deploy Veyra
 
 on:
   push:
@@ -971,7 +971,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: financial-master
+          projectName: veyra
           directory: dist
 
   health-check:
@@ -982,7 +982,7 @@ jobs:
         run: sleep 30
       - name: Health check
         run: |
-          curl -f https://financial-master.pages.dev || exit 1
+          curl -f https://veyra.pages.dev || exit 1
           echo "✅ Frontend deployment successful"
 EOF
 
@@ -1015,7 +1015,7 @@ echo "⏳ Waiting for Cloudflare Pages to deploy..."
 # Wait and check deployment
 for i in {1..10}; do
     echo "⏳ Checking deployment... (Attempt $i/10)"
-    if curl -s https://financial-master.pages.dev > /dev/null; then
+    if curl -s https://veyra.pages.dev > /dev/null; then
         echo "✅ Frontend deployed successfully!"
         break
     fi
@@ -1028,7 +1028,7 @@ echo "===================="
 
 # Test frontend
 echo "🌐 Testing frontend..."
-if curl -s https://financial-master.pages.dev | grep -q "Financial Master"; then
+if curl -s https://veyra.pages.dev | grep -q "Veyra"; then
     echo "✅ Frontend is working!"
 else
     echo "❌ Frontend deployment failed"
@@ -1040,7 +1040,7 @@ echo "=================="
 
 # Test backend
 echo "🌐 Testing backend..."
-if curl -s https://financial-master-api.onrender.com/health > /dev/null; then
+if curl -s https://veyra-api.onrender.com/health > /dev/null; then
     echo "✅ Backend is working!"
 else
     echo "⏳ Backend may still be deploying (Render takes a few minutes)"
@@ -1052,7 +1052,7 @@ echo "======================"
 
 # Test API gateway
 echo "🌐 Testing API gateway..."
-if curl -s https://financial-master-api.workers.dev > /dev/null; then
+if curl -s https://veyra-api.workers.dev > /dev/null; then
     echo "✅ API Gateway is working!"
 else
     echo "⏳ API Gateway may still be deploying"
@@ -1062,14 +1062,14 @@ echo ""
 echo "✅ DEPLOYMENT COMPLETE!"
 echo "======================"
 echo ""
-echo "🌐 Your Financial Master is deployed:"
-echo "   📱 Frontend: https://financial-master.pages.dev"
-echo "   🔧 Backend: https://financial-master-api.onrender.com"
-echo "   🌉 API Gateway: https://financial-master-api.workers.dev"
+echo "🌐 Your Veyra is deployed:"
+echo "   📱 Frontend: https://veyra.pages.dev"
+echo "   🔧 Backend: https://veyra-api.onrender.com"
+echo "   🌉 API Gateway: https://veyra-api.workers.dev"
 echo ""
 echo "📊 Check deployment status:"
-echo "   📱 Frontend: Open https://financial-master.pages.dev"
-echo "   🔧 Backend: Open https://financial-master-api.onrender.com/health"
+echo "   📱 Frontend: Open https://veyra.pages.dev"
+echo "   🔧 Backend: Open https://veyra-api.onrender.com/health"
 echo "   📊 Monitoring: Uptime Robot dashboard"
 echo ""
 echo "🔄 Automatic updates:"
@@ -1099,26 +1099,26 @@ echo "========================"
 
 # Test Frontend
 echo "📱 Testing Frontend..."
-if curl -s https://financial-master.pages.dev | grep -q "Financial Master"; then
-    echo "✅ Frontend: https://financial-master.pages.dev - WORKING"
+if curl -s https://veyra.pages.dev | grep -q "Veyra"; then
+    echo "✅ Frontend: https://veyra.pages.dev - WORKING"
 else
-    echo "❌ Frontend: https://financial-master.pages.dev - FAILED"
+    echo "❌ Frontend: https://veyra.pages.dev - FAILED"
 fi
 
 # Test Backend
 echo "🔧 Testing Backend..."
-if curl -s https://financial-master-api.onrender.com/health | grep -q "healthy"; then
-    echo "✅ Backend: https://financial-master-api.onrender.com - WORKING"
+if curl -s https://veyra-api.onrender.com/health | grep -q "healthy"; then
+    echo "✅ Backend: https://veyra-api.onrender.com - WORKING"
 else
-    echo "❌ Backend: https://financial-master-api.onrender.com - FAILED"
+    echo "❌ Backend: https://veyra-api.onrender.com - FAILED"
 fi
 
 # Test API Gateway
 echo "🌉 Testing API Gateway..."
-if curl -s https://financial-master-api.workers.dev > /dev/null; then
-    echo "✅ API Gateway: https://financial-master-api.workers.dev - WORKING"
+if curl -s https://veyra-api.workers.dev > /dev/null; then
+    echo "✅ API Gateway: https://veyra-api.workers.dev - WORKING"
 else
-    echo "❌ API Gateway: https://financial-master-api.workers.dev - FAILED"
+    echo "❌ API Gateway: https://veyra-api.workers.dev - FAILED"
 fi
 
 echo ""
@@ -1126,7 +1126,7 @@ echo "📱 TESTING MULTI-DEVICE COMPATIBILITY"
 echo "===================================="
 
 echo "📋 Device Testing Checklist:"
-echo "   🖥️  Desktop: Open https://financial-master.pages.dev in Chrome/Firefox"
+echo "   🖥️  Desktop: Open https://veyra.pages.dev in Chrome/Firefox"
 echo "   📱 Mobile: Open on mobile browser and test PWA installation"
 echo "   📟 Tablet: Test on iPad/Android tablet"
 echo "   📺 Smart TV: Test on TV browser if available"
@@ -1183,18 +1183,18 @@ echo ""
 echo "✅ VERIFICATION COMPLETE!"
 echo "========================"
 echo ""
-echo "🎉 Your Financial Master is fully deployed and verified!"
+echo "🎉 Your Veyra is fully deployed and verified!"
 echo ""
 echo "📊 Summary:"
-echo "   🌐 Frontend: https://financial-master.pages.dev"
-echo "   🔧 Backend: https://financial-master-api.onrender.com"
-echo "   🌉 API Gateway: https://financial-master-api.workers.dev"
+echo "   🌐 Frontend: https://veyra.pages.dev"
+echo "   🔧 Backend: https://veyra-api.onrender.com"
+echo "   🌉 API Gateway: https://veyra-api.workers.dev"
 echo "   📱 PWA: Installable on mobile devices"
 echo "   📊 Monitoring: Uptime Robot + service dashboards"
 echo "   🔒 Security: HTTPS + Auth0 + security headers"
 echo "   🔄 CI/CD: Automatic deployment on push"
 echo ""
-echo "🚀 Your Financial Master is ready for first customers!"
+echo "🚀 Your Veyra is ready for first customers!"
 echo "💰 Monthly cost: $0 (free tiers)"
 echo "👥 Capacity: 100+ users"
 echo "📈 Growth path: Upgrade to paid tiers when needed"
@@ -1272,12 +1272,12 @@ echo "🔄 AUTOMATION SCRIPTS"
 echo "===================="
 
 echo "📋 Available automation scripts:"
-echo "   📁 ~/financial-master/setup-scripts/account-setup.sh"
-echo "   💻 ~/financial-master/setup-scripts/local-setup.sh"
-echo "   📦 ~/financial-master/setup-scripts/github-setup.sh"
-echo "   ☁️  ~/financial-master/setup-scripts/cloud-setup.sh"
-echo "   🚀 ~/financial-master/setup-scripts/deployment.sh"
-echo "   ✅ ~/financial-master/setup-scripts/verification.sh"
+echo "   📁 ~/veyra/setup-scripts/account-setup.sh"
+echo "   💻 ~/veyra/setup-scripts/local-setup.sh"
+echo "   📦 ~/veyra/setup-scripts/github-setup.sh"
+echo "   ☁️  ~/veyra/setup-scripts/cloud-setup.sh"
+echo "   🚀 ~/veyra/setup-scripts/deployment.sh"
+echo "   ✅ ~/veyra/setup-scripts/verification.sh"
 
 echo ""
 echo "📊 MONITORING UPDATES"
@@ -1306,7 +1306,7 @@ echo ""
 echo "🎯 READY TO DEVELOP!"
 echo "=================="
 echo ""
-echo "🚀 Your Financial Master is ready for development!"
+echo "🚀 Your Veyra is ready for development!"
 echo "💻 Use WindSurf to make changes"
 echo "📤 Push to GitHub for automatic deployment"
 echo "📱 Test on all devices"
@@ -1355,55 +1355,55 @@ echo "=================="
 echo ""
 echo "📋 STEP 1: ACCOUNT SETUP"
 echo "======================"
-~/financial-master/setup-scripts/account-setup.sh
+~/veyra/setup-scripts/account-setup.sh
 
 # Local setup
 echo ""
 echo "💻 STEP 2: LOCAL DEVELOPMENT SETUP"
 echo "================================="
-~/financial-master/setup-scripts/local-setup.sh
+~/veyra/setup-scripts/local-setup.sh
 
 # GitHub setup
 echo ""
 echo "📦 STEP 3: GITHUB SETUP"
 echo "======================"
-~/financial-master/setup-scripts/github-setup.sh
+~/veyra/setup-scripts/github-setup.sh
 
 # Cloud setup
 echo ""
 echo "☁️  STEP 4: CLOUD SERVICES SETUP"
 echo "=============================="
-~/financial-master/setup-scripts/cloud-setup.sh
+~/veyra/setup-scripts/cloud-setup.sh
 
 # Deployment
 echo ""
 echo "🚀 STEP 5: DEPLOYMENT"
 echo "=================="
-~/financial-master/setup-scripts/deployment.sh
+~/veyra/setup-scripts/deployment.sh
 
 # Verification
 echo ""
 echo "✅ STEP 6: VERIFICATION"
 echo "===================="
-~/financial-master/setup-scripts/verification.sh
+~/veyra/setup-scripts/verification.sh
 
 # Update workflow
 echo ""
 echo "🔄 STEP 7: UPDATE WORKFLOW"
 echo "========================"
-~/financial-master/setup-scripts/update-workflow.sh
+~/veyra/setup-scripts/update-workflow.sh
 
 echo ""
 echo "🎉 SETUP COMPLETE!"
 echo "================="
 echo ""
-echo "🌐 Your Financial Master is fully deployed:"
-echo "   📱 Frontend: https://financial-master.pages.dev"
-echo "   🔧 Backend: https://financial-master-api.onrender.com"
-echo "   🌉 API Gateway: https://financial-master-api.workers.dev"
+echo "🌐 Your Veyra is fully deployed:"
+echo "   📱 Frontend: https://veyra.pages.dev"
+echo "   🔧 Backend: https://veyra-api.onrender.com"
+echo "   🌉 API Gateway: https://veyra-api.workers.dev"
 echo ""
-echo "📊 Project directory: ~/financial-master"
-echo "📁 Setup scripts: ~/financial-master/setup-scripts/"
+echo "📊 Project directory: ~/veyra"
+echo "📁 Setup scripts: ~/veyra/setup-scripts/"
 echo ""
 echo "🔄 Development workflow:"
 echo "   1. 💻 Edit code in WindSurf"

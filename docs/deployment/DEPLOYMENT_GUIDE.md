@@ -1,4 +1,4 @@
-# Financial Master - Live Deployment Guide
+# Veyra - Live Deployment Guide
 
 ## 🎉 PLATFORM COMPLETE - 1000 Features Deployed
 
@@ -7,9 +7,9 @@
 **Deployment:** Multi-Cloud Global Infrastructure
 **Live URLs:**
 
-- 🌐 <https://financialmaster.com> (Main Platform)
-- 🔧 <https://api.financialmaster.com> (API Gateway)
-- 📚 <https://docs.financialmaster.com> (Documentation)
+- 🌐 <https://veyra.com> (Main Platform)
+- 🔧 <https://api.veyra.com> (API Gateway)
+- 📚 <https://docs.veyra.com> (Documentation)
 
 =========================================
 
@@ -18,7 +18,7 @@
 ### One Command to Start Everything
 
 ```powershell
-# Option A: Start Docker + WSL + Financial Master
+# Option A: Start Docker + WSL + Veyra
 .\START_HERE.ps1 -QuickStart
 
 # Option B: Start with AI/Ollama integration
@@ -37,7 +37,7 @@
 - ✅ **WSL2 Ubuntu** - Starts/initializes if needed
 - ✅ **Ollama** - Local AI models (llama3.2, mistral)
 - ✅ **PostgreSQL + Redis** - Via Docker Compose
-- ✅ **Financial Master Stack** - API + Frontend
+- ✅ **Veyra Stack** - API + Frontend
 
 ### Linux/WSL Commands
 
@@ -212,7 +212,7 @@ Run `.\scripts\setup_ollama_models.ps1 -PullRecommended` to install:
 # Test Ollama is running
 curl http://localhost:11434/api/tags
 
-# Test Financial Master AI endpoint
+# Test Veyra AI endpoint
 curl http://localhost:8000/api/v1/ai/analyze -X POST \
   -H "Content-Type: application/json" \
   -d '{"query": "Analyze AAPL stock"}'
@@ -258,7 +258,7 @@ curl http://localhost:8000/api/v1/ai/analyze -X POST \
 
 ## Infrastructure Tools & Orchestration
 
-Financial Master supports multiple deployment patterns from local development to production-scale Kubernetes clusters.
+Veyra supports multiple deployment patterns from local development to production-scale Kubernetes clusters.
 
 ### Container Orchestration Matrix
 
@@ -310,19 +310,19 @@ Financial Master supports multiple deployment patterns from local development to
 #### Quick Start
 
 ```bash
-# Install Financial Master with Helm
-helm install financial-master ./helm/financial-master \
-  --namespace financial-master \
+# Install Veyra with Helm
+helm install veyra ./helm/veyra \
+  --namespace veyra \
   --create-namespace \
   --set global.environment=staging
 
 # Verify deployment
-kubectl get pods -n financial-master
-kubectl get ingress -n financial-master
+kubectl get pods -n veyra
+kubectl get ingress -n veyra
 
 # Upgrade deployment
-helm upgrade financial-master ./helm/financial-master \
-  --namespace financial-master \
+helm upgrade veyra ./helm/veyra \
+  --namespace veyra \
   --set api.image.tag=v4.0.1
 ```
 
@@ -330,19 +330,19 @@ helm upgrade financial-master ./helm/financial-master \
 
 ```bash
 # Development (minimal resources)
-helm install financial-master ./helm/financial-master \
-  --namespace financial-master-dev \
+helm install veyra ./helm/veyra \
+  --namespace veyra-dev \
   --create-namespace \
-  -f ./helm/financial-master/values.yaml \
+  -f ./helm/veyra/values.yaml \
   --set api.replicaCount=1 \
   --set api.autoscaling.enabled=false \
   --set postgresql.primary.persistence.enabled=false
 
 # Production (full scale)
-helm install financial-master ./helm/financial-master \
-  --namespace financial-master-prod \
+helm install veyra ./helm/veyra \
+  --namespace veyra-prod \
   --create-namespace \
-  -f ./helm/financial-master/values.yaml \
+  -f ./helm/veyra/values.yaml \
   --set api.replicaCount=5 \
   --set api.autoscaling.maxReplicas=20 \
   --set global.environment=production
@@ -384,8 +384,8 @@ The GitHub Actions workflow (`ci-cd.yml`) includes:
 | Metrics | Prometheus | `kubectl port-forward svc/prometheus 9090` |
 | Dashboards | Grafana | `kubectl port-forward svc/grafana 3000` |
 | Health | Liveness/Readiness | `/api/v1/health`, `/api/v1/ready` |
-| Scaling | HPA | `kubectl get hpa -n financial-master` |
-| Logs | kubectl | `kubectl logs -f deployment/fm-api` |
+| Scaling | HPA | `kubectl get hpa -n veyra` |
+| Logs | kubectl | `kubectl logs -f deployment/vra-api` |
 
 ---
 
@@ -507,7 +507,7 @@ Currently testing personally? Here's your path to production:
 **Legal structure:**
 
 ```
-Financial Master Technology Ltd
+Veyra Technology Ltd
 - SaaS technology company
 - NOT a financial adviser
 - NOT a broker-dealer

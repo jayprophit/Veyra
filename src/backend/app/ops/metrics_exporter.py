@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 class MetricsCollector:
     """
-    Central metrics collection for Financial Master.
+    Central metrics collection for Veyra.
     """
     
     def __init__(self, port: int = 9090):

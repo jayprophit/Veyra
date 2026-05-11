@@ -95,7 +95,7 @@ setup_selfsigned() {
     openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
         -keyout $CERT_PATH/private.key \
         -out $CERT_PATH/certificate.crt \
-        -subj "/C=US/ST=State/L=City/O=FinancialMaster/CN=$DOMAIN"
+        -subj "/C=US/ST=State/L=City/O=Veyra/CN=$DOMAIN"
     
     log "Self-signed certificate created at $CERT_PATH"
     log "Valid for 365 days"

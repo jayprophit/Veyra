@@ -1,9 +1,9 @@
 # Comprehensive Configuration Guide
-## 100% Open-Source Financial Master Configuration
+## 100% Open-Source Veyra Configuration
 
 ## Overview
 
-This guide provides complete configuration instructions for **100% open-source** Financial Master. No API keys required, all data sources are free and open.
+This guide provides complete configuration instructions for **100% open-source** Veyra. No API keys required, all data sources are free and open.
 
 ## Environment Configuration
 
@@ -56,7 +56,7 @@ KAGGLE_ENABLED=true
 KAGGLE_CACHE_DATASETS=true
 
 # Database Configuration
-DATABASE_URL=sqlite:///./financial_master.db
+DATABASE_URL=sqlite:///./veyra.db
 DATABASE_POOL_SIZE=10
 DATABASE_MAX_OVERFLOW=20
 
@@ -65,7 +65,7 @@ REDIS_URL=redis://localhost:6379
 REDIS_CACHE_TTL=300
 
 # Application Configuration
-APP_NAME=Financial Master
+APP_NAME=Veyra
 APP_VERSION=2.0.0
 APP_DEBUG=false
 APP_LOG_LEVEL=INFO
@@ -219,7 +219,7 @@ class Config:
     QUANTCONNECT_API_KEY = os.getenv('QUANTCONNECT_API_KEY')
     
     # Database
-    DATABASE_URL = os.getenv('DATABASE_URL', 'postgresql://localhost:5432/financial_master')
+    DATABASE_URL = os.getenv('DATABASE_URL', 'postgresql://localhost:5432/veyra')
     REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379/0')
     
     # Security
@@ -310,7 +310,7 @@ class ProductionConfig(Config):
 
 ```sql
 -- Create database
-CREATE DATABASE financial_master;
+CREATE DATABASE veyra;
 
 -- Users table
 CREATE TABLE users (
@@ -646,32 +646,32 @@ CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: financial-master
+  name: veyra
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: financial-master
+      app: veyra
   template:
     metadata:
       labels:
-        app: financial-master
+        app: veyra
     spec:
       containers:
-      - name: financial-master
-        image: financial-master:latest
+      - name: veyra
+        image: veyra:latest
         ports:
         - containerPort: 8000
         env:
           - name: DATABASE_URL
             valueFrom:
               secretKeyRef:
-                name: financial-master-secrets
+                name: veyra-secrets
                 key: database-url
           - name: SECRET_KEY
             valueFrom:
               secretKeyRef:
-                name: financial-master-secrets
+                name: veyra-secrets
                 key: secret-key
         resources:
           requests:
@@ -696,10 +696,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: financial-master-service
+  name: veyra-service
 spec:
   selector:
-    app: financial-master
+    app: veyra
   ports:
     - protocol: TCP
       port: 80
@@ -709,7 +709,7 @@ spec:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: financial-master-secrets
+  name: veyra-secrets
 type: Opaque
 data:
   database-url: <base64-encoded-database-url>
@@ -763,7 +763,7 @@ version: '3.8'
 
 services:
   app:
-    image: financial-master:latest
+    image: veyra:latest
     ports:
       - "8000:8000"
     environment:

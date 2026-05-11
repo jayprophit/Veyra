@@ -37,7 +37,7 @@ export const DashboardLayout: React.FC = () => {
       {/* Sidebar */}
       <aside className="w-64 bg-slate-900 text-white flex flex-col">
         <div className="p-6">
-          <h1 className="text-xl font-bold">Financial Master</h1>
+          <h1 className="text-xl font-bold">Veyra</h1>
           <p className="text-xs text-slate-400 mt-1">v2.60.0</p>
         </div>
 

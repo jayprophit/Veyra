@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Network
 metadata:
-  name: financial-master-network
+  name: veyra-network
 spec:
   type: multi-cloud
   providers:
@@ -15,16 +15,16 @@ spec:
         - subnet-3
     
     azure:
-      vnetId: /subscriptions/12345678-1234-5678-1234-567812345678/resourceGroups/financial-master-azure/providers/Microsoft.Network/virtualNetworks/financial-master-vnet
+      vnetId: /subscriptions/12345678-1234-5678-1234-567812345678/resourceGroups/veyra-azure/providers/Microsoft.Network/virtualNetworks/veyra-vnet
       subnets:
         - container-apps-subnet
         - database-subnet
     
     gcp:
-      networkId: projects/financial-master-gcp/global/networks/financial-master-network
+      networkId: projects/veyra-gcp/global/networks/veyra-network
       subnets:
-        - financial-master-private
-        - financial-master-public
+        - veyra-private
+        - veyra-public
   
   peering:
     aws-azure:
@@ -49,13 +49,13 @@ spec:
     firewall:
       aws:
         securityGroups:
-          - financial-master-sg
+          - veyra-sg
         networkAcls:
-          - financial-master-nacl
+          - veyra-nacl
       
       azure:
         networkSecurityGroups:
-          - financial-master-nsg
+          - veyra-nsg
         networkSecurityGroupRules:
           - allow-https
           - allow-ssh

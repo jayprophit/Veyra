@@ -110,7 +110,6 @@ class NotificationManager:
     
     async def _send_email(self, notification: Notification):
         """Send email notification."""
-        import os
         
         smtp_host = os.getenv('SMTP_HOST')
         smtp_port = int(os.getenv('SMTP_PORT', '587'))
@@ -125,10 +124,10 @@ class NotificationManager:
         msg = MIMEMultipart()
         msg['From'] = smtp_user
         msg['To'] = to_email
-        msg['Subject'] = f"[Financial Master] {notification.title}"
+        msg['Subject'] = f"[Veyra] {notification.title}"
         
         body = f"""
-Financial Master Notification
+Veyra Notification
 
 Priority: {notification.priority.upper()}
 Title: {notification.title}
@@ -157,7 +156,7 @@ Title: {notification.title}
             plyer_notify.notify(
                 title=notification.title,
                 message=notification.message,
-                app_name="Financial Master",
+                app_name="Veyra",
                 timeout=10
             )
             logger.info("Desktop notification sent")
@@ -182,7 +181,6 @@ Title: {notification.title}
     
     async def _send_webhook(self, notification: Notification):
         """Send webhook notification (Discord/Slack)."""
-        import os
         import aiohttp
         
         webhook_url = os.getenv('WEBHOOK_URL')
@@ -196,7 +194,7 @@ Title: {notification.title}
                 "description": notification.message,
                 "color": 3447003 if notification.priority == "normal" else 15158332,
                 "timestamp": datetime.now().isoformat(),
-                "footer": {"text": "Financial Master"}
+                "footer": {"text": "Veyra"}
             }]
         }
         

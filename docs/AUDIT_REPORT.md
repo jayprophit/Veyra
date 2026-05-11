@@ -1,5 +1,5 @@
 
-# Financial Master - Comprehensive Audit Report
+# Veyra - Comprehensive Audit Report
 
 ## Summary
 - **Total Files Checked**: 2104
@@ -60,351 +60,351 @@
 ## Error Details
 
 ### Python Files
-- Line 12: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\examples\database_demo.py
-- Line 34: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 35: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 45: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 46: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 47: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 56: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 57: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 58: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 66: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 67: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 76: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 77: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 78: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 85: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 93: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 94: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 102: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 110: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 118: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 126: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 127: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 128: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 136: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 137: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 145: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 146: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 158: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 166: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 175: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 183: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 191: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 199: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 207: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 215: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 223: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 231: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 244: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 251: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 258: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 265: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\comprehensive_module_test.py
-- Line 31: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\final_verification.py
-- Line 42: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\final_verification.py
-- Line 53: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\final_verification.py
-- Line 64: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\final_verification.py
-- Line 75: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\final_verification.py
-- Line 88: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\final_verification.py
-- Line 99: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\final_verification.py
-- Line 111: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\final_verification.py
-- Line 122: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\final_verification.py
-- Line 133: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\final_verification.py
-- Line 144: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\final_verification.py
-- Line 155: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\final_verification.py
-- Line 166: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\final_verification.py
-- Line 177: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\final_verification.py
-- Line 188: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\final_verification.py
-- Line 30: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\quick_test.py
-- Line 40: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\quick_test.py
-- Line 52: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\quick_test.py
-- Line 64: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\quick_test.py
-- Line 76: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\quick_test.py
-- Line 88: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\quick_test.py
-- Line 99: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\quick_test.py
-- Line 110: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\quick_test.py
-- Line 121: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\quick_test.py
-- Line 132: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\quick_test.py
-- Line 10: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\test_accounting_engine.py
-- Line 11: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\test_autonomous_agent_framework.py
-- Line 14: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\test_phase10_transcendent.py
-- Line 15: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\test_phase10_transcendent.py
-- Line 16: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\test_phase10_transcendent.py
-- Line 17: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\test_phase10_transcendent.py
-- Line 18: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\test_phase10_transcendent.py
-- Line 32: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\test_runner_cycle1.py
-- Line 43: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\test_runner_cycle1.py
-- Line 54: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\test_runner_cycle1.py
-- Line 65: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\test_runner_cycle1.py
-- Line 76: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\test_runner_cycle1.py
-- Line 31: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\test_runner_cycle2.py
-- Line 42: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\test_runner_cycle2.py
-- Line 53: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\test_runner_cycle2.py
-- Line 64: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\test_runner_cycle2.py
-- Line 75: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\test_runner_cycle2.py
-- Line 86: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\test_runner_cycle2.py
-- Line 97: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\test_runner_cycle2.py
-- Line 108: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\test_runner_cycle2.py
-- Line 119: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\test_runner_cycle2.py
-- Line 130: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\test_runner_cycle2.py
-- Line 31: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\test_runner_cycle3.py
-- Line 42: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\test_runner_cycle3.py
-- Line 54: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\test_runner_cycle3.py
-- Line 65: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\test_runner_cycle3.py
-- Line 76: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\test_runner_cycle3.py
-- Line 87: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\test_runner_cycle3.py
-- Line 98: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\test_runner_cycle3.py
-- Line 109: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\test_runner_cycle3.py
-- Line 120: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\test_runner_cycle3.py
-- Line 131: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\test_runner_cycle3.py
-- Line 14: Environment variable 'ALPACA_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\tests\integration\test_broker_integration.py
-- Line 214: Environment variable 'POLYGON_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\tests\integration\test_broker_integration.py
-- Line 229: Environment variable 'POLYGON_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\tests\integration\test_broker_integration.py
-- Line 255: Environment variable 'POLYGON_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\tests\integration\test_broker_integration.py
-- Line 12: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\integration\test_database.py
-- Line 380: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\tests\integration\test_database.py
-- Line 122: Environment variable 'DB_TYPE', 'sqlite' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api_server.py
-- Line 123: Environment variable 'SQLITE_PATH', './data/financial_master.db' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api_server.py
-- Line 129: Environment variable 'MAX_DAILY_TRADES', 5' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api_server.py
-- Line 130: Environment variable 'APPROVAL_THRESHOLD', 10000' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api_server.py
-- Line 454: Environment variable 'API_PORT', 8000' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api_server.py
-- Line 455: Environment variable 'DEBUG', 'false' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api_server.py
-- Line 1260: Environment variable 'NOTIFICATION_EMAIL", ' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\autonomous_agent_framework.py
-- Line 1261: Environment variable 'NOTIFICATION_PASSWORD", ' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\autonomous_agent_framework.py
-- Line 1262: Environment variable 'ADMIN_EMAIL", ' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\autonomous_agent_framework.py
-- Line 92: Environment variable 'ALPHAVANTAGE_KEY", ' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\autonomous_master_controller.py
-- Line 93: Environment variable 'OPENAI_KEY", ' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\autonomous_master_controller.py
-- Line 17: Environment variable 'DATA_SOURCE', 'live' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\config.py
-- Line 20: Environment variable 'POLYGON_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\config.py
-- Line 21: Environment variable 'ALPACA_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\config.py
-- Line 22: Environment variable 'ALPACA_SECRET_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\config.py
-- Line 23: Environment variable 'ALPHA_VANTAGE_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\config.py
-- Line 26: Environment variable 'ALPACA_BASE_URL', 'https://paper-api.alpaca.markets' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\config.py
-- Line 27: Environment variable 'ALPACA_PAPER_TRADING', 'true' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\config.py
-- Line 30: Environment variable 'DATABASE_URL', 'sqlite:///financial_master.db' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\config.py
-- Line 33: Environment variable 'CACHE_ENABLED', 'true' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\config.py
-- Line 34: Environment variable 'CACHE_TTL', '30' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\config.py
-- Line 37: Environment variable 'WS_ENABLED', 'true' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\config.py
-- Line 38: Environment variable 'WS_REFRESH_INTERVAL', '5' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\config.py
-- Line 41: Environment variable 'ENABLE_REALTIME_PRICES', 'true' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\config.py
-- Line 42: Environment variable 'ENABLE_LIVE_TRADING', 'false' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\config.py
-- Line 43: Environment variable 'ENABLE_AUTO_REFRESH', 'true' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\config.py
-- Line 187: Environment variable 'GITHUB_TOKEN' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\git_automation.py
-- Line 286: Environment variable 'BACKUP_REMOTE_URL', ' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\git_automation.py
-- Line 665: Environment variable 'POLYGON_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\hybrid_data_manager.py
-- Line 666: Environment variable 'ALPACA_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\hybrid_data_manager.py
-- Line 667: Environment variable 'ALPACA_SECRET_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\hybrid_data_manager.py
-- Line 668: Environment variable 'ALPHA_VANTAGE_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\hybrid_data_manager.py
-- Line 59: Environment variable 'ALPACA_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\live_data_manager.py
-- Line 60: Environment variable 'ALPACA_SECRET_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\live_data_manager.py
-- Line 61: Environment variable 'ALPACA_BASE_URL', 'https://paper-api.alpaca.markets' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\live_data_manager.py
-- Line 63: Environment variable 'POLYGON_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\live_data_manager.py
-- Line 66: Environment variable 'ALPHA_VANTAGE_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\live_data_manager.py
-- Line 49: Environment variable 'OPENAI_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\llm_integration_free_tier.py
-- Line 51: Environment variable 'ANTHROPIC_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\llm_integration_free_tier.py
-- Line 84: Environment variable 'DB_TYPE', 'sqlite' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\main.py
-- Line 85: Environment variable 'SQLITE_PATH', './data/financial_master.db' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\main.py
-- Line 94: Environment variable 'OLLAMA_MODEL', 'llama3.2:3b' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\main.py
-- Line 95: Environment variable 'USE_PAID_LLM', 'false' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\main.py
-- Line 96: Environment variable 'OPENAI_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\main.py
-- Line 104: Environment variable 'MAX_DAILY_TRADES', 5' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\main.py
-- Line 105: Environment variable 'APPROVAL_THRESHOLD', 10000' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\main.py
-- Line 115: Environment variable 'USE_MOCK_DATA', 'true' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\main.py
-- Line 116: Environment variable 'FINNHUB_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\main.py
-- Line 26: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\main_enterprise.py
-- Line 27: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\main_enterprise.py
-- Line 28: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\main_enterprise.py
-- Line 29: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\main_enterprise.py
-- Line 30: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\main_enterprise.py
-- Line 58: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\main_enterprise.py
-- Line 61: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\main_enterprise.py
-- Line 52: Environment variable 'TELEGRAM_BOT_TOKEN' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\notifications.py
-- Line 55: Environment variable 'SMTP_HOST' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\notifications.py
-- Line 58: Environment variable 'WEBHOOK_URL' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\notifications.py
-- Line 115: Environment variable 'SMTP_HOST' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\notifications.py
-- Line 116: Environment variable 'SMTP_PORT', '587' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\notifications.py
-- Line 117: Environment variable 'SMTP_USER' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\notifications.py
-- Line 118: Environment variable 'SMTP_PASS' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\notifications.py
-- Line 119: Environment variable 'NOTIFICATION_EMAIL' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\notifications.py
-- Line 188: Environment variable 'WEBHOOK_URL' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\notifications.py
-- Line 400: Environment variable 'var' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\production_security.py
-- Line 404: Environment variable 'JWT_SECRET_KEY', ' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\production_security.py
-- Line 410: Environment variable 'TRADING_MODE', 'paper_only' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\production_security.py
-- Line 415: Environment variable 'DATA_SOURCE', 'mock' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\production_security.py
-- Line 31: Environment variable 'POLYGON_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\realtime_data_integration.py
-- Line 251: Environment variable 'POLYGON_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\realtime_data_integration.py
-- Line 13: Environment variable 'SENTRY_DSN' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\sentry_monitoring.py
-- Line 24: Environment variable 'ENVIRONMENT", "production' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\sentry_monitoring.py
-- Line 25: Environment variable 'RELEASE", "unknown' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\sentry_monitoring.py
-- Line 226: Environment variable 'AZURE_FORM_ENDPOINT', ' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\accounting_engine\receipt_ocr.py
-- Line 227: Environment variable 'AZURE_FORM_KEY', ' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\accounting_engine\receipt_ocr.py
-- Line 62: Environment variable 'OPENAI_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\ai\earnings_analyzer.py
-- Line 63: Environment variable 'ANTHROPIC_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\ai\earnings_analyzer.py
-- Line 55: Environment variable 'OPENAI_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\ai\generative_reports.py
-- Line 13: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\database_routes.py
-- Line 16: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 17: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 18: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 19: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 20: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 21: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 22: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 23: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 24: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 25: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 26: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 27: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 28: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 29: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 30: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 31: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 32: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 33: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 34: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 35: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 36: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 37: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 38: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 39: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 40: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 41: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 42: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 43: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 44: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 45: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 46: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 47: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 48: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 49: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 50: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 51: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 52: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 53: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 54: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 55: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 56: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 57: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 58: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 59: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 60: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 61: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 62: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 63: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 64: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 373: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 1964: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\enhanced_features_api.py
-- Line 9: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\phase11_endpoints.py
-- Line 10: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\phase11_endpoints.py
-- Line 11: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\phase11_endpoints.py
-- Line 12: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api\phase11_endpoints.py
-- Line 22: Environment variable 'ALPACA_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\brokers\alpaca_broker.py
-- Line 23: Environment variable 'ALPACA_SECRET_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\brokers\alpaca_broker.py
-- Line 22: Environment variable 'COINBASE_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\brokers\coinbase_live.py
-- Line 23: Environment variable 'COINBASE_API_SECRET' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\brokers\coinbase_live.py
-- Line 20: Environment variable 'IBKR_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\brokers\ibkr_live.py
-- Line 48: Environment variable 'ALPACA_API_KEY', 'PKYOURKEYHERE' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\brokers\live_broker_manager.py
-- Line 49: Environment variable 'ALPACA_SECRET_KEY', 'YOURSECRETHERE' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\brokers\live_broker_manager.py
-- Line 50: Environment variable 'ALPACA_BASE_URL', 'https://paper-api.alpaca.markets' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\brokers\live_broker_manager.py
-- Line 52: Environment variable 'POLYGON_API_KEY', 'YOURPOLYGONKEYHERE' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\brokers\live_broker_manager.py
-- Line 22: Environment variable 'IBKR_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\brokers\real_broker_factory.py
-- Line 36: Environment variable 'COINBASE_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\brokers\real_broker_factory.py
-- Line 37: Environment variable 'COINBASE_API_SECRET' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\brokers\real_broker_factory.py
-- Line 51: Environment variable 'ALPACA_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\brokers\real_broker_factory.py
-- Line 52: Environment variable 'ALPACA_API_SECRET' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\brokers\real_broker_factory.py
-- Line 12: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\database\cli.py
-- Line 31: Environment variable 'POLYGON_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\data_providers\polygon_provider.py
-- Line 93: Environment variable 'FIXER_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\exchanges\fiat_exchanges.py
-- Line 59: Environment variable 'MONTHLY_CLOUD_BUDGET', '100' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\ops\finops_manager.py
-- Line 264: Environment variable 'RAILWAY_TOKEN' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\ops\finops_manager.py
-- Line 268: Environment variable 'VERCEL_TOKEN' might not be defined in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\ops\finops_manager.py
-- Line 31: Environment variable 'ANDROID_DATA' might not be defined in C:\Users\jpowe\Desktop\Financial Master\.venv\Lib\site-packages\pip\_vendor\platformdirs\__init__.py
-- Line 32: Environment variable 'SHELL' might not be defined in C:\Users\jpowe\Desktop\Financial Master\.venv\Lib\site-packages\pip\_vendor\platformdirs\__init__.py
-- Line 521: Environment variable 'DATABRICKS_RUNTIME_VERSION' might not be defined in C:\Users\jpowe\Desktop\Financial Master\.venv\Lib\site-packages\pip\_vendor\rich\console.py
-- Line 32: Environment variable 'name' might not be defined in C:\Users\jpowe\Desktop\Financial Master\.venv\Lib\site-packages\pip\_vendor\rich\diagnose.py
-- Line 566: Environment variable 'var_name' might not be defined in C:\Users\jpowe\Desktop\Financial Master\.venv\Lib\site-packages\pip\_internal\req\req_file.py
+- Line 12: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\examples\database_demo.py
+- Line 34: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 35: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 45: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 46: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 47: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 56: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 57: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 58: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 66: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 67: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 76: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 77: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 78: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 85: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 93: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 94: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 102: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 110: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 118: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 126: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 127: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 128: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 136: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 137: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 145: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 146: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 158: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 166: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 175: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 183: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 191: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 199: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 207: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 215: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 223: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 231: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 244: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 251: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 258: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 265: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\comprehensive_module_test.py
+- Line 31: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\final_verification.py
+- Line 42: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\final_verification.py
+- Line 53: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\final_verification.py
+- Line 64: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\final_verification.py
+- Line 75: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\final_verification.py
+- Line 88: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\final_verification.py
+- Line 99: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\final_verification.py
+- Line 111: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\final_verification.py
+- Line 122: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\final_verification.py
+- Line 133: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\final_verification.py
+- Line 144: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\final_verification.py
+- Line 155: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\final_verification.py
+- Line 166: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\final_verification.py
+- Line 177: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\final_verification.py
+- Line 188: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\final_verification.py
+- Line 30: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\quick_test.py
+- Line 40: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\quick_test.py
+- Line 52: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\quick_test.py
+- Line 64: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\quick_test.py
+- Line 76: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\quick_test.py
+- Line 88: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\quick_test.py
+- Line 99: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\quick_test.py
+- Line 110: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\quick_test.py
+- Line 121: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\quick_test.py
+- Line 132: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\quick_test.py
+- Line 10: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\test_accounting_engine.py
+- Line 11: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\test_autonomous_agent_framework.py
+- Line 14: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\test_phase10_transcendent.py
+- Line 15: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\test_phase10_transcendent.py
+- Line 16: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\test_phase10_transcendent.py
+- Line 17: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\test_phase10_transcendent.py
+- Line 18: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\test_phase10_transcendent.py
+- Line 32: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\test_runner_cycle1.py
+- Line 43: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\test_runner_cycle1.py
+- Line 54: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\test_runner_cycle1.py
+- Line 65: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\test_runner_cycle1.py
+- Line 76: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\test_runner_cycle1.py
+- Line 31: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\test_runner_cycle2.py
+- Line 42: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\test_runner_cycle2.py
+- Line 53: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\test_runner_cycle2.py
+- Line 64: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\test_runner_cycle2.py
+- Line 75: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\test_runner_cycle2.py
+- Line 86: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\test_runner_cycle2.py
+- Line 97: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\test_runner_cycle2.py
+- Line 108: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\test_runner_cycle2.py
+- Line 119: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\test_runner_cycle2.py
+- Line 130: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\test_runner_cycle2.py
+- Line 31: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\test_runner_cycle3.py
+- Line 42: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\test_runner_cycle3.py
+- Line 54: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\test_runner_cycle3.py
+- Line 65: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\test_runner_cycle3.py
+- Line 76: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\test_runner_cycle3.py
+- Line 87: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\test_runner_cycle3.py
+- Line 98: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\test_runner_cycle3.py
+- Line 109: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\test_runner_cycle3.py
+- Line 120: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\test_runner_cycle3.py
+- Line 131: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\test_runner_cycle3.py
+- Line 14: Environment variable 'ALPACA_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\tests\integration\test_broker_integration.py
+- Line 214: Environment variable 'POLYGON_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\tests\integration\test_broker_integration.py
+- Line 229: Environment variable 'POLYGON_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\tests\integration\test_broker_integration.py
+- Line 255: Environment variable 'POLYGON_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\tests\integration\test_broker_integration.py
+- Line 12: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\integration\test_database.py
+- Line 380: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\tests\integration\test_database.py
+- Line 122: Environment variable 'DB_TYPE', 'sqlite' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api_server.py
+- Line 123: Environment variable 'SQLITE_PATH', './data/veyra.db' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api_server.py
+- Line 129: Environment variable 'MAX_DAILY_TRADES', 5' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api_server.py
+- Line 130: Environment variable 'APPROVAL_THRESHOLD', 10000' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api_server.py
+- Line 454: Environment variable 'API_PORT', 8000' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api_server.py
+- Line 455: Environment variable 'DEBUG', 'false' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api_server.py
+- Line 1260: Environment variable 'NOTIFICATION_EMAIL", ' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\autonomous_agent_framework.py
+- Line 1261: Environment variable 'NOTIFICATION_PASSWORD", ' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\autonomous_agent_framework.py
+- Line 1262: Environment variable 'ADMIN_EMAIL", ' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\autonomous_agent_framework.py
+- Line 92: Environment variable 'ALPHAVANTAGE_KEY", ' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\autonomous_master_controller.py
+- Line 93: Environment variable 'OPENAI_KEY", ' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\autonomous_master_controller.py
+- Line 17: Environment variable 'DATA_SOURCE', 'live' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\config.py
+- Line 20: Environment variable 'POLYGON_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\config.py
+- Line 21: Environment variable 'ALPACA_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\config.py
+- Line 22: Environment variable 'ALPACA_SECRET_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\config.py
+- Line 23: Environment variable 'ALPHA_VANTAGE_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\config.py
+- Line 26: Environment variable 'ALPACA_BASE_URL', 'https://paper-api.alpaca.markets' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\config.py
+- Line 27: Environment variable 'ALPACA_PAPER_TRADING', 'true' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\config.py
+- Line 30: Environment variable 'DATABASE_URL', 'sqlite:///veyra.db' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\config.py
+- Line 33: Environment variable 'CACHE_ENABLED', 'true' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\config.py
+- Line 34: Environment variable 'CACHE_TTL', '30' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\config.py
+- Line 37: Environment variable 'WS_ENABLED', 'true' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\config.py
+- Line 38: Environment variable 'WS_REFRESH_INTERVAL', '5' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\config.py
+- Line 41: Environment variable 'ENABLE_REALTIME_PRICES', 'true' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\config.py
+- Line 42: Environment variable 'ENABLE_LIVE_TRADING', 'false' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\config.py
+- Line 43: Environment variable 'ENABLE_AUTO_REFRESH', 'true' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\config.py
+- Line 187: Environment variable 'GITHUB_TOKEN' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\git_automation.py
+- Line 286: Environment variable 'BACKUP_REMOTE_URL', ' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\git_automation.py
+- Line 665: Environment variable 'POLYGON_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\hybrid_data_manager.py
+- Line 666: Environment variable 'ALPACA_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\hybrid_data_manager.py
+- Line 667: Environment variable 'ALPACA_SECRET_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\hybrid_data_manager.py
+- Line 668: Environment variable 'ALPHA_VANTAGE_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\hybrid_data_manager.py
+- Line 59: Environment variable 'ALPACA_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\live_data_manager.py
+- Line 60: Environment variable 'ALPACA_SECRET_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\live_data_manager.py
+- Line 61: Environment variable 'ALPACA_BASE_URL', 'https://paper-api.alpaca.markets' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\live_data_manager.py
+- Line 63: Environment variable 'POLYGON_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\live_data_manager.py
+- Line 66: Environment variable 'ALPHA_VANTAGE_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\live_data_manager.py
+- Line 49: Environment variable 'OPENAI_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\llm_integration_free_tier.py
+- Line 51: Environment variable 'ANTHROPIC_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\llm_integration_free_tier.py
+- Line 84: Environment variable 'DB_TYPE', 'sqlite' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\main.py
+- Line 85: Environment variable 'SQLITE_PATH', './data/veyra.db' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\main.py
+- Line 94: Environment variable 'OLLAMA_MODEL', 'llama3.2:3b' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\main.py
+- Line 95: Environment variable 'USE_PAID_LLM', 'false' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\main.py
+- Line 96: Environment variable 'OPENAI_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\main.py
+- Line 104: Environment variable 'MAX_DAILY_TRADES', 5' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\main.py
+- Line 105: Environment variable 'APPROVAL_THRESHOLD', 10000' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\main.py
+- Line 115: Environment variable 'USE_MOCK_DATA', 'true' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\main.py
+- Line 116: Environment variable 'FINNHUB_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\main.py
+- Line 26: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\main_enterprise.py
+- Line 27: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\main_enterprise.py
+- Line 28: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\main_enterprise.py
+- Line 29: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\main_enterprise.py
+- Line 30: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\main_enterprise.py
+- Line 58: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\main_enterprise.py
+- Line 61: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\main_enterprise.py
+- Line 52: Environment variable 'TELEGRAM_BOT_TOKEN' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\notifications.py
+- Line 55: Environment variable 'SMTP_HOST' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\notifications.py
+- Line 58: Environment variable 'WEBHOOK_URL' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\notifications.py
+- Line 115: Environment variable 'SMTP_HOST' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\notifications.py
+- Line 116: Environment variable 'SMTP_PORT', '587' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\notifications.py
+- Line 117: Environment variable 'SMTP_USER' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\notifications.py
+- Line 118: Environment variable 'SMTP_PASS' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\notifications.py
+- Line 119: Environment variable 'NOTIFICATION_EMAIL' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\notifications.py
+- Line 188: Environment variable 'WEBHOOK_URL' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\notifications.py
+- Line 400: Environment variable 'var' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\production_security.py
+- Line 404: Environment variable 'JWT_SECRET_KEY', ' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\production_security.py
+- Line 410: Environment variable 'TRADING_MODE', 'paper_only' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\production_security.py
+- Line 415: Environment variable 'DATA_SOURCE', 'mock' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\production_security.py
+- Line 31: Environment variable 'POLYGON_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\realtime_data_integration.py
+- Line 251: Environment variable 'POLYGON_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\realtime_data_integration.py
+- Line 13: Environment variable 'SENTRY_DSN' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\sentry_monitoring.py
+- Line 24: Environment variable 'ENVIRONMENT", "production' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\sentry_monitoring.py
+- Line 25: Environment variable 'RELEASE", "unknown' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\sentry_monitoring.py
+- Line 226: Environment variable 'AZURE_FORM_ENDPOINT', ' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\accounting_engine\receipt_ocr.py
+- Line 227: Environment variable 'AZURE_FORM_KEY', ' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\accounting_engine\receipt_ocr.py
+- Line 62: Environment variable 'OPENAI_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\ai\earnings_analyzer.py
+- Line 63: Environment variable 'ANTHROPIC_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\ai\earnings_analyzer.py
+- Line 55: Environment variable 'OPENAI_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\ai\generative_reports.py
+- Line 13: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\database_routes.py
+- Line 16: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 17: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 18: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 19: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 20: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 21: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 22: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 23: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 24: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 25: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 26: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 27: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 28: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 29: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 30: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 31: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 32: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 33: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 34: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 35: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 36: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 37: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 38: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 39: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 40: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 41: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 42: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 43: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 44: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 45: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 46: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 47: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 48: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 49: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 50: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 51: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 52: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 53: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 54: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 55: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 56: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 57: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 58: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 59: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 60: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 61: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 62: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 63: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 64: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 373: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 1964: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\enhanced_features_api.py
+- Line 9: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\phase11_endpoints.py
+- Line 10: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\phase11_endpoints.py
+- Line 11: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\phase11_endpoints.py
+- Line 12: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api\phase11_endpoints.py
+- Line 22: Environment variable 'ALPACA_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\brokers\alpaca_broker.py
+- Line 23: Environment variable 'ALPACA_SECRET_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\brokers\alpaca_broker.py
+- Line 22: Environment variable 'COINBASE_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\brokers\coinbase_live.py
+- Line 23: Environment variable 'COINBASE_API_SECRET' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\brokers\coinbase_live.py
+- Line 20: Environment variable 'IBKR_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\brokers\ibkr_live.py
+- Line 48: Environment variable 'ALPACA_API_KEY', 'PKYOURKEYHERE' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\brokers\live_broker_manager.py
+- Line 49: Environment variable 'ALPACA_SECRET_KEY', 'YOURSECRETHERE' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\brokers\live_broker_manager.py
+- Line 50: Environment variable 'ALPACA_BASE_URL', 'https://paper-api.alpaca.markets' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\brokers\live_broker_manager.py
+- Line 52: Environment variable 'POLYGON_API_KEY', 'YOURPOLYGONKEYHERE' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\brokers\live_broker_manager.py
+- Line 22: Environment variable 'IBKR_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\brokers\real_broker_factory.py
+- Line 36: Environment variable 'COINBASE_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\brokers\real_broker_factory.py
+- Line 37: Environment variable 'COINBASE_API_SECRET' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\brokers\real_broker_factory.py
+- Line 51: Environment variable 'ALPACA_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\brokers\real_broker_factory.py
+- Line 52: Environment variable 'ALPACA_API_SECRET' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\brokers\real_broker_factory.py
+- Line 12: Import error - module 'app' not found in C:\Users\jpowe\Desktop\Veyra\src\backend\app\database\cli.py
+- Line 31: Environment variable 'POLYGON_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\data_providers\polygon_provider.py
+- Line 93: Environment variable 'FIXER_API_KEY' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\exchanges\fiat_exchanges.py
+- Line 59: Environment variable 'MONTHLY_CLOUD_BUDGET', '100' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\ops\finops_manager.py
+- Line 264: Environment variable 'RAILWAY_TOKEN' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\ops\finops_manager.py
+- Line 268: Environment variable 'VERCEL_TOKEN' might not be defined in C:\Users\jpowe\Desktop\Veyra\src\backend\app\ops\finops_manager.py
+- Line 31: Environment variable 'ANDROID_DATA' might not be defined in C:\Users\jpowe\Desktop\Veyra\.venv\Lib\site-packages\pip\_vendor\platformdirs\__init__.py
+- Line 32: Environment variable 'SHELL' might not be defined in C:\Users\jpowe\Desktop\Veyra\.venv\Lib\site-packages\pip\_vendor\platformdirs\__init__.py
+- Line 521: Environment variable 'DATABRICKS_RUNTIME_VERSION' might not be defined in C:\Users\jpowe\Desktop\Veyra\.venv\Lib\site-packages\pip\_vendor\rich\console.py
+- Line 32: Environment variable 'name' might not be defined in C:\Users\jpowe\Desktop\Veyra\.venv\Lib\site-packages\pip\_vendor\rich\diagnose.py
+- Line 566: Environment variable 'var_name' might not be defined in C:\Users\jpowe\Desktop\Veyra\.venv\Lib\site-packages\pip\_internal\req\req_file.py
 
 ### Javascript Files
-- Line 2: Import path '../pages/LoginPage'' not found in C:\Users\jpowe\Desktop\Financial Master\tests\e2e\specs\dashboard.spec.ts
-- Line 3: Import path '../pages/DashboardPage'' not found in C:\Users\jpowe\Desktop\Financial Master\tests\e2e\specs\dashboard.spec.ts
-- Line 2: Import path '../pages/LoginPage'' not found in C:\Users\jpowe\Desktop\Financial Master\tests\e2e\specs\login.spec.ts
-- Line 3: Import path '../pages/DashboardPage'' not found in C:\Users\jpowe\Desktop\Financial Master\tests\e2e\specs\login.spec.ts
-- Line 2: Import path '../services/api'' not found in C:\Users\jpowe\Desktop\Financial Master\src\frontend\dashboard\hooks\useFuelData.ts
-- Line 24: Import path './src/store'' not found in C:\Users\jpowe\Desktop\Financial Master\src\mobile\mobile\App.tsx
-- Line 27: Import path './src/screens/PortfolioScreen'' not found in C:\Users\jpowe\Desktop\Financial Master\src\mobile\mobile\App.tsx
-- Line 28: Import path './src/screens/TradingScreen'' not found in C:\Users\jpowe\Desktop\Financial Master\src\mobile\mobile\App.tsx
-- Line 29: Import path './src/screens/TaxScreen'' not found in C:\Users\jpowe\Desktop\Financial Master\src\mobile\mobile\App.tsx
-- Line 30: Import path './src/screens/FuelTrackerScreen'' not found in C:\Users\jpowe\Desktop\Financial Master\src\mobile\mobile\App.tsx
-- Line 31: Import path './src/screens/DashboardScreen'' not found in C:\Users\jpowe\Desktop\Financial Master\src\mobile\mobile\App.tsx
-- Line 32: Import path './src/screens/SettingsScreen'' not found in C:\Users\jpowe\Desktop\Financial Master\src\mobile\mobile\App.tsx
-- Line 35: Import path './src/services/websocket'' not found in C:\Users\jpowe\Desktop\Financial Master\src\mobile\mobile\App.tsx
-- Line 36: Import path './src/services/notifications'' not found in C:\Users\jpowe\Desktop\Financial Master\src\mobile\mobile\App.tsx
-- Line 37: Import path './src/services/biometricAuth'' not found in C:\Users\jpowe\Desktop\Financial Master\src\mobile\mobile\App.tsx
-- Line 4: Import path './components/Layout'' not found in C:\Users\jpowe\Desktop\Financial Master\src\frontend\dashboard\App.tsx
-- Line 5: Import path './pages/Dashboard'' not found in C:\Users\jpowe\Desktop\Financial Master\src\frontend\dashboard\App.tsx
-- Line 6: Import path './pages/Portfolio'' not found in C:\Users\jpowe\Desktop\Financial Master\src\frontend\dashboard\App.tsx
-- Line 7: Import path './pages/Agents'' not found in C:\Users\jpowe\Desktop\Financial Master\src\frontend\dashboard\App.tsx
-- Line 8: Import path './pages/Tax'' not found in C:\Users\jpowe\Desktop\Financial Master\src\frontend\dashboard\App.tsx
-- Line 9: Import path './pages/Settings'' not found in C:\Users\jpowe\Desktop\Financial Master\src\frontend\dashboard\App.tsx
-- Line 5: Import path './App'' not found in C:\Users\jpowe\Desktop\Financial Master\src\frontend\dashboard\main.tsx
-- Line 38: Import path '../../hooks/useFuelData'' not found in C:\Users\jpowe\Desktop\Financial Master\src\frontend\dashboard\components\FuelTracker\FuelTracker.tsx
-- Line 5: Import path './components/Layout/DashboardLayout'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\App.tsx
-- Line 6: Import path './pages/AnalysisPage'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\App.tsx
-- Line 7: Import path './pages/DividendTrackerPage'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\App.tsx
-- Line 8: Import path './pages/EnhancedSettingsPage'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\App.tsx
-- Line 9: Import path './pages/MarketDataPage'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\App.tsx
-- Line 10: Import path './pages/PortfolioPage'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\App.tsx
-- Line 11: Import path './pages/RiskPage'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\App.tsx
-- Line 12: Import path './pages/StrategyBuilderPage'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\App.tsx
-- Line 13: Import path './pages/TaxDashboardPage'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\App.tsx
-- Line 14: Import path './pages/TradingPage'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\App.tsx
-- Line 4: Import path '../services/api'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\pages\AnalysisPage.tsx
-- Line 3: Import path '../services/api'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\pages\DividendTrackerPage.tsx
-- Line 4: Import path '../services/api'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\pages\EnhancedPortfolioPage.tsx
-- Line 5: Import path '../components/UI/DataTable'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\pages\EnhancedPortfolioPage.tsx
-- Line 6: Import path '../components/UI/Modal'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\pages\EnhancedPortfolioPage.tsx
-- Line 7: Import path '../components/UI/ChartWidgets'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\pages\EnhancedPortfolioPage.tsx
-- Line 8: Import path '../hooks/useLocalStorage'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\pages\EnhancedPortfolioPage.tsx
-- Line 17: Import path '../hooks/useLocalStorage'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\pages\EnhancedSettingsPage.tsx
-- Line 18: Import path '../components/UI/Modal'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\pages\EnhancedSettingsPage.tsx
-- Line 14: Import path '../services/api'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\pages\MarketDataPage.tsx
-- Line 43: Import path '../components/UI/DataTable'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\pages\MarketIntelligencePage.tsx
-- Line 44: Import path '../components/UI/Modal'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\pages\MarketIntelligencePage.tsx
-- Line 45: Import path '../components/UI/ChartWidgets'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\pages\MarketIntelligencePage.tsx
-- Line 46: Import path '../hooks/useLocalStorage'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\pages\MarketIntelligencePage.tsx
-- Line 16: Import path '../services/api'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\pages\PortfolioPage.tsx
-- Line 4: Import path '../services/api'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\pages\RiskPage.tsx
-- Line 3: Import path '../services/api'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\pages\StrategyBuilderPage.tsx
-- Line 33: Import path '../components/UI/DataTable'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\pages\TaxDashboardPage.tsx
-- Line 34: Import path '../components/UI/Modal'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\pages\TaxDashboardPage.tsx
-- Line 35: Import path '../components/UI/ChartWidgets'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\pages\TaxDashboardPage.tsx
-- Line 36: Import path '../hooks/useLocalStorage'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\pages\TaxDashboardPage.tsx
-- Line 4: Import path '../services/api'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\pages\TradingPage.tsx
-- Line 15: Import path '../../hooks/useWebSocket'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\components\Layout\DashboardLayout.tsx
-- Line 16: Import path './ConnectionStatus'' not found in C:\Users\jpowe\Desktop\Financial Master\frontend\src\components\Layout\DashboardLayout.tsx
+- Line 2: Import path '../pages/LoginPage'' not found in C:\Users\jpowe\Desktop\Veyra\tests\e2e\specs\dashboard.spec.ts
+- Line 3: Import path '../pages/DashboardPage'' not found in C:\Users\jpowe\Desktop\Veyra\tests\e2e\specs\dashboard.spec.ts
+- Line 2: Import path '../pages/LoginPage'' not found in C:\Users\jpowe\Desktop\Veyra\tests\e2e\specs\login.spec.ts
+- Line 3: Import path '../pages/DashboardPage'' not found in C:\Users\jpowe\Desktop\Veyra\tests\e2e\specs\login.spec.ts
+- Line 2: Import path '../services/api'' not found in C:\Users\jpowe\Desktop\Veyra\src\frontend\dashboard\hooks\useFuelData.ts
+- Line 24: Import path './src/store'' not found in C:\Users\jpowe\Desktop\Veyra\src\mobile\mobile\App.tsx
+- Line 27: Import path './src/screens/PortfolioScreen'' not found in C:\Users\jpowe\Desktop\Veyra\src\mobile\mobile\App.tsx
+- Line 28: Import path './src/screens/TradingScreen'' not found in C:\Users\jpowe\Desktop\Veyra\src\mobile\mobile\App.tsx
+- Line 29: Import path './src/screens/TaxScreen'' not found in C:\Users\jpowe\Desktop\Veyra\src\mobile\mobile\App.tsx
+- Line 30: Import path './src/screens/FuelTrackerScreen'' not found in C:\Users\jpowe\Desktop\Veyra\src\mobile\mobile\App.tsx
+- Line 31: Import path './src/screens/DashboardScreen'' not found in C:\Users\jpowe\Desktop\Veyra\src\mobile\mobile\App.tsx
+- Line 32: Import path './src/screens/SettingsScreen'' not found in C:\Users\jpowe\Desktop\Veyra\src\mobile\mobile\App.tsx
+- Line 35: Import path './src/services/websocket'' not found in C:\Users\jpowe\Desktop\Veyra\src\mobile\mobile\App.tsx
+- Line 36: Import path './src/services/notifications'' not found in C:\Users\jpowe\Desktop\Veyra\src\mobile\mobile\App.tsx
+- Line 37: Import path './src/services/biometricAuth'' not found in C:\Users\jpowe\Desktop\Veyra\src\mobile\mobile\App.tsx
+- Line 4: Import path './components/Layout'' not found in C:\Users\jpowe\Desktop\Veyra\src\frontend\dashboard\App.tsx
+- Line 5: Import path './pages/Dashboard'' not found in C:\Users\jpowe\Desktop\Veyra\src\frontend\dashboard\App.tsx
+- Line 6: Import path './pages/Portfolio'' not found in C:\Users\jpowe\Desktop\Veyra\src\frontend\dashboard\App.tsx
+- Line 7: Import path './pages/Agents'' not found in C:\Users\jpowe\Desktop\Veyra\src\frontend\dashboard\App.tsx
+- Line 8: Import path './pages/Tax'' not found in C:\Users\jpowe\Desktop\Veyra\src\frontend\dashboard\App.tsx
+- Line 9: Import path './pages/Settings'' not found in C:\Users\jpowe\Desktop\Veyra\src\frontend\dashboard\App.tsx
+- Line 5: Import path './App'' not found in C:\Users\jpowe\Desktop\Veyra\src\frontend\dashboard\main.tsx
+- Line 38: Import path '../../hooks/useFuelData'' not found in C:\Users\jpowe\Desktop\Veyra\src\frontend\dashboard\components\FuelTracker\FuelTracker.tsx
+- Line 5: Import path './components/Layout/DashboardLayout'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\App.tsx
+- Line 6: Import path './pages/AnalysisPage'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\App.tsx
+- Line 7: Import path './pages/DividendTrackerPage'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\App.tsx
+- Line 8: Import path './pages/EnhancedSettingsPage'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\App.tsx
+- Line 9: Import path './pages/MarketDataPage'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\App.tsx
+- Line 10: Import path './pages/PortfolioPage'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\App.tsx
+- Line 11: Import path './pages/RiskPage'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\App.tsx
+- Line 12: Import path './pages/StrategyBuilderPage'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\App.tsx
+- Line 13: Import path './pages/TaxDashboardPage'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\App.tsx
+- Line 14: Import path './pages/TradingPage'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\App.tsx
+- Line 4: Import path '../services/api'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\pages\AnalysisPage.tsx
+- Line 3: Import path '../services/api'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\pages\DividendTrackerPage.tsx
+- Line 4: Import path '../services/api'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\pages\EnhancedPortfolioPage.tsx
+- Line 5: Import path '../components/UI/DataTable'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\pages\EnhancedPortfolioPage.tsx
+- Line 6: Import path '../components/UI/Modal'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\pages\EnhancedPortfolioPage.tsx
+- Line 7: Import path '../components/UI/ChartWidgets'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\pages\EnhancedPortfolioPage.tsx
+- Line 8: Import path '../hooks/useLocalStorage'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\pages\EnhancedPortfolioPage.tsx
+- Line 17: Import path '../hooks/useLocalStorage'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\pages\EnhancedSettingsPage.tsx
+- Line 18: Import path '../components/UI/Modal'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\pages\EnhancedSettingsPage.tsx
+- Line 14: Import path '../services/api'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\pages\MarketDataPage.tsx
+- Line 43: Import path '../components/UI/DataTable'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\pages\MarketIntelligencePage.tsx
+- Line 44: Import path '../components/UI/Modal'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\pages\MarketIntelligencePage.tsx
+- Line 45: Import path '../components/UI/ChartWidgets'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\pages\MarketIntelligencePage.tsx
+- Line 46: Import path '../hooks/useLocalStorage'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\pages\MarketIntelligencePage.tsx
+- Line 16: Import path '../services/api'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\pages\PortfolioPage.tsx
+- Line 4: Import path '../services/api'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\pages\RiskPage.tsx
+- Line 3: Import path '../services/api'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\pages\StrategyBuilderPage.tsx
+- Line 33: Import path '../components/UI/DataTable'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\pages\TaxDashboardPage.tsx
+- Line 34: Import path '../components/UI/Modal'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\pages\TaxDashboardPage.tsx
+- Line 35: Import path '../components/UI/ChartWidgets'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\pages\TaxDashboardPage.tsx
+- Line 36: Import path '../hooks/useLocalStorage'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\pages\TaxDashboardPage.tsx
+- Line 4: Import path '../services/api'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\pages\TradingPage.tsx
+- Line 15: Import path '../../hooks/useWebSocket'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\components\Layout\DashboardLayout.tsx
+- Line 16: Import path './ConnectionStatus'' not found in C:\Users\jpowe\Desktop\Veyra\frontend\src\components\Layout\DashboardLayout.tsx
 
 ### Config Files
-- JSON Error in C:\Users\jpowe\Desktop\Financial Master\.windsurf\settings.json: Unexpected UTF-8 BOM (decode using utf-8-sig): line 1 column 1 (char 0)
-- JSON Error in C:\Users\jpowe\Desktop\Financial Master\src\frontend\dashboard\tsconfig.json: Expecting property name enclosed in double quotes: line 9 column 5 (char 187)
+- JSON Error in C:\Users\jpowe\Desktop\Veyra\.windsurf\settings.json: Unexpected UTF-8 BOM (decode using utf-8-sig): line 1 column 1 (char 0)
+- JSON Error in C:\Users\jpowe\Desktop\Veyra\src\frontend\dashboard\tsconfig.json: Expecting property name enclosed in double quotes: line 9 column 5 (char 187)
 
 ### Scripts
-- Line 191: Missing error handling for cd command in C:\Users\jpowe\Desktop\Financial Master\scripts\automate_infrastructure.sh
-- Line 217: Missing error handling for cd command in C:\Users\jpowe\Desktop\Financial Master\scripts\automate_infrastructure.sh
-- Line 55: Missing error handling for cd command in C:\Users\jpowe\Desktop\Financial Master\scripts\quick-start.sh
-- Line 8: Missing error handling for cd command in C:\Users\jpowe\Desktop\Financial Master\setup-scripts\account-setup.sh
-- Line 6: Missing error handling for cd command in C:\Users\jpowe\Desktop\Financial Master\setup-scripts\deployment.sh
-- Line 7: Missing error handling for cd command in C:\Users\jpowe\Desktop\Financial Master\setup-scripts\github-setup.sh
-- Line 45: Missing error handling for cd command in C:\Users\jpowe\Desktop\Financial Master\setup-scripts\local-setup.sh
-- Line 11: Missing error handling for cd command in C:\Users\jpowe\Desktop\Financial Master\multi-cloud\scripts\deploy-aws.sh
-- Line 68: Missing error handling for cd command in C:\Users\jpowe\Desktop\Financial Master\deploy\staging\deploy.sh
-- Line 71: Missing error handling for cd command in C:\Users\jpowe\Desktop\Financial Master\deploy\staging\deploy.sh
-- Line 80: Missing error handling for cd command in C:\Users\jpowe\Desktop\Financial Master\deploy\staging\deploy.sh
-- Line 101: Missing error handling for cd command in C:\Users\jpowe\Desktop\Financial Master\deploy\staging\deploy.sh
-- Line 175: Missing error handling for cd command in C:\Users\jpowe\Desktop\Financial Master\deploy\staging\deploy.sh
-- Line 188: Missing error handling for cd command in C:\Users\jpowe\Desktop\Financial Master\deploy\staging\deploy.sh
-- Line 23: Missing error handling for cd command in C:\Users\jpowe\Desktop\Financial Master\scripts\setup_python_env.bat
+- Line 191: Missing error handling for cd command in C:\Users\jpowe\Desktop\Veyra\scripts\automate_infrastructure.sh
+- Line 217: Missing error handling for cd command in C:\Users\jpowe\Desktop\Veyra\scripts\automate_infrastructure.sh
+- Line 55: Missing error handling for cd command in C:\Users\jpowe\Desktop\Veyra\scripts\quick-start.sh
+- Line 8: Missing error handling for cd command in C:\Users\jpowe\Desktop\Veyra\setup-scripts\account-setup.sh
+- Line 6: Missing error handling for cd command in C:\Users\jpowe\Desktop\Veyra\setup-scripts\deployment.sh
+- Line 7: Missing error handling for cd command in C:\Users\jpowe\Desktop\Veyra\setup-scripts\github-setup.sh
+- Line 45: Missing error handling for cd command in C:\Users\jpowe\Desktop\Veyra\setup-scripts\local-setup.sh
+- Line 11: Missing error handling for cd command in C:\Users\jpowe\Desktop\Veyra\multi-cloud\scripts\deploy-aws.sh
+- Line 68: Missing error handling for cd command in C:\Users\jpowe\Desktop\Veyra\deploy\staging\deploy.sh
+- Line 71: Missing error handling for cd command in C:\Users\jpowe\Desktop\Veyra\deploy\staging\deploy.sh
+- Line 80: Missing error handling for cd command in C:\Users\jpowe\Desktop\Veyra\deploy\staging\deploy.sh
+- Line 101: Missing error handling for cd command in C:\Users\jpowe\Desktop\Veyra\deploy\staging\deploy.sh
+- Line 175: Missing error handling for cd command in C:\Users\jpowe\Desktop\Veyra\deploy\staging\deploy.sh
+- Line 188: Missing error handling for cd command in C:\Users\jpowe\Desktop\Veyra\deploy\staging\deploy.sh
+- Line 23: Missing error handling for cd command in C:\Users\jpowe\Desktop\Veyra\scripts\setup_python_env.bat
 
 ### Imports
-- Error checking imports in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\main.py: 'charmap' codec can't decode byte 0x90 in position 10216: character maps to <undefined>
-- Error checking imports in C:\Users\jpowe\Desktop\Financial Master\src\backend\app\api_server.py: 'charmap' codec can't decode byte 0x90 in position 14653: character maps to <undefined>
+- Error checking imports in C:\Users\jpowe\Desktop\Veyra\src\backend\app\main.py: 'charmap' codec can't decode byte 0x90 in position 10216: character maps to <undefined>
+- Error checking imports in C:\Users\jpowe\Desktop\Veyra\src\backend\app\api_server.py: 'charmap' codec can't decode byte 0x90 in position 14653: character maps to <undefined>
 

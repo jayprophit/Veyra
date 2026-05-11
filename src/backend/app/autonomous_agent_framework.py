@@ -1,5 +1,5 @@
 """
-Financial Master - Autonomous Agent Execution Framework
+Veyra - Autonomous Agent Execution Framework
 ========================================================
 Multi-agent system with guardrails, human approval gates, and kill switches.
 
@@ -326,7 +326,7 @@ class ApprovalGate:
 
 class BaseAgent:
     """
-    Base class for all Financial Master agents.
+    Base class for all Veyra agents.
     Provides common functionality: guardrails, approval gates, logging.
     """
     
@@ -1268,7 +1268,7 @@ class BaseAgentHelpers:
             msg = MIMEMultipart()
             msg['From'] = sender_email
             msg['To'] = recipient_email
-            msg['Subject'] = f"Financial Master Agent Alert: {decision.agent_name}"
+            msg['Subject'] = f"Veyra Agent Alert: {decision.agent_name}"
             
             body = f"""
 Agent: {decision.agent_name}
@@ -1319,7 +1319,7 @@ Details: {decision.details}
         """Get current portfolio holdings from database"""
         try:
             # Query database for holdings
-            conn = sqlite3.connect('financial_master.db')
+            conn = sqlite3.connect('veyra.db')
             cursor = conn.cursor()
             
             cursor.execute("""
@@ -1359,7 +1359,7 @@ Details: {decision.details}
     def _get_isa_contributions(self, year):
         """Get ISA contributions for current year"""
         try:
-            conn = sqlite3.connect('financial_master.db')
+            conn = sqlite3.connect('veyra.db')
             cursor = conn.cursor()
             
             cursor.execute("""
@@ -1408,7 +1408,6 @@ Details: {decision.details}
     def _calculate_correlation(self, asset1, asset2):
         """Calculate correlation between two assets"""
         # Simulate correlation calculation
-        import random
         return random.uniform(-0.5, 0.8)
     
     def _get_current_allocation(self):
@@ -1435,7 +1434,7 @@ Details: {decision.details}
     def _store_market_data(self, data):
         """Store market data in database"""
         try:
-            conn = sqlite3.connect('financial_master.db')
+            conn = sqlite3.connect('veyra.db')
             cursor = conn.cursor()
             
             for ticker, info in data.items():

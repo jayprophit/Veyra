@@ -1,1 +1,1 @@
-# Financial Master - personal module
+# Veyra - personal module

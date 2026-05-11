@@ -4,8 +4,8 @@ DEPLOYMENT COMMANDS
 1. GitHub Setup
    git init
    git add .
-   git commit -m "Initial commit: Financial Master 5-STAR+ platform"
-   git remote add origin https://github.com/yourusername/financial-master.git
+   git commit -m "Initial commit: Veyra 5-STAR+ platform"
+   git remote add origin https://github.com/yourusername/veyra.git
    git push -u origin main
 
 2. Cloudflare Pages (Documentation)

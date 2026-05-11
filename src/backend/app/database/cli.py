@@ -14,7 +14,7 @@ from app.database import DatabaseManager, FileType
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Financial Master Local Database CLI",
+        description="Veyra Local Database CLI",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:

@@ -1,6 +1,6 @@
 # Production Deployment Guide
 
-## Financial Master - 500/100 Transcendent
+## Veyra - 500/100 Transcendent
 
 **Version:** 4.0.0
 **Grade:** 500/100
@@ -74,7 +74,7 @@
 ```bash
 # API Configuration
 API_VERSION=4.0.0
-API_TITLE="Financial Master API"
+API_TITLE="Veyra API"
 DEBUG=false
 ENVIRONMENT=production
 
@@ -85,7 +85,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES=30
 REFRESH_TOKEN_EXPIRE_DAYS=7
 
 # Database
-DATABASE_URL=postgresql://user:pass@db:5432/financial_master
+DATABASE_URL=postgresql://user:pass@db:5432/veyra
 DATABASE_POOL_SIZE=20
 DATABASE_MAX_OVERFLOW=10
 
@@ -128,18 +128,18 @@ RATE_LIMIT_BURST=10
 
 ```bash
 # Build backend
-docker build -t financial-master-api:4.0.0 -f src/backend/Dockerfile .
+docker build -t veyra-api:4.0.0 -f src/backend/Dockerfile .
 
 # Build frontend
-docker build -t financial-master-frontend:4.0.0 -f frontend/Dockerfile .
+docker build -t veyra-frontend:4.0.0 -f frontend/Dockerfile .
 
 # Tag for registry
-docker tag financial-master-api:4.0.0 your-registry/financial-master-api:4.0.0
-docker tag financial-master-frontend:4.0.0 your-registry/financial-master-frontend:4.0.0
+docker tag veyra-api:4.0.0 your-registry/veyra-api:4.0.0
+docker tag veyra-frontend:4.0.0 your-registry/veyra-frontend:4.0.0
 
 # Push to registry
-docker push your-registry/financial-master-api:4.0.0
-docker push your-registry/financial-master-frontend:4.0.0
+docker push your-registry/veyra-api:4.0.0
+docker push your-registry/veyra-frontend:4.0.0
 ```
 
 ### Step 2: Docker Compose Production
@@ -150,7 +150,7 @@ version: '3.8'
 
 services:
   api:
-    image: your-registry/financial-master-api:4.0.0
+    image: your-registry/veyra-api:4.0.0
     deploy:
       replicas: 3
       resources:
@@ -175,7 +175,7 @@ services:
       retries: 3
 
   frontend:
-    image: your-registry/financial-master-frontend:4.0.0
+    image: your-registry/veyra-frontend:4.0.0
     deploy:
       replicas: 2
     ports:
@@ -193,7 +193,7 @@ services:
     environment:
       POSTGRES_USER: fm_user
       POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: financial_master
+      POSTGRES_DB: veyra
     networks:
       - backend
 
@@ -205,7 +205,7 @@ services:
       - backend
 
   celery_worker:
-    image: your-registry/financial-master-api:4.0.0
+    image: your-registry/veyra-api:4.0.0
     command: celery -A app.celery_app worker --loglevel=info
     deploy:
       replicas: 2
@@ -270,17 +270,17 @@ docker-compose -f docker-compose.prod.yml logs -f api
 
 ```bash
 # Create namespace
-kubectl create namespace financial-master
+kubectl create namespace veyra
 
 # Create secrets
-kubectl create secret generic fm-secrets \
+kubectl create secret generic vra-secrets \
   --from-env-file=.env.prod \
-  -n financial-master
+  -n veyra
 
 # Create configmap
-kubectl create configmap fm-config \
+kubectl create configmap vra-config \
   --from-literal=API_VERSION=4.0.0 \
-  -n financial-master
+  -n veyra
 ```
 
 ### Deployment Manifest
@@ -290,26 +290,26 @@ kubectl create configmap fm-config \
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fm-api
-  namespace: financial-master
+  name: vra-api
+  namespace: veyra
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: fm-api
+      app: vra-api
   template:
     metadata:
       labels:
-        app: fm-api
+        app: vra-api
     spec:
       containers:
       - name: api
-        image: your-registry/financial-master-api:4.0.0
+        image: your-registry/veyra-api:4.0.0
         ports:
         - containerPort: 8000
         envFrom:
         - secretRef:
-            name: fm-secrets
+            name: vra-secrets
         resources:
           requests:
             memory: "2Gi"
@@ -333,11 +333,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: fm-api-service
-  namespace: financial-master
+  name: vra-api-service
+  namespace: veyra
 spec:
   selector:
-    app: fm-api
+    app: vra-api
   ports:
   - port: 80
     targetPort: 8000
@@ -348,24 +348,24 @@ spec:
 
 ```bash
 # Apply all manifests
-kubectl apply -f k8s/ -n financial-master
+kubectl apply -f k8s/ -n veyra
 
 # Check status
-kubectl get pods -n financial-master
-kubectl get svc -n financial-master
+kubectl get pods -n veyra
+kubectl get svc -n veyra
 
 # Rolling update
-kubectl set image deployment/fm-api api=your-registry/financial-master-api:4.0.1 -n financial-master
+kubectl set image deployment/vra-api api=your-registry/veyra-api:4.0.1 -n veyra
 
 # Rollback
-kubectl rollout undo deployment/fm-api -n financial-master
+kubectl rollout undo deployment/vra-api -n veyra
 ```
 
 ---
 
 ## ⎈ Helm Deployment (Recommended)
 
-Helm provides a production-ready, templated approach to deploying Financial Master on Kubernetes with built-in best practices.
+Helm provides a production-ready, templated approach to deploying Veyra on Kubernetes with built-in best practices.
 
 ### Prerequisites
 
@@ -385,23 +385,23 @@ kubectl cluster-info
 
 ```bash
 # Install with default production values
-helm install financial-master ./helm/financial-master \
-  --namespace financial-master \
+helm install veyra ./helm/veyra \
+  --namespace veyra \
   --create-namespace \
   --set global.environment=production
 
 # Verify installation
-helm list -n financial-master
-kubectl get pods -n financial-master
-kubectl get ingress -n financial-master
+helm list -n veyra
+kubectl get pods -n veyra
+kubectl get ingress -n veyra
 ```
 
 ### Environment-Specific Configurations
 
 ```bash
 # Development (minimal resources, no persistence)
-helm install financial-master ./helm/financial-master \
-  --namespace financial-master-dev \
+helm install veyra ./helm/veyra \
+  --namespace veyra-dev \
   --create-namespace \
   --set api.replicaCount=1 \
   --set api.autoscaling.enabled=false \
@@ -409,16 +409,16 @@ helm install financial-master ./helm/financial-master \
   --set global.environment=development
 
 # Staging (production-like, smaller scale)
-helm install financial-master ./helm/financial-master \
-  --namespace financial-master-staging \
+helm install veyra ./helm/veyra \
+  --namespace veyra-staging \
   --create-namespace \
   --set api.replicaCount=2 \
-  --set api.ingress.hosts[0].host=api-staging.financialmaster.app \
+  --set api.ingress.hosts[0].host=api-staging.veyra.app \
   --set global.environment=staging
 
 # Production (full scale with autoscaling)
-helm install financial-master ./helm/financial-master \
-  --namespace financial-master-prod \
+helm install veyra ./helm/veyra \
+  --namespace veyra-prod \
   --create-namespace \
   --set api.replicaCount=5 \
   --set api.autoscaling.minReplicas=5 \
@@ -432,8 +432,8 @@ helm install financial-master ./helm/financial-master \
 
 ```bash
 # Create secrets before Helm install
-kubectl create secret generic financial-master-secrets \
-  --namespace financial-master \
+kubectl create secret generic veyra-secrets \
+  --namespace veyra \
   --from-literal=JWT_SECRET_KEY=$(openssl rand -hex 32) \
   --from-literal=API_KEY=$(openssl rand -hex 16) \
   --from-literal=ALPACA_API_KEY=your-key \
@@ -447,25 +447,25 @@ kubectl create secret generic financial-master-secrets \
 
 ```bash
 # Upgrade to new version
-helm upgrade financial-master ./helm/financial-master \
-  --namespace financial-master \
+helm upgrade veyra ./helm/veyra \
+  --namespace veyra \
   --set api.image.tag=v4.0.1
 
 # Rollback to previous revision
-helm rollback financial-master 1 -n financial-master
+helm rollback veyra 1 -n veyra
 
 # View revision history
-helm history financial-master -n financial-master
+helm history veyra -n veyra
 ```
 
 ### Uninstall
 
 ```bash
-# Remove Financial Master
-helm uninstall financial-master -n financial-master
+# Remove Veyra
+helm uninstall veyra -n veyra
 
 # Clean up namespace
-kubectl delete namespace financial-master
+kubectl delete namespace veyra
 ```
 
 ---
@@ -490,16 +490,16 @@ ufw enable
 # nginx/ssl.conf
 server {
     listen 443 ssl http2;
-    server_name api.financialmaster.com;
+    server_name api.veyra.com;
 
-    ssl_certificate /etc/ssl/certs/fm.crt;
-    ssl_certificate_key /etc/ssl/private/fm.key;
+    ssl_certificate /etc/ssl/certs/vra.crt;
+    ssl_certificate_key /etc/ssl/private/vra.key;
     ssl_protocols TLSv1.3;
     ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384';
     ssl_prefer_server_ciphers off;
 
     location / {
-        proxy_pass http://fm-api-service;
+        proxy_pass http://vra-api-service;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
     }
@@ -532,7 +532,7 @@ global:
   scrape_interval: 15s
 
 scrape_configs:
-  - job_name: 'financial-master-api'
+  - job_name: 'veyra-api'
     static_configs:
       - targets: ['api:8000']
     metrics_path: /metrics
@@ -568,10 +568,10 @@ Default dashboards:
 
 ```bash
 # Automated daily backup
-0 2 * * * pg_dump -h db -U fm_user financial_master | gzip > /backups/fm_$(date +\%Y\%m\%d).sql.gz
+0 2 * * * pg_dump -h db -U fm_user veyra | gzip > /backups/fm_$(date +\%Y\%m\%d).sql.gz
 
 # Restore
-gunzip < /backups/fm_20260425.sql.gz | psql -h db -U fm_user financial_master
+gunzip < /backups/fm_20260425.sql.gz | psql -h db -U fm_user veyra
 ```
 
 ### Disaster Recovery Plan
@@ -592,18 +592,18 @@ gunzip < /backups/fm_20260425.sql.gz | psql -h db -U fm_user financial_master
 
 ```bash
 # Health check
-curl https://api.financialmaster.com/health
+curl https://api.veyra.com/health
 
 # API v4 transcendent features
-curl https://api.financialmaster.com/api/v4/transcendent/status
+curl https://api.veyra.com/api/v4/transcendent/status
 
 # BCI endpoint (without hardware)
-curl -X POST https://api.financialmaster.com/api/v4/bci/connect \
+curl -X POST https://api.veyra.com/api/v4/bci/connect \
   -H "Authorization: Bearer $TOKEN" \
   -d '{"device_type": "muse"}'
 
 # Reality simulation
-curl -X POST https://api.financialmaster.com/api/v4/reality/simulate \
+curl -X POST https://api.veyra.com/api/v4/reality/simulate \
   -H "Authorization: Bearer $TOKEN" \
   -d '{"symbol": "AAPL", "current_price": 150, "days_forward": 30}'
 ```
@@ -618,22 +618,22 @@ curl -X POST https://api.financialmaster.com/api/v4/reality/simulate \
 
 ```bash
 # Check database connection pool
-kubectl exec -it deploy/fm-api -n financial-master -- python -c "from app.core.database import check_pool; check_pool()"
+kubectl exec -it deploy/vra-api -n veyra -- python -c "from app.core.database import check_pool; check_pool()"
 ```
 
 **Redis Connection Failed:**
 
 ```bash
 # Verify Redis is running
-kubectl get pods -n financial-master | grep redis
-kubectl logs -n financial-master deployment/redis
+kubectl get pods -n veyra | grep redis
+kubectl logs -n veyra deployment/redis
 ```
 
 **AI Model Loading Failure:**
 
 ```bash
 # Check model cache
-kubectl exec -it deploy/fm-api -n financial-master -- ls -la /app/models/
+kubectl exec -it deploy/vra-api -n veyra -- ls -la /app/models/
 ```
 
 ---
@@ -656,4 +656,4 @@ kubectl exec -it deploy/fm-api -n financial-master -- ls -la /app/models/
 **Status: Production Ready** ✅
 **Grade: 500/100 - TRANSCENDENT** 🔥✨
 
-For support: <support@financialmaster.com>
+For support: <support@veyra.com>

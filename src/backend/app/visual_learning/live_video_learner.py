@@ -321,7 +321,7 @@ class LiveVideoLearner:
         """Extract stock tickers from text"""
         # Pattern matching for tickers
         patterns = [
-            r'\b[A-Z]{1,5}\b',  # Standard tickers
+            r'\b[A-Z]{1,5}\\\b',  # Standard tickers
             r'\$([A-Z]{1,5})',   # $TICKER format
             r'#([A-Z]{1,5})',    # #TICKER format
         ]

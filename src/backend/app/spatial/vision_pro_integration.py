@@ -257,7 +257,6 @@ except ImportError:
         
         @staticmethod
         def cos(x):
-            import math
             return math.cos(x)
     
     np = NumpyFallback()

@@ -1,5 +1,5 @@
 """
-Financial Master Accounting Engine
+Veyra Accounting Engine
 Forked from Bigcapital (MIT License) - https://github.com/bigcapitalhq/bigcapital
 Enhanced with AI automation features inspired by ANNA Business Account
 """

@@ -422,7 +422,7 @@ curl http://localhost:8000/api/quote/AAPL
 
 ---
 
-**Your Financial Master now uses REAL market data!** 📈🚀
+**Your Veyra now uses REAL market data!** 📈🚀
 
 No more mock data - live prices from real exchanges!
 

@@ -109,12 +109,10 @@ class BrokerCertification:
     
     async def _test_authentication(self, broker: str, creds: Dict):
         """Test authentication"""
-        import time
         start = time.time()
         
         try:
             if broker == "alpaca":
-                from .alpaca_client import AlpacaClient
                 client = AlpacaClient(creds["api_key"], creds["api_secret"], paper=True)
                 account = await client.get_account()
                 await client.close()
@@ -154,7 +152,6 @@ class BrokerCertification:
         """Test account information retrieval"""
         try:
             if broker == "alpaca":
-                from .alpaca_client import AlpacaClient
                 client = AlpacaClient(creds["api_key"], creds["api_secret"], paper=True)
                 
                 account = await client.get_account()
@@ -191,7 +188,6 @@ class BrokerCertification:
         """Test market data endpoints"""
         try:
             if broker == "alpaca":
-                from .alpaca_client import AlpacaClient
                 client = AlpacaClient(creds["api_key"], creds["api_secret"], paper=True)
                 
                 # Test bars
@@ -299,7 +295,6 @@ class BrokerCertification:
         try:
             # Test with invalid symbol
             if broker == "alpaca":
-                from .alpaca_client import AlpacaClient
                 client = AlpacaClient(creds["api_key"], creds["api_secret"], paper=True)
                 
                 try:

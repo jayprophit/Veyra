@@ -1,4 +1,4 @@
-# Financial Master - Phase 1 Implementation Report
+# Veyra - Phase 1 Implementation Report
 
 ## ✅ COMPLETION STATUS: 35% of Phase 1 Complete
 
@@ -205,12 +205,12 @@ Edit `/src/backend/core/config.py` to change application settings
 
 ### View Logs
 ```bash
-tail -f logs/financial_master.log
+tail -f logs/veyra.log
 ```
 
 ### Reset Database
 ```bash
-rm financial_master.db
+rm veyra.db
 ```
 
 ### Validate Code

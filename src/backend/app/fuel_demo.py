@@ -146,7 +146,7 @@ def demo_subscriptions(db: DatabaseManager, user_id: str = "demo_user"):
 
 def main():
     print("=" * 60)
-    print("🏦 Financial Master - Fuel & Mileage Tracker Demo")
+    print("🏦 Veyra - Fuel & Mileage Tracker Demo")
     print("      (FinOS Integration)")
     print("=" * 60)
     

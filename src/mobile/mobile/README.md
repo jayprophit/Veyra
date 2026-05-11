@@ -1,4 +1,4 @@
-# Financial Master Mobile App
+# Veyra Mobile App
 
 React Native cross-platform app (iOS/Android)
 

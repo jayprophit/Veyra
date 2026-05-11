@@ -1,8 +1,8 @@
-# FactSet Integration Guide for Financial Master
+# FactSet Integration Guide for Veyra
 
 ## Overview
 
-This guide provides comprehensive documentation for integrating FactSet's open source repositories into Financial Master platform. These integrations provide institutional-grade financial data, analytics, and infrastructure capabilities.
+This guide provides comprehensive documentation for integrating FactSet's open source repositories into Veyra platform. These integrations provide institutional-grade financial data, analytics, and infrastructure capabilities.
 
 ## Integration Architecture
 
@@ -18,7 +18,7 @@ The **Financial Intelligence Layer** serves as the unified abstraction layer for
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                Financial Master Platform                  │
+│                Veyra Platform                  │
 ├─────────────────────────────────────────────────────────────┤
 │              Financial Intelligence Layer                │
 ├─────────────────────────────────────────────────────────────┤
@@ -44,7 +44,7 @@ The **Financial Intelligence Layer** serves as the unified abstraction layer for
 
 #### Integration Benefits
 - **Direct Integration**: Seamless access to FactSet's comprehensive data
-- **Multi-Language Support**: Works with Financial Master's Python backend
+- **Multi-Language Support**: Works with Veyra's Python backend
 - **Institutional Quality**: Professional-grade analytics and data
 - **Scalability**: Enterprise-level performance and reliability
 
@@ -477,18 +477,18 @@ numpy>=1.24.0
 ### Documentation
 
 - [FactSet Developer Portal](https://developer.factset.com)
-- [Financial Master Documentation](../../README.md)
+- [Veyra Documentation](../../README.md)
 - [API Reference](../api/README.md)
 
 ### Community
 
-- [Financial Master GitHub](https://github.com/jpowell/financial-master)
+- [Veyra GitHub](https://github.com/jpowell/veyra)
 - [FactSet GitHub](https://github.com/factset)
-- [Issues and Bug Reports](https://github.com/jpowell/financial-master/issues)
+- [Issues and Bug Reports](https://github.com/jpowell/veyra/issues)
 
 ### Training
 
-- [Financial Master Tutorials](../tutorials/README.md)
+- [Veyra Tutorials](../tutorials/README.md)
 - [FactSet API Documentation](https://developer.factset.com/api-catalog)
 - [Best Practices Guide](../best-practices/README.md)
 
@@ -640,7 +640,7 @@ risk_data = await financial_intelligence.get_analytics(symbols, ['risk_metrics']
 ### **Total Integration Architecture**
 
 ```
-Financial Master Platform
+Veyra Platform
 ├── Financial Intelligence Layer (Unified Abstraction)
 ├── Core FactSet Integrations
 │   ├── Enterprise SDK
@@ -665,7 +665,7 @@ Financial Master Platform
 
 ## Conclusion
 
-The integration of FactSet's open source repositories plus **12 additional high-value APIs** provides Financial Master with **unparalleled institutional-grade capabilities**:
+The integration of FactSet's open source repositories plus **12 additional high-value APIs** provides Veyra with **unparalleled institutional-grade capabilities**:
 
 ### **Core Integrations (Completed)**
 - **Enterprise SDK**: Core data and analytics infrastructure
@@ -689,7 +689,7 @@ The integration of FactSet's open source repositories plus **12 additional high-
 - **Conversational AI**: Natural language financial assistant
 
 ### **Transformation Impact**
-These **17 total integrations** (5 core + 12 additional) transform Financial Master into:
+These **17 total integrations** (5 core + 12 additional) transform Veyra into:
 
 - **True Bloomberg Terminal Alternative**: Professional-grade features and data
 - **AI-Powered Platform**: Advanced cognitive computing and automation
@@ -699,7 +699,7 @@ These **17 total integrations** (5 core + 12 additional) transform Financial Mas
 - **Advanced Analytics**: Risk, optimization, quant factors, NLP
 - **Natural Language Interface**: Conversational AI for financial queries
 
-This comprehensive integration positions Financial Master as the **most advanced open-source financial platform** with capabilities that rival and exceed traditional Bloomberg Terminal functionality.
+This comprehensive integration positions Veyra as the **most advanced open-source financial platform** with capabilities that rival and exceed traditional Bloomberg Terminal functionality.
 
 ---
 

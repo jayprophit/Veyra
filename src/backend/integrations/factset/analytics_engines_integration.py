@@ -1,5 +1,5 @@
 """
-FactSet Analytics Engines Python SDK Integration for Financial Master
+FactSet Analytics Engines Python SDK Integration for Veyra
 
 This module provides integration with FactSet's Analytics Engines for:
 - Advanced financial analytics
@@ -292,7 +292,8 @@ class FactSetAnalyticsEngines:
                 return {
                     'risk_metrics': pd.DataFrame(risk_data),
                     'correlation_matrix': pd.DataFrame(
-                        np.random.uniform(-0.3, 0.8, (len(request.symbols), len(request.symbols))),
+                        np.random.uniform(-0.3, 0.8, (len(request.symbols), len(request.symbols)))
+                    ),
                     'volatility_forecast': pd.DataFrame([
                         {'date': datetime.now() + timedelta(days=i), 'volatility': np.random.uniform(0.15, 0.35)}
                         for i in range(30)

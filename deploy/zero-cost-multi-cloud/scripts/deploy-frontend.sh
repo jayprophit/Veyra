@@ -6,7 +6,7 @@ echo "Deploying frontend to Cloudflare Pages..."
 npm run build
 
 # Deploy to Cloudflare Pages
-npx wrangler pages publish dist --project-name=financial-master
+npx wrangler pages publish dist --project-name=veyra
 
 echo "Frontend deployed to Cloudflare Pages"
-echo "URL: https://financial-master.pages.dev"
+echo "URL: https://veyra.pages.dev"

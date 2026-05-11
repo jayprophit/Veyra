@@ -1,1 +1,1 @@
-# Financial Master - blockchain module
+# Veyra - blockchain module

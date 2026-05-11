@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: fm-api-service
-  namespace: financial-master
+  name: vra-api-service
+  namespace: veyra
   labels:
-    app: fm-api
+    app: vra-api
 spec:
   type: ClusterIP
   selector:
-    app: fm-api
+    app: vra-api
   ports:
   - port: 80
     targetPort: 8000
@@ -18,14 +18,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: fm-frontend-service
-  namespace: financial-master
+  name: vra-frontend-service
+  namespace: veyra
   labels:
-    app: fm-frontend
+    app: vra-frontend
 spec:
   type: ClusterIP
   selector:
-    app: fm-frontend
+    app: vra-frontend
   ports:
   - port: 80
     targetPort: 80

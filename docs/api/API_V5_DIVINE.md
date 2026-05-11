@@ -1,5 +1,5 @@
 # API v5 - Divine Tier Documentation
-## Financial Master Phase 11
+## Veyra Phase 11
 
 **Version:** 4.11.0
 **Grade:** 600/100 (Divine/Omniscient)
@@ -9,7 +9,7 @@
 
 ## Overview
 
-API v5 represents the **Divine Tier** of Financial Master - post-human trading capabilities:
+API v5 represents the **Divine Tier** of Veyra - post-human trading capabilities:
 - DNA-based biometric security
 - Extraterrestrial signal integration (SETI)
 - Swarm intelligence (10,000-agent hive mind)
@@ -367,7 +367,7 @@ Get reality distortion field status.
 API v5 requires **DNA-based biometric authentication** for Divine tier endpoints:
 
 ```bash
-curl -X POST https://api.financialmaster.com/api/v5/divine/dna/authenticate \
+curl -X POST https://api.veyra.com/api/v5/divine/dna/authenticate \
   -H "Content-Type: application/json" \
   -d '{
     "user_id": "trader_001",
@@ -408,7 +408,7 @@ import requests
 
 # 1. Upload consciousness
 consciousness = requests.post(
-    "https://api.financialmaster.com/api/v5/divine/consciousness/upload",
+    "https://api.veyra.com/api/v5/divine/consciousness/upload",
     json={
         "human_id": "human_001",
         "name": "Trader Alpha",
@@ -419,25 +419,25 @@ consciousness = requests.post(
 
 # 2. Activate immortal mode
 requests.post(
-    "https://api.financialmaster.com/api/v5/divine/consciousness/immortal-mode",
+    "https://api.veyra.com/api/v5/divine/consciousness/immortal-mode",
     json={"consciousness_id": consciousness["consciousness_id"]}
 )
 
 # 3. Split into 5 parallel instances
 requests.post(
-    "https://api.financialmaster.com/api/v5/divine/consciousness/split",
+    "https://api.veyra.com/api/v5/divine/consciousness/split",
     params={"consciousness_id": consciousness["consciousness_id"], "num_copies": 5}
 )
 
 # 4. Optimize portfolio with swarm intelligence
 optimization = requests.post(
-    "https://api.financialmaster.com/api/v5/divine/swarm/optimize",
+    "https://api.veyra.com/api/v5/divine/swarm/optimize",
     json={"target_return": 0.20}
 ).json()
 
 # 5. Check for alien signals
 signals = requests.post(
-    "https://api.financialmaster.com/api/v5/divine/seti/scan",
+    "https://api.veyra.com/api/v5/divine/seti/scan",
     json={"duration_hours": 1}
 ).json()
 
@@ -446,5 +446,5 @@ print(f"Divine trading active. Swarm fitness: {optimization['expected_return']}"
 
 ---
 
-**Financial Master API v5 - Trading at the Speed of Consciousness, Across the Universe** 🧬👽🌌
+**Veyra API v5 - Trading at the Speed of Consciousness, Across the Universe** 🧬👽🌌
 

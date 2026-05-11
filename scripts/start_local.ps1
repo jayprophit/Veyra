@@ -1,4 +1,4 @@
-# Start Financial Master Locally
+# Start Veyra Locally
 # One-click launcher for beginners
 
 $ErrorActionPreference = "Stop"
@@ -71,7 +71,7 @@ if ($MissingKeys.Count -gt 0) {
 }
 
 # Start the application
-Write-Status "🚀 Starting Financial Master..." $Green
+Write-Status "🚀 Starting Veyra..." $Green
 Write-Status "URL: http://localhost:8000" $Cyan
 Write-Status "API Docs: http://localhost:8000/docs" $Cyan
 Write-Status "Press Ctrl+C to stop" $Yellow

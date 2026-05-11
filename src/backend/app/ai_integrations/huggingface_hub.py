@@ -53,7 +53,7 @@ class HuggingFaceHub:
         self.loaded_models[model_id] = {"status": "loaded", "device": "cuda"}
         
         return {"success": True, "model_id": model_id, "status": "loaded",
-                "inference_endpoint": f"https://api.financialmaster.com/hf/{model_id.replace('/', '_')}"}
+                "inference_endpoint": f"https://api.veyra.com/hf/{model_id.replace('/', '_')}"}
     
     def get_finance_models(self) -> List[Dict]:
         """Get finance-specific models"""
@@ -77,6 +77,6 @@ class HuggingFaceHub:
     
     def publish_model(self, model_path: str, model_name: str, description: str) -> Dict:
         """Publish our model to HuggingFace"""
-        return {"success": True, "model_id": f"FinancialMaster/{model_name}",
-                "url": f"https://huggingface.co/FinancialMaster/{model_name}",
+        return {"success": True, "model_id": f"Veyra/{model_name}",
+                "url": f"https://huggingface.co/Veyra/{model_name}",
                 "downloads_first_week": 10000, "estimated_reach": 50000}

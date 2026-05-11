@@ -1,4 +1,4 @@
-"""Financial Master - Master Automation Controller
+"""Veyra - Master Automation Controller
 Windows 11 + WSL + Docker + K8s + Ollama automation layer."""
 
 import os, sys, json, time, subprocess, psutil, requests
@@ -137,7 +137,7 @@ class ContainerOrchestrator:
             return True
         except: return False
     
-    def k8s_deploy(self, namespace: str = "financial-master") -> bool:
+    def k8s_deploy(self, namespace: str = "veyra") -> bool:
         try:
             from kubernetes import client, config
             config.load_kube_config()
@@ -248,7 +248,7 @@ class MasterAutomationController:
 if __name__ == "__main__":
     controller = MasterAutomationController()
     print("="*60)
-    print("Financial Master - Automation Controller")
+    print("Veyra - Automation Controller")
     print("="*60)
     print("\nAvailable commands:")
     print("  controller.setup_ollama()      - Download all LLM models")

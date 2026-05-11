@@ -134,7 +134,7 @@ class SocialTradingManager:
                 user_id=user_id,
                 username=username,
                 display_name=display_name,
-                avatar_url=f"https://api.financial-master.com/avatars/{user_id}",
+                avatar_url=f"https://api.veyra.com/avatars/{user_id}",
                 bio=bio,
                 trading_style=trading_style,
                 risk_level=risk_level,

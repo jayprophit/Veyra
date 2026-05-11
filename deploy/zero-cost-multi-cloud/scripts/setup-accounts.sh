@@ -1,6 +1,6 @@
 #!/bin/bash
 # Setup Free Accounts Script
-echo "Setting up free accounts for Financial Master..."
+echo "Setting up free accounts for Veyra..."
 
 echo "1. Cloudflare - https://dash.cloudflare.com/sign-up"
 echo "2. GitHub - https://github.com/signup"

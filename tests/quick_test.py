@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Quick test of Financial Master modules - No API keys"""
+"""Quick test of Veyra modules - No API keys"""
 import sys
 import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src', 'backend'))
@@ -50,7 +50,6 @@ test("Mushroom Farming", test_mushroom)
 # Test 3: AI Automation
 def test_ai_automation():
     from app.ai_automation.robotics_roi import RoboticsROI, RobotDeployment
-    from datetime import datetime
     roi = RoboticsROI()
     deploy = RobotDeployment('D001', 'industrial', 50000, 5000, 2000, 2000, 25, 20, datetime.now())
     roi.add_deployment(deploy)
@@ -62,7 +61,6 @@ test("AI Automation", test_ai_automation)
 # Test 4: Cybersecurity
 def test_cybersecurity():
     from app.cybersecurity.breach_analyzer import BreachAnalyzer, DataBreach
-    from datetime import datetime
     ba = BreachAnalyzer()
     breach = DataBreach('BR001', 'Acme Corp', 100000, 150.0, datetime.now(), 'retail')
     ba.add(breach)
@@ -74,7 +72,6 @@ test("Cybersecurity", test_cybersecurity)
 # Test 5: Pattern Detection
 def test_pattern_detection():
     from app.pattern_detection.dark_pool_tracker import DarkPoolTracker, DarkPoolTrade
-    from datetime import datetime
     dp = DarkPoolTracker()
     trade = DarkPoolTrade('T001', 'AAPL', 1000, 150.0, datetime.now(), 'DARK1', 'buy')
     dp.add(trade)

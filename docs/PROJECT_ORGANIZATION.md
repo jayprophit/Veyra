@@ -1,11 +1,11 @@
-# Financial Master - Project Organization
+# Veyra - Project Organization
 
 ## Directory Structure
 
 ### Root Directory (Essential Files Only)
 
 ```
-Financial Master/
+Veyra/
 ├── .env.example          # Environment configuration template
 ├── .git/                 # Git repository
 ├── .github/              # GitHub workflows & templates
@@ -16,7 +16,7 @@ Financial Master/
 ├── docs/                 # Documentation (organized)
 ├── frontend/             # Frontend application
 ├── helm/                 # Helm charts for Kubernetes
-│   └── financial-master/ # Main Helm chart
+│   └── veyra/ # Main Helm chart
 ├── k8s/                  # Raw Kubernetes manifests
 ├── LICENSE               # License file
 ├── Makefile              # Build automation

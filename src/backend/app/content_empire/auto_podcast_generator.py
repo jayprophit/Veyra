@@ -50,7 +50,7 @@ class AutoPodcastGenerator:
             duration_minutes=format_info["duration"],
             topics=script["topics"],
             tickers_mentioned=script["tickers"],
-            audio_url=f"https://cdn.financialmaster.com/podcasts/{episode_id}.mp3",
+            audio_url=f"https://cdn.veyra.com/podcasts/{episode_id}.mp3",
             publish_date=date.today()
         )
         

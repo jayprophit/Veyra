@@ -100,7 +100,7 @@ class ReportGenerator:
         """Calculate period performance"""
         try:
             # Get portfolio data from database
-            conn = sqlite3.connect('financial_master.db')
+            conn = sqlite3.connect('veyra.db')
             cursor = conn.cursor()
             
             # Get holdings and transactions for performance calculation

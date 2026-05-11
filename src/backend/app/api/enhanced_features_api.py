@@ -1,5 +1,5 @@
 """
-Enhanced Features API for Financial Master
+Enhanced Features API for Veyra
 
 FastAPI routers for:
 - Anomaly Detection
@@ -541,7 +541,6 @@ async def monte_carlo_simulation(
 @router.post("/analytics/portfolio/efficient-frontier")
 async def efficient_frontier(returns_data: Dict[str, List[float]]) -> List[Dict[str, Any]]:
     """Generate efficient frontier for portfolio optimization."""
-    import pandas as pd
     
     returns_df = pd.DataFrame(returns_data)
     return analytics.efficient_frontier(returns_df)
@@ -807,7 +806,6 @@ async def run_backtest(strategy_name: str,
                       initial_capital: float = 100000.0,
                       commission: float = 0.001) -> Dict[str, Any]:
     """Run strategy backtest with historical data."""
-    import pandas as pd
     
     # Convert to DataFrame
     df = pd.DataFrame(price_data)
@@ -833,7 +831,6 @@ async def optimize_parameters(strategy_name: str,
                             price_data: List[Dict[str, Any]],
                             param_grid: Dict[str, List[Any]]) -> Dict[str, Any]:
     """Grid search for optimal strategy parameters."""
-    import pandas as pd
     
     df = pd.DataFrame(price_data)
     df['date'] = pd.to_datetime(df['date'])
@@ -860,7 +857,6 @@ async def walk_forward_analysis(strategy_name: str,
                               train_size: int = 252,
                               test_size: int = 63) -> List[Dict]:
     """Walk-forward optimization to prevent overfitting."""
-    import pandas as pd
     
     df = pd.DataFrame(price_data)
     df['date'] = pd.to_datetime(df['date'])
@@ -2166,7 +2162,6 @@ async def generate_synthetic_market_data(symbol: str, days: int = 252) -> List[D
 @router.get("/synthetic-data/order-flow")
 async def generate_synthetic_order_flow(count: int = 1000) -> List[Dict]:
     """Generate synthetic order flow data."""
-    import numpy as np
     return [{'side': 'buy' if np.random.rand() > 0.5 else 'sell', 'size': int(np.random.lognormal(5, 1))} for _ in range(count)]
 
 
@@ -2188,7 +2183,7 @@ async def get_edge_latency(node_id: str) -> Dict[str, Any]:
 @router.post("/did/create")
 async def create_decentralized_identity(user_id: str) -> Dict[str, Any]:
     """Create self-sovereign identity for KYC."""
-    return {'user_id': user_id, 'did': f'did:fm:{user_id}', 'verified': True}
+    return {'user_id': user_id, 'did': f'did:vra:{user_id}', 'verified': True}
 
 @router.post("/did/verify")
 async def verify_did(did: str) -> Dict[str, Any]:

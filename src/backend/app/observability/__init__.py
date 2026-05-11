@@ -1,7 +1,7 @@
 """
 Enterprise Observability & Monitoring Suite
 ==========================================
-Comprehensive monitoring, tracing, and observability for Financial Master
+Comprehensive monitoring, tracing, and observability for Veyra
 """
 
 from .metrics_collector import MetricsCollector

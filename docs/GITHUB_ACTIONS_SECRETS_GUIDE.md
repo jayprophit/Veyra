@@ -26,7 +26,7 @@
 
 1. Click **"Add secret"**
 
-### 📋 Common Secrets for Financial Master
+### 📋 Common Secrets for Veyra
 
 ```
 # API Keys

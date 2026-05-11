@@ -161,7 +161,6 @@ class RiskParityOptimizer:
         """
         Optimize for equal risk contribution.
         """
-        import time
         start_time = time.time()
         
         cov_matrix = returns.cov() * 252
@@ -230,7 +229,6 @@ class MaximumDiversificationOptimizer:
         """
         Optimize for maximum diversification ratio.
         """
-        import time
         start_time = time.time()
         
         cov_matrix = returns.cov() * 252

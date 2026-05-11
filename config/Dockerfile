@@ -1,5 +1,5 @@
-# Financial Master - Docker Configuration
-# Production-ready container for the Financial Master API
+# Veyra - Docker Configuration
+# Production-ready container for the Veyra API
 
 FROM python:3.11-slim as builder
 

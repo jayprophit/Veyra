@@ -1,4 +1,4 @@
-# Unified Monitoring for Multi-Cloud Financial Master
+# Unified Monitoring for Multi-Cloud Veyra
 apiVersion: 1
 
 datasources:
@@ -17,11 +17,11 @@ datasources:
     
   - name: GCP Cloud Monitoring
     type: stackdriver
-    projectId: financial-master-gcp
+    projectId: veyra-gcp
     keyFile: ${GOOGLE_APPLICATION_CREDENTIALS}
 
 dashboards:
-  - name: Financial Master Overview
+  - name: Veyra Overview
     panels:
       - title: API Response Time
         type: graph
@@ -73,7 +73,7 @@ alerts:
     
     for: 5m
     annotations:
-      summary: "High error rate detected in Financial Master"
+      summary: "High error rate detected in Veyra"
       description: "Error rate is above threshold"
       severity: critical
     

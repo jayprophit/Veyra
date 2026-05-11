@@ -23,7 +23,7 @@ scripts\setup_python_env.bat
 
 1. **Open Terminal in Project Root**
    ```bash
-   cd "c:\Users\jpowe\Desktop\Financial Master"
+   cd "c:\Users\jpowe\Desktop\Veyra"
    ```
 
 2. **Create Virtual Environment**

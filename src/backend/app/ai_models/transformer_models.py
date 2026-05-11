@@ -1,7 +1,7 @@
 """
 Advanced AI/ML with Transformer Models
 =====================================
-Enterprise-grade transformer models for Financial Master
+Enterprise-grade transformer models for Veyra
 """
 
 import asyncio
@@ -151,7 +151,7 @@ class FinancialT5(nn.Module):
 
 
 class TransformerModelManager:
-    """Manager for transformer models in Financial Master"""
+    """Manager for transformer models in Veyra"""
     
     def __init__(self):
         self.models: Dict[str, nn.Module] = {}

@@ -1,4 +1,4 @@
-# Financial Master - Deep Reorganization Plan
+# Veyra - Deep Reorganization Plan
 **Analysis Date:** April 25, 2026
 **Current Grade:** 101/100 (SSS+)
 **Objective:** Clean, professional, scalable structure
@@ -48,7 +48,7 @@
 ## 🎯 TARGET ARCHITECTURE
 
 ```
-Financial Master/
+Veyra/
 ├── 📁 docs/                          # All documentation
 │   ├── 📁 architecture/              # System design docs
 │   ├── 📁 grade-tracking/            # All grade docs (merged)

@@ -9,13 +9,13 @@ services:
       context: .
       dockerfile: Dockerfile
       target: production
-    container_name: financial-master-api
+    container_name: veyra-api
     restart: unless-stopped
     ports:
       - "8000:8000"
     environment:
       - DATA_SOURCE=live
-      - DATABASE_URL=sqlite:///data/financial_master.db
+      - DATABASE_URL=sqlite:///data/veyra.db
       - CACHE_ENABLED=true
       - WS_ENABLED=true
       - LOG_LEVEL=INFO
@@ -25,7 +25,7 @@ services:
       - ./data:/data
       - ./logs:/app/logs
     networks:
-      - financial-master-network
+      - veyra-network
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
       interval: 30s
@@ -40,7 +40,7 @@ services:
     build:
       context: ../../frontend
       dockerfile: Dockerfile
-    container_name: financial-master-frontend
+    container_name: veyra-frontend
     restart: unless-stopped
     ports:
       - "3000:3000"
@@ -50,21 +50,21 @@ services:
     depends_on:
       - api
     networks:
-      - financial-master-network
+      - veyra-network
 
   # ============================================================================
   # Redis (Caching & Sessions)
   # ============================================================================
   redis:
     image: redis:7-alpine
-    container_name: financial-master-redis
+    container_name: veyra-redis
     restart: unless-stopped
     ports:
       - "6379:6379"
     volumes:
       - redis-data:/data
     networks:
-      - financial-master-network
+      - veyra-network
     command: redis-server --appendonly yes
 
   # ============================================================================
@@ -72,7 +72,7 @@ services:
   # ============================================================================
   nginx:
     image: nginx:alpine
-    container_name: financial-master-nginx
+    container_name: veyra-nginx
     restart: unless-stopped
     ports:
       - "80:80"
@@ -84,14 +84,14 @@ services:
       - api
       - frontend
     networks:
-      - financial-master-network
+      - veyra-network
 
   # ============================================================================
   # Monitoring (Optional)
   # ============================================================================
   prometheus:
     image: prom/prometheus:latest
-    container_name: financial-master-prometheus
+    container_name: veyra-prometheus
     restart: unless-stopped
     ports:
       - "9090:9090"
@@ -99,13 +99,13 @@ services:
       - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - prometheus-data:/prometheus
     networks:
-      - financial-master-network
+      - veyra-network
     profiles:
       - monitoring
 
   grafana:
     image: grafana/grafana:latest
-    container_name: financial-master-grafana
+    container_name: veyra-grafana
     restart: unless-stopped
     ports:
       - "3001:3000"
@@ -115,7 +115,7 @@ services:
       - grafana-data:/var/lib/grafana
       - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
     networks:
-      - financial-master-network
+      - veyra-network
     profiles:
       - monitoring
 
@@ -125,5 +125,5 @@ volumes:
   grafana-data:
 
 networks:
-  financial-master-network:
+  veyra-network:
     driver: bridge

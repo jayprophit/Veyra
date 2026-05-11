@@ -102,7 +102,7 @@ terraform {
   }
   
   backend "s3" {
-    bucket = "financial-master-terraform-state"
+    bucket = "veyra-terraform-state"
     key    = "terraform.tfstate"
     region = "us-east-1"
   }
@@ -126,7 +126,7 @@ resource "aws_vpc" "main" {
   enable_dns_support   = true
   
   tags = {
-    Name        = "financial-master-vpc"
+    Name        = "veyra-vpc"
     Environment = var.environment
   }
 }
@@ -136,7 +136,7 @@ resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
   
   tags = {
-    Name = "financial-master-igw"
+    Name = "veyra-igw"
   }
 }
 
@@ -150,7 +150,7 @@ resource "aws_subnet" "public" {
   map_public_ip_on_launch = true
   
   tags = {
-    Name = "financial-master-public-${count.index + 1}"
+    Name = "veyra-public-${count.index + 1}"
     Type = "Public"
   }
 }
@@ -164,7 +164,7 @@ resource "aws_subnet" "private" {
   availability_zone = data.aws_availability_zones.available.names[count.index]
   
   tags = {
-    Name = "financial-master-private-${count.index + 1}"
+    Name = "veyra-private-${count.index + 1}"
     Type = "Private"
   }
 }
@@ -179,7 +179,7 @@ resource "aws_route_table" "public" {
   }
   
   tags = {
-    Name = "financial-master-public-rt"
+    Name = "veyra-public-rt"
   }
 }
 
@@ -191,7 +191,7 @@ resource "aws_route_table_association" "public" {
 
 # ECS Cluster
 resource "aws_ecs_cluster" "main" {
-  name = "financial-master"
+  name = "veyra"
   
   setting {
     name  = "containerInsights"
@@ -199,13 +199,13 @@ resource "aws_ecs_cluster" "main" {
   }
   
   tags = {
-    Name = "financial-master-ecs"
+    Name = "veyra-ecs"
   }
 }
 
 # Application Load Balancer
 resource "aws_lb" "main" {
-  name               = "financial-master-alb"
+  name               = "veyra-alb"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb.id]
@@ -214,13 +214,13 @@ resource "aws_lb" "main" {
   enable_deletion_protection = false
   
   tags = {
-    Name = "financial-master-alb"
+    Name = "veyra-alb"
   }
 }
 
 # ALB Target Group
 resource "aws_lb_target_group" "main" {
-  name     = "financial-master-tg"
+  name     = "veyra-tg"
   port     = 8000
   protocol = "HTTP"
   vpc_id   = aws_vpc.main.id
@@ -238,7 +238,7 @@ resource "aws_lb_target_group" "main" {
   }
   
   tags = {
-    Name = "financial-master-tg"
+    Name = "veyra-tg"
   }
 }
 
@@ -256,16 +256,16 @@ resource "aws_lb_listener" "main" {
 
 # RDS PostgreSQL
 resource "aws_db_subnet_group" "main" {
-  name       = "financial-master-db-subnet-group"
+  name       = "veyra-db-subnet-group"
   subnet_ids = aws_subnet.private[*].id
   
   tags = {
-    Name = "financial-master-db-subnet-group"
+    Name = "veyra-db-subnet-group"
   }
 }
 
 resource "aws_security_group" "rds" {
-  name_prefix = "financial-master-rds-"
+  name_prefix = "veyra-rds-"
   vpc_id      = aws_vpc.main.id
   
   ingress {
@@ -283,12 +283,12 @@ resource "aws_security_group" "rds" {
   }
   
   tags = {
-    Name = "financial-master-rds"
+    Name = "veyra-rds"
   }
 }
 
 resource "aws_db_instance" "main" {
-  identifier     = "financial-master-db"
+  identifier     = "veyra-db"
   engine         = "postgres"
   engine_version = "15.4"
   instance_class = var.db_instance_class
@@ -298,7 +298,7 @@ resource "aws_db_instance" "main" {
   storage_type          = "gp2"
   storage_encrypted    = true
   
-  db_name  = "financial_master"
+  db_name  = "veyra"
   username = var.db_username
   password = var.db_password
   
@@ -313,19 +313,19 @@ resource "aws_db_instance" "main" {
   publicly_accessible  = false
   
   tags = {
-    Name = "financial-master-db"
+    Name = "veyra-db"
   }
 }
 
 # ElastiCache Redis Subnet Group
 resource "aws_elasticache_subnet_group" "main" {
-  name       = "financial-master-cache-subnet"
+  name       = "veyra-cache-subnet"
   subnet_ids = aws_subnet.private[*].id
 }
 
 # ElastiCache Security Group
 resource "aws_security_group" "redis" {
-  name_prefix = "financial-master-redis-"
+  name_prefix = "veyra-redis-"
   vpc_id      = aws_vpc.main.id
   
   ingress {
@@ -343,13 +343,13 @@ resource "aws_security_group" "redis" {
   }
   
   tags = {
-    Name = "financial-master-redis"
+    Name = "veyra-redis"
   }
 }
 
 # ElastiCache Redis Cluster
 resource "aws_elasticache_cluster" "main" {
-  cluster_id           = "financial-master-cache"
+  cluster_id           = "veyra-cache"
   engine               = "redis"
   node_type            = "cache.t3.micro"
   num_cache_nodes      = 2
@@ -359,13 +359,13 @@ resource "aws_elasticache_cluster" "main" {
   security_group_ids   = [aws_security_group.redis.id]
   
   tags = {
-    Name = "financial-master-cache"
+    Name = "veyra-cache"
   }
 }
 
 # ECS Task Execution Role
 resource "aws_iam_role" "ecs_task_execution_role" {
-  name = "financial-master-ecs-task-execution-role"
+  name = "veyra-ecs-task-execution-role"
   
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -388,7 +388,7 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_policy" {
 
 # ECS Task Role
 resource "aws_iam_role" "ecs_task_role" {
-  name = "financial-master-ecs-task-role"
+  name = "veyra-ecs-task-role"
   
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -406,7 +406,7 @@ resource "aws_iam_role" "ecs_task_role" {
 
 # Security Groups
 resource "aws_security_group" "alb" {
-  name_prefix = "financial-master-alb-"
+  name_prefix = "veyra-alb-"
   vpc_id      = aws_vpc.main.id
   
   ingress {
@@ -424,12 +424,12 @@ resource "aws_security_group" "alb" {
   }
   
   tags = {
-    Name = "financial-master-alb"
+    Name = "veyra-alb"
   }
 }
 
 resource "aws_security_group" "ecs_tasks" {
-  name_prefix = "financial-master-ecs-tasks-"
+  name_prefix = "veyra-ecs-tasks-"
   vpc_id      = aws_vpc.main.id
   
   ingress {
@@ -447,16 +447,16 @@ resource "aws_security_group" "ecs_tasks" {
   }
   
   tags = {
-    Name = "financial-master-ecs-tasks"
+    Name = "veyra-ecs-tasks"
   }
 }
 
 # S3 Bucket for static assets
 resource "aws_s3_bucket" "assets" {
-  bucket = "financial-master-assets-${random_string.bucket_suffix.result}"
+  bucket = "veyra-assets-${random_string.bucket_suffix.result}"
   
   tags = {
-    Name = "financial-master-assets"
+    Name = "veyra-assets"
   }
 }
 
@@ -541,7 +541,7 @@ resource "aws_cloudfront_distribution" "main" {
   }
   
   tags = {
-    Name = "financial-master-cdn"
+    Name = "veyra-cdn"
   }
 }
 
@@ -577,7 +577,7 @@ variable "db_instance_class" {
 variable "db_username" {
   description = "Database username"
   type        = string
-  default     = "financial_master"
+  default     = "veyra"
 }
 
 variable "db_password" {
@@ -589,7 +589,7 @@ variable "db_password" {
 variable "app_image" {
   description = "Docker image for the application"
   type        = string
-  default     = "financial-master:latest"
+  default     = "veyra:latest"
 }
 
 variable "app_port" {
@@ -616,7 +616,7 @@ variable "max_capacity" {
         
         # ECS Task Definition
         task_definition = {
-            "family": "financial-master",
+            "family": "veyra",
             "networkMode": "awsvpc",
             "requiresCompatibilities": ["FARGATE"],
             "cpu": "256",
@@ -625,8 +625,8 @@ variable "max_capacity" {
             "taskRoleArn": "${aws_iam_role.ecs_task_role.arn}",
             "containerDefinitions": [
                 {
-                    "name": "financial-master-api",
-                    "image": "YOUR_ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/financial-master:latest",
+                    "name": "veyra-api",
+                    "image": "YOUR_ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/veyra:latest",
                     "portMappings": [
                         {
                             "containerPort": 8000,
@@ -636,7 +636,7 @@ variable "max_capacity" {
                     "environment": [
                         {
                             "name": "DATABASE_URL",
-                            "value": "postgresql://username:password@db-host:5432/financial_master"
+                            "value": "postgresql://username:password@db-host:5432/veyra"
                         },
                         {
                             "name": "REDIS_URL",
@@ -650,13 +650,13 @@ variable "max_capacity" {
                     "secrets": [
                         {
                             "name": "ALPHA_VANTAGE_KEY",
-                            "valueFrom": "arn:aws:secretsmanager:us-east-1:ACCOUNT:secret:financial-master/secrets"
+                            "valueFrom": "arn:aws:secretsmanager:us-east-1:ACCOUNT:secret:veyra/secrets"
                         }
                     ],
                     "logConfiguration": {
                         "logDriver": "awslogs",
                         "options": {
-                            "awslogs-group": "/ecs/financial-master",
+                            "awslogs-group": "/ecs/veyra",
                             "awslogs-region": "us-east-1",
                             "awslogs-stream-prefix": "ecs"
                         }
@@ -721,7 +721,7 @@ CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
         # Bicep main template
         bicep_main = """
 @description('Environment name')
-param environmentName string = 'financial-master-prod'
+param environmentName string = 'veyra-prod'
 
 @description('Azure region')
 param location string = resourceGroup().location
@@ -731,7 +731,7 @@ param location string = resourceGroup().location
 param adminPassword string
 
 @description('Docker image for the application')
-param appImage string = 'financial-master:latest'
+param appImage string = 'veyra:latest'
 
 @description('Minimum instances')
 param minInstances int = 2
@@ -745,7 +745,7 @@ resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
   location: location
   tags: {
     Environment = 'Production'
-    Application = 'Financial Master'
+    Application = 'Veyra'
   }
 }
 
@@ -759,7 +759,7 @@ resource acr 'Microsoft.ContainerRegistry/registries@2023-01-01-preview' = {
   }
   adminUserEnabled: true
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
   }
 }
 
@@ -775,7 +775,7 @@ resource la 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
     retentionInDays: 30
   }
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
   }
 }
 
@@ -794,7 +794,7 @@ resource cae 'Microsoft.App/managedEnvironments@2023-05-01' = {
     }
   }
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
   }
 }
 
@@ -811,7 +811,7 @@ resource vnet 'Microsoft.Network/virtualNetworks@2021-02-01' = {
     }
   }
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
   }
 }
 
@@ -834,7 +834,7 @@ resource subnet 'Microsoft.Network/virtualNetworks/subnets@2021-02-01' = {
     ]
   }
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
   }
 }
 
@@ -845,7 +845,7 @@ resource postgres 'Microsoft.DBforPostgreSQL/flexibleServers@2022-12-01' = {
   resourceGroup: rg.name
   properties: {
     version: '15'
-    administratorLogin: 'financialmaster'
+    administratorLogin: 'veyra'
     administratorLoginPassword: adminPassword
     storage: {
       storageSizeGB: 128
@@ -866,7 +866,7 @@ resource postgres 'Microsoft.DBforPostgreSQL/flexibleServers@2022-12-01' = {
     tier: 'GeneralPurpose'
   }
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
   }
 }
 
@@ -885,7 +885,7 @@ resource redis 'Microsoft.Cache/redis@2022-06-01' = {
     minimumTlsVersion: '1.2'
   }
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
   }
 }
 
@@ -916,7 +916,7 @@ resource ca 'Microsoft.App/containerApps@2023-05-01' = {
       env: [
         {
           name: 'DATABASE_URL'
-          value: 'postgresql://financialmaster:${adminPassword}@${postgres.properties.fullyQualifiedDomainName}:5432/financial_master'
+          value: 'postgresql://veyra:${adminPassword}@${postgres.properties.fullyQualifiedDomainName}:5432/veyra'
         }
         {
           name: 'REDIS_URL'
@@ -936,7 +936,7 @@ resource ca 'Microsoft.App/containerApps@2023-05-01' = {
       containers: [
         {
           image: appImage
-          name: 'financial-master-api'
+          name: 'veyra-api'
           resources: {
             cpu: json('0.5')
             memory: '1Gi'
@@ -970,7 +970,7 @@ resource ca 'Microsoft.App/containerApps@2023-05-01' = {
     }
   }
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
   }
 }
 
@@ -991,7 +991,7 @@ resource storage 'Microsoft.Storage/storageAccounts@2023-01-01' = {
     }
   }
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
   }
 }
 
@@ -1004,7 +1004,7 @@ resource fd 'Microsoft.Cdn/profiles@2021-06-01' = {
     name: 'Standard_AzureFrontDoor'
   }
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
   }
 }
 
@@ -1017,7 +1017,7 @@ resource fde 'Microsoft.Cdn/profiles/afdEndpoints@2021-06-01' = {
     enabledState: 'Enabled'
   }
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
   }
 }
 
@@ -1058,7 +1058,7 @@ terraform {
   }
   
   backend "gcs" {
-    bucket = "financial-master-terraform-state"
+    bucket = "veyra-terraform-state"
     prefix = "terraform/state"
   }
 }
@@ -1077,41 +1077,41 @@ resource "random_string" "bucket_suffix" {
 
 # VPC Network
 resource "google_compute_network" "main" {
-  name                    = "financial-master-network"
+  name                    = "veyra-network"
   auto_create_subnetworks = false
   
   tags = {
-    Application = "Financial Master"
+    Application = "Veyra"
   }
 }
 
 # Subnets
 resource "google_compute_subnetwork" "private" {
-  name          = "financial-master-private"
+  name          = "veyra-private"
   ip_cidr_range = "10.0.1.0/24"
   region        = var.region
   network       = google_compute_network.main.id
   private_ip_google_access = true
   
   tags = {
-    Application = "Financial Master"
+    Application = "Veyra"
   }
 }
 
 resource "google_compute_subnetwork" "public" {
-  name          = "financial-master-public"
+  name          = "veyra-public"
   ip_cidr_range = "10.0.2.0/24"
   region        = var.region
   network       = google_compute_network.main.id
   
   tags = {
-    Application = "Financial Master"
+    Application = "Veyra"
   }
 }
 
 # Cloud Router for NAT
 resource "google_compute_router" "main" {
-  name    = "financial-master-router"
+  name    = "veyra-router"
   region  = var.region
   network = google_compute_network.main.id
   
@@ -1122,7 +1122,7 @@ resource "google_compute_router" "main" {
 
 # Cloud NAT
 resource "google_compute_router_nat" "main" {
-  name    = "financial-master-nat"
+  name    = "veyra-nat"
   router = google_compute_router.main.name
   region = var.region
   
@@ -1133,7 +1133,7 @@ resource "google_compute_router_nat" "main" {
 
 # Cloud SQL PostgreSQL
 resource "google_sql_database_instance" "main" {
-  name             = "financial-master-db"
+  name             = "veyra-db"
   database_version = "POSTGRES_15"
   region           = var.region
   
@@ -1162,24 +1162,24 @@ resource "google_sql_database_instance" "main" {
   deletion_protection = false
   
   tags = {
-    Application = "Financial Master"
+    Application = "Veyra"
   }
 }
 
 resource "google_sql_database" "main" {
-  name     = "financial_master"
+  name     = "veyra"
   instance = google_sql_database_instance.main.name
 }
 
 resource "google_sql_user" "main" {
-  name     = "financialmaster"
+  name     = "veyra"
   instance = google_sql_database_instance.main.name
   password = var.db_password
 }
 
 # Memorystore Redis
 resource "google_redis_instance" "main" {
-  name           = "financial-master-cache"
+  name           = "veyra-cache"
   tier           = "STANDARD_HA"
   memory_size_gb = 4
   region         = var.region
@@ -1187,23 +1187,23 @@ resource "google_redis_instance" "main" {
   authorized_network = google_compute_subnetwork.private.ip_cidr_range
   
   redis_version     = "REDIS_7_0"
-  display_name      = "Financial Master Cache"
+  display_name      = "Veyra Cache"
   
   labels = {
-    application = "financial-master"
+    application = "veyra"
   }
 }
 
 # Cloud Run Service
 resource "google_cloud_run_v2_service" "main" {
-  name     = "financial-master-api"
+  name     = "veyra-api"
   location = var.region
   project  = var.project_id
   
   template {
     containers {
-      name  = "financial-master"
-      image = "gcr.io/${var.project_id}/financial-master:latest"
+      name  = "veyra"
+      image = "gcr.io/${var.project_id}/veyra:latest"
       
       ports {
         container_port = 8000
@@ -1211,7 +1211,7 @@ resource "google_cloud_run_v2_service" "main" {
       
       env {
         name  = "DATABASE_URL"
-        value = "postgresql://${google_sql_user.main.name}:${var.db_password}@${google_sql_database_instance.main.private_ip_address}:5432/financial_master"
+        value = "postgresql://${google_sql_user.main.name}:${var.db_password}@${google_sql_database_instance.main.private_ip_address}:5432/veyra"
       }
       
       env {
@@ -1291,14 +1291,14 @@ resource "google_cloud_run_v2_service" "main" {
   }
   
   labels = {
-    application = "financial-master"
+    application = "veyra"
   }
 }
 
 # Cloud Armor Security Policy
 resource "google_compute_security_policy" "main" {
-  name        = "financial-master-security"
-  description = "Security policy for Financial Master"
+  name        = "veyra-security"
+  description = "Security policy for Veyra"
   
   rule {
     action      = "allow"
@@ -1323,13 +1323,13 @@ resource "google_compute_security_policy" "main" {
   }
   
   labels = {
-    application = "financial-master"
+    application = "veyra"
   }
 }
 
 # Backend Config for CDN
 resource "google_compute_backend_bucket" "assets" {
-  name        = "financial-master-assets-backend"
+  name        = "veyra-assets-backend"
   bucket_name = google_storage_bucket.assets.name
   enable_cdn  = true
   
@@ -1341,26 +1341,26 @@ resource "google_compute_backend_bucket" "assets" {
 
 # CDN Load Balancer
 resource "google_compute_global_forwarding_rule" "main" {
-  name       = "financial-master-forwarding-rule"
+  name       = "veyra-forwarding-rule"
   target     = google_compute_target_http_proxy.main.id
   port_range = "80"
   
   labels = {
-    application = "financial-master"
+    application = "veyra"
   }
 }
 
 resource "google_compute_target_http_proxy" "main" {
-  name    = "financial-master-http-proxy"
+  name    = "veyra-http-proxy"
   url_map = google_compute_url_map.main.id
   
   labels = {
-    application = "financial-master"
+    application = "veyra"
   }
 }
 
 resource "google_compute_url_map" "main" {
-  name = "financial-master-url-map"
+  name = "veyra-url-map"
   
   default_service = google_compute_backend_service.main.id
   
@@ -1370,12 +1370,12 @@ resource "google_compute_url_map" "main" {
   }
   
   labels = {
-    application = "financial-master"
+    application = "veyra"
   }
 }
 
 resource "google_compute_path_matcher" "main" {
-  name = "financial-master-path-matcher"
+  name = "veyra-path-matcher"
   default_service = google_compute_backend_service.main.id
   
   path_rules {
@@ -1384,12 +1384,12 @@ resource "google_compute_path_matcher" "main" {
   }
   
   labels = {
-    application = "financial-master"
+    application = "veyra"
   }
 }
 
 resource "google_compute_backend_service" "main" {
-  name        = "financial-master-backend-service"
+  name        = "veyra-backend-service"
   port_name   = "http"
   protocol    = "HTTP"
   timeout_sec = 30
@@ -1403,12 +1403,12 @@ resource "google_compute_backend_service" "main" {
   security_policy = google_compute_security_policy.main.id
   
   labels = {
-    application = "financial-master"
+    application = "veyra"
   }
 }
 
 resource "google_compute_health_check" "main" {
-  name               = "financial-master-health-check"
+  name               = "veyra-health-check"
   check_interval_sec = 30
   timeout_sec        = 10
   healthy_threshold   = 2
@@ -1420,13 +1420,13 @@ resource "google_compute_health_check" "main" {
   }
   
   labels = {
-    application = "financial-master"
+    application = "veyra"
   }
 }
 
 # Storage Bucket for assets
 resource "google_storage_bucket" "assets" {
-  name          = "financial-master-assets-${random_string.bucket_suffix.result}"
+  name          = "veyra-assets-${random_string.bucket_suffix.result}"
   location      = "US"
   force_destroy = true
   
@@ -1440,7 +1440,7 @@ resource "google_storage_bucket" "assets" {
   }
   
   labels = {
-    application = "financial-master"
+    application = "veyra"
   }
 }
 
@@ -1452,7 +1452,7 @@ resource "google_secret_manager_secret" "alpha_vantage" {
   }
   
   labels = {
-    application = "financial-master"
+    application = "veyra"
   }
 }
 
@@ -1461,14 +1461,14 @@ resource "google_secret_manager_secret_version" "alpha_vantage" {
   secret_data = var.alpha_vantage_key
   
   labels = {
-    application = "financial-master"
+    application = "veyra"
   }
 }
 
 # Service Account for Cloud Run
 resource "google_service_account" "cloud_run" {
-  account_id   = "financial-master-cloudrun"
-  display_name = "Financial Master Cloud Run Service Account"
+  account_id   = "veyra-cloudrun"
+  display_name = "Veyra Cloud Run Service Account"
 }
 
 # IAM permissions
@@ -1542,11 +1542,11 @@ variable "max_instances" {
 steps:
   # Build the Docker image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/financial-master:$SHORT_SHA', '.']
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/veyra:$SHORT_SHA', '.']
   
   # Push the Docker image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/financial-master:$SHORT_SHA']
+    args: ['push', 'gcr.io/$PROJECT_ID/veyra:$SHORT_SHA']
   
   # Deploy to Cloud Run
   - name: 'gcr.io/cloud-builders/gcloud'
@@ -1554,13 +1554,13 @@ steps:
       - 'run'
       - 'services'
       - 'update'
-      - 'financial-master-api'
-      - '--image=gcr.io/$PROJECT_ID/financial-master:$SHORT_SHA'
+      - 'veyra-api'
+      - '--image=gcr.io/$PROJECT_ID/veyra:$SHORT_SHA'
       - '--region=us-central1'
       - '--allow-unauthenticated'
 
 images:
-  - 'gcr.io/$PROJECT_ID/financial-master:$SHORT_SHA'
+  - 'gcr.io/$PROJECT_ID/veyra:$SHORT_SHA'
 """
         
         with open(gcp_dir / "cloudbuild.yaml", "w") as f:
@@ -1738,7 +1738,7 @@ images:
 
 def main():
     """Main deployment function"""
-    print("☁️ Financial Master - Cloud Infrastructure Deployment")
+    print("☁️ Veyra - Cloud Infrastructure Deployment")
     print("="*60)
     
     # Get provider choice

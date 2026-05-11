@@ -2,7 +2,7 @@
 """
 Zero-Cost Multi-Cloud Deployment Script
 =====================================
-Deploy Financial Master with free tiers and open source
+Deploy Veyra with free tiers and open source
 """
 
 import os
@@ -827,7 +827,7 @@ class ZeroCostMultiCloudDeployer:
                 "description": "Cloudflare Pages template",
                 "file": "pages-template.yaml",
                 "content": """# Cloudflare Pages Template
-name: financial-master-zero-cost
+name: veyra-zero-cost
 compatibility_date: "2024-01-01"
 
 build:
@@ -836,7 +836,7 @@ build:
 
 env:
   NODE_ENV: "production"
-  API_URL: "https://financial-master-api.workers.dev"
+  API_URL: "https://veyra-api.workers.dev"
   DATABASE_URL: "$DATABASE_URL"
   AUTH0_DOMAIN: "$AUTH0_DOMAIN"
   AUTH0_CLIENT_ID: "$AUTH0_CLIENT_ID"
@@ -869,7 +869,7 @@ async function handleRequest(request) {
   }
   
   if (url.pathname.startsWith('/api/')) {
-    const backendUrl = 'https://financial-master.onrender.com' + url.pathname
+    const backendUrl = 'https://veyra.onrender.com' + url.pathname
     const response = await fetch(backendUrl, {
       method: request.method,
       headers: request.headers,
@@ -885,7 +885,7 @@ async function handleRequest(request) {
     })
   }
   
-  return fetch('https://financial-master.pages.dev' + url.pathname)
+  return fetch('https://veyra.pages.dev' + url.pathname)
 }
 """
             },
@@ -895,7 +895,7 @@ async function handleRequest(request) {
                 "content": """# Render Service Template
 services:
   - type: web
-    name: financial-master-api
+    name: veyra-api
     env: node
     plan: free
     buildCommand: "npm install && npm run build"
@@ -915,10 +915,10 @@ services:
         value: http://localhost:11434
 
 databases:
-  - name: financial-master-db
+  - name: veyra-db
     plan: free
-    databaseName: financial_master
-    user: financial_master
+    databaseName: veyra
+    user: veyra
 
 healthCheckPath: /health
 autoDeploy: true
@@ -934,8 +934,8 @@ services:
   postgres:
     image: postgres:15
     environment:
-      POSTGRES_DB: financial_master
-      POSTGRES_USER: financial_master
+      POSTGRES_DB: veyra
+      POSTGRES_USER: veyra
       POSTGRES_PASSWORD: password
     ports:
       - "5432:5432"
@@ -980,7 +980,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DATABASE_URL=postgresql://financial_master:password@postgres:5432/financial_master
+      - DATABASE_URL=postgresql://veyra:password@postgres:5432/veyra
       - REDIS_URL=redis://redis:6379
       - OLLAMA_URL=http://localhost:11434
     depends_on:
@@ -1002,7 +1002,7 @@ volumes:
                 "description": "GitHub Actions template",
                 "file": "github-actions-template.yml",
                 "content": """# GitHub Actions Template
-name: Deploy Financial Master
+name: Deploy Veyra
 
 on:
   push:
@@ -1044,7 +1044,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: financial-master
+          projectName: veyra
           directory: dist
 
   deploy-backend:
@@ -1087,7 +1087,7 @@ jobs:
                 "file": "setup-accounts.sh",
                 "content": """#!/bin/bash
 # Setup Free Accounts Script
-echo "Setting up free accounts for Financial Master..."
+echo "Setting up free accounts for Veyra..."
 
 echo "1. Cloudflare - https://dash.cloudflare.com/sign-up"
 echo "2. GitHub - https://github.com/signup"
@@ -1154,10 +1154,10 @@ echo "Deploying frontend to Cloudflare Pages..."
 npm run build
 
 # Deploy to Cloudflare Pages
-npx wrangler pages publish dist --project-name=financial-master
+npx wrangler pages publish dist --project-name=veyra
 
 echo "Frontend deployed to Cloudflare Pages"
-echo "URL: https://financial-master.pages.dev"
+echo "URL: https://veyra.pages.dev"
 """
             },
             "deploy_backend": {
@@ -1171,10 +1171,10 @@ echo "Deploying backend to Render..."
 curl -X POST https://api.render.com/v1/services/$RENDER_SERVICE_ID/deploys \
   -H "Authorization: Bearer $RENDER_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"imageUrl": "ghcr.io/financial-master/backend:latest"}'
+  -d '{"imageUrl": "ghcr.io/veyra/backend:latest"}'
 
 echo "Backend deployment triggered to Render"
-echo "URL: https://financial-master.onrender.com"
+echo "URL: https://veyra.onrender.com"
 """
             },
             "setup_monitoring": {
@@ -1194,9 +1194,9 @@ echo "Prometheus: http://localhost:9090"
 # Setup Uptime Robot monitors
 echo "Setup Uptime Robot monitors at: https://uptimerobot.com/dashboard"
 echo "Monitor URLs:"
-echo "- Frontend: https://financial-master.pages.dev"
-echo "- Backend: https://financial-master.onrender.com"
-echo "- API: https://financial-master-api.workers.dev"
+echo "- Frontend: https://veyra.pages.dev"
+echo "- Backend: https://veyra.onrender.com"
+echo "- API: https://veyra-api.workers.dev"
 """
             },
             "setup_local": {
@@ -1222,7 +1222,7 @@ npm run seed
 npm run dev
 
 echo "Local development environment started:"
-echo "- Database: postgresql://localhost:5432/financial_master"
+echo "- Database: postgresql://localhost:5432/veyra"
 echo "- Redis: redis://localhost:6379"
 echo "- Ollama: http://localhost:11434"
 echo "- Application: http://localhost:8000"

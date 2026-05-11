@@ -1,5 +1,5 @@
 """
-Financial Master - Main Orchestrator & FastAPI Application
+Veyra - Main Orchestrator & FastAPI Application
 ===========================================================
 Entry point that wires all components together with REST API.
 
@@ -23,10 +23,10 @@ load_dotenv()
 
 # Import structured logging (replaces print statements)
 from .monitoring.logging_setup import setup_logging, logger
-logger = setup_logging('FinancialMaster')
+logger = setup_logging('Veyra')
 
 logger.info("="*60)
-logger.info("Financial Master - Application Starting")
+logger.info("Veyra - Application Starting")
 logger.info("="*60)
 
 # Load environment
@@ -109,14 +109,14 @@ class FinancialMasterSystem:
     async def initialize(self):
         """Initialize all subsystems."""
         logger.info("="*60)
-        logger.info("Financial Master - System Initialization")
+        logger.info("Veyra - System Initialization")
         logger.info("="*60)
         
         # 1. Database
         logger.info("[1/4] Initializing database...")
         db_config = DatabaseConfig(
             db_type=os.getenv('DB_TYPE', 'sqlite'),
-            sqlite_path=os.getenv('SQLITE_PATH', './data/financial_master.db')
+            sqlite_path=os.getenv('SQLITE_PATH', './data/veyra.db')
         )
         self.db = DatabaseManager(db_config)
         logger.info("✓ Database ready")
@@ -210,7 +210,7 @@ class FinancialMasterSystem:
 def create_fastapi_app() -> FastAPI:
     """Create and configure FastAPI application."""
     app = FastAPI(
-        title="Financial Master API",
+        title="Veyra API",
         description="Complete financial management and trading platform API",
         version="1.0.0",
         docs_url="/docs",
@@ -266,7 +266,7 @@ def create_fastapi_app() -> FastAPI:
     @app.get("/")
     async def root():
         return {
-            "name": "Financial Master API",
+            "name": "Veyra API",
             "version": "1.0.0",
             "status": "operational",
             "modules_loaded": TRADING_MODULES_AVAILABLE,
@@ -321,7 +321,7 @@ async def start_api_server(host: str = "0.0.0.0", port: int = 8000):
 
 async def main():
     """Main entry point."""
-    parser = argparse.ArgumentParser(description='Financial Master System')
+    parser = argparse.ArgumentParser(description='Veyra System')
     parser.add_argument('--api', action='store_true', help='Start API server only')
     parser.add_argument('--dashboard', action='store_true', help='Start dashboard server only')
     parser.add_argument('--agents', action='store_true', help='Start agents only')

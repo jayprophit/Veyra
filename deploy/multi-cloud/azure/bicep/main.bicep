@@ -1,6 +1,6 @@
-# Azure Microsoft Ecosystem - Financial Master
+# Azure Microsoft Ecosystem - Veyra
 @description('Environment name')
-param environmentName string = 'financial-master-azure-prod'
+param environmentName string = 'veyra-azure-prod'
 
 @description('Azure region')
 param location string = resourceGroup().location
@@ -10,7 +10,7 @@ param location string = resourceGroup().location
 param adminPassword string
 
 @description('Docker image for the application')
-param appImage string = 'financial-master:latest'
+param appImage string = 'veyra:latest'
 
 @description('Microsoft 365 tenant ID')
 param m365TenantId string
@@ -24,7 +24,7 @@ resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
   location: location
   tags: {
     Environment = 'production'
-    Application = 'Financial Master'
+    Application = 'Veyra'
     Provider = 'Azure'
     Role = 'Microsoft-Ecosystem'
   }
@@ -32,14 +32,14 @@ resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
 
 // Azure AD for Identity Management
 resource aad 'Microsoft.Graph/directoryObjects@v1.0' = {
-  displayName: 'Financial Master Users'
-  description: 'User group for Financial Master application'
-  mailNickname: 'financial-master-users'
+  displayName: 'Veyra Users'
+  description: 'User group for Veyra application'
+  mailNickname: 'veyra-users'
   securityEnabled = true
   mailEnabled = true
   
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
     Provider = 'Azure'
     Role = 'Microsoft-Ecosystem'
   }
@@ -56,7 +56,7 @@ resource acr 'Microsoft.ContainerRegistry/registries@2023-01-01-preview' = {
   adminUserEnabled = true
   
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
     Provider = 'Azure'
     Role = 'Microsoft-Ecosystem'
   }
@@ -75,7 +75,7 @@ resource la 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
   }
   
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
     Provider = 'Azure'
     Role = 'Microsoft-Ecosystem'
   }
@@ -97,7 +97,7 @@ resource cae 'Microsoft.App/managedEnvironments@2023-05-01' = {
   }
   
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
     Provider = 'Azure'
     Role = 'Microsoft-Ecosystem'
   }
@@ -117,7 +117,7 @@ resource vnet 'Microsoft.Network/virtualNetworks@2021-02-01' = {
   }
   
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
     Provider = 'Azure'
     Role = 'Microsoft-Ecosystem'
   }
@@ -143,7 +143,7 @@ resource subnet 'Microsoft.Network/virtualNetworks/subnets@2021-02-01' = {
   }
   
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
     Provider = 'Azure'
     Role = 'Microsoft-Ecosystem'
   }
@@ -156,7 +156,7 @@ resource postgres 'Microsoft.DBforPostgreSQL/flexibleServers@2022-12-01' = {
   resourceGroup: rg.name
   properties: {
     version: '15'
-    administratorLogin: 'financialmaster'
+    administratorLogin: 'veyra'
     administratorLoginPassword: adminPassword
     storage: {
       storageSizeGB: 200
@@ -178,7 +178,7 @@ resource postgres 'Microsoft.DBforPostgreSQL/flexibleServers@2022-12-01' = {
   }
   
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
     Provider = 'Azure'
     Role = 'Microsoft-Ecosystem'
   }
@@ -200,7 +200,7 @@ resource redis 'Microsoft.Cache/redis@2022-06-01' = {
   }
   
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
     Provider = 'Azure'
     Role = 'Microsoft-Ecosystem'
   }
@@ -229,7 +229,7 @@ resource ca 'Microsoft.App/containerApps@2023-05-01' = {
       env: [
         {
           name: 'DATABASE_URL'
-          value: 'postgresql://financialmaster:${adminPassword}@${postgres.properties.fullyQualifiedDomainName}:5432/financial_master'
+          value: 'postgresql://veyra:${adminPassword}@${postgres.properties.fullyQualifiedDomainName}:5432/veyra'
         }
         {
           name: 'REDIS_URL'
@@ -253,7 +253,7 @@ resource ca 'Microsoft.App/containerApps@2023-05-01' = {
       containers: [
         {
           image: appImage
-          name: 'financial-master-api'
+          name: 'veyra-api'
           resources: {
             cpu: json('1')
             memory: '2Gi'
@@ -288,7 +288,7 @@ resource ca 'Microsoft.App/containerApps@2023-05-01' = {
   }
   
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
     Provider = 'Azure'
     Role = 'Microsoft-Ecosystem'
   }
@@ -300,7 +300,7 @@ resource powerBiWorkspace 'Microsoft.PowerBI/workspace@2020-06-01' = {
   location: location
   
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
     Provider = 'Azure'
     Role = 'Microsoft-Ecosystem'
   }
@@ -308,7 +308,7 @@ resource powerBiWorkspace 'Microsoft.PowerBI/workspace@2020-06-01' = {
 
 // Office 365 Integration
 resource office365 'Microsoft.Graph/servicePrincipals@v1.0' = {
-  displayName: 'Financial Master Office Integration'
+  displayName: 'Veyra Office Integration'
   description: 'Service principal for Office 365 integration'
   appId: azureApp.applicationId
   
@@ -336,7 +336,7 @@ resource fd 'Microsoft.Cdn/profiles@2021-06-01' = {
   }
   
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
     Provider = 'Azure'
     Role = 'Microsoft-Ecosystem'
   }
@@ -374,7 +374,7 @@ resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
   }
   
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
     Provider = 'Azure'
     Role = 'Microsoft-Ecosystem'
   }
@@ -382,12 +382,12 @@ resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
 
 // Application Registration for OAuth
 resource azureApp 'Microsoft.Graph/applications@v1.0' = {
-  displayName: 'Financial Master'
+  displayName: 'Veyra'
   signInAudience = 'AzureADMyOrg'
   
   web: {
     redirectUris: [
-      'https://financial-master.azurewebsites.net/.auth/login/aad/callback'
+      'https://veyra.azurewebsites.net/.auth/login/aad/callback'
     ]
   }
   
@@ -404,7 +404,7 @@ resource azureApp 'Microsoft.Graph/applications@v1.0' = {
   ]
   
   tags: {
-    Application = 'Financial Master'
+    Application = 'Veyra'
     Provider = 'Azure'
     Role = 'Microsoft-Ecosystem'
   }

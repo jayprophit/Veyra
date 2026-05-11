@@ -730,11 +730,8 @@ class AIMLIntegrationModule:
 # Generated: {datetime.now().isoformat()}
 
 ## Import Libraries
-import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.preprocessing import StandardScaler
 
 ## Load Data
 # Data loading code here...
@@ -826,7 +823,7 @@ from sklearn.preprocessing import StandardScaler
     async def _configure_rest_api(self, exchanges: List[str], order_types: List[str]) -> Dict[str, Any]:
         """Configure REST API"""
         return {
-            'base_url': 'https://api.financialmaster.com/v1',
+            'base_url': 'https://api.veyra.com/v1',
             'endpoints': {
                 'orders': '/orders',
                 'positions': '/positions',
@@ -842,7 +839,7 @@ from sklearn.preprocessing import StandardScaler
     async def _configure_websocket_api(self, exchanges: List[str]) -> Dict[str, Any]:
         """Configure WebSocket API"""
         return {
-            'websocket_url': 'wss://ws.financialmaster.com/v1',
+            'websocket_url': 'wss://ws.veyra.com/v1',
             'channels': {
                 'quotes': '/quotes',
                 'trades': '/trades',

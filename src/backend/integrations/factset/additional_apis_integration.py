@@ -1,5 +1,5 @@
 """
-Additional FactSet APIs Integration for Financial Master
+Additional FactSet APIs Integration for Veyra
 
 This module provides integration with high-value FactSet APIs:
 - Real-Time Quotes API

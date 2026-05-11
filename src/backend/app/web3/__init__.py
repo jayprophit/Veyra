@@ -1,1 +1,1 @@
-# Financial Master - web3 module
+# Veyra - web3 module

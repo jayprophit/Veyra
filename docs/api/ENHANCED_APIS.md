@@ -2,13 +2,13 @@
 
 ## Overview
 
-This document provides comprehensive API reference for all enhanced financial repositories integrated with Financial Master.
+This document provides comprehensive API reference for all enhanced financial repositories integrated with Veyra.
 
 ## Financial Intelligence Layer API
 
 ### Base URL
 ```
-https://api.financialmaster.com/v1
+https://api.veyra.com/v1
 ```
 
 ### Authentication
@@ -605,7 +605,7 @@ Response:
 ### Real-Time Data Stream
 ```javascript
 // WebSocket connection for real-time data
-const ws = new WebSocket('wss://api.financialmaster.com/v1/ws/market');
+const ws = new WebSocket('wss://api.veyra.com/v1/ws/market');
 
 ws.onopen = function() {
     console.log('Connected to real-time market data');
@@ -696,15 +696,15 @@ X-RateLimit-Reset: 2026-05-09T16:00:00Z
 
 ### Python SDK
 ```python
-# Install the Financial Master Python SDK
-pip install financial-master-sdk
+# Install the Veyra Python SDK
+pip install veyra-sdk
 
 # Initialize the client
 from financial_master_sdk import FinancialMasterClient
 
 client = FinancialMasterClient(
     api_key='your_api_key',
-    base_url='https://api.financialmaster.com/v1'
+    base_url='https://api.veyra.com/v1'
 )
 
 # Get real-time quotes
@@ -722,15 +722,15 @@ optimization = await client.optimize_portfolio_advanced(['AAPL', 'MSFT', 'GOOGL'
 
 ### JavaScript SDK
 ```javascript
-// Install the Financial Master JavaScript SDK
-npm install financial-master-sdk
+// Install the Veyra JavaScript SDK
+npm install veyra-sdk
 
 // Initialize the client
-import { FinancialMasterClient } from 'financial-master-sdk';
+import { FinancialMasterClient } from 'veyra-sdk';
 
 const client = new FinancialMasterClient({
     apiKey: 'your_api_key',
-    baseUrl: 'https://api.financialmaster.com/v1'
+    baseUrl: 'https://api.veyra.com/v1'
 });
 
 // Get real-time quotes
@@ -748,13 +748,13 @@ const optimization = await client.optimizePortfolio(['AAPL', 'MSFT', 'GOOGL']);
 
 ### React Components
 ```jsx
-// Financial Master React Components
+// Veyra React Components
 import { 
   RealTimeChart, 
   TechnicalIndicators, 
   PortfolioOptimizer,
   MarketDataTable 
-} from 'financial-master-ui';
+} from 'veyra-ui';
 
 function TradingDashboard() {
   return (

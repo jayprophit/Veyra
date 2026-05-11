@@ -14,7 +14,7 @@ The document analyzes **commercial AI trading bot platforms** across three domai
 2. **E-commerce/Procurement** (Arbitrage, repricing, inventory automation)
 3. **Open-Source Alternatives** (Free, self-hosted options)
 
-**Key Value for Financial Master:**
+**Key Value for Veyra:**
 - Integration opportunities with existing trading infrastructure
 - Open-source bot frameworks for strategy automation
 - E-commerce trading concepts applicable to marketplace module
@@ -71,7 +71,7 @@ The document analyzes **commercial AI trading bot platforms** across three domai
 
 **Why Integrate:**
 - Most popular open-source crypto trading bot
-- Python-based (matches Financial Master stack)
+- Python-based (matches Veyra stack)
 - Extensive backtesting and strategy optimization
 - Active community (10,000+ users)
 
@@ -80,14 +80,14 @@ The document analyzes **commercial AI trading bot platforms** across three domai
 # Freqtrade Strategy Integration
 class FM_Freqtrade_Strategy(IStrategy):
     """
-    Financial Master integrated Freqtrade strategy
+    Veyra integrated Freqtrade strategy
     """
     
-    # Import Financial Master indicators
+    # Import Veyra indicators
     from trading.indicators import PatternRecognition, VolumeAnalysis
     
     def populate_indicators(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
-        """Add Financial Master technical indicators"""
+        """Add Veyra technical indicators"""
         
         # Pattern recognition
         dataframe['pattern'] = self.fm_pattern.detect(dataframe['close'])
@@ -138,14 +138,14 @@ src/backend/app/bot_integration/
 # LEAN Engine Integration
 class FinancialMasterAlgorithm(QCAlgorithm):
     """
-    Financial Master algorithm running on QuantConnect
+    Veyra algorithm running on QuantConnect
     """
     
     def Initialize(self):
         self.SetStartDate(2020, 1, 1)
         self.SetCash(100000)
         
-        # Use Financial Master data sources
+        # Use Veyra data sources
         self.AddEquity("SPY", Resolution.Minute)
         
         # Import FM strategies
@@ -169,7 +169,7 @@ class FinancialMasterAlgorithm(QCAlgorithm):
 
 **Integration Architecture:**
 ```
-Financial Master ←→ QuantConnect API ←→ LEAN Engine
+Veyra ←→ QuantConnect API ←→ LEAN Engine
      ↓                    ↓                  ↓
  Strategies          Cloud Backtest     Live Trading
  Analytics           Research Lab       Broker Execution
@@ -181,15 +181,15 @@ Financial Master ←→ QuantConnect API ←→ LEAN Engine
 
 **Why Integrate:**
 - Bridges TradingView/TrendSpider to broker APIs
-- **Perfect for Financial Master's TradingView integration**
+- **Perfect for Veyra's TradingView integration**
 - Webhook-based execution
 
 **Integration Points:**
 ```python
-# TradersPost-style Bridge for Financial Master
+# TradersPost-style Bridge for Veyra
 class TradingBridge:
     """
-    Bridge Financial Master signals to broker execution
+    Bridge Veyra signals to broker execution
     Similar to TradersPost functionality
     """
     
@@ -200,7 +200,7 @@ class TradingBridge:
     def create_webhook(self, strategy_id: str, broker_id: str) -> str:
         """Create webhook URL for TradingView alerts"""
         
-        webhook_url = f"https://api.financialmaster.com/webhook/{strategy_id}"
+        webhook_url = f"https://api.veyra.com/webhook/{strategy_id}"
         
         # Register handler
         self.webhook_handlers[webhook_url] = {
@@ -263,7 +263,7 @@ from hummingbot.strategy.pure_market_making import PureMarketMakingStrategy
 
 class FM_MarketMaker:
     """
-    Financial Master market making using Hummingbot
+    Veyra market making using Hummingbot
     """
     
     def __init__(self, exchange: str, trading_pair: str):
@@ -304,7 +304,7 @@ The document discusses **automated procurement systems** that:
 - Automate purchase orders
 - Update inventory/listings
 
-**Financial Master Application:**
+**Veyra Application:**
 ```python
 # Marketplace Arbitrage Bot
 class MarketplaceArbitrageBot:
@@ -345,7 +345,7 @@ class MarketplaceArbitrageBot:
         return sorted(opportunities, key=lambda x: x['margin_pct'], reverse=True)
 ```
 
-**Use Case:** Enhance Financial Master's **Marketplace Module** with:
+**Use Case:** Enhance Veyra's **Marketplace Module** with:
 - Automatic product repricing
 - Supplier price monitoring
 - Inventory arbitrage detection
@@ -358,7 +358,7 @@ class MarketplaceArbitrageBot:
 ### Recommended Implementation
 
 ```
-Financial Master Bot Integration Layer
+Veyra Bot Integration Layer
 ├── adapters/
 │   ├── freqtrade_adapter.py      # Freqtrade integration
 │   ├── quantconnect_adapter.py     # QC/LEAN integration
@@ -464,7 +464,7 @@ src/backend/app/bot_integration/api.py
 
 ## COMPETITIVE ADVANTAGES
 
-**What Financial Master Gets from These Integrations:**
+**What Veyra Gets from These Integrations:**
 
 1. **Strategy Marketplace** - Like StockHero (rent/buy strategies)
 2. **TradingView Bridge** - Like TradersPost (alert → execution)

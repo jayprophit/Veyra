@@ -55,7 +55,7 @@ class AutomatedReportingModule:
         self.email_config = config.get('email', {
             'smtp_server': 'smtp.gmail.com',
             'smtp_port': 587,
-            'username': 'reports@financialmaster.com',
+            'username': 'reports@veyra.com',
             'password': 'app_password'
         })
         self.output_directory = config.get('output_directory', 'reports/')
@@ -547,7 +547,7 @@ in
             ],
             'metadata': {
                 'title': content['title'],
-                'author': 'Financial Master',
+                'author': 'Veyra',
                 'created_at': content['generated_at']
             }
         }

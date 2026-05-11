@@ -1,5 +1,5 @@
 """
-Financial Master API Server - FastAPI Backend with Authentication
+Veyra API Server - FastAPI Backend with Authentication
 ==========================================
 REST API to serve the React Dashboard.
 
@@ -115,12 +115,12 @@ async def lifespan(app: FastAPI):
     global db, orchestrator, feed_manager
     
     # Startup
-    print("🚀 Starting Financial Master API Server...")
+    print("🚀 Starting Veyra API Server...")
     
     # Initialize database
     db_config = DatabaseConfig(
         db_type=os.getenv('DB_TYPE', 'sqlite'),
-        sqlite_path=os.getenv('SQLITE_PATH', './data/financial_master.db')
+        sqlite_path=os.getenv('SQLITE_PATH', './data/veyra.db')
     )
     db = DatabaseManager(db_config)
     
@@ -157,7 +157,7 @@ async def lifespan(app: FastAPI):
 # ============================================================================
 
 app = FastAPI(
-    title="Financial Master API",
+    title="Veyra API",
     description="AI-powered financial management API",
     version="2.0.0",
     lifespan=lifespan

@@ -1,5 +1,5 @@
 """
-Financial Master Telegram Bot
+Veyra Telegram Bot
 Mobile Command & Control Interface
 Version: 1.0 | Quick-Win Implementation
 
@@ -66,7 +66,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         return
     
     welcome_message = f"""
-🤖 <b>Financial Master Bot</b>
+🤖 <b>Veyra Bot</b>
 Welcome, {user.first_name}!
 
 Your personal AI-powered financial command center is now mobile.
@@ -635,7 +635,7 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
 
 <b>LINKS:</b>
 📊 Dashboard: [Web UI URL]
-📁 Files: C:\\Users\\jpowe\\Desktop\\Financial Master
+📁 Files: C:\\Users\\jpowe\\Desktop\\Veyra
 🐍 Scripts: 07_Working_Files\\00_Master_Spreadsheet_System
 
 <b>SUPPORT:</b>

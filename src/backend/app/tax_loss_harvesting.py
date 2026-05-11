@@ -1,4 +1,4 @@
-"""Financial Master - Tax-Loss Harvesting Automation. UK CGT optimization."""
+"""Veyra - Tax-Loss Harvesting Automation. UK CGT optimization."""
 
 import json, sqlite3
 from typing import List, Dict, Optional, Tuple
@@ -341,11 +341,11 @@ class TaxLossHarvester:
 
 if __name__ == "__main__":
     print("="*60)
-    print("Financial Master - Tax-Loss Harvesting")
+    print("Veyra - Tax-Loss Harvesting")
     print("="*60)
     
     # Connect to database
-    conn = sqlite3.connect("./data/financial_master.db")
+    conn = sqlite3.connect("./data/veyra.db")
     
     # Create harvester
     harvester = TaxLossHarvester(conn, cgt_allowance=3000.0)

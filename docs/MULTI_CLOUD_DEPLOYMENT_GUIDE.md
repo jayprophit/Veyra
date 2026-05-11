@@ -1,4 +1,4 @@
-# 🌐 Financial Master - Multi-Cloud Deployment Guide
+# 🌐 Veyra - Multi-Cloud Deployment Guide
 ## Deploy Across AWS, Azure, and GCP for Complete Industrial Coverage
 
 ---
@@ -168,7 +168,7 @@ terraform {
   }
   
   backend "s3" {
-    bucket = "financial-master-aws-terraform-state"
+    bucket = "veyra-aws-terraform-state"
     key    = "aws-infrastructure.tfstate"
     region = "us-east-1"
   }
@@ -185,7 +185,7 @@ resource "aws_vpc" "main" {
   enable_dns_support   = true
   
   tags = {
-    Name        = "financial-master-aws-vpc"
+    Name        = "veyra-aws-vpc"
     Environment = "production"
     Provider    = "AWS"
   }
@@ -193,7 +193,7 @@ resource "aws_vpc" "main" {
 
 # ECS Cluster for Container Orchestration
 resource "aws_ecs_cluster" "main" {
-  name = "financial-master-aws"
+  name = "veyra-aws"
   
   setting {
     name  = "containerInsights"
@@ -201,14 +201,14 @@ resource "aws_ecs_cluster" "main" {
   }
   
   tags = {
-    Name = "financial-master-aws-ecs"
+    Name = "veyra-aws-ecs"
     Provider = "AWS"
   }
 }
 
 # RDS PostgreSQL - Primary Database
 resource "aws_db_instance" "main" {
-  identifier     = "financial-master-aws-db"
+  identifier     = "veyra-aws-db"
   engine         = "postgres"
   engine_version = "15.4"
   instance_class = "db.t3.medium"
@@ -218,7 +218,7 @@ resource "aws_db_instance" "main" {
   storage_type          = "gp2"
   storage_encrypted    = true
   
-  db_name  = "financial_master"
+  db_name  = "veyra"
   username = var.db_username
   password = var.db_password
   
@@ -232,7 +232,7 @@ resource "aws_db_instance" "main" {
   skip_final_snapshot = false
   
   tags = {
-    Name = "financial-master-aws-db"
+    Name = "veyra-aws-db"
     Provider = "AWS"
     Role = "Primary"
   }
@@ -282,14 +282,14 @@ resource "aws_cloudfront_distribution" "main" {
   }
   
   tags = {
-    Name = "financial-master-aws-cdn"
+    Name = "veyra-aws-cdn"
     Provider = "AWS"
   }
 }
 
 # Application Load Balancer
 resource "aws_lb" "main" {
-  name               = "financial-master-aws-alb"
+  name               = "veyra-aws-alb"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb.id]
@@ -298,17 +298,17 @@ resource "aws_lb" "main" {
   enable_deletion_protection = false
   
   tags = {
-    Name = "financial-master-aws-alb"
+    Name = "veyra-aws-alb"
     Provider = "AWS"
   }
 }
 
 # S3 Storage for Assets
 resource "aws_s3_bucket" "assets" {
-  bucket = "financial-master-aws-assets-${random_string.bucket_suffix.result}"
+  bucket = "veyra-aws-assets-${random_string.bucket_suffix.result}"
   
   tags = {
-    Name = "financial-master-aws-assets"
+    Name = "veyra-aws-assets"
     Provider = "AWS"
     Role = "Primary"
   }
@@ -316,7 +316,7 @@ resource "aws_s3_bucket" "assets" {
 
 # Lambda Functions for Serverless
 resource "aws_lambda_function" "data_processor" {
-  function_name = "financial-master-data-processor"
+  function_name = "veyra-data-processor"
   handler       = "index.handler"
   runtime       = "python3.11"
   role          = aws_iam_role.lambda_exec.arn
@@ -332,7 +332,7 @@ resource "aws_lambda_function" "data_processor" {
   }
   
   tags = {
-    Name = "financial-master-aws-lambda"
+    Name = "veyra-aws-lambda"
     Provider = "AWS"
   }
 }
@@ -341,7 +341,7 @@ resource "aws_lambda_function" "data_processor" {
 ### **`multi-cloud/bicep/azure-main.bicep`**
 ```bicep
 @description('Azure Microsoft Ecosystem Integration')
-param environmentName string = 'financial-master-azure-prod'
+param environmentName string = 'veyra-azure-prod'
 param location string = resourceGroup().location
 param adminPassword string
 
@@ -352,15 +352,15 @@ resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
   tags: {
     Environment = 'production'
     Provider = 'Azure'
-    Application = 'Financial Master'
+    Application = 'Veyra'
   }
 }
 
 // Azure AD for Identity Management
 resource aad 'Microsoft.Graph/directoryObjects@v1.0' = {
-  displayName: 'Financial Master Users'
-  description: 'User group for Financial Master application'
-  mailNickname: 'financial-master-users'
+  displayName: 'Veyra Users'
+  description: 'User group for Veyra application'
+  mailNickname: 'veyra-users'
   securityEnabled: true
   mailEnabled: true
 }
@@ -383,7 +383,7 @@ resource ca 'Microsoft.App/containerApps@2023-05-01' = {
       env: [
         {
           name: 'DATABASE_URL'
-          value: 'postgresql://financialmaster:${adminPassword}@${postgres.properties.fullyQualifiedDomainName}:5432/financial_master'
+          value: 'postgresql://veyra:${adminPassword}@${postgres.properties.fullyQualifiedDomainName}:5432/veyra'
         }
         {
           name: 'AZURE_CLIENT_ID'
@@ -402,8 +402,8 @@ resource ca 'Microsoft.App/containerApps@2023-05-01' = {
     template: {
       containers: [
         {
-          image: 'financial-master:latest'
-          name: 'financial-master-api'
+          image: 'veyra:latest'
+          name: 'veyra-api'
           resources: {
             cpu: json('1')
             memory: '2Gi'
@@ -418,7 +418,7 @@ resource ca 'Microsoft.App/containerApps@2023-05-01' = {
   }
   tags: {
     Provider = 'Azure'
-    Application = 'Financial Master'
+    Application = 'Veyra'
   }
 }
 
@@ -429,7 +429,7 @@ resource postgres 'Microsoft.DBforPostgreSQL/flexibleServers@2022-12-01' = {
   resourceGroup: rg.name
   properties: {
     version: '15'
-    administratorLogin: 'financialmaster'
+    administratorLogin: 'veyra'
     administratorLoginPassword: adminPassword
     storage: {
       storageSizeGB: 200
@@ -449,7 +449,7 @@ resource postgres 'Microsoft.DBforPostgreSQL/flexibleServers@2022-12-01' = {
   tags: {
     Provider = 'Azure'
     Role = 'Secondary'
-    Application = 'Financial Master'
+    Application = 'Veyra'
   }
 }
 
@@ -460,13 +460,13 @@ resource powerBiWorkspace 'Microsoft.PowerBI/workspace@2020-06-01' = {
   
   tags: {
     Provider = 'Azure'
-    Application = 'Financial Master'
+    Application = 'Veyra'
   }
 }
 
 // Office 365 Integration
 resource office365 'Microsoft.Graph/servicePrincipals@v1.0' = {
-  displayName: 'Financial Master Office Integration'
+  displayName: 'Veyra Office Integration'
   description: 'Service principal for Office 365 integration'
   appId: azureApp.applicationId
   
@@ -494,7 +494,7 @@ resource fd 'Microsoft.Cdn/profiles@2021-06-01' = {
   }
   tags: {
     Provider = 'Azure'
-    Application = 'Financial Master'
+    Application = 'Veyra'
   }
 }
 
@@ -531,7 +531,7 @@ resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
   
   tags: {
     Provider = 'Azure'
-    Application = 'Financial Master'
+    Application = 'Veyra'
   }
 }
 ```
@@ -548,7 +548,7 @@ terraform {
   }
   
   backend "gcs" {
-    bucket = "financial-master-gcp-terraform-state"
+    bucket = "veyra-gcp-terraform-state"
     prefix = "terraform/state"
   }
 }
@@ -560,7 +560,7 @@ provider "google" {
 
 # Vertex AI for ML Training
 resource "google_ai_platform_notebook_runtime_template" "ml_training" {
-  name = "financial-master-ml-template"
+  name = "veyra-ml-template"
   location = var.region
   
   container_image {
@@ -578,7 +578,7 @@ resource "google_ai_platform_notebook_runtime_template" "ml_training" {
   
   tags = {
     Provider = "GCP"
-    Application = "Financial Master"
+    Application = "Veyra"
     Role = "ML-Training"
   }
 }
@@ -588,11 +588,11 @@ resource "google_bigquery_dataset" "financial_data" {
   dataset_id = "financial_master_data"
   location = "US"
   
-  description = "Financial Master data warehouse"
+  description = "Veyra data warehouse"
   
   tags = {
     Provider = "GCP"
-    Application = "Financial Master"
+    Application = "Veyra"
     Role = "Analytics"
   }
 }
@@ -607,13 +607,13 @@ resource "google_bigquery_table" "transactions" {
   
   tags = {
     Provider = "GCP"
-    Application = "Financial Master"
+    Application = "Veyra"
   }
 }
 
 # Vertex AI Model Endpoint
 resource "google_ai_platform_endpoint" "model_serving" {
-  name = "financial-master-model-endpoint"
+  name = "veyra-model-endpoint"
   location = var.region
   
   deployment {
@@ -626,21 +626,21 @@ resource "google_ai_platform_endpoint" "model_serving" {
   
   tags = {
     Provider = "GCP"
-    Application = "Financial Master"
+    Application = "Veyra"
     Role = "Model-Serving"
   }
 }
 
 # Cloud Run for AI Model Serving
 resource "google_cloud_run_v2_service" "ai_models" {
-  name     = "financial-master-ai-models"
+  name     = "veyra-ai-models"
   location = var.region
   project  = var.project_id
   
   template {
     containers {
-      name  = "financial-master-ai"
-      image = "gcr.io/${var.project_id}/financial-master-ai:latest"
+      name  = "veyra-ai"
+      image = "gcr.io/${var.project_id}/veyra-ai:latest"
       
       ports {
         container_port = 8080
@@ -687,14 +687,14 @@ resource "google_cloud_run_v2_service" "ai_models" {
   
   tags = {
     Provider = "GCP"
-    Application = "Financial Master"
+    Application = "Veyra"
     Role = "AI-Model-Serving"
   }
 }
 
 # Cloud Storage for Data Lake
 resource "google_storage_bucket" "data_lake" {
-  name          = "financial-master-data-lake-${random_string.bucket_suffix.result}"
+  name          = "veyra-data-lake-${random_string.bucket_suffix.result}"
   location      = "US"
   force_destroy = true
   
@@ -711,17 +711,17 @@ resource "google_storage_bucket" "data_lake" {
   
   tags = {
     Provider = "GCP"
-    Application = "Financial Master"
+    Application = "Veyra"
     Role = "Data-Lake"
   }
 }
 
 # Dataflow for ETL Pipelines
 resource "google_dataflow_job" "etl_pipeline" {
-  name = "financial-master-etl-pipeline"
+  name = "veyra-etl-pipeline"
   region = var.region
   
-  template_gcs_path = "gs://financial-master-templates/dataflow-template"
+  template_gcs_path = "gs://veyra-templates/dataflow-template"
   temp_gcs_location = google_storage_bucket.temp_files.name
   
   environment {
@@ -731,7 +731,7 @@ resource "google_dataflow_job" "etl_pipeline" {
   
   tags = {
     Provider = "GCP"
-    Application = "Financial Master"
+    Application = "Veyra"
     Role = "ETL-Pipeline"
   }
 }
@@ -845,19 +845,19 @@ terraform apply
 # Configure AWS CLI
 aws configure
 export AWS_REGION=us-east-1
-export AWS_PROFILE=financial-master
+export AWS_PROFILE=veyra
 ```
 
 ### **📋 Step 2: Azure Microsoft Integration**
 ```bash
 # Deploy Azure ecosystem
 cd multi-cloud/bicep/azure
-az group create --name financial-master-azure --location eastus
-az deployment group create --resource-group financial-master-azure --template-file main.bicep
+az group create --name veyra-azure --location eastus
+az deployment group create --resource-group veyra-azure --template-file main.bicep
 
 # Configure Azure CLI
 az login
-az account set --subscription "Financial Master Subscription"
+az account set --subscription "Veyra Subscription"
 ```
 
 ### **📋 Step 3: GCP AI/ML Platform**
@@ -870,7 +870,7 @@ terraform apply
 
 # Configure GCP CLI
 gcloud auth login
-gcloud config set project financial-master-gcp
+gcloud config set project veyra-gcp
 gcloud config set region us-central1
 ```
 
@@ -933,7 +933,7 @@ kubectl apply -f multi-cloud/k8s/service-mesh/
 
 ## 🏆 **FINAL RECOMMENDATION**
 
-**Deploy Financial Master across all three cloud providers for:**
+**Deploy Veyra across all three cloud providers for:**
 
 ### **🎯 Maximum Industrial Capability**
 - **AWS:** Enterprise-grade reliability and security
@@ -953,6 +953,6 @@ kubectl apply -f multi-cloud/k8s/service-mesh/
 
 ---
 
-**🎉 Your Financial Master now has complete multi-cloud industrial deployment capability!**
+**🎉 Your Veyra now has complete multi-cloud industrial deployment capability!**
 
 *Leverage each cloud provider's unique strengths for comprehensive enterprise-grade coverage.*

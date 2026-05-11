@@ -1,9 +1,9 @@
 @echo off
-REM Windows Batch script to set up Python environment for Financial Master
+REM Windows Batch script to set up Python environment for Veyra
 REM Resolves "Select Python Interpreter" issue in Windsurf/VS Code
 
 echo ========================================
-echo Financial Master - Python Environment Setup
+echo Veyra - Python Environment Setup
 echo ========================================
 echo.
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Financial Master - Staging Deployment Script
+# Veyra - Staging Deployment Script
 # Usage: ./deploy.sh [version_tag]
 
 set -e
@@ -8,7 +8,7 @@ set -e
 VERSION=${1:-"latest"}
 ENVIRONMENT="staging"
 DEPLOY_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_NAME="financial-master"
+PROJECT_NAME="veyra"
 
 # Colors for output
 RED='\033[0;31m'
@@ -17,7 +17,7 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 echo -e "${GREEN}========================================${NC}"
-echo -e "${GREEN}Financial Master Staging Deployment${NC}"
+echo -e "${GREEN}Veyra Staging Deployment${NC}"
 echo -e "${GREEN}Version: ${VERSION}${NC}"
 echo -e "${GREEN}========================================${NC}"
 echo ""

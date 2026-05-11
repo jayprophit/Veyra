@@ -1,5 +1,5 @@
 """
-Financial Master Widget Framework
+Veyra Widget Framework
 Inspired by FactSet Widgets - Free open-source alternative
 """
 

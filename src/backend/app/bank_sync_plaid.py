@@ -59,7 +59,7 @@ class PlaidSyncManager:
             "client_id": self.client_id,
             "secret": self.secret,
             "user": {"client_user_id": user_id},
-            "client_name": "Financial Master",
+            "client_name": "Veyra",
             "products": products,
             "country_codes": ["US", "GB", "CA", "DE", "FR", "ES", "IT"],
             "language": "en"

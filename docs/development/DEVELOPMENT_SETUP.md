@@ -1,9 +1,9 @@
 # Development Setup Guide
-## 100% Open-Source Financial Master Development
+## 100% Open-Source Veyra Development
 
 ## Overview
 
-This guide provides comprehensive setup instructions for developing **100% open-source** Financial Master. No API keys required, all dependencies are free and open-source.
+This guide provides comprehensive setup instructions for developing **100% open-source** Veyra. No API keys required, all dependencies are free and open-source.
 
 ## Prerequisites
 
@@ -32,8 +32,8 @@ This guide provides comprehensive setup instructions for developing **100% open-
 
 ```bash
 # Clone the repository
-git clone https://github.com/jpowell/financial-master.git
-cd financial-master
+git clone https://github.com/jpowell/veyra.git
+cd veyra
 
 # Create virtual environment
 python -m venv venv
@@ -76,7 +76,7 @@ FRED_ENABLED=true
 HUGGINGFACE_ENABLED=true
 
 # Database Configuration
-DATABASE_URL=postgresql://localhost:5432/financial_master
+DATABASE_URL=postgresql://localhost:5432/veyra
 REDIS_URL=redis://localhost:6379/0
 
 # OPTIONAL PAID DEPENDENCIES (COMMENTED OUT - UNLOCK IF NEEDED)
@@ -104,10 +104,10 @@ ML_FRAMEWORK=scikit-learn
 
 ```bash
 # Start PostgreSQL (using Docker)
-docker run --name postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_USER=postgres -e POSTGRES_DB=financial_master -p 5432:5432 postgres:15-alpine
+docker run --name postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_USER=postgres -e POSTGRES_DB=veyra -p 5432:5432 postgres:15-alpine
 
 # Create database
-psql -h localhost -U postgres -d financial_master -c "CREATE DATABASE financial_master;"
+psql -h localhost -U postgres -d veyra -c "CREATE DATABASE veyra;"
 
 # Run migrations
 python -m alembic upgrade head
@@ -353,7 +353,7 @@ alembic downgrade -1
 
 ```bash
 # Database console
-psql -h localhost -U postgres -d financial_master
+psql -h localhost -U postgres -d veyra
 
 # Redis console
 redis-cli -h localhost -p 6379
@@ -418,19 +418,19 @@ def mock_factset_client():
 # OpenAPI configuration for documentation
 openapi: 3.0.0
 info:
-  title: Financial Master API
+  title: Veyra API
   description: Comprehensive financial platform with FactSet and enhanced integrations
   version: 2.0.0
   contact:
-    name: Financial Master Team
-    email: api@financialmaster.com
+    name: Veyra Team
+    email: api@veyra.com
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
 servers:
-  - url: https://api.financialmaster.com/v1
+  - url: https://api.veyra.com/v1
     description: Production server
-  - url: https://api.financialmaster.com/staging/v1
+  - url: https://api.veyra.com/staging/v1
     description: Staging server
 ```
 
@@ -724,10 +724,10 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build Docker image
         run: |
-          docker build -t financial-master:${{ github.sha }} .
+          docker build -t veyra:${{ github.sha }} .
       - name: Push to registry
         run: |
-          docker push financial-master:${{ github.sha }}
+          docker push veyra:${{ github.sha }}
 ```
 
 #### Docker Configuration

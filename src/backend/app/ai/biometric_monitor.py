@@ -264,7 +264,6 @@ class BiometricMonitor:
 
     def _simulate_variation(self) -> float:
         """Simulate natural biometric variation (-1 to 1)."""
-        import random
         return random.gauss(0, 0.5)
 
     def _establish_baselines(self):

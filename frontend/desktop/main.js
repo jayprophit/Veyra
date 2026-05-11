@@ -1,5 +1,5 @@
 /**
- * Financial Master - Electron Desktop Application
+ * Veyra - Electron Desktop Application
  * 
  * Features:
  * - Cross-platform desktop app (Windows/Mac/Linux)
@@ -14,7 +14,7 @@ const path = require('path');
 const isDev = process.env.NODE_ENV === 'development';
 
 // App configuration
-const APP_NAME = 'Financial Master';
+const APP_NAME = 'Veyra';
 const APP_ICON = path.join(__dirname, 'assets', 'icon.png');
 const TRAY_ICON = path.join(__dirname, 'assets', 'tray-icon.png');
 
@@ -94,7 +94,7 @@ function createTray() {
 
   const contextMenu = Menu.buildFromTemplate([
     {
-      label: 'Open Financial Master',
+      label: 'Open Veyra',
       click: () => {
         if (mainWindow) {
           mainWindow.show();

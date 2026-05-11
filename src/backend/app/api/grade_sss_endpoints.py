@@ -335,7 +335,7 @@ for i in range(48):
 async def grade_sss_docs():
     """Get comprehensive Grade SSS API documentation."""
     return {
-        "title": "Financial Master Grade SSS API",
+        "title": "Veyra Grade SSS API",
         "version": "1.0.0",
         "endpoints": 1000,
         "features": [

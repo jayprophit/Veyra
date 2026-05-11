@@ -1,4 +1,4 @@
-# GCP AI/ML & Analytics Platform - Financial Master
+# GCP AI/ML & Analytics Platform - Veyra
 terraform {
   required_providers {
     google = {
@@ -7,7 +7,7 @@ terraform {
     }
   
   backend "gcs" {
-    bucket = "financial-master-gcp-terraform-state"
+    bucket = "veyra-gcp-terraform-state"
     prefix = "terraform/state"
   }
 }
@@ -17,7 +17,7 @@ provider "google" {
   region  = var.region
   
   default_tags = {
-    Application = "Financial Master"
+    Application = "Veyra"
     Provider = "GCP"
     Role = "AI-ML-Analytics"
   }
@@ -25,7 +25,7 @@ provider "google" {
 
 # Vertex AI for ML Training and Serving
 resource "google_ai_platform_notebook_runtime_template" "ml_training" {
-  name = "financial-master-ml-template"
+  name = "veyra-ml-template"
   location = var.region
   
   container_image {
@@ -42,7 +42,7 @@ resource "google_ai_platform_notebook_runtime_template" "ml_training" {
   }
   
   tags = {
-    Application = "Financial Master"
+    Application = "Veyra"
     Provider = "GCP"
     Role = "AI-ML-Analytics"
   }
@@ -53,10 +53,10 @@ resource "google_bigquery_dataset" "financial_data" {
   dataset_id = "financial_master_data"
   location = "US"
   
-  description = "Financial Master data warehouse for analytics"
+  description = "Veyra data warehouse for analytics"
   
   tags = {
-    Application = "Financial Master"
+    Application = "Veyra"
     Provider = "GCP"
     Role = "AI-ML-Analytics"
   }
@@ -112,7 +112,7 @@ resource "google_bigquery_table" "transactions" {
   }
   
   tags = {
-    Application = "Financial Master"
+    Application = "Veyra"
     Provider = "GCP"
     Role = "AI-ML-Analytics"
   }
@@ -120,7 +120,7 @@ resource "google_bigquery_table" "transactions" {
 
 # Vertex AI Model Endpoint
 resource "google_ai_platform_endpoint" "model_serving" {
-  name = "financial-master-model-endpoint"
+  name = "veyra-model-endpoint"
   location = var.region
   
   deployment {
@@ -132,7 +132,7 @@ resource "google_ai_platform_endpoint" "model_serving" {
   }
   
   tags = {
-    Application = "Financial Master"
+    Application = "Veyra"
     Provider = "GCP"
     Role = "AI-ML-Analytics"
   }
@@ -140,14 +140,14 @@ resource "google_ai_platform_endpoint" "model_serving" {
 
 # Cloud Run for AI Model Serving
 resource "google_cloud_run_v2_service" "ai_models" {
-  name     = "financial-master-ai-models"
+  name     = "veyra-ai-models"
   location = var.region
   project  = var.project_id
   
   template {
     containers {
-      name  = "financial-master-ai"
-      image = "gcr.io/${var.project_id}/financial-master-ai:latest"
+      name  = "veyra-ai"
+      image = "gcr.io/${var.project_id}/veyra-ai:latest"
       
       ports {
         container_port = 8080
@@ -193,7 +193,7 @@ resource "google_cloud_run_v2_service" "ai_models" {
   }
   
   tags = {
-    Application = "Financial Master"
+    Application = "Veyra"
     Provider = "GCP"
     Role = "AI-ML-Analytics"
   }
@@ -201,7 +201,7 @@ resource "google_cloud_run_v2_service" "ai_models" {
 
 # Cloud Storage for Data Lake
 resource "google_storage_bucket" "data_lake" {
-  name          = "financial-master-data-lake-${random_string.bucket_suffix.result}"
+  name          = "veyra-data-lake-${random_string.bucket_suffix.result}"
   location      = "US"
   force_destroy = true
   
@@ -217,7 +217,7 @@ resource "google_storage_bucket" "data_lake" {
   }
   
   tags = {
-    Application = "Financial Master"
+    Application = "Veyra"
     Provider = "GCP"
     Role = "AI-ML-Analytics"
   }
@@ -225,10 +225,10 @@ resource "google_storage_bucket" "data_lake" {
 
 # Dataflow for ETL Pipelines
 resource "google_dataflow_job" "etl_pipeline" {
-  name = "financial-master-etl-pipeline"
+  name = "veyra-etl-pipeline"
   region = var.region
   
-  template_gcs_path = "gs://financial-master-templates/dataflow-template"
+  template_gcs_path = "gs://veyra-templates/dataflow-template"
   temp_gcs_location = google_storage_bucket.temp_files.name
   
   environment {
@@ -237,7 +237,7 @@ resource "google_dataflow_job" "etl_pipeline" {
   }
   
   tags = {
-    Application = "Financial Master"
+    Application = "Veyra"
     Provider = "GCP"
     Role = "AI-ML-Analytics"
   }
@@ -245,7 +245,7 @@ resource "google_dataflow_job" "etl_pipeline" {
 
 # AutoML for Automated Machine Learning
 resource "google_ml_model" "automl_model" {
-  name = "financial-master-automl"
+  name = "veyra-automl"
   region = var.region
   
   dataset {
@@ -258,7 +258,7 @@ resource "google_ml_model" "automl_model" {
   }
   
   tags = {
-    Application = "Financial Master"
+    Application = "Veyra"
     Provider = "GCP"
     Role = "AI-ML-Analytics"
   }
@@ -266,7 +266,7 @@ resource "google_ml_model" "automl_model" {
 
 # Notebooks for Data Science
 resource "google_notebooks_instance" "data_science" {
-  name = "financial-master-data-science"
+  name = "veyra-data-science"
   location = var.region
   machine_type = "n1-standard-4"
   
@@ -276,7 +276,7 @@ resource "google_notebooks_instance" "data_science" {
   }
   
   tags = {
-    Application = "Financial Master"
+    Application = "Veyra"
     Provider = "GCP"
     Role = "AI-ML-Analytics"
   }

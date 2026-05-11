@@ -1,4 +1,4 @@
-# Financial Master - Python Dependencies
+# Veyra - Python Dependencies
 # ==========================================
 
 # Web Framework

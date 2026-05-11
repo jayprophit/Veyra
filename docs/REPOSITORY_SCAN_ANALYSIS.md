@@ -2,13 +2,13 @@
 
 **Scan Date:** May 3, 2026  
 **Sources:** GitHub, Hugging Face, Curated Lists  
-**Purpose:** Identify cloneable/forkable features for Financial Master
+**Purpose:** Identify cloneable/forkable features for Veyra
 
 ---
 
 ## EXECUTIVE SUMMARY
 
-Scanned **50+ repositories** across accounting, trading, portfolio management, crypto, tax, and fintech categories. Identified **12 critical missing features** in Financial Master and **23 high-value repositories** for integration.
+Scanned **50+ repositories** across accounting, trading, portfolio management, crypto, tax, and fintech categories. Identified **12 critical missing features** in Veyra and **23 high-value repositories** for integration.
 
 ---
 
@@ -27,7 +27,7 @@ Scanned **50+ repositories** across accounting, trading, portfolio management, c
   - Progressive Web App (PWA)
   - Import/Export transaction workflows
   - Static portfolio risk analysis
-- **Missing in Financial Master:** ✅ Portfolio performance across time periods (WTD, MTD, YTD, 1Y, 5Y, Max)
+- **Missing in Veyra:** ✅ Portfolio performance across time periods (WTD, MTD, YTD, 1Y, 5Y, Max)
 - **Integration Difficulty:** Medium
 - **Value:** CRITICAL
 
@@ -43,7 +43,7 @@ Scanned **50+ repositories** across accounting, trading, portfolio management, c
   - Multi-currency with exchange rates
   - 2FA security
   - Comprehensive REST API
-- **Missing in Financial Master:** ✅ True double-entry accounting, automated rules engine
+- **Missing in Veyra:** ✅ True double-entry accounting, automated rules engine
 - **Integration Difficulty:** High
 - **Value:** CRITICAL
 
@@ -57,7 +57,7 @@ Scanned **50+ repositories** across accounting, trading, portfolio management, c
   - Sync between devices
   - Bank import via OFX/QFX
   - Mobile apps (iOS/Android)
-- **Missing in Financial Master:** ✅ Budgeting module, envelope system
+- **Missing in Veyra:** ✅ Budgeting module, envelope system
 - **Integration Difficulty:** Medium
 - **Value:** HIGH
 
@@ -71,7 +71,7 @@ Scanned **50+ repositories** across accounting, trading, portfolio management, c
   - Extensible market data provider interface
   - OpenAI/Ollama integration
   - i18n & a11y support
-- **Missing in Financial Master:** ✅ AI assistant for investment decisions
+- **Missing in Veyra:** ✅ AI assistant for investment decisions
 - **Integration Difficulty:** Medium
 - **Value:** HIGH
 
@@ -85,7 +85,7 @@ Scanned **50+ repositories** across accounting, trading, portfolio management, c
   - Transaction decoding for blockchain
   - PnL reports with accounting settings
   - Multi-platform support
-- **Missing in Financial Master:** ✅ Crypto/Web3 integration
+- **Missing in Veyra:** ✅ Crypto/Web3 integration
 - **Integration Difficulty:** High
 - **Value:** HIGH
 
@@ -114,7 +114,7 @@ Scanned **50+ repositories** across accounting, trading, portfolio management, c
   - Hyperparameter optimization
   - Strategy marketplace
   - Risk management tools
-- **Missing in Financial Master:** ✅ Automated trading strategies
+- **Missing in Veyra:** ✅ Automated trading strategies
 - **Integration Difficulty:** High
 - **Value:** HIGH
 
@@ -127,7 +127,7 @@ Scanned **50+ repositories** across accounting, trading, portfolio management, c
   - Cross-exchange arbitrage
   - Connector framework (140+ venues)
   - Paper trading mode
-- **Missing in Financial Master:** ✅ Market making, arbitrage tools
+- **Missing in Veyra:** ✅ Market making, arbitrage tools
 
 #### 9. **PyPortfolioOpt** (Python)
 - **URL:** https://github.com/PyPortfolio/PyPortfolioOpt
@@ -139,7 +139,7 @@ Scanned **50+ repositories** across accounting, trading, portfolio management, c
   - Black-Litterman model
   - CVaR optimization
   - Hierarchical Risk Parity
-- **Missing in Financial Master:** ✅ Portfolio optimization, efficient frontier
+- **Missing in Veyra:** ✅ Portfolio optimization, efficient frontier
 - **Integration Difficulty:** Low
 - **Value:** HIGH
 
@@ -153,7 +153,7 @@ Scanned **50+ repositories** across accounting, trading, portfolio management, c
   - Backtesting framework
   - Deep reinforcement learning for trading
   - 23 chapters of implementations
-- **Missing in Financial Master:** ✅ ML prediction models
+- **Missing in Veyra:** ✅ ML prediction models
 - **Integration Difficulty:** High
 - **Value:** HIGH
 
@@ -338,7 +338,7 @@ From awesome-fintech list:
 
 ## CONCLUSION
 
-Financial Master is missing **12 critical features** that are readily available in open source. The highest value integrations are:
+Veyra is missing **12 critical features** that are readily available in open source. The highest value integrations are:
 
 1. **Double-entry accounting** (Firefly III/Bigcapital)
 2. **Budgeting** (Actual Budget)

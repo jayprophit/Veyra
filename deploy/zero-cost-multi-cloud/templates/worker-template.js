@@ -17,7 +17,7 @@ async function handleRequest(request) {
   }
   
   if (url.pathname.startsWith('/api/')) {
-    const backendUrl = 'https://financial-master.onrender.com' + url.pathname
+    const backendUrl = 'https://veyra.onrender.com' + url.pathname
     const response = await fetch(backendUrl, {
       method: request.method,
       headers: request.headers,
@@ -33,5 +33,5 @@ async function handleRequest(request) {
     })
   }
   
-  return fetch('https://financial-master.pages.dev' + url.pathname)
+  return fetch('https://veyra.pages.dev' + url.pathname)
 }

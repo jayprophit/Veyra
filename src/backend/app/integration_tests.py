@@ -111,7 +111,7 @@ class TestAutomation(unittest.TestCase):
 def run_all_tests():
     """Run all integration tests."""
     print("="*60)
-    print("Financial Master - Integration Tests")
+    print("Veyra - Integration Tests")
     print("="*60)
     
     loader = unittest.TestLoader()

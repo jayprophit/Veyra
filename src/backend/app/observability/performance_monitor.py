@@ -58,7 +58,7 @@ class PerformanceProfile:
 class PerformanceMonitor:
     """Enterprise performance monitoring with real-time analytics"""
     
-    def __init__(self, service_name: str = "financial-master"):
+    def __init__(self, service_name: str = "veyra"):
         self.service_name = service_name
         self.metrics: Dict[str, deque] = defaultdict(lambda: deque(maxlen=10000))
         self.profiles: Dict[str, deque] = defaultdict(lambda: deque(maxlen=1000))
@@ -120,9 +120,9 @@ class PerformanceMonitor:
             # Process-specific metrics
             process = psutil.Process()
             self._add_metric("process_cpu", PerformanceMetricType.CPU_USAGE,
-                           process.cpu_percent(), "percent", {"source": "psutil", "process": "financial-master"})
+                           process.cpu_percent(), "percent", {"source": "psutil", "process": "veyra"})
             self._add_metric("process_memory", PerformanceMetricType.MEMORY_USAGE,
-                           process.memory_percent(), "percent", {"source": "psutil", "process": "financial-master"})
+                           process.memory_percent(), "percent", {"source": "psutil", "process": "veyra"})
             
             # Active requests
             self._add_metric("active_requests", PerformanceMetricType.THROUGHPUT,

@@ -1,5 +1,5 @@
 /**
- * Financial Master - React Native Mobile App
+ * Veyra - React Native Mobile App
  * 
  * Features:
  * - Trading dashboard
@@ -34,7 +34,7 @@ const DashboardScreen = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Financial Master</Text>
+        <Text style={styles.headerTitle}>Veyra</Text>
         <TouchableOpacity style={styles.voiceButton}>
           <Icon name="microphone" size={24} color="#fff" />
         </TouchableOpacity>

@@ -1,5 +1,5 @@
 """
-Go-Drill Integration for Financial Master
+Go-Drill Integration for Veyra
 
 This module provides integration with Apache Drill and Dremio using Go-Drill for:
 - High-performance big data processing
@@ -51,7 +51,7 @@ class FinancialDataSchema:
 
 
 class GoDrillIntegration:
-    """Main Go-Drill integration class for Financial Master"""
+    """Main Go-Drill integration class for Veyra"""
     
     def __init__(self, config: Dict[str, Any]):
         self.config = config
@@ -467,7 +467,6 @@ class GoDrillIntegration:
         """Extract estimated cost from execution plan"""
         try:
             # Simple parsing for estimated cost
-            import re
             match = re.search(r'cost=([\d.]+)', execution_plan)
             return float(match.group(1)) if match else 0.0
         except:

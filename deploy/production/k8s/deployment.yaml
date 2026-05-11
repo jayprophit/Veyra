@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: financial-master-api
+  name: veyra-api
   namespace: production
   labels:
-    app: fm-api
+    app: vra-api
     version: v6.0.9
 spec:
   replicas: 5
@@ -15,11 +15,11 @@ spec:
       maxUnavailable: 1
   selector:
     matchLabels:
-      app: fm-api
+      app: vra-api
   template:
     metadata:
       labels:
-        app: fm-api
+        app: vra-api
         version: v6.0.9
     spec:
       affinity:
@@ -32,11 +32,11 @@ spec:
                 - key: app
                   operator: In
                   values:
-                  - fm-api
+                  - vra-api
               topologyKey: kubernetes.io/hostname
       containers:
       - name: api
-        image: financial-master-api:v6.0.9
+        image: veyra-api:v6.0.9
         ports:
         - containerPort: 8000
           name: http
@@ -48,27 +48,27 @@ spec:
         - name: DATABASE_URL
           valueFrom:
             secretKeyRef:
-              name: fm-db-credentials
+              name: vra-db-credentials
               key: url
         - name: REDIS_URL
           valueFrom:
             secretKeyRef:
-              name: fm-cache-credentials
+              name: vra-cache-credentials
               key: url
         - name: JWT_SECRET
           valueFrom:
             secretKeyRef:
-              name: fm-auth-secrets
+              name: vra-auth-secrets
               key: jwt-secret
         - name: ALPACA_API_KEY
           valueFrom:
             secretKeyRef:
-              name: fm-broker-credentials
+              name: vra-broker-credentials
               key: alpaca-key
         - name: MSCI_API_KEY
           valueFrom:
             secretKeyRef:
-              name: fm-esg-credentials
+              name: vra-esg-credentials
               key: msci-key
         resources:
           requests:
@@ -99,28 +99,28 @@ spec:
       volumes:
       - name: tmp
         emptyDir: {}
-      serviceAccountName: fm-api-sa
+      serviceAccountName: vra-api-sa
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: financial-master-websocket
+  name: veyra-websocket
   namespace: production
   labels:
-    app: fm-websocket
+    app: vra-websocket
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: fm-websocket
+      app: vra-websocket
   template:
     metadata:
       labels:
-        app: fm-websocket
+        app: vra-websocket
     spec:
       containers:
       - name: websocket
-        image: financial-master-websocket:v6.0.9
+        image: veyra-websocket:v6.0.9
         ports:
         - containerPort: 8001
           name: websocket
@@ -130,7 +130,7 @@ spec:
         - name: REDIS_URL
           valueFrom:
             secretKeyRef:
-              name: fm-cache-credentials
+              name: vra-cache-credentials
               key: url
         - name: MAX_CONNECTIONS
           value: "10000"
@@ -153,23 +153,23 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: financial-master-ml
+  name: veyra-ml
   namespace: production
   labels:
-    app: fm-ml
+    app: vra-ml
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: fm-ml
+      app: vra-ml
   template:
     metadata:
       labels:
-        app: fm-ml
+        app: vra-ml
     spec:
       containers:
       - name: ml-server
-        image: financial-master-ml:v6.0.9
+        image: veyra-ml:v6.0.9
         ports:
         - containerPort: 8002
           name: http
@@ -201,11 +201,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: fm-api-service
+  name: vra-api-service
   namespace: production
 spec:
   selector:
-    app: fm-api
+    app: vra-api
   ports:
   - name: http
     port: 80
@@ -218,11 +218,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: fm-websocket-service
+  name: vra-websocket-service
   namespace: production
 spec:
   selector:
-    app: fm-websocket
+    app: vra-websocket
   ports:
   - name: websocket
     port: 8001
@@ -232,7 +232,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: fm-api-ingress
+  name: vra-api-ingress
   namespace: production
   annotations:
     kubernetes.io/ingress.class: nginx
@@ -242,16 +242,16 @@ metadata:
 spec:
   tls:
   - hosts:
-    - api.financialmaster.com
-    secretName: fm-api-tls
+    - api.veyra.com
+    secretName: vra-api-tls
   rules:
-  - host: api.financialmaster.com
+  - host: api.veyra.com
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: fm-api-service
+            name: vra-api-service
             port:
               number: 80

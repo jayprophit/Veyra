@@ -296,7 +296,7 @@ class UbuntuAutomation:
         
         # Create database
         self.wsl.run_command(
-            "sudo -u postgres psql -c \"CREATE DATABASE financial_master;\""
+            "sudo -u postgres psql -c \"CREATE DATABASE veyra;\""
         )
         
         logger.info("✓ PostgreSQL setup complete")
@@ -357,7 +357,7 @@ class UbuntuAutomation:
         return success
     
     def setup_project(self, project_path: str) -> bool:
-        """Setup Financial Master project in WSL."""
+        """Setup Veyra project in WSL."""
         # Create Python venv
         self.wsl.run_command(f"cd {project_path} && python3 -m venv .venv")
         

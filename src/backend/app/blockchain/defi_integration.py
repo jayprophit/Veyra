@@ -1,7 +1,7 @@
 """
 DeFi Integration Module
 ======================
-Comprehensive DeFi protocol integration for Financial Master
+Comprehensive DeFi protocol integration for Veyra
 """
 
 import asyncio
@@ -88,7 +88,7 @@ class LendingPool:
 
 
 class DeFiIntegration:
-    """Comprehensive DeFi integration for Financial Master"""
+    """Comprehensive DeFi integration for Veyra"""
     
     def __init__(self):
         self.protocol_configs = {

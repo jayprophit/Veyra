@@ -21,7 +21,7 @@ def initialize_default_team():
     """Initialize the default financial team"""
     agent_manager.create_default_team(
         team_id="financial_team_001",
-        name="Financial Master Team"
+        name="Veyra Team"
     )
 
 

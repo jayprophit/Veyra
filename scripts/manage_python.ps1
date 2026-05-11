@@ -1,8 +1,8 @@
-# PowerShell Script: Python Version Manager for Financial Master
+# PowerShell Script: Python Version Manager for Veyra
 # Shows available versions, installs latest, manages environments
 
 Write-Host "========================================" -ForegroundColor Cyan
-Write-Host "Python Version Manager - Financial Master" -ForegroundColor Cyan
+Write-Host "Python Version Manager - Veyra" -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
 

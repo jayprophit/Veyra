@@ -1,7 +1,7 @@
 """
 Observability Manager
 =====================
-Unified observability management for Financial Master
+Unified observability management for Veyra
 """
 
 import asyncio
@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 class ObservabilityManager:
     """Unified observability management"""
     
-    def __init__(self, service_name: str = "financial-master"):
+    def __init__(self, service_name: str = "veyra"):
         self.service_name = service_name
         self.metrics_collector = MetricsCollector()
         self.tracer = get_tracer()

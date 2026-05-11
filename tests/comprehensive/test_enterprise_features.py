@@ -665,7 +665,6 @@ class TestPerformance:
         for i in range(10):
             optimizer.add_quantum_asset(f"STOCK_{i}", 0.08 + i*0.01, 0.15 + i*0.02)
             
-        import time
         start_time = time.time()
         
         # Run optimization

@@ -1,5 +1,5 @@
 """
-Financial Master - Free Tier LLM Integration
+Veyra - Free Tier LLM Integration
 =============================================
 Zero-cost LLM operations using Ollama + local models
 Optional: Paid tier fallback (OpenAI, Anthropic)
@@ -166,7 +166,6 @@ class OllamaProvider:
     def list_models(self) -> List[str]:
         """List available local models"""
         try:
-            import requests
             response = requests.get(f"{self.base_url}/api/tags", timeout=5)
             if response.status_code == 200:
                 data = response.json()
@@ -234,7 +233,6 @@ class OllamaProvider:
         max_tokens: int = 1000
     ) -> Dict[str, Any]:
         """Chat completion using Ollama"""
-        import requests
         
         model = model or self.config.ollama_model
         
@@ -658,7 +656,7 @@ class LLMManager:
 
 class FinancialLLMAgents:
     """
-    Pre-built LLM prompts for Financial Master agents.
+    Pre-built LLM prompts for Veyra agents.
     Uses local models (Ollama) by default.
     """
     

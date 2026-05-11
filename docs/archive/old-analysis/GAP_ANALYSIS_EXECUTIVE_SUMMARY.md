@@ -75,7 +75,7 @@
 - Cell tower leases
 
 ### Intellectual Property
-- "Financial Master Method" book series
+- "Veyra Method" book series
 - Documentary: "Money Masters"
 - Mobile games: "Wealth Tycoon"
 - Software plugins & templates

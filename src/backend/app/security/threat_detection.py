@@ -1,7 +1,7 @@
 """
 Advanced Threat Detection System
 ===============================
-AI-powered threat detection and prevention for Financial Master
+AI-powered threat detection and prevention for Veyra
 """
 
 import asyncio
@@ -100,7 +100,7 @@ class ThreatDetectionEngine:
                 name="SQL Injection Pattern 1",
                 description="Classic SQL injection with UNION",
                 threat_type=ThreatType.SQL_INJECTION,
-                pattern=r"(?i)(union|select|insert|update|delete|drop|create|alter).*\b(from|into)\b",
+                pattern=r"(?i)(union|select|insert|update|delete|drop|create|alter).*\b(from|into)\\\b",
                 severity=AlertSeverity.HIGH,
                 is_active=True
             ),
@@ -145,7 +145,7 @@ class ThreatDetectionEngine:
                 name="Command Injection Pattern",
                 description="OS command injection",
                 threat_type=ThreatType.MALICIOUS_PAYLOAD,
-                pattern=r"(?i)(;|\||&|`|\$\(|\${).*\b(cat|ls|dir|whoami|id|pwd)\b",
+                pattern=r"(?i)(;|\||&|`|\$\(|\${).*\b(cat|ls|dir|whoami|id|pwd)\\\b",
                 severity=AlertSeverity.CRITICAL,
                 is_active=True
             )
@@ -465,7 +465,7 @@ class ThreatDetectionEngine:
             
             # Content-based features
             body = request_data.get("body", "")
-            features["special_char_count"] = sum(1 for c in body if not c.isalnum() and c not in " \t\n\r")
+            features["special_char_count"] = sum(1 for c in body if not c.isalnum() and c not in " \t\n\\\r")
             features["numeric_char_count"] = sum(1 for c in body if c.isdigit())
             
             # Method encoding

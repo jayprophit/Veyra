@@ -1,1 +1,1 @@
-# Financial Master - strategy module
+# Veyra - strategy module

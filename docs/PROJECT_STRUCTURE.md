@@ -1,4 +1,4 @@
-# Financial Master - Project Structure
+# Veyra - Project Structure
 
 **Organization Date:** May 4, 2026  
 **Status:** Clean & Organized  
@@ -9,7 +9,7 @@
 ## 📁 Directory Structure
 
 ```
-Financial Master/
+Veyra/
 ├── README.md                    # Main documentation
 ├── LICENSE                        # MIT License
 ├── pyproject.toml                 # Python config

@@ -1,5 +1,5 @@
 """
-Strategy Marketplace for Financial Master
+Strategy Marketplace for Veyra
 Buy, sell, and share trading strategies
 
 Features:

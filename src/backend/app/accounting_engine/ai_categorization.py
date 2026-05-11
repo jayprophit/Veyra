@@ -115,7 +115,7 @@ class SimpleMLCategorizer:
                 category_patterns[category] = []
             
             # Extract keywords from description
-            words = re.findall(r'\b\w+\b', description.lower())
+            words = re.findall(r'\b\w+\\\b', description.lower())
             category_patterns[category].extend(words)
         
         # Keep most common words per category

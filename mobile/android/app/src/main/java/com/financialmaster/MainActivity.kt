@@ -1,4 +1,4 @@
-package com.financialmaster
+package com.veyra
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -18,17 +18,17 @@ import androidx.navigation.compose.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.financialmaster.ui.theme.FinancialMasterTheme
-import com.financialmaster.ui.navigation.BottomNavigationBar
-import com.financialmaster.ui.screens.LoginScreen
-import com.financialmaster.ui.screens.PortfolioScreen
-import com.financialmaster.ui.screens.TradingScreen
-import com.financialmaster.ui.screens.MarketsScreen
-import com.financialmaster.ui.screens.ResearchScreen
-import com.financialmaster.ui.screens.ProfileScreen
-import com.financialmaster.viewmodel.AuthenticationViewModel
-import com.financialmaster.viewmodel.PortfolioViewModel
-import com.financialmaster.viewmodel.TradingViewModel
+import com.veyra.ui.theme.FinancialMasterTheme
+import com.veyra.ui.navigation.BottomNavigationBar
+import com.veyra.ui.screens.LoginScreen
+import com.veyra.ui.screens.PortfolioScreen
+import com.veyra.ui.screens.TradingScreen
+import com.veyra.ui.screens.MarketsScreen
+import com.veyra.ui.screens.ResearchScreen
+import com.veyra.ui.screens.ProfileScreen
+import com.veyra.viewmodel.AuthenticationViewModel
+import com.veyra.viewmodel.PortfolioViewModel
+import com.veyra.viewmodel.TradingViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 class MainActivity : ComponentActivity() {

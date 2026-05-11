@@ -1,5 +1,5 @@
 #!/bin/bash
-# Financial Master - Comprehensive Health Check
+# Veyra - Comprehensive Health Check
 # =============================================
 
 set -e
@@ -8,7 +8,7 @@ API_URL="http://localhost:8000"
 FRONTEND_URL="http://localhost:3000"
 PROMETHEUS_URL="http://localhost:9090"
 
-echo "🏥 Financial Master Health Check"
+echo "🏥 Veyra Health Check"
 echo "================================="
 echo ""
 

@@ -1,7 +1,7 @@
 {
-  "name": "financial-master-desktop",
+  "name": "veyra-desktop",
   "version": "1.0.0",
-  "description": "Financial Master - Electron Desktop Application",
+  "description": "Veyra - Electron Desktop Application",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -14,8 +14,8 @@
     "dist": "electron-builder --publish=never"
   },
   "build": {
-    "appId": "com.financialmaster.app",
-    "productName": "Financial Master",
+    "appId": "com.veyra.app",
+    "productName": "Veyra",
     "directories": {
       "output": "dist"
     },

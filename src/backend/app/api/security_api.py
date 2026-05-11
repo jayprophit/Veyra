@@ -1,7 +1,7 @@
 """
 Advanced Security API Endpoints
 ===============================
-Comprehensive security API for Financial Master with zero-trust, threat detection, compliance, KYC/AML, biometrics, and HSM
+Comprehensive security API for Veyra with zero-trust, threat detection, compliance, KYC/AML, biometrics, and HSM
 """
 
 from fastapi import APIRouter, HTTPException, Query, Depends

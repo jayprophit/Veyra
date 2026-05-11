@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# Financial Master - Complete Setup Script
+# Veyra - Complete Setup Script
 # Installs dependencies, configures database, starts the application
 
 set -e  # Exit on error
 
 echo "======================================================"
-echo "Financial Master - Setup & Startup"
+echo "Veyra - Setup & Startup"
 echo "======================================================"
 echo ""
 
@@ -49,13 +49,13 @@ echo "6️⃣  Setting up environment configuration..."
 if [ ! -f ".env" ]; then
     cat > .env << 'ENVEOF'
 # Application Settings
-APP_NAME=Financial Master
+APP_NAME=Veyra
 DEBUG=True
 HOST=0.0.0.0
 PORT=8000
 
 # Database
-DATABASE_URL=sqlite:///./financial_master.db
+DATABASE_URL=sqlite:///./veyra.db
 DATABASE_ECHO=False
 
 # Authentication
@@ -114,7 +114,7 @@ echo ""
 
 # Step 9: Show startup information
 echo "======================================================"
-echo "✅ Setup Complete! Starting Financial Master..."
+echo "✅ Setup Complete! Starting Veyra..."
 echo "======================================================"
 echo ""
 echo "📱 Application will be available at:"

@@ -417,7 +417,6 @@ class BERTIntentClassifier:
         entities = {}
         text_lower = text.lower()
         
-        import re
         
         # Common entity extraction patterns
         

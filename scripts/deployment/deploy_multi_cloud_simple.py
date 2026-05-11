@@ -2,7 +2,7 @@
 """
 Multi-Cloud Deployment Script - Simple Version
 =============================================
-Deploy Financial Master across AWS, Azure, and GCP
+Deploy Veyra across AWS, Azure, and GCP
 """
 
 import os
@@ -285,7 +285,7 @@ class MultiCloudDeployer:
         
         deployment_summary = {
             "multi_cloud_strategy": {
-                "title": "Financial Master Multi-Cloud Deployment",
+                "title": "Veyra Multi-Cloud Deployment",
                 "description": "Deploy across AWS, Azure, and GCP for complete industrial coverage",
                 "benefits": [
                     "Maximum Industrial Capability",

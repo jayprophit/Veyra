@@ -27,7 +27,7 @@ class Config:
     ALPACA_PAPER_TRADING = os.getenv('ALPACA_PAPER_TRADING', 'true').lower() == 'true'
     
     # Database
-    DATABASE_URL = os.getenv('DATABASE_URL', 'sqlite:///financial_master.db')
+    DATABASE_URL = os.getenv('DATABASE_URL', 'sqlite:///veyra.db')
     
     # Cache Settings
     CACHE_ENABLED = os.getenv('CACHE_ENABLED', 'true').lower() == 'true'

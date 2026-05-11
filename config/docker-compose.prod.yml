@@ -1,6 +1,6 @@
 """
 Production Docker Compose Configuration
-Financial Master - Complete Stack
+Veyra - Complete Stack
 """
 version: '3.8'
 
@@ -10,13 +10,13 @@ services:
     build:
       context: ./src/backend
       dockerfile: Dockerfile
-    container_name: fm-api
+    container_name: vra-api
     restart: unless-stopped
     ports:
       - "8000:8000"
     environment:
       - ENVIRONMENT=production
-      - DATABASE_URL=postgresql://postgres:${DB_PASSWORD}@db:5432/financial_master
+      - DATABASE_URL=postgresql://postgres:${DB_PASSWORD}@db:5432/veyra
       - REDIS_URL=redis://redis:6379
       - JWT_SECRET=${JWT_SECRET}
       - ENCRYPTION_KEY=${ENCRYPTION_KEY}
@@ -32,7 +32,7 @@ services:
       - redis
       - ollama
     networks:
-      - fm-network
+      - vra-network
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 30s
@@ -45,7 +45,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: fm-frontend
+    container_name: vra-frontend
     restart: unless-stopped
     ports:
       - "3000:3000"
@@ -55,22 +55,22 @@ services:
     depends_on:
       - api
     networks:
-      - fm-network
+      - vra-network
 
   # PostgreSQL Database
   db:
     image: postgres:15-alpine
-    container_name: fm-db
+    container_name: vra-db
     restart: unless-stopped
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=financial_master
+      - POSTGRES_DB=veyra
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
-      - fm-network
+      - vra-network
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
@@ -80,12 +80,12 @@ services:
   # Redis Cache & Message Queue
   redis:
     image: redis:7-alpine
-    container_name: fm-redis
+    container_name: vra-redis
     restart: unless-stopped
     volumes:
       - redis_data:/data
     networks:
-      - fm-network
+      - vra-network
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
@@ -95,14 +95,14 @@ services:
   # Ollama LLM Server
   ollama:
     image: ollama/ollama:latest
-    container_name: fm-ollama
+    container_name: vra-ollama
     restart: unless-stopped
     volumes:
       - ollama_data:/root/.ollama
     environment:
       - OLLAMA_ORIGINS=*
     networks:
-      - fm-network
+      - vra-network
     deploy:
       resources:
         reservations:
@@ -114,7 +114,7 @@ services:
   # Nginx Reverse Proxy
   nginx:
     image: nginx:alpine
-    container_name: fm-nginx
+    container_name: vra-nginx
     restart: unless-stopped
     ports:
       - "80:80"
@@ -127,19 +127,19 @@ services:
       - api
       - frontend
     networks:
-      - fm-network
+      - vra-network
 
   # Celery Worker for Background Tasks
   worker:
     build:
       context: ./src/backend
       dockerfile: Dockerfile
-    container_name: fm-worker
+    container_name: vra-worker
     restart: unless-stopped
     command: celery -A tasks worker --loglevel=info
     environment:
       - ENVIRONMENT=production
-      - DATABASE_URL=postgresql://postgres:${DB_PASSWORD}@db:5432/financial_master
+      - DATABASE_URL=postgresql://postgres:${DB_PASSWORD}@db:5432/veyra
       - REDIS_URL=redis://redis:6379
       - OLLAMA_HOST=http://ollama:11434
     volumes:
@@ -150,19 +150,19 @@ services:
       - redis
       - ollama
     networks:
-      - fm-network
+      - vra-network
 
   # Celery Beat Scheduler
   scheduler:
     build:
       context: ./src/backend
       dockerfile: Dockerfile
-    container_name: fm-scheduler
+    container_name: vra-scheduler
     restart: unless-stopped
     command: celery -A tasks beat --loglevel=info
     environment:
       - ENVIRONMENT=production
-      - DATABASE_URL=postgresql://postgres:${DB_PASSWORD}@db:5432/financial_master
+      - DATABASE_URL=postgresql://postgres:${DB_PASSWORD}@db:5432/veyra
       - REDIS_URL=redis://redis:6379
     volumes:
       - ./data:/app/data
@@ -171,19 +171,19 @@ services:
       - db
       - redis
     networks:
-      - fm-network
+      - vra-network
 
   # Trading Bot Executor
   trading-bot:
     build:
       context: ./src/backend
       dockerfile: Dockerfile
-    container_name: fm-trading-bot
+    container_name: vra-trading-bot
     restart: unless-stopped
     command: python trading/bot_executor.py
     environment:
       - ENVIRONMENT=production
-      - DATABASE_URL=postgresql://postgres:${DB_PASSWORD}@db:5432/financial_master
+      - DATABASE_URL=postgresql://postgres:${DB_PASSWORD}@db:5432/veyra
       - REDIS_URL=redis://redis:6379
       - BROKER_API_KEY=${BROKER_API_KEY}
       - BROKER_SECRET=${BROKER_SECRET}
@@ -194,12 +194,12 @@ services:
       - db
       - redis
     networks:
-      - fm-network
+      - vra-network
 
   # Prometheus Metrics
   prometheus:
     image: prom/prometheus:latest
-    container_name: fm-prometheus
+    container_name: vra-prometheus
     restart: unless-stopped
     ports:
       - "9090:9090"
@@ -207,12 +207,12 @@ services:
       - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - prometheus_data:/prometheus
     networks:
-      - fm-network
+      - vra-network
 
   # Grafana Dashboard
   grafana:
     image: grafana/grafana:latest
-    container_name: fm-grafana
+    container_name: vra-grafana
     restart: unless-stopped
     ports:
       - "3001:3000"
@@ -223,7 +223,7 @@ services:
       - ./config/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
       - ./config/grafana/datasources:/etc/grafana/provisioning/datasources:ro
     networks:
-      - fm-network
+      - vra-network
 
 volumes:
   postgres_data:
@@ -233,5 +233,5 @@ volumes:
   grafana_data:
 
 networks:
-  fm-network:
+  vra-network:
     driver: bridge

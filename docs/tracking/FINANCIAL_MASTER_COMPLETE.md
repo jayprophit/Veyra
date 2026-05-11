@@ -1,4 +1,4 @@
-# Financial Master - Complete System
+# Veyra - Complete System
 ## Grade 600/100 - Divine Tier
 
 **Version:** 4.11.0 | **Date:** April 25, 2026 | **Time:** 3 Days

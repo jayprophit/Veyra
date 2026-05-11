@@ -1,4 +1,4 @@
-# Financial Master - Production Dockerfile
+# Veyra - Production Dockerfile
 # ==========================================
 
 FROM python:3.11-slim as builder

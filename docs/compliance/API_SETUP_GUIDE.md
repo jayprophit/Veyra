@@ -1,5 +1,5 @@
 # API Setup Guide
-## Free API Keys for Financial Master
+## Free API Keys for Veyra
 
 All APIs listed here have **FREE tiers** perfect for testing and personal use.
 
@@ -24,7 +24,7 @@ All APIs listed here have **FREE tiers** perfect for testing and personal use.
 **Purpose:** Paper trading - practice with fake money  
 **Website:** https://alpaca.markets  
 **Cost:** FREE forever (paper trading)  
-**Why you need it:** This is how Financial Master places trades
+**Why you need it:** This is how Veyra places trades
 
 #### Step-by-Step Setup:
 
@@ -70,8 +70,8 @@ All APIs listed here have **FREE tiers** perfect for testing and personal use.
      - **API Key ID:** Starts with `PK` (example: `PKA1B2C3D4E5F6G7H8I9`)
      - **Secret Key:** Long random string (keep this PRIVATE!)
 
-9. **Add to Financial Master**
-   - Open your `.env` file (in Financial Master folder)
+9. **Add to Veyra**
+   - Open your `.env` file (in Veyra folder)
    - Find these lines:
      ```
      ALPACA_API_KEY=your_alpaca_key_here
@@ -118,7 +118,7 @@ All APIs listed here have **FREE tiers** perfect for testing and personal use.
    - Click "Create API Key"
    - Copy the key (looks like: `abcdefghijklmnopqrstuvwxyz123456`)
 
-5. **Add to Financial Master**
+5. **Add to Veyra**
    - Open `.env` file
    - Find: `POLYGON_API_KEY=your_polygon_key_here`
    - Replace: `POLYGON_API_KEY=abcdefghijklmnopqrstuvwxyz123456`
@@ -154,7 +154,7 @@ All APIs listed here have **FREE tiers** perfect for testing and personal use.
    - Subject: "Your Alpha Vantage API Key"
    - Copy the key (looks like: `ABC123DEF456GHI789`)
 
-4. **Add to Financial Master**
+4. **Add to Veyra**
    - Open `.env` file
    - Find: `ALPHA_VANTAGE_API_KEY=your_alphavantage_key_here`
    - Replace: `ALPHA_VANTAGE_API_KEY=ABC123DEF456GHI789`
@@ -189,7 +189,7 @@ All APIs listed here have **FREE tiers** perfect for testing and personal use.
 3. **Enable API Access**
    - Go to Settings → API
    - Click "+ New API Key"
-   - Give it a name: "Financial Master"
+   - Give it a name: "Veyra"
    - Select permissions (at minimum: "View" and "Trade")
    - Click "Create"
 
@@ -198,7 +198,7 @@ All APIs listed here have **FREE tiers** perfect for testing and personal use.
    - Copy the API Secret
    - **Important:** Store the secret safely - you can't see it again!
 
-5. **Add to Financial Master**
+5. **Add to Veyra**
    - Open `.env` file
    - Add:
      ```
@@ -231,11 +231,11 @@ All APIs listed here have **FREE tiers** perfect for testing and personal use.
    - Click your profile (top right)
    - Click "View API Keys"
    - Click "Create new secret key"
-   - Give it a name: "Financial Master"
+   - Give it a name: "Veyra"
    - Copy the key (starts with `sk-`)
    - **IMPORTANT:** This is the only time you can see it!
 
-4. **Add to Financial Master**
+4. **Add to Veyra**
    - Open `.env` file
    - Add: `OPENAI_API_KEY=sk-your_key_here`
 
@@ -250,7 +250,7 @@ All APIs listed here have **FREE tiers** perfect for testing and personal use.
 ## Alternative Data Sources (All Free)
 
 ### Yahoo Finance (No API Key Needed)
-Financial Master can use Yahoo Finance data without any setup!
+Veyra can use Yahoo Finance data without any setup!
 - Free
 - No API key required
 - 15-minute delayed data
@@ -277,7 +277,7 @@ After setting up, test that everything works:
 
 ### Test Script:
 ```powershell
-# Run in PowerShell (in Financial Master folder)
+# Run in PowerShell (in Veyra folder)
 python -c "
 import os
 from dotenv import load_dotenv
@@ -316,7 +316,7 @@ APIs restrict how many requests you can make per minute/day to prevent abuse.
 
 ### Handling Rate Limits in Code
 
-Financial Master automatically:
+Veyra automatically:
 - ✅ Caches responses
 - ✅ Rotates between APIs
 - ✅ Queues requests if limits hit
@@ -436,7 +436,7 @@ Print this and keep it handy:
 **Polygon Support:** support@polygon.io  
 **Alpha Vantage:** support@alphavantage.co
 
-**Financial Master Docs:**
+**Veyra Docs:**
 - `docs\BEGINNERS_GUIDE.md` - Full setup walkthrough
 - `docs\TROUBLESHOOTING.md` - Common issues
 - `.\scripts\health_check.ps1` - System diagnostics
@@ -444,5 +444,5 @@ Print this and keep it handy:
 ---
 
 **Last Updated:** May 2026  
-**For:** Financial Master v1.0
+**For:** Veyra v1.0
 

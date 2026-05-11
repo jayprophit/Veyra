@@ -51,7 +51,7 @@ class LogEntry:
 class LogAggregator:
     """Enterprise log aggregator with multiple output support"""
     
-    def __init__(self, service_name: str = "financial-master"):
+    def __init__(self, service_name: str = "veyra"):
         self.service_name = service_name
         self.logs: deque = deque(maxlen=100000)  # Keep last 100k logs
         self.buffer_size = 1000
@@ -273,7 +273,7 @@ class ElasticsearchOutput(LogOutput):
     """Elasticsearch log output"""
     
     def __init__(self, endpoint: str = "http://localhost:9200",
-                 index_prefix: str = "financial-master-logs",
+                 index_prefix: str = "veyra-logs",
                  max_batch_size: int = 100):
         self.endpoint = endpoint
         self.index_prefix = index_prefix
@@ -394,7 +394,7 @@ def get_log_aggregator() -> LogAggregator:
         # Add default outputs
         _log_aggregator.add_output(ConsoleOutput())
         try:
-            _log_aggregator.add_output(FileOutput("logs/financial-master.log"))
+            _log_aggregator.add_output(FileOutput("logs/veyra.log"))
         except Exception:
             pass
         try:

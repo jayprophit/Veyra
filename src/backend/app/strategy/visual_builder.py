@@ -335,7 +335,7 @@ class StrategyBuilderEngine:
             id=mac_id,
             name="Moving Average Crossover",
             description="Classic golden cross / death cross strategy",
-            author="Financial Master",
+            author="Veyra",
             version="1.0.0",
             nodes={
                 "sma_fast": sma_fast,
@@ -384,7 +384,7 @@ class StrategyBuilderEngine:
             id=rsi_id,
             name="RSI Oversold Bounce",
             description="Buy when RSI indicates oversold conditions",
-            author="Financial Master",
+            author="Veyra",
             version="1.0.0",
             nodes={
                 "rsi": rsi,

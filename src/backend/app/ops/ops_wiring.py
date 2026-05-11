@@ -237,7 +237,7 @@ class OpsOrchestrator:
         self.finops.add_cost_entry(
             category='compute',
             amount=estimated_cost,
-            resource_id='financial-master-api',
+            resource_id='veyra-api',
             timestamp=metrics.timestamp
         )
     
@@ -356,7 +356,7 @@ class OpsOrchestrator:
     
     def get_deployment_status(self) -> Dict:
         """Get DevOps deployment status."""
-        return self.devops.get_deployment_status('financial-master')
+        return self.devops.get_deployment_status('veyra')
     
     async def optimize_resources(self) -> Dict:
         """Run resource optimization."""

@@ -1,9 +1,9 @@
 //
 //  PortfolioView.swift
-//  Financial Master
+//  Veyra
 //
-//  Created by Financial Master Team on 2024.
-//  Copyright © 2024 Financial Master. All rights reserved.
+//  Created by Veyra Team on 2024.
+//  Copyright © 2024 Veyra. All rights reserved.
 //
 
 import SwiftUI

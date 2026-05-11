@@ -128,7 +128,7 @@ class FileIndexer:
     def _tokenize(self, text: str) -> List[str]:
         """Tokenize text into words"""
         # Convert to lowercase and extract words
-        words = re.findall(r'\b[a-zA-Z0-9]+\b', text.lower())
+        words = re.findall(r'\b[a-zA-Z0-9]+\\\b', text.lower())
         return words
     
     def _get_stop_words(self) -> set:

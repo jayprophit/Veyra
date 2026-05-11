@@ -378,7 +378,6 @@ class FreeDataManagerV2:
     async def _get_yfinance_company_info(self, symbol: str) -> Dict[str, Any]:
         """Get company info from yfinance"""
         try:
-            import yfinance as yf
             
             ticker = yf.Ticker(symbol)
             info = ticker.info
@@ -403,7 +402,6 @@ class FreeDataManagerV2:
     async def _get_yfinance_financials(self, symbol: str, statement_type: str) -> Dict[str, Any]:
         """Get financials from yfinance"""
         try:
-            import yfinance as yf
             
             ticker = yf.Ticker(symbol)
             
@@ -458,7 +456,6 @@ class FreeDataManagerV2:
     async def _get_world_bank_data(self, indicators: List[str]) -> Dict[str, Any]:
         """Get data from World Bank"""
         try:
-            import pandas_datareader as pdr
             
             data = {}
             for indicator in indicators:

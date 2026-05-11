@@ -15,7 +15,7 @@
 | `Dockerfile` | Multi-stage Docker build | ✅ Active |
 | `docker-compose.yml` | Full stack orchestration | ✅ Active |
 | `docker-compose.ollama.yml` | AI services stack | ✅ Active |
-| `helm/financial-master/` | Helm chart for K8s | ✅ Available |
+| `helm/veyra/` | Helm chart for K8s | ✅ Available |
 | `k8s/` | Raw Kubernetes manifests | ✅ Available |
 | `requirements.txt` | Python dependencies | ✅ Active |
 
@@ -54,7 +54,7 @@
 │              Kubernetes Staging Cluster                  │
 │           ┌─────────────────────────────┐                │
 │           │  Helm Install/Upgrade       │                │
-│           │  financial-master v4.0.0   │                │
+│           │  veyra v4.0.0   │                │
 │           └─────────────────────────────┘                │
 └─────────────────────────────────────────────────────────┘
                      │ Manual approval
@@ -63,7 +63,7 @@
 │              Kubernetes Production Cluster               │
 │           ┌─────────────────────────────┐                │
 │           │  Helm Upgrade                │                │
-│           │  financial-master v4.0.0    │                │
+│           │  veyra v4.0.0    │                │
 │           └─────────────────────────────┘                │
 └─────────────────────────────────────────────────────────┘
 ```

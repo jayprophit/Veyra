@@ -128,7 +128,7 @@ def event_loop():
 
 
 # ============================================================================
-# TRADING FIXTURES - Financial Master
+# TRADING FIXTURES - Veyra
 # ============================================================================
 
 @pytest.fixture(scope="function")

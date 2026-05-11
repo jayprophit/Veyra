@@ -138,7 +138,7 @@ export default function Settings() {
                 <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
                 <input
                   type="text"
-                  defaultValue="Financial Master User"
+                  defaultValue="Veyra User"
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>

@@ -1,4 +1,4 @@
-# Financial Master - Project Structure
+# Veyra - Project Structure
 
 **Last Updated:** April 25, 2026
 **Status:** ✅ ORGANIZED & CLEAN
@@ -8,7 +8,7 @@
 ## Root Directory
 
 ```
-Financial Master/
+Veyra/
 ├── .git/                  # Git repository
 ├── .github/               # GitHub Actions workflows
 ├── LICENSE                # MIT License
@@ -111,7 +111,7 @@ config/
 │   └── hpa.yaml              # Horizontal Pod Autoscaler
 │
 ├── helm/                     # Helm chart for K8s
-│   └── financial-master/
+│   └── veyra/
 │       ├── Chart.yaml        # Chart metadata
 │       ├── values.yaml       # Default configuration
 │       ├── README.md         # Helm usage guide
@@ -224,7 +224,7 @@ scripts/
 | Tests | `tests/` |
 | Build scripts | `scripts/` |
 | Kubernetes manifests | `k8s/` |
-| Helm chart | `helm/financial-master/` |
+| Helm chart | `helm/veyra/` |
 | CI/CD workflows | `.github/workflows/` |
 | Grade history | `docs/grade-tracking/` |
 | Feature specs | `docs/features/` |
@@ -248,7 +248,7 @@ cd tests && pytest
 docker-compose up -d
 
 # Helm deploy
-cd helm/financial-master && helm install financial-master . -n financial-master --create-namespace
+cd helm/veyra && helm install veyra . -n veyra --create-namespace
 
 # Kubernetes apply
 kubectl apply -f k8s/

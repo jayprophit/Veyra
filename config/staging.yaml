@@ -1,9 +1,9 @@
-# Financial Master - Staging Configuration
+# Veyra - Staging Configuration
 # =========================================
 
 # Application Settings
 app:
-  name: "Financial Master"
+  name: "Veyra"
   version: "1.0.0"
   environment: "staging"
   debug: true
@@ -17,13 +17,13 @@ app:
     jwt_expiration_hours: 8
     password_hash_rounds: 10
     cors_origins:
-      - "https://staging.financialmaster.com"
-      - "https://staging-api.financialmaster.com"
+      - "https://staging.veyra.com"
+      - "https://staging-api.veyra.com"
       - "http://localhost:3000"
       - "http://localhost:8000"
     allowed_hosts:
-      - "staging.financialmaster.com"
-      - "staging-api.financialmaster.com"
+      - "staging.veyra.com"
+      - "staging-api.veyra.com"
       - "localhost"
 
 # Database Configuration
@@ -157,7 +157,7 @@ monitoring:
     format: "json"
     outputs:
       - type: "file"
-        path: "/var/log/financial_master/staging"
+        path: "/var/log/veyra/staging"
         max_size: "50MB"
         max_files: 5
       - type: "console"
@@ -167,7 +167,7 @@ monitoring:
     jaeger:
       enabled: true
       endpoint: "${STAGING_JAEGER_ENDPOINT}"
-      service_name: "financial-master-staging"
+      service_name: "veyra-staging"
     
   # Health Checks
   health_checks:
@@ -236,7 +236,7 @@ external_services:
       access_key: "${STAGING_AWS_ACCESS_KEY}"
       secret_key: "${STAGING_AWS_SECRET_KEY}"
       region: "us-east-1"
-      bucket: "financial-master-staging"
+      bucket: "veyra-staging"
 
 # Blockchain & Web3
 blockchain:
@@ -271,8 +271,8 @@ mobile:
     
   # API Endpoints
   api_endpoints:
-    ios: "https://staging-api.financialmaster.com"
-    android: "https://staging-api.financialmaster.com"
+    ios: "https://staging-api.veyra.com"
+    android: "https://staging-api.veyra.com"
 
 # Performance Configuration
 performance:
@@ -309,7 +309,7 @@ backup:
     enabled: true
     schedule: "0 3 * * *"  # Daily at 3 AM
     retention_days: 7
-    s3_bucket: "financial-master-staging-backups"
+    s3_bucket: "veyra-staging-backups"
     
   # File Backups
   files:

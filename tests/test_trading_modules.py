@@ -1,5 +1,5 @@
 """
-Comprehensive Test Suite for Financial Master Trading Modules
+Comprehensive Test Suite for Veyra Trading Modules
 Tests all trading components: strategies, bots, MT integration, copy trading
 """
 
@@ -11,7 +11,7 @@ import uuid
 
 # Import all trading modules
 import sys
-sys.path.insert(0, 'c:/Users/jpowe/Desktop/Financial Master/src/backend/app')
+sys.path.insert(0, 'c:/Users/jpowe/Desktop/Veyra/src/backend/app')
 
 from trading.strategies.arbitrage import ArbitrageStrategy
 from trading.strategies.grid_trading import GridTradingStrategy

@@ -40,7 +40,7 @@ echo "CREATING PROJECT STRUCTURE"
 echo "============================"
 
 # Create project directory
-PROJECT_DIR="$HOME/financial-master"
+PROJECT_DIR="$HOME/veyra"
 mkdir -p "$PROJECT_DIR"
 cd "$PROJECT_DIR"
 
@@ -61,9 +61,9 @@ echo "============================"
 # Create package.json
 cat > package.json << 'EOF'
 {
-  "name": "financial-master",
+  "name": "veyra",
   "version": "1.0.0",
-  "description": "Financial Master - Zero-Cost Multi-Cloud Platform",
+  "description": "Veyra - Zero-Cost Multi-Cloud Platform",
   "main": "src/backend/index.js",
   "scripts": {
     "start": "node src/backend/index.js",
@@ -130,7 +130,7 @@ app.get('/health', (req, res) => {
 
 app.get('/api/test', (req, res) => {
   res.json({ 
-    message: 'Financial Master API is working!',
+    message: 'Veyra API is working!',
     environment: process.env.NODE_ENV || 'development'
   });
 });
@@ -143,7 +143,7 @@ app.use((err, req, res, next) => {
 
 // Start server
 app.listen(PORT, () => {
-  console.log('Financial Master API running on port ' + PORT);
+  console.log('Veyra API running on port ' + PORT);
   console.log('Health check: http://localhost:' + PORT + '/health');
   console.log('API test: http://localhost:' + PORT + '/api/test');
 });
@@ -162,7 +162,7 @@ cat > src/frontend/index.html << 'EOF'
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financial Master</title>
+    <title>Veyra</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
@@ -220,7 +220,7 @@ cat > src/frontend/index.html << 'EOF'
 <body>
     <div class="container">
         <div class="header">
-            <h1>Financial Master</h1>
+            <h1>Veyra</h1>
             <p>Zero-Cost Multi-Cloud Financial Platform</p>
         </div>
         
@@ -299,15 +299,15 @@ services:
   postgres:
     image: postgres:15
     environment:
-      POSTGRES_DB: financial_master
-      POSTGRES_USER: financial_master
+      POSTGRES_DB: veyra
+      POSTGRES_USER: veyra
       POSTGRES_PASSWORD: password
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U financial_master"]
+      test: ["CMD-SHELL", "pg_isready -U veyra"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -353,7 +353,7 @@ echo "=============================="
 # Create .env.example
 cat > .env.example << 'EOF'
 # Database Configuration
-DATABASE_URL=postgresql://financial_master:password@localhost:5432/financial_master
+DATABASE_URL=postgresql://veyra:password@localhost:5432/veyra
 REDIS_URL=redis://localhost:6379
 
 # Authentication

@@ -1,4 +1,4 @@
-# Financial Master - Module Index
+# Veyra - Module Index
 
 **Generated:** 2026-05-04 14:30:00
 **Total Modules:** 1,234 Python Files | 373 Feature Directories | 529 API Endpoints

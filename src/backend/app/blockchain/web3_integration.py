@@ -1,7 +1,7 @@
 """
 Web3 Integration Module
 ======================
-Comprehensive Web3 integration for Financial Master
+Comprehensive Web3 integration for Veyra
 """
 
 import asyncio
@@ -87,7 +87,7 @@ class TokenInfo:
 
 
 class Web3Integration:
-    """Comprehensive Web3 integration for Financial Master"""
+    """Comprehensive Web3 integration for Veyra"""
     
     def __init__(self):
         self.network_configs = {

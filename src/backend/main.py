@@ -1,5 +1,5 @@
 """
-Financial Master - Main Application Entry Point
+Veyra - Main Application Entry Point
 FastAPI application initialization and configuration
 """
 import os
@@ -32,7 +32,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator:
     Startup: Initialize database, connections
     Shutdown: Close connections, cleanup
     """
-    logger.info("🚀 Starting Financial Master...")
+    logger.info("🚀 Starting Veyra...")
 
     # Initialize database (non-blocking - continue even if fails)
     try:
@@ -48,13 +48,13 @@ async def lifespan(app: FastAPI) -> AsyncGenerator:
     yield
 
     # Cleanup on shutdown
-    logger.info("🛑 Shutting down Financial Master...")
+    logger.info("🛑 Shutting down Veyra...")
     logger.info("✅ All connections closed")
 
 
 # Create FastAPI application
 app = FastAPI(
-    title="Financial Master",
+    title="Veyra",
     description="Bloomberg Terminal alternative - 100% open-source",
     version="1.0.0",
     lifespan=lifespan,
@@ -147,7 +147,7 @@ async def health_check():
 async def status():
     """Platform status endpoint"""
     return {
-        "platform": "Financial Master",
+        "platform": "Veyra",
         "version": "1.0.0",
         "status": "running",
         "features": {
@@ -248,7 +248,7 @@ async def startup_event():
 async def root():
     """Root endpoint - API documentation"""
     return {
-        "name": "Financial Master",
+        "name": "Veyra",
         "version": "1.0.0",
         "description": "100% Open-Source Bloomberg Terminal Alternative",
         "docs": "/docs",
@@ -265,7 +265,7 @@ async def root():
 if __name__ == "__main__":
     import uvicorn
 
-    logger.info("🔧 Starting Financial Master server...")
+    logger.info("🔧 Starting Veyra server...")
 
     uvicorn.run(
         app,

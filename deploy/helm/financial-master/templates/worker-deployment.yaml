@@ -2,21 +2,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "financial-master.fullname" . }}-worker
+  name: {{ include "veyra.fullname" . }}-worker
   labels:
-    {{- include "financial-master.labels" . | nindent 4 }}
+    {{- include "veyra.labels" . | nindent 4 }}
     app.kubernetes.io/component: worker
     version: {{ .Values.worker.image.tag }}
 spec:
   replicas: {{ .Values.worker.replicaCount }}
   selector:
     matchLabels:
-      {{- include "financial-master.selectorLabels" . | nindent 6 }}
+      {{- include "veyra.selectorLabels" . | nindent 6 }}
       app.kubernetes.io/component: worker
   template:
     metadata:
       labels:
-        {{- include "financial-master.selectorLabels" . | nindent 8 }}
+        {{- include "veyra.selectorLabels" . | nindent 8 }}
         app.kubernetes.io/component: worker
         version: {{ .Values.worker.image.tag }}
     spec:
@@ -29,16 +29,16 @@ spec:
             - name: ENVIRONMENT
               value: {{ .Values.global.environment | quote }}
             - name: DATABASE_URL
-              value: "postgresql://{{ .Values.postgresql.auth.username }}:{{ .Values.postgresql.auth.password }}@{{ include "financial-master.fullname" . }}-postgresql:5432/{{ .Values.postgresql.auth.database }}"
+              value: "postgresql://{{ .Values.postgresql.auth.username }}:{{ .Values.postgresql.auth.password }}@{{ include "veyra.fullname" . }}-postgresql:5432/{{ .Values.postgresql.auth.database }}"
             - name: REDIS_URL
-              value: "redis://{{ include "financial-master.fullname" . }}-redis-master:6379/0"
+              value: "redis://{{ include "veyra.fullname" . }}-redis-master:6379/0"
             - name: CELERY_BROKER_URL
-              value: "redis://{{ include "financial-master.fullname" . }}-redis-master:6379/1"
+              value: "redis://{{ include "veyra.fullname" . }}-redis-master:6379/1"
             - name: CELERY_RESULT_BACKEND
-              value: "redis://{{ include "financial-master.fullname" . }}-redis-master:6379/2"
+              value: "redis://{{ include "veyra.fullname" . }}-redis-master:6379/2"
           envFrom:
             - secretRef:
-                name: {{ include "financial-master.fullname" . }}-secrets
+                name: {{ include "veyra.fullname" . }}-secrets
                 optional: true
           resources:
             {{- toYaml .Values.worker.resources | nindent 12 }}
@@ -48,21 +48,21 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "financial-master.fullname" . }}-scheduler
+  name: {{ include "veyra.fullname" . }}-scheduler
   labels:
-    {{- include "financial-master.labels" . | nindent 4 }}
+    {{- include "veyra.labels" . | nindent 4 }}
     app.kubernetes.io/component: scheduler
     version: {{ .Values.scheduler.image.tag }}
 spec:
   replicas: {{ .Values.scheduler.replicaCount }}
   selector:
     matchLabels:
-      {{- include "financial-master.selectorLabels" . | nindent 6 }}
+      {{- include "veyra.selectorLabels" . | nindent 6 }}
       app.kubernetes.io/component: scheduler
   template:
     metadata:
       labels:
-        {{- include "financial-master.selectorLabels" . | nindent 8 }}
+        {{- include "veyra.selectorLabels" . | nindent 8 }}
         app.kubernetes.io/component: scheduler
         version: {{ .Values.scheduler.image.tag }}
     spec:
@@ -75,16 +75,16 @@ spec:
             - name: ENVIRONMENT
               value: {{ .Values.global.environment | quote }}
             - name: DATABASE_URL
-              value: "postgresql://{{ .Values.postgresql.auth.username }}:{{ .Values.postgresql.auth.password }}@{{ include "financial-master.fullname" . }}-postgresql:5432/{{ .Values.postgresql.auth.database }}"
+              value: "postgresql://{{ .Values.postgresql.auth.username }}:{{ .Values.postgresql.auth.password }}@{{ include "veyra.fullname" . }}-postgresql:5432/{{ .Values.postgresql.auth.database }}"
             - name: REDIS_URL
-              value: "redis://{{ include "financial-master.fullname" . }}-redis-master:6379/0"
+              value: "redis://{{ include "veyra.fullname" . }}-redis-master:6379/0"
             - name: CELERY_BROKER_URL
-              value: "redis://{{ include "financial-master.fullname" . }}-redis-master:6379/1"
+              value: "redis://{{ include "veyra.fullname" . }}-redis-master:6379/1"
             - name: CELERY_RESULT_BACKEND
-              value: "redis://{{ include "financial-master.fullname" . }}-redis-master:6379/2"
+              value: "redis://{{ include "veyra.fullname" . }}-redis-master:6379/2"
           envFrom:
             - secretRef:
-                name: {{ include "financial-master.fullname" . }}-secrets
+                name: {{ include "veyra.fullname" . }}-secrets
                 optional: true
           resources:
             {{- toYaml .Values.scheduler.resources | nindent 12 }}

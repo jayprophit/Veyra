@@ -1,5 +1,5 @@
 #!/usr/bin/env pwsh
-# Financial Master - Quick Launcher
+# Veyra - Quick Launcher
 # ================================
 # One command to start everything: Docker, WSL/Ubuntu, Ollama, and the app
 
@@ -34,7 +34,7 @@ $Reset
 function Show-Help {
     Show-Banner
     Write-Host "QUICK START OPTIONS:`n" -ForegroundColor Cyan
-    Write-Host "  .\START_HERE.ps1 -QuickStart    Start Docker + WSL + Financial Master"
+    Write-Host "  .\START_HERE.ps1 -QuickStart    Start Docker + WSL + Veyra"
     Write-Host "  .\START_HERE.ps1 -WithAI        Start everything + Ollama AI models"
     Write-Host "  .\START_HERE.ps1 -Stop          Stop all services"
     Write-Host "  .\START_HERE.ps1 -Status        Check infrastructure status"
@@ -69,11 +69,11 @@ if ($Status) {
 }
 
 if ($QuickStart) {
-    Write-Host "Starting Financial Master with standard setup..." -ForegroundColor Cyan
+    Write-Host "Starting Veyra with standard setup..." -ForegroundColor Cyan
     .\scripts\automate_infrastructure.ps1 -FullSetup
 }
 elseif ($WithAI) {
-    Write-Host "Starting Financial Master with AI (Ollama)..." -ForegroundColor Cyan
+    Write-Host "Starting Veyra with AI (Ollama)..." -ForegroundColor Cyan
     
     # Start infrastructure
     .\scripts\automate_infrastructure.ps1 -StartDocker -SetupWSL
@@ -96,7 +96,7 @@ elseif ($WithAI) {
     Write-Host "`n🐳 Starting Docker stack with AI services..." -ForegroundColor Cyan
     docker-compose -f docker-compose.yml -f docker-compose.ollama.yml --profile ai up --build -d
     
-    Write-Host "`n✅ Financial Master with AI is running!" -ForegroundColor Green
+    Write-Host "`n✅ Veyra with AI is running!" -ForegroundColor Green
     Write-Host "   API:       http://localhost:8000" -ForegroundColor White
     Write-Host "   Frontend:  http://localhost:3000" -ForegroundColor White
     Write-Host "   Ollama:    http://localhost:11434" -ForegroundColor White

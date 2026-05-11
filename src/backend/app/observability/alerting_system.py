@@ -73,7 +73,7 @@ class AlertChannel:
 class AlertingSystem:
     """Enterprise alerting system with multiple channels"""
     
-    def __init__(self, service_name: str = "financial-master"):
+    def __init__(self, service_name: str = "veyra"):
         self.service_name = service_name
         self.rules: Dict[str, AlertRule] = {}
         self.alerts: Dict[str, Alert] = {}
@@ -295,7 +295,7 @@ Annotations:
                     {"title": "Status", "value": alert.status.value, "short": True},
                     {"title": "Time", "value": alert.timestamp.strftime("%Y-%m-%d %H:%M:%S UTC"), "short": True}
                 ],
-                "footer": "Financial Master",
+                "footer": "Veyra",
                 "ts": int(alert.timestamp.timestamp())
             }]
         }
@@ -395,8 +395,8 @@ def get_alerting_system() -> AlertingSystem:
                 config={
                     "smtp_host": "localhost",
                     "smtp_port": 587,
-                    "from": "alerts@financial-master.com",
-                    "to": "admin@financial-master.com",
+                    "from": "alerts@veyra.com",
+                    "to": "admin@veyra.com",
                     "use_tls": True
                 }
             ))

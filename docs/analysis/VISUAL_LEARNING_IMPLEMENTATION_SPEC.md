@@ -1,5 +1,5 @@
 # VISUAL LEARNING AI - COMPLETE IMPLEMENTATION SPECIFICATION
-## Financial Master Multi-Modal Intelligence System
+## Veyra Multi-Modal Intelligence System
 
 **Purpose:** Enable AI to learn from watching live data, videos, earnings calls, satellite footage, and social media to generate trading signals.
 

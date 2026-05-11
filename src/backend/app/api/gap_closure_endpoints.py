@@ -26,7 +26,6 @@ async def get_current_session():
 @router.post("/session/rebalance")
 async def session_rebalance(portfolio: Dict):
     """Get rebalancing recommendations for current session"""
-    from ..orchestrator.session_router import SessionRouter
     router = SessionRouter()
     return router.execute_session_strategy(portfolio)
 
@@ -59,7 +58,6 @@ async def check_business_progress(request: BusinessCheckRequest):
 @router.post("/business/tax-analysis")
 async def business_tax_analysis(profit: float):
     """Compare Sole Trader vs Ltd tax efficiency"""
-    from ..business.company_tracker import BusinessTracker
     tracker = BusinessTracker()
     return tracker.tax_analysis(profit)
 
@@ -102,7 +100,6 @@ async def get_insurance_coverage():
 @router.post("/insurance/check-gaps")
 async def check_insurance_gaps(monthly_income: float, has_mortgage: bool = True):
     """Check for missing insurance coverage"""
-    from ..protection.insurance_tracker import ProtectionTracker
     tracker = ProtectionTracker()
     return {"gaps": tracker.check_gaps(monthly_income, has_mortgage)}
 
@@ -110,7 +107,6 @@ async def check_insurance_gaps(monthly_income: float, has_mortgage: bool = True)
 @router.post("/insurance/emergency-fund")
 async def calculate_emergency_fund(monthly_expenses: float):
     """Calculate emergency fund targets"""
-    from ..protection.insurance_tracker import ProtectionTracker
     tracker = ProtectionTracker()
     return tracker.emergency_fund_calc(monthly_expenses)
 
@@ -148,7 +144,6 @@ async def create_lisa(owner: str, provider: str):
 async def deposit_to_lisa(request: LISADepositRequest):
     """Deposit to LISA (max £4,000/year + 25% bonus)"""
     from ..tax.lisa_tracker import LISAAccount
-    from decimal import Decimal
     
     # Simulated - in production would fetch from DB
     lisa = LISAAccount(
@@ -166,8 +161,6 @@ async def deposit_to_lisa(request: LISADepositRequest):
 @router.get("/lisa/first-home")
 async def lisa_first_home(account_id: str, property_price: float):
     """Calculate first home purchase from LISA"""
-    from ..tax.lisa_tracker import LISAAccount
-    from decimal import Decimal
     
     lisa = LISAAccount(
         account_id=account_id,
@@ -190,7 +183,6 @@ async def buy_physical_gold(amount_gbp: float, auto_save: bool = False):
 @router.post("/silver/buy")
 async def buy_physical_silver(amount_gbp: float):
     """Buy physical silver"""
-    from ..alternative.physical_gold import GoldwiseAPI
     api = GoldwiseAPI()
     return api.buy_silver(amount_gbp)
 
@@ -198,7 +190,6 @@ async def buy_physical_silver(amount_gbp: float):
 @router.get("/gold/portfolio")
 async def get_gold_portfolio():
     """Get physical metals portfolio value"""
-    from ..alternative.physical_gold import GoldwiseAPI
     api = GoldwiseAPI()
     return api.get_portfolio_value()
 
@@ -217,7 +208,6 @@ async def add_p2p_loan(platform: str, amount: float, rate: float, term_months: i
     """Add P2P lending position"""
     from ..alternative.p2p_lending_tracker import P2PTracker, P2PLoan
     from datetime import date
-    from decimal import Decimal
     
     tracker = P2PTracker()
     loan = P2PLoan(
@@ -254,7 +244,7 @@ async def export_to_tableau(server_url: str = "localhost"):
     """Generate Tableau datasource"""
     from ..analytics.powerbi_connector import TableauConnector
     connector = TableauConnector()
-    return {"tds_xml": connector.generate_tdsx(server_url, "FinancialMaster")}
+    return {"tds_xml": connector.generate_tdsx(server_url, "Veyra")}
 
 
 # Multi-Platform Bot Status

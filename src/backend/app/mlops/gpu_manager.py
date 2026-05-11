@@ -239,7 +239,7 @@ class GPUManager:
         framework: str
     ) -> str:
         """Deploy model to AWS SageMaker"""
-        endpoint_name = f"fm-{model_name}-{datetime.utcnow().strftime('%Y%m%d')}"
+        endpoint_name = f"vra-{model_name}-{datetime.utcnow().strftime('%Y%m%d')}"
         
         # In production: Create model, endpoint config, endpoint
         # boto3 sagemaker create_model, create_endpoint_config, create_endpoint

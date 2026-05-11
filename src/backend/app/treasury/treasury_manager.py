@@ -1,5 +1,5 @@
 """
-Treasury Management System for Financial Master
+Treasury Management System for Veyra
 Handles platform revenue, expenses, investments, and financial operations
 
 Features:

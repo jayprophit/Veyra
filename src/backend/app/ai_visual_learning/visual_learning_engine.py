@@ -2,7 +2,7 @@
 Visual Learning AI Engine - Production Implementation
 Enables AI to learn from watching live data, videos, and multi-modal sources
 
-This module implements the visual learning system requested for Financial Master.
+This module implements the visual learning system requested for Veyra.
 It provides real computer vision, audio analysis, and multi-modal fusion for trading signals.
 """
 

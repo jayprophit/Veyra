@@ -2,7 +2,7 @@
 
 ## Overview
 
-This guide provides complete deployment instructions for Financial Master with all FactSet and enhanced financial repository integrations across multiple deployment strategies.
+This guide provides complete deployment instructions for Veyra with all FactSet and enhanced financial repository integrations across multiple deployment strategies.
 
 ## Deployment Strategies
 
@@ -76,11 +76,11 @@ Zero-Cost Architecture
 
 ```bash
 # Clone the repository
-git clone https://github.com/jpowell/financial-master.git
-cd financial-master
+git clone https://github.com/jpowell/veyra.git
+cd veyra
 
 # Create your fork (optional)
-git remote add fork https://github.com/YOUR_USERNAME/financial-master.git
+git remote add fork https://github.com/YOUR_USERNAME/veyra.git
 ```
 
 #### Step 2: Configure Environment
@@ -138,7 +138,7 @@ cd ../..
 
 # Deploy to Cloudflare Pages
 echo "☁️ Deploying to Cloudflare Pages..."
-npx wrangler pages deploy src/frontend/dist --project-name financial-master
+npx wrangler pages deploy src/frontend/dist --project-name veyra
 
 # Deploy backend to Render
 echo "🚀 Deploying backend to Render..."
@@ -150,7 +150,7 @@ echo "📈 Setting up monitoring..."
 echo "📊 Visit https://uptimerobot.com to set up monitoring"
 
 echo "✅ Zero-Cost Deployment Setup Complete!"
-echo "🌐 Frontend: https://financial-master.pages.dev"
+echo "🌐 Frontend: https://veyra.pages.dev"
 echo "🔧 Backend: Configure at https://dashboard.render.com"
 echo "📈 Monitoring: Configure at https://uptimerobot.com"
 ```
@@ -169,7 +169,7 @@ wrangler login
 # Deploy frontend
 cd src/frontend
 npm run build
-wrangler pages deploy dist --project-name financial-master
+wrangler pages deploy dist --project-name veyra
 ```
 
 #### Backend Deployment (Render)
@@ -178,7 +178,7 @@ wrangler pages deploy dist --project-name financial-master
    - Go to [Render Dashboard](https://dashboard.render.com)
    - Click "New Web Service"
    - Connect GitHub repository
-   - Select `financial-master` repository
+   - Select `veyra` repository
 
 2. **Configure Build Settings**
    - Build Command: `pip install -r requirements.txt && uvicorn src.backend.main:app --host 0.0.0.0`
@@ -205,18 +205,18 @@ wrangler pages deploy dist --project-name financial-master
 ```yaml
 # Uptime Robot monitoring
 services:
-  - name: Financial Master Frontend
-    url: https://financial-master.pages.dev
+  - name: Veyra Frontend
+    url: https://veyra.pages.dev
     interval: 5
     alert_contacts:
-      - email: admin@financialmaster.com
+      - email: admin@veyra.com
       - slack: https://hooks.slack.com/your-webhook
   
-  - name: Financial Master Backend
+  - name: Veyra Backend
     url: https://your-service.onrender.com/health
     interval: 5
     alert_contacts:
-      - email: admin@financialmaster.com
+      - email: admin@veyra.com
       - slack: https://hooks.slack.com/your-webhook
 ```
 
@@ -266,7 +266,7 @@ Comprehensive Architecture
 ```yaml
 # aws-infrastructure.yml
 AWSTemplateFormatVersion: '2010-09-09'
-Description: Financial Master Comprehensive Infrastructure
+Description: Veyra Comprehensive Infrastructure
 
 Parameters:
   Environment:
@@ -289,7 +289,7 @@ Resources:
       EnableDnsHostnames: true
       Tags:
         - Key: Name
-          Value: financial-master-vpc
+          Value: veyra-vpc
 
   # Public Subnets
   PublicSubnet1:
@@ -301,7 +301,7 @@ Resources:
       MapPublicIpOnLaunch: true
       Tags:
         - Key: Name
-          Value: financial-master-public-1
+          Value: veyra-public-1
 
   PublicSubnet2:
     Type: AWS::EC2::Subnet
@@ -312,7 +312,7 @@ Resources:
       MapPublicIpOnLaunch: true
       Tags:
         - Key: Name
-          Value: financial-master-public-2
+          Value: veyra-public-2
 
   # Private Subnets
   PrivateSubnet1:
@@ -323,7 +323,7 @@ Resources:
       AvailabilityZone: !Select [0, !Ref 'AWS::Region']
       Tags:
         - Key: Name
-          Value: financial-master-private-1
+          Value: veyra-private-1
 
   PrivateSubnet2:
     Type: AWS::EC2::Subnet
@@ -333,7 +333,7 @@ Resources:
       AvailabilityZone: !Select [1, !Ref 'AWS::Region']
       Tags:
         - Key: Name
-          Value: financial-master-private-2
+          Value: veyra-private-2
 
   # Internet Gateway
   InternetGateway:
@@ -341,7 +341,7 @@ Resources:
     Properties:
       Tags:
         - Key: Name
-          Value: financial-master-igw
+          Value: veyra-igw
 
   AttachGateway:
     Type: AWS::EC2::VPCGatewayAttachment
@@ -356,7 +356,7 @@ Resources:
       VpcId: !Ref FinancialMasterVPC
       Tags:
         - Key: Name
-          Value: financial-master-public-routes
+          Value: veyra-public-routes
 
   PublicRoute:
     Type: AWS::EC2::Route
@@ -370,24 +370,24 @@ Resources:
   DatabaseSubnetGroup:
     Type: AWS::RDS::DBSubnetGroup
     Properties:
-      DBSubnetGroupDescription: Subnet group for Financial Master database
+      DBSubnetGroupDescription: Subnet group for Veyra database
       SubnetIds:
         - !Ref PrivateSubnet1
         - !Ref PrivateSubnet2
       Tags:
         - Key: Name
-          Value: financial-master-db-subnets
+          Value: veyra-db-subnets
 
   Database:
     Type: AWS::RDS::DBInstance
     Properties:
-      DBInstanceIdentifier: financial-master-db
+      DBInstanceIdentifier: veyra-db
       DBInstanceClass: db.t3.medium
       Engine: postgres
       EngineVersion: '15.4'
       AllocatedStorage: 100
       StorageType: gp2
-      DBName: financial_master
+      DBName: veyra
       MasterUsername: postgres
       MasterUserPassword: !Ref DatabasePassword
       DBSubnetGroupName: !Ref DatabaseSubnetGroup
@@ -398,25 +398,25 @@ Resources:
       StorageEncrypted: true
       Tags:
         - Key: Name
-          Value: financial-master-db
+          Value: veyra-db
 
   # ElastiCache Redis
   RedisSubnetGroup:
     Type: AWS::ElastiCache::SubnetGroup
     Properties:
-      Description: Subnet group for Financial Master Redis
+      Description: Subnet group for Veyra Redis
       SubnetIds:
         - !Ref PrivateSubnet1
         - !Ref PrivateSubnet2
       Tags:
         - Key: Name
-          Value: financial-master-redis-subnets
+          Value: veyra-redis-subnets
 
   RedisCluster:
     Type: AWS::ElastiCache::ReplicationGroup
     Properties:
-      ReplicationGroupId: financial-master-redis
-      Description: Redis cluster for Financial Master
+      ReplicationGroupId: veyra-redis
+      Description: Redis cluster for Veyra
       CacheNodeType: cache.t3.micro
       NumCacheClusters: 2
       Engine: redis
@@ -426,25 +426,25 @@ Resources:
         - !Ref RedisSecurityGroup
       Tags:
         - Key: Name
-          Value: financial-master-redis
+          Value: veyra-redis
 
   # ECS Cluster
   ECSCluster:
     Type: AWS::ECS::Cluster
     Properties:
-      ClusterName: financial-master
+      ClusterName: veyra
       CapacityProviders:
         - Name: FARGATE
           DefaultCapacityProviderStrategy: SPREAD_CAPACITY_PROVIDER_STRATEGY
       Tags:
         - Key: Name
-          Value: financial-master-ecs
+          Value: veyra-ecs
 
   # Task Definition
   TaskDefinition:
     Type: AWS::ECS::TaskDefinition
     Properties:
-      Family: financial-master-task
+      Family: veyra-task
       RequiresCompatibilities:
         - FARGATE
       NetworkMode: awsvpc
@@ -453,20 +453,20 @@ Resources:
       ExecutionRoleArn: !Ref TaskExecutionRole
       TaskRoleArn: !Ref TaskRole
       ContainerDefinitions:
-        - Name: financial-master-container
-          Image: !Sub '${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/financial-master:latest'
+        - Name: veyra-container
+          Image: !Sub '${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/veyra:latest'
           PortMappings:
             - ContainerPort: 8000
               Protocol: tcp
           Environment:
             - Name: DATABASE_URL
-              Value: !Sub 'postgresql://postgres:${DatabasePassword}@${Database.Endpoint}:${Database.Port}/financial_master'
+              Value: !Sub 'postgresql://postgres:${DatabasePassword}@${Database.Endpoint}:${Database.Port}/veyra'
             - Name: REDIS_URL
               Value: !Sub 'redis://${RedisCluster.PrimaryEndPoint.Address}:${RedisCluster.PrimaryEndPoint.Port}/0'
           LogConfiguration:
             LogDriver: awslogs
             Options:
-              awslogs-group: /ecs/financial-master
+              awslogs-group: /ecs/veyra
               awslogs-region: !Ref AWS::Region
               awslogs-stream-prefix: ecs
 
@@ -474,7 +474,7 @@ Resources:
   Service:
     Type: AWS::ECS::Service
     Properties:
-      ServiceName: financial-master-service
+      ServiceName: veyra-service
       Cluster: !Ref ECSCluster
       TaskDefinition: !Ref TaskDefinition
       DesiredCount: 2
@@ -489,7 +489,7 @@ Resources:
             - !Ref PrivateSubnet2
           AssignPublicIp: DISABLED
       LoadBalancers:
-        - ContainerName: financial-master-container
+        - ContainerName: veyra-container
           ContainerPort: 8000
           TargetGroupArn: !Ref TargetGroup
 
@@ -497,7 +497,7 @@ Resources:
   LoadBalancer:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
-      Name: financial-master-alb
+      Name: veyra-alb
       IpAddressType: ipv4
       Scheme: internet-facing
       Type: application
@@ -508,13 +508,13 @@ Resources:
         - !Ref PublicSubnet2
       Tags:
         - Key: Name
-          Value: financial-master-alb
+          Value: veyra-alb
 
   # Target Group
   TargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
-      Name: financial-master-targets
+      Name: veyra-targets
       Port: 80
       Protocol: HTTP
       VpcId: !Ref FinancialMasterVPC
@@ -526,7 +526,7 @@ Resources:
         HttpCode: 200
       Tags:
         - Key: Name
-          Value: financial-master-targets
+          Value: veyra-targets
 
 Outputs:
   LoadBalancerDNS:
@@ -543,39 +543,39 @@ Outputs:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: financial-master
+  name: veyra
   labels:
-    app: financial-master
+    app: veyra
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: financial-master
+      app: veyra
   template:
     metadata:
       labels:
-        app: financial-master
+        app: veyra
     spec:
       containers:
-      - name: financial-master
-        image: financial-master:latest
+      - name: veyra
+        image: veyra:latest
         ports:
         - containerPort: 8000
         env:
           - name: DATABASE_URL
             valueFrom:
               secretKeyRef:
-                name: financial-master-secrets
+                name: veyra-secrets
                 key: database-url
           - name: REDIS_URL
             valueFrom:
               secretKeyRef:
-                name: financial-master-secrets
+                name: veyra-secrets
                 key: redis-url
           - name: FACTSET_API_KEY
             valueFrom:
               secretKeyRef:
-                name: financial-master-secrets
+                name: veyra-secrets
                 key: factset-api-key
         resources:
           requests:
@@ -600,10 +600,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: financial-master-service
+  name: veyra-service
 spec:
   selector:
-    app: financial-master
+    app: veyra
   ports:
     - protocol: TCP
       port: 80
@@ -613,7 +613,7 @@ spec:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: financial-master-secrets
+  name: veyra-secrets
 type: Opaque
 data:
   database-url: <base64-encoded-database-url>
@@ -656,8 +656,8 @@ class CloudWatchHandler(logging.Handler):
             print(f"Error sending to CloudWatch: {e}")
 
 # Configure logging
-logger = logging.getLogger('financial_master')
-logger.addHandler(CloudWatchHandler('financial-master', 'application'))
+logger = logging.getLogger('veyra')
+logger.addHandler(CloudWatchHandler('veyra', 'application'))
 logger.setLevel(logging.INFO)
 ```
 
@@ -666,7 +666,7 @@ logger.setLevel(logging.INFO)
 ```json
 {
   "dashboard": {
-    "title": "Financial Master Monitoring",
+    "title": "Veyra Monitoring",
     "panels": [
       {
         "title": "API Response Time",
@@ -789,7 +789,7 @@ sudo apt-get update
 sudo apt-get install certbot python3-certbot-nginx
 
 # Generate SSL certificate
-sudo certbot --nginx -d api.financialmaster.com -d www.financialmaster.com
+sudo certbot --nginx -d api.veyra.com -d www.veyra.com
 
 # Auto-renewal
 sudo crontab -e
@@ -804,7 +804,7 @@ Resources:
   FinancialMasterWAF:
     Type: AWS::WAFv2::WebACL
     Properties:
-      Name: financial-master-waf
+      Name: veyra-waf
       Scope: CLOUDFRONT
       DefaultAction:
         Allow: {}
@@ -884,7 +884,7 @@ def verify_token(token: str):
 
 DATE=$(date +%Y%m%d_%H%M%S)
 BACKUP_DIR="/backups/database"
-DB_NAME="financial_master"
+DB_NAME="veyra"
 
 # Create backup directory
 mkdir -p $BACKUP_DIR
@@ -896,7 +896,7 @@ pg_dump -h localhost -U postgres -d $DB_NAME > $BACKUP_DIR/backup_$DATE.sql
 gzip $BACKUP_DIR/backup_$DATE.sql
 
 # Upload to S3
-aws s3 cp $BACKUP_DIR/backup_$DATE.sql.gz s3://financial-master-backups/database/
+aws s3 cp $BACKUP_DIR/backup_$DATE.sql.gz s3://veyra-backups/database/
 
 # Clean old backups (keep 30 days)
 find $BACKUP_DIR -name "backup_*.sql.gz" -mtime +30 -delete
@@ -924,8 +924,8 @@ tar -czf $BACKUP_DIR/config_$DATE.tar.gz config/
 git archive --format=tar.gz --prefix=source_$DATE/ HEAD > $BACKUP_DIR/source_$DATE.tar.gz
 
 # Upload to S3
-aws s3 cp $BACKUP_DIR/config_$DATE.tar.gz s3://financial-master-backups/config/
-aws s3 cp $BACKUP_DIR/source_$DATE.tar.gz s3://financial-master-backups/source/
+aws s3 cp $BACKUP_DIR/config_$DATE.tar.gz s3://veyra-backups/config/
+aws s3 cp $BACKUP_DIR/source_$DATE.tar.gz s3://veyra-backups/source/
 
 echo "Application backup completed"
 ```
@@ -1012,7 +1012,7 @@ disaster_recovery:
 
 ```bash
 # View application logs
-docker logs financial-master-container
+docker logs veyra-container
 
 # View database logs
 docker logs postgres-container
@@ -1025,7 +1025,7 @@ docker logs nginx-container
 
 ```bash
 # Check system resources
-docker stats financial-master-container
+docker stats veyra-container
 
 # Monitor database performance
 docker exec postgres-container pg_stat_activity

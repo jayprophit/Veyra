@@ -1,6 +1,6 @@
 """
 Unit Tests - Trading Module
-Comprehensive test examples for Financial Master
+Comprehensive test examples for Veyra
 
 Test Coverage:
 - Trade execution

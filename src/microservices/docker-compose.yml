@@ -14,7 +14,7 @@ services:
       - consul
       - redis
     networks:
-      - financial-master
+      - veyra
 
   # User Service
   user-service:
@@ -22,7 +22,7 @@ services:
     ports:
       - "8081:8080"
     environment:
-      - DATABASE_URL=postgresql://postgres:password@postgres:5432/financial_master
+      - DATABASE_URL=postgresql://postgres:password@postgres:5432/veyra
       - CONSUL_HOST=consul
       - REDIS_HOST=redis
     depends_on:
@@ -30,7 +30,7 @@ services:
       - consul
       - redis
     networks:
-      - financial-master
+      - veyra
 
   # Portfolio Service
   portfolio-service:
@@ -38,7 +38,7 @@ services:
     ports:
       - "8082:8080"
     environment:
-      - DATABASE_URL=postgresql://postgres:password@postgres:5432/financial_master
+      - DATABASE_URL=postgresql://postgres:password@postgres:5432/veyra
       - CONSUL_HOST=consul
       - REDIS_HOST=redis
       - KAFKA_HOST=kafka
@@ -48,7 +48,7 @@ services:
       - redis
       - kafka
     networks:
-      - financial-master
+      - veyra
 
   # Trading Service
   trading-service:
@@ -56,7 +56,7 @@ services:
     ports:
       - "8083:8080"
     environment:
-      - DATABASE_URL=postgresql://postgres:password@postgres:5432/financial_master
+      - DATABASE_URL=postgresql://postgres:password@postgres:5432/veyra
       - CONSUL_HOST=consul
       - REDIS_HOST=redis
       - KAFKA_HOST=kafka
@@ -66,7 +66,7 @@ services:
       - redis
       - kafka
     networks:
-      - financial-master
+      - veyra
 
   # Market Data Service
   market-data-service:
@@ -74,7 +74,7 @@ services:
     ports:
       - "8084:8080"
     environment:
-      - DATABASE_URL=postgresql://postgres:password@postgres:5432/financial_master
+      - DATABASE_URL=postgresql://postgres:password@postgres:5432/veyra
       - CONSUL_HOST=consul
       - REDIS_HOST=redis
       - KAFKA_HOST=kafka
@@ -84,7 +84,7 @@ services:
       - redis
       - kafka
     networks:
-      - financial-master
+      - veyra
 
   # Analytics Service
   analytics-service:
@@ -92,7 +92,7 @@ services:
     ports:
       - "8085:8080"
     environment:
-      - DATABASE_URL=postgresql://postgres:password@postgres:5432/financial_master
+      - DATABASE_URL=postgresql://postgres:password@postgres:5432/veyra
       - CONSUL_HOST=consul
       - REDIS_HOST=redis
       - ELASTICSEARCH_HOST=elasticsearch
@@ -102,7 +102,7 @@ services:
       - redis
       - elasticsearch
     networks:
-      - financial-master
+      - veyra
 
   # AI/ML Service
   ai-ml-service:
@@ -110,7 +110,7 @@ services:
     ports:
       - "8086:8080"
     environment:
-      - DATABASE_URL=postgresql://postgres:password@postgres:5432/financial_master
+      - DATABASE_URL=postgresql://postgres:password@postgres:5432/veyra
       - CONSUL_HOST=consul
       - REDIS_HOST=redis
       - KAFKA_HOST=kafka
@@ -120,7 +120,7 @@ services:
       - redis
       - kafka
     networks:
-      - financial-master
+      - veyra
 
   # Blockchain Service
   blockchain-service:
@@ -128,7 +128,7 @@ services:
     ports:
       - "8087:8080"
     environment:
-      - DATABASE_URL=postgresql://postgres:password@postgres:5432/financial_master
+      - DATABASE_URL=postgresql://postgres:password@postgres:5432/veyra
       - CONSUL_HOST=consul
       - REDIS_HOST=redis
       - KAFKA_HOST=kafka
@@ -138,7 +138,7 @@ services:
       - redis
       - kafka
     networks:
-      - financial-master
+      - veyra
 
   # Security Service
   security-service:
@@ -146,7 +146,7 @@ services:
     ports:
       - "8088:8080"
     environment:
-      - DATABASE_URL=postgresql://postgres:password@postgres:5432/financial_master
+      - DATABASE_URL=postgresql://postgres:password@postgres:5432/veyra
       - CONSUL_HOST=consul
       - REDIS_HOST=redis
       - KAFKA_HOST=kafka
@@ -156,7 +156,7 @@ services:
       - redis
       - kafka
     networks:
-      - financial-master
+      - veyra
 
   # Notification Service
   notification-service:
@@ -164,7 +164,7 @@ services:
     ports:
       - "8089:8080"
     environment:
-      - DATABASE_URL=postgresql://postgres:password@postgres:5432/financial_master
+      - DATABASE_URL=postgresql://postgres:password@postgres:5432/veyra
       - CONSUL_HOST=consul
       - REDIS_HOST=redis
       - KAFKA_HOST=kafka
@@ -174,13 +174,13 @@ services:
       - redis
       - kafka
     networks:
-      - financial-master
+      - veyra
 
   # Infrastructure Services
   postgres:
     image: postgres:15
     environment:
-      - POSTGRES_DB=financial_master
+      - POSTGRES_DB=veyra
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
     volumes:
@@ -188,7 +188,7 @@ services:
     ports:
       - "5432:5432"
     networks:
-      - financial-master
+      - veyra
 
   redis:
     image: redis:7-alpine
@@ -197,7 +197,7 @@ services:
     volumes:
       - redis_data:/data
     networks:
-      - financial-master
+      - veyra
 
   consul:
     image: consul:1.15
@@ -208,7 +208,7 @@ services:
       - consul_data:/consul/data
     command: agent -server -bootstrap -ui -client=0.0.0.0
     networks:
-      - financial-master
+      - veyra
 
   kafka:
     image: confluentinc/cp-kafka:7.3.0
@@ -221,7 +221,7 @@ services:
     depends_on:
       - zookeeper
     networks:
-      - financial-master
+      - veyra
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.3.0
@@ -231,7 +231,7 @@ services:
     ports:
       - "2181:2181"
     networks:
-      - financial-master
+      - veyra
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.8.0
@@ -244,7 +244,7 @@ services:
     volumes:
       - elasticsearch_data:/usr/share/elasticsearch/data
     networks:
-      - financial-master
+      - veyra
 
   # Monitoring
   prometheus:
@@ -260,7 +260,7 @@ services:
       - '--web.console.libraries=/etc/prometheus/console_libraries'
       - '--web.console.templates=/etc/prometheus/consoles'
     networks:
-      - financial-master
+      - veyra
 
   grafana:
     image: grafana/grafana:latest
@@ -273,7 +273,7 @@ services:
       - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards
       - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources
     networks:
-      - financial-master
+      - veyra
 
   jaeger:
     image: jaegertracing/all-in-one:latest
@@ -283,7 +283,7 @@ services:
     environment:
       - COLLECTOR_OTLP_ENABLED=true
     networks:
-      - financial-master
+      - veyra
 
 volumes:
   postgres_data:
@@ -294,5 +294,5 @@ volumes:
   grafana_data:
 
 networks:
-  financial-master:
+  veyra:
     driver: bridge

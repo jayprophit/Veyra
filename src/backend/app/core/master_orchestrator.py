@@ -89,7 +89,7 @@ class EventBus:
 
 class MasterOrchestrator:
     """
-    Central orchestrator for Financial Master system.
+    Central orchestrator for Veyra system.
     Coordinates all modules and manages system state.
     """
     

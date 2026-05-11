@@ -1,1 +1,1 @@
-# Financial Master - alternative module
+# Veyra - alternative module

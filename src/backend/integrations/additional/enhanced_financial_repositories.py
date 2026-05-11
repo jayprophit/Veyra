@@ -1,8 +1,8 @@
 """
-Enhanced Financial Repositories Integration for Financial Master
+Enhanced Financial Repositories Integration for Veyra
 
 This module provides integration with additional high-value open source repositories
-that complement FactSet APIs and enhance Financial Master capabilities:
+that complement FactSet APIs and enhance Veyra capabilities:
 
 - Alpha Vantage for market data
 - Yahoo Finance for additional data sources

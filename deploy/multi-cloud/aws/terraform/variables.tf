@@ -13,7 +13,7 @@ variable "environment" {
 variable "db_username" {
   description = "Database username"
   type        = string
-  default     = "financial_master"
+  default     = "veyra"
 }
 
 variable "db_password" {
@@ -37,7 +37,7 @@ variable "redis_url" {
 variable "app_image" {
   description = "Docker image for the application"
   type        = string
-  default     = "financial-master:latest"
+  default     = "veyra:latest"
 }
 
 variable "app_port" {

@@ -1,7 +1,7 @@
 """
 Social Trading API Endpoints
 =============================
-Comprehensive social trading and collaboration API for Financial Master
+Comprehensive social trading and collaboration API for Veyra
 """
 
 from fastapi import APIRouter, HTTPException, Query, Depends

@@ -1,4 +1,4 @@
-# Financial Master - Complete Setup & Deployment Guide
+# Veyra - Complete Setup & Deployment Guide
 
 ## World-Class Industrial Build | Free Tier + Open Source
 
@@ -162,7 +162,7 @@
 
 # 3. Create R2 bucket:
 # Storage & Images > R2 > Create bucket
-# Name: financial-master-storage
+# Name: veyra-storage
 # Location: Automatic
 ```
 
@@ -183,7 +183,7 @@
 # https://neon.tech
 
 # 2. Create project:
-# - Name: financial-master
+# - Name: veyra
 # - Region: Choose closest to you (EU: Frankfurt, US: Ohio)
 
 # 3. Get connection string:
@@ -303,7 +303,7 @@ ollama --version
 
 ```powershell
 # Navigate to your project
-cd "c:\Users\jpowe\Desktop\Financial Master"
+cd "c:\Users\jpowe\Desktop\Veyra"
 
 # Create Python virtual environment
 python -m venv .venv
@@ -320,7 +320,7 @@ copy .env.example .env
 
 #### 3.3 Configure Local Environment File
 
-Edit `c:\Users\jpowe\Desktop\Financial Master\.env`:
+Edit `c:\Users\jpowe\Desktop\Veyra\.env`:
 
 ```env
 # ============================================================================
@@ -345,7 +345,7 @@ ALPHA_VANTAGE_API_KEY=your_alpha_vantage_key
 # ============================================================================
 # DATABASE - Local SQLite for GDPR compliance
 # ============================================================================
-DATABASE_URL=sqlite:///data/financial_master.db
+DATABASE_URL=sqlite:///data/veyra.db
 
 # ============================================================================
 # SECURITY - Generate strong random keys
@@ -399,7 +399,7 @@ FRONTEND_URL=http://localhost:3000
 
 ```powershell
 # Ensure you're in the project directory and venv is activated
-cd "c:\Users\jpowe\Desktop\Financial Master"
+cd "c:\Users\jpowe\Desktop\Veyra"
 .venv\Scripts\Activate.ps1
 
 # Run validation
@@ -422,7 +422,7 @@ curl http://localhost:8000/health
 ### Directory Structure
 
 ```
-c:\Users\jpowe\Desktop\Financial Master\
+c:\Users\jpowe\Desktop\Veyra\
 ├── .venv/                          # Python virtual environment
 ├── .git/                           # Git repository
 ├── .github/                        # GitHub Actions workflows
@@ -451,7 +451,7 @@ c:\Users\jpowe\Desktop\Financial Master\
 # 1. Start local development
 # Open PowerShell in project folder
 
-cd "c:\Users\jpowe\Desktop\Financial Master"
+cd "c:\Users\jpowe\Desktop\Veyra"
 
 # 2. Activate virtual environment
 .venv\Scripts\Activate.ps1
@@ -483,7 +483,7 @@ npm start
 2. Click "New +" > "Web Service"
 3. Connect your GitHub repository: jayprophit/Financial-Master
 4. Configure:
-   - Name: financial-master-api
+   - Name: veyra-api
    - Environment: Python 3
    - Build Command: pip install -r requirements.txt
    - Start Command: uvicorn src.backend.app.main:app --host 0.0.0.0 --port 10000
@@ -505,7 +505,7 @@ npm start
 
 6. Click "Create Web Service"
 7. Wait for deployment (5-10 minutes)
-8. Copy the deployed URL: https://financial-master-api.onrender.com
+8. Copy the deployed URL: https://veyra-api.onrender.com
 ```
 
 ### Phase 5: Deploy to Neon (Database)
@@ -514,12 +514,12 @@ npm start
 
 ```
 1. Go to https://console.neon.tech
-2. Select your project: financial-master
+2. Select your project: veyra
 3. Get connection string:
    Dashboard > Connection Details > copy "PostgreSQL URL"
    
 4. Update Render environment variable:
-   DATABASE_URL=postgresql://user:pass@host.neon.tech/financial-master
+   DATABASE_URL=postgresql://user:pass@host.neon.tech/veyra
    
 5. Test connection from local:
    psql $DATABASE_URL
@@ -534,13 +534,13 @@ npm start
 2. Pages > Create a project > Connect to Git
 3. Select: jayprophit/Financial-Master
 4. Configure:
-   - Project name: financial-master-docs
+   - Project name: veyra-docs
    - Production branch: main
    - Build command: (none - static files)
    - Root directory: docs/
    
 5. Click "Save and Deploy"
-6. Your docs will be at: https://financial-master-docs.pages.dev
+6. Your docs will be at: https://veyra-docs.pages.dev
 ```
 
 #### 6.2 Deploy Frontend (if React build)
@@ -549,13 +549,13 @@ npm start
 1. Pages > Create a project > Connect to Git
 2. Select: jayprophit/Financial-Master
 3. Configure:
-   - Project name: financial-master-app
+   - Project name: veyra-app
    - Production branch: main
    - Build command: cd frontend && npm install && npm run build
    - Output directory: frontend/dist
    
 4. Add environment variables:
-   - VITE_API_URL=https://financial-master-api.onrender.com
+   - VITE_API_URL=https://veyra-api.onrender.com
    
 5. Click "Save and Deploy"
 ```
@@ -572,7 +572,7 @@ npm install -g wrangler
 wrangler login
 
 # Navigate to cloudflare folder
-cd "c:\Users\jpowe\Desktop\Financial Master\cloudflare"
+cd "c:\Users\jpowe\Desktop\Veyra\cloudflare"
 
 # Install dependencies
 npm install
@@ -581,7 +581,7 @@ npm install
 wrangler deploy
 
 # Your worker will be at:
-# https://financial-master-api.your-account.workers.dev
+# https://veyra-api.your-account.workers.dev
 ```
 
 ---
@@ -590,7 +590,7 @@ wrangler deploy
 
 ### Container Orchestration Stack
 
-Financial Master supports multiple deployment patterns from local development to production-scale Kubernetes clusters.
+Veyra supports multiple deployment patterns from local development to production-scale Kubernetes clusters.
 
 | Tool | Purpose | Status | Priority | When to Use |
 |------|---------|--------|----------|-------------|
@@ -627,19 +627,19 @@ docker-compose down
 #### Option 1: Helm (Recommended)
 
 ```bash
-# Install Financial Master with Helm
-helm install financial-master ./helm/financial-master \
-  --namespace financial-master \
+# Install Veyra with Helm
+helm install veyra ./helm/veyra \
+  --namespace veyra \
   --create-namespace \
   --set global.environment=staging
 
 # Verify deployment
-kubectl get pods -n financial-master
-kubectl get ingress -n financial-master
+kubectl get pods -n veyra
+kubectl get ingress -n veyra
 
 # Upgrade deployment
-helm upgrade financial-master ./helm/financial-master \
-  --namespace financial-master \
+helm upgrade veyra ./helm/veyra \
+  --namespace veyra \
   --set api.image.tag=v4.0.1
 ```
 
@@ -659,16 +659,16 @@ kubectl apply -f k8s/hpa.yaml
 
 ```bash
 # Development (minimal resources)
-helm install financial-master ./helm/financial-master \
-  --namespace financial-master-dev \
+helm install veyra ./helm/veyra \
+  --namespace veyra-dev \
   --create-namespace \
   --set api.replicaCount=1 \
   --set api.autoscaling.enabled=false \
   --set postgresql.primary.persistence.enabled=false
 
 # Production (full scale)
-helm install financial-master ./helm/financial-master \
-  --namespace financial-master-prod \
+helm install veyra ./helm/veyra \
+  --namespace veyra-prod \
   --create-namespace \
   --set api.replicaCount=5 \
   --set api.autoscaling.maxReplicas=20 \
@@ -870,14 +870,14 @@ icacls .env /inheritance:r /grant:r "%username%:F"
 1. Go to https://uptimerobot.com/dashboard
 2. Add New Monitor:
    - Type: HTTP(s)
-   - Friendly Name: Financial Master API
-   - URL: https://financial-master-api.onrender.com/health
+   - Friendly Name: Veyra API
+   - URL: https://veyra-api.onrender.com/health
    - Monitoring Interval: 5 minutes
    - Alert Contact: Your email
 
 3. Add Second Monitor:
-   - Friendly Name: Financial Master Frontend
-   - URL: https://financial-master-docs.pages.dev
+   - Friendly Name: Veyra Frontend
+   - URL: https://veyra-docs.pages.dev
 ```
 
 ### Sentry Error Tracking
@@ -896,7 +896,7 @@ icacls .env /inheritance:r /grant:r "%username%:F"
 | Check API status | Daily | curl /health endpoint |
 | Review error logs | Daily | Sentry dashboard |
 | Monitor disk space | Weekly | Check data/ folder size |
-| Backup database | Weekly | Copy data/financial_master.db |
+| Backup database | Weekly | Copy data/veyra.db |
 | Update dependencies | Monthly | pip list --outdated |
 | Rotate API keys | Quarterly | Update all services |
 
@@ -1038,5 +1038,5 @@ Remove-Item data/*.db-shm
 **Support Resources:**
 
 - GitHub Issues: <https://github.com/jayprophit/Financial-Master/issues>
-- Documentation: <https://financial-master-docs.pages.dev>
-- API Status: <https://financial-master-api.onrender.com/health>
+- Documentation: <https://veyra-docs.pages.dev>
+- API Status: <https://veyra-api.onrender.com/health>

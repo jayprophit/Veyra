@@ -1,9 +1,9 @@
-# Financial Master - Production Configuration
+# Veyra - Production Configuration
 # ===========================================
 
 # Application Settings
 app:
-  name: "Financial Master"
+  name: "Veyra"
   version: "1.0.0"
   environment: "production"
   debug: false
@@ -17,13 +17,13 @@ app:
     jwt_expiration_hours: 24
     password_hash_rounds: 12
     cors_origins:
-      - "https://app.financialmaster.com"
-      - "https://api.financialmaster.com"
-      - "https://admin.financialmaster.com"
+      - "https://app.veyra.com"
+      - "https://api.veyra.com"
+      - "https://admin.veyra.com"
     allowed_hosts:
-      - "app.financialmaster.com"
-      - "api.financialmaster.com"
-      - "admin.financialmaster.com"
+      - "app.veyra.com"
+      - "api.veyra.com"
+      - "admin.veyra.com"
 
 # Database Configuration
 database:
@@ -59,7 +59,7 @@ database:
       - "${ES_HOST_3}:9200"
     username: "${ES_USERNAME}"
     password: "${ES_PASSWORD}"
-    index_prefix: "financial_master"
+    index_prefix: "veyra"
     timeout: 30
 
 # API Configuration
@@ -161,20 +161,20 @@ monitoring:
     format: "json"
     outputs:
       - type: "file"
-        path: "/var/log/financial_master"
+        path: "/var/log/veyra"
         max_size: "100MB"
         max_files: 10
       - type: "elasticsearch"
         hosts:
           - "${ES_HOST_1}:9200"
-        index: "financial-master-logs"
+        index: "veyra-logs"
     
   # Tracing
   tracing:
     jaeger:
       enabled: true
       endpoint: "${JAEGER_ENDPOINT}"
-      service_name: "financial-master"
+      service_name: "veyra"
     
   # Health Checks
   health_checks:
@@ -246,7 +246,7 @@ external_services:
       access_key: "${AWS_ACCESS_KEY}"
       secret_key: "${AWS_SECRET_KEY}"
       region: "us-east-1"
-      bucket: "financial-master-prod"
+      bucket: "veyra-prod"
 
 # Blockchain & Web3
 blockchain:
@@ -284,8 +284,8 @@ mobile:
     
   # API Endpoints
   api_endpoints:
-    ios: "https://api.financialmaster.com"
-    android: "https://api.financialmaster.com"
+    ios: "https://api.veyra.com"
+    android: "https://api.veyra.com"
 
 # Performance Configuration
 performance:
@@ -322,7 +322,7 @@ backup:
     enabled: true
     schedule: "0 2 * * *"  # Daily at 2 AM
     retention_days: 30
-    s3_bucket: "financial-master-backups"
+    s3_bucket: "veyra-backups"
     
   # File Backups
   files:

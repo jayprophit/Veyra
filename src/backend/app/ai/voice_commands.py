@@ -1,5 +1,5 @@
 """
-Voice Command System for Financial Master
+Voice Command System for Veyra
 
 Implements:
 - Whisper-based speech recognition

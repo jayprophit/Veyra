@@ -59,7 +59,7 @@ class Dependency:
 class HealthMonitor:
     """Enterprise health monitoring with dependency tracking"""
     
-    def __init__(self, service_name: str = "financial-master"):
+    def __init__(self, service_name: str = "veyra"):
         self.service_name = service_name
         self.health_checks: Dict[str, HealthCheck] = {}
         self.dependencies: Dict[str, Dependency] = {}

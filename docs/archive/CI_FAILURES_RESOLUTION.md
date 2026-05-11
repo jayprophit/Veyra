@@ -10,7 +10,7 @@
 **Fix:**
 ```powershell
 # Navigate to project root FIRST
-cd "c:\Users\jpowe\Desktop\Financial Master"
+cd "c:\Users\jpowe\Desktop\Veyra"
 
 # Then run the script
 .\scripts\setup_python_env.ps1
@@ -49,7 +49,7 @@ See `.github/workflows/ci.yml` fixes below.
 
 ### Step 1: Navigate to Correct Directory
 ```powershell
-cd "c:\Users\jpowe\Desktop\Financial Master"
+cd "c:\Users\jpowe\Desktop\Veyra"
 pwd  # Verify you're in the right place
 ```
 
@@ -117,7 +117,7 @@ bandit -r src/backend/app -f json
 
 ```powershell
 # Complete reset and setup
-cd "c:\Users\jpowe\Desktop\Financial Master"
+cd "c:\Users\jpowe\Desktop\Veyra"
 
 # Remove old venv (if corrupted)
 Remove-Item -Recurse -Force .venv -ErrorAction SilentlyContinue
@@ -145,7 +145,7 @@ git commit -m "Fix: Resolve CI/CD pipeline failures"
 git push origin main
 ```
 
-Then monitor at: `https://github.com/jpowell/financial-master/actions`
+Then monitor at: `https://github.com/jpowell/veyra/actions`
 
 ## Emergency: Skip CI if Blocked
 

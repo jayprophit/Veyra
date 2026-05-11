@@ -1,5 +1,5 @@
 """
-Gamification and Rewards System for Financial Master
+Gamification and Rewards System for Veyra
 
 Implements:
 - Points system for trading activities

@@ -2,7 +2,7 @@
 """
 Zero Cost Deployment Script
 ===========================
-Automated deployment of Financial Master to free-tier services
+Automated deployment of Veyra to free-tier services
 """
 
 import os
@@ -76,7 +76,7 @@ class ZeroCostDeployer:
         render_config = """
 services:
   - type: web
-    name: financial-master
+    name: veyra
     runtime: python
     plan: free
     buildCommand: pip install -r requirements.txt
@@ -98,13 +98,13 @@ services:
         
         # Create wrangler.toml for Cloudflare Workers
         wrangler_config = """
-name = "financial-master-api"
+name = "veyra-api"
 main = "api-gateway/worker.js"
 compatibility_date = "2024-01-01"
 
 [[r2_buckets]]
 binding = "ASSETS"
-bucket_name = "financial-master-assets"
+bucket_name = "veyra-assets"
 
 [env.production]
 vars = { ENVIRONMENT = "production" }
@@ -122,7 +122,7 @@ export default {
     
     // Route to backend
     if (url.pathname.startsWith('/api/')) {
-      const backendUrl = 'https://financial-master.onrender.com' + url.pathname + url.search;
+      const backendUrl = 'https://veyra.onrender.com' + url.pathname + url.search;
       
       const response = await fetch(backendUrl, {
         method: request.method,
@@ -143,7 +143,7 @@ export default {
       return env.ASSETS.fetch(request);
     }
     
-    return new Response('Financial Master API - 5-STAR+ Platform', { 
+    return new Response('Veyra API - 5-STAR+ Platform', { 
       status: 200,
       headers: { 'Content-Type': 'text/plain' }
     });
@@ -159,7 +159,7 @@ export default {
         workflow_dir.mkdir(parents=True, exist_ok=True)
         
         workflow_yml = """
-name: Deploy Financial Master
+name: Deploy Veyra
 
 on:
   push:
@@ -195,7 +195,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: financial-master-docs
+          projectName: veyra-docs
           directory: docs
 
   deploy-backend:
@@ -411,7 +411,7 @@ from datetime import datetime
 import asyncio
 import aiohttp
 
-app = FastAPI(title="Financial Master API", version="1.0.0")
+app = FastAPI(title="Veyra API", version="1.0.0")
 
 @app.get("/health")
 async def health_check():
@@ -420,14 +420,14 @@ async def health_check():
         "status": "healthy",
         "timestamp": datetime.now().isoformat(),
         "version": "1.0.0",
-        "service": "Financial Master"
+        "service": "Veyra"
     }
 
 @app.get("/")
 async def root():
     \"\"\"Root endpoint\"\"\"
     return {
-        "message": "Financial Master - 5-STAR+ Platform",
+        "message": "Veyra - 5-STAR+ Platform",
         "status": "operational",
         "docs": "/docs",
         "health": "/health"
@@ -439,7 +439,7 @@ async def keep_alive():
     while True:
         try:
             async with aiohttp.ClientSession() as session:
-                await session.get("https://financial-master.onrender.com/health")
+                await session.get("https://veyra.onrender.com/health")
         except Exception as e:
             print(f"Keep-alive ping failed: {e}")
         await asyncio.sleep(600)  # 10 minutes
@@ -489,8 +489,8 @@ DEPLOYMENT COMMANDS
 1. GitHub Setup
    git init
    git add .
-   git commit -m "Initial commit: Financial Master 5-STAR+ platform"
-   git remote add origin https://github.com/yourusername/financial-master.git
+   git commit -m "Initial commit: Veyra 5-STAR+ platform"
+   git remote add origin https://github.com/yourusername/veyra.git
    git push -u origin main
 
 2. Cloudflare Pages (Documentation)

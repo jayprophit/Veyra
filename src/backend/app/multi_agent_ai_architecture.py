@@ -1,5 +1,5 @@
 """
-Financial Master Multi-Agent AI Architecture
+Veyra Multi-Agent AI Architecture
 Autonomous Specialized Agents for Complete System Management
 Version: 2.0 | Multi-Agent Orchestration Layer
 
@@ -385,7 +385,6 @@ class AIAccountant(BaseAgent):
     def _get_used_isa_allowance(self) -> float:
         """Get used ISA allowance"""
         # Query database for current tax year ISA contributions
-        from datetime import date
         current_year = date.today().year
         
         # Simulate database query
@@ -1254,7 +1253,6 @@ class AIBlockchain(BaseAgent):
         """Get historical gas price data"""
         try:
             # Mock historical data - would fetch from API
-            import random
             history = []
             base_time = datetime.now() - timedelta(days=7)
             

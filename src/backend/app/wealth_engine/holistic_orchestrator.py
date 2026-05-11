@@ -4,7 +4,7 @@ from .base_allocator import BaseAllocator, AllocationDecision, AllocationStrateg
 from datetime import datetime
 
 class HolisticOrchestrator(BaseAllocator):
-    """Orchestrates across all Financial Master modules. Best for £500+"""
+    """Orchestrates across all Veyra modules. Best for £500+"""
     
     CATEGORIES = {
         'safe': {'pct': 0.20, 'min': 25, 'mods': ['premium_bonds', 'high_yield_savings', 'gilts']},
@@ -25,7 +25,7 @@ class HolisticOrchestrator(BaseAllocator):
         return "Holistic Orchestrator"
     
     def get_description(self) -> str:
-        return "Uses all 640+ Financial Master modules. Maximum diversification. Best for £500+."
+        return "Uses all 640+ Veyra modules. Maximum diversification. Best for £500+."
     
     def allocate(self, amount: float, context: Dict) -> AllocationDecision:
         allocs = []

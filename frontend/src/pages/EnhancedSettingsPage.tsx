@@ -71,7 +71,7 @@ export const EnhancedSettingsPage: React.FC = () => {
   const [colorMode, setColorMode] = useLocalStorage<string>('fm_colorMode', 'normal');
   const [profile, setProfile] = useLocalStorage<ProfileData>('fm_profile', {
     name: 'Admin',
-    email: 'admin@financialmaster.com',
+    email: 'admin@veyra.com',
     avatar: '👤',
     timezone: 'UTC',
     language: 'English',
@@ -103,7 +103,7 @@ export const EnhancedSettingsPage: React.FC = () => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `financial-master-backup-${new Date().toISOString().slice(0, 10)}.json`;
+    a.download = `veyra-backup-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     URL.revokeObjectURL(url);
   }, [settings, profile, currency, fontSize, colorMode]);

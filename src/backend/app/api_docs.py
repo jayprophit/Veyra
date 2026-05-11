@@ -10,7 +10,7 @@ import json
 
 
 def setup_openapi(app: FastAPI):
-    """Configure OpenAPI/Swagger documentation for Financial Master."""
+    """Configure OpenAPI/Swagger documentation for Veyra."""
 
     def custom_openapi():
         """Generate custom OpenAPI schema."""
@@ -18,10 +18,10 @@ def setup_openapi(app: FastAPI):
             return app.openapi_schema
 
         openapi_schema = get_openapi(
-            title="Financial Master API",
+            title="Veyra API",
             version="1.0.0",
             description="""
-            # Financial Master - Open-Source Bloomberg Terminal Alternative
+            # Veyra - Open-Source Bloomberg Terminal Alternative
 
             ## Features
             - Real-time market data
@@ -57,7 +57,7 @@ def setup_openapi(app: FastAPI):
                     "description": "Trade execution and order management",
                     "externalDocs": {
                         "description": "Learn more",
-                        "url": "https://financial-master.docs/trading",
+                        "url": "https://veyra.docs/trading",
                     },
                 },
                 {
@@ -65,7 +65,7 @@ def setup_openapi(app: FastAPI):
                     "description": "Portfolio management and tracking",
                     "externalDocs": {
                         "description": "Learn more",
-                        "url": "https://financial-master.docs/portfolio",
+                        "url": "https://veyra.docs/portfolio",
                     },
                 },
                 {
@@ -73,7 +73,7 @@ def setup_openapi(app: FastAPI):
                     "description": "Real-time and historical market data",
                     "externalDocs": {
                         "description": "Learn more",
-                        "url": "https://financial-master.docs/market-data",
+                        "url": "https://veyra.docs/market-data",
                     },
                 },
                 {
@@ -81,7 +81,7 @@ def setup_openapi(app: FastAPI):
                     "description": "Advanced analytics and insights",
                     "externalDocs": {
                         "description": "Learn more",
-                        "url": "https://financial-master.docs/analytics",
+                        "url": "https://veyra.docs/analytics",
                     },
                 },
                 {
@@ -89,7 +89,7 @@ def setup_openapi(app: FastAPI):
                     "description": "Risk analytics and monitoring",
                     "externalDocs": {
                         "description": "Learn more",
-                        "url": "https://financial-master.docs/risk",
+                        "url": "https://veyra.docs/risk",
                     },
                 },
             ],
@@ -98,11 +98,11 @@ def setup_openapi(app: FastAPI):
         # Add servers for deployment options
         openapi_schema["servers"] = [
             {
-                "url": "https://api.financial-master.com",
+                "url": "https://api.veyra.com",
                 "description": "Production Server",
             },
             {
-                "url": "https://staging-api.financial-master.com",
+                "url": "https://staging-api.veyra.com",
                 "description": "Staging Server",
             },
             {

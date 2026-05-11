@@ -208,7 +208,7 @@ While testing with your own money, start preparing:
 
 ```bash
 # 1. Company Structure (Month 6)
-Financial Master Wealth Management Ltd
+Veyra Wealth Management Ltd
 - SIC Code: 66300 (Fund management activities)
 - Structure: Limited Company
 

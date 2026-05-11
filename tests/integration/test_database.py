@@ -483,7 +483,6 @@ def test_database_performance_benchmark(db):
 def test_concurrent_access():
     """Test database handles concurrent access"""
     import threading
-    import time
     
     with tempfile.TemporaryDirectory() as tmpdir:
         db = DatabaseManager(tmpdir)

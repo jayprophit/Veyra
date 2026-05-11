@@ -63,7 +63,7 @@ class DeploymentController:
             
             # 3. Execute blue-green swap
             result = await self.devops.deploy_blue_green(
-                service="financial-master",
+                service="veyra",
                 version=version,
                 environment=environment
             )
@@ -127,7 +127,7 @@ class DeploymentController:
         try:
             # Deploy canary
             result = await self.devops.deploy_canary(
-                service="financial-master",
+                service="veyra",
                 version=version,
                 traffic_percent=traffic_percent
             )
@@ -140,7 +140,7 @@ class DeploymentController:
             # Auto-promote if healthy
             if metrics["error_rate"] < 0.01 and metrics["latency_p95"] < 500:
                 logger.info("Canary healthy - promoting to 100%")
-                await self.devops.promote_canary("financial-master", version)
+                await self.devops.promote_canary("veyra", version)
                 
                 return {
                     "status": "promoted",
@@ -149,7 +149,7 @@ class DeploymentController:
                 }
             else:
                 logger.warning("Canary unhealthy - rolling back")
-                await self.devops.rollback_canary("financial-master", version)
+                await self.devops.rollback_canary("veyra", version)
                 
                 return {
                     "status": "rolled_back",
@@ -167,7 +167,7 @@ class DeploymentController:
         logger.warning(f"Initiating rollback for {environment}")
         
         result = await self.devops.rollback(
-            service="financial-master",
+            service="veyra",
             environment=environment
         )
         

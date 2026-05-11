@@ -198,7 +198,6 @@ class DocumentHandler:
                 
             elif ext in ['.pptx', '.ppt']:
                 # Use LibreOffice
-                import subprocess
                 subprocess.run([
                     'libreoffice', '--headless', '--convert-to', 'pdf',
                     '--outdir', str(Path(output_path).parent),

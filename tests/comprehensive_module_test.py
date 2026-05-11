@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Comprehensive Module Test - Tests ALL Financial Master modules"""
+"""Comprehensive Module Test - Tests ALL Veyra modules"""
 import sys
 import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src', 'backend'))

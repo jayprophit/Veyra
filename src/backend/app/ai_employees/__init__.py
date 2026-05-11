@@ -1,5 +1,5 @@
 """
-AI Employees System for Financial Master
+AI Employees System for Veyra
 5 Core Financial AI Agents with multi-agent collaboration
 """
 

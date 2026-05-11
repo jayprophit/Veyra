@@ -1,5 +1,5 @@
 """
-STACH Schema Integration for Financial Master
+STACH Schema Integration for Veyra
 
 This module provides integration with FactSet's STACH schema for:
 - Standardized financial data visualization
@@ -97,7 +97,7 @@ class Chart:
 
 
 class STACHSchemaProcessor:
-    """Main STACH schema processor for Financial Master"""
+    """Main STACH schema processor for Veyra"""
     
     def __init__(self):
         self.schema_version = "1.0"

@@ -1,5 +1,5 @@
 """
-5 Core Financial AI Agents for Financial Master
+5 Core Financial AI Agents for Veyra
 Based on AI Employees for Business Automation analysis
 """
 
@@ -296,7 +296,6 @@ class TradingStrategistAI(BaseAIAgent):
     
     def __init__(self, agent_id: str, config: Optional[AgentConfig] = None):
         if config is None:
-            from .agent_config import get_default_agent_template
             config = get_default_agent_template(AgentType.TRADING_STRATEGIST)
         super().__init__(agent_id, config)
         self.active_strategies: Dict[str, Dict] = {}
@@ -441,7 +440,6 @@ class TaxOptimizerAI(BaseAIAgent):
     
     def __init__(self, agent_id: str, config: Optional[AgentConfig] = None):
         if config is None:
-            from .agent_config import get_default_agent_template
             config = get_default_agent_template(AgentType.TAX_OPTIMIZER)
         super().__init__(agent_id, config)
     
@@ -542,7 +540,6 @@ class ComplianceOfficerAI(BaseAIAgent):
     
     def __init__(self, agent_id: str, config: Optional[AgentConfig] = None):
         if config is None:
-            from .agent_config import get_default_agent_template
             config = get_default_agent_template(AgentType.COMPLIANCE_OFFICER)
         super().__init__(agent_id, config)
         self.alert_thresholds = {
@@ -663,7 +660,6 @@ class CustomerSupportAI(BaseAIAgent):
     
     def __init__(self, agent_id: str, config: Optional[AgentConfig] = None):
         if config is None:
-            from .agent_config import get_default_agent_template
             config = get_default_agent_template(AgentType.CUSTOMER_SUPPORT)
         super().__init__(agent_id, config)
         self.knowledge_base = self._load_knowledge_base()

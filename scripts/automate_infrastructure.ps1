@@ -1,5 +1,5 @@
 #!/usr/bin/env pwsh
-# Financial Master - Infrastructure Automation
+# Veyra - Infrastructure Automation
 # =============================================
 # Automates Docker, WSL2/Ubuntu, and Ollama setup
 # Run: .\scripts\automate_infrastructure.ps1
@@ -249,7 +249,7 @@ function Get-OllamaModels {
 }
 
 # ============================================================================
-# Financial Master Stack Management
+# Veyra Stack Management
 # ============================================================================
 
 function Start-FinancialMasterStack {
@@ -258,7 +258,7 @@ function Start-FinancialMasterStack {
         [switch]$UseDocker
     )
     
-    Write-Status "Starting Financial Master stack..." "info"
+    Write-Status "Starting Veyra stack..." "info"
     
     $projectRoot = Resolve-Path "$PSScriptRoot\.."
     
@@ -278,7 +278,7 @@ function Start-FinancialMasterStack {
         docker-compose up --build -d
         
         if ($LASTEXITCODE -eq 0) {
-            Write-Status "Financial Master Docker stack is running" "success"
+            Write-Status "Veyra Docker stack is running" "success"
             Write-Status "API: http://localhost:8000" "info"
             Write-Status "Frontend: http://localhost:3000" "info"
             Write-Status "Grafana: http://localhost:3001" "info"
@@ -291,12 +291,12 @@ function Start-FinancialMasterStack {
         $projectPath = "/mnt/$($projectRoot.Drive.Name.ToLower())/$($projectRoot.Path.Substring(3).Replace('\', '/'))"
         
         wsl -d Ubuntu -e bash -c "cd $projectPath && python3 -m src.backend.app.api.unified_api &"
-        Write-Status "Financial Master API started in WSL" "success"
+        Write-Status "Veyra API started in WSL" "success"
     }
 }
 
 function Stop-AllServices {
-    Write-Status "Stopping all Financial Master services..." "info"
+    Write-Status "Stopping all Veyra services..." "info"
     
     # Stop Docker containers
     Set-Location "$PSScriptRoot\.."
@@ -316,7 +316,7 @@ function Stop-AllServices {
 
 function Get-InfrastructureStatus {
     Write-Host "`n========================================" -ForegroundColor Blue
-    Write-Host "  Financial Master - Infrastructure Status" -ForegroundColor Blue
+    Write-Host "  Veyra - Infrastructure Status" -ForegroundColor Blue
     Write-Host "========================================`n" -ForegroundColor Blue
     
     # Docker
@@ -356,9 +356,9 @@ function Get-InfrastructureStatus {
     
     # Docker containers
     if (Test-DockerRunning) {
-        $containers = docker ps --format "table {{.Names}}\t{{.Status}}" 2>$null | Select-String "financial-master"
+        $containers = docker ps --format "table {{.Names}}\t{{.Status}}" 2>$null | Select-String "veyra"
         if ($containers) {
-            Write-Status "Financial Master containers:" "info"
+            Write-Status "Veyra containers:" "info"
             $containers | ForEach-Object { Write-Host "    $_" -ForegroundColor Gray }
         }
     }
@@ -408,7 +408,7 @@ if ($StopAll) {
 }
 
 if ($FullSetup) {
-    Write-Host "`n🚀 Starting Full Financial Master Setup...`n" -ForegroundColor Cyan
+    Write-Host "`n🚀 Starting Full Veyra Setup...`n" -ForegroundColor Cyan
     
     $dockerReady = Start-DockerDesktop
     $wslReady = Start-UbuntuWSL

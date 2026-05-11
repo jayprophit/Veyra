@@ -402,7 +402,7 @@ main.py
 | Test health | `curl http://localhost:8000/health` | 10 sec |
 | Fix quality | `python3 fix_code_quality.py` | 10 min |
 | Run tests | `pytest tests/ -v` | 30 sec |
-| Check logs | `tail -f logs/financial_master.log` | live |
+| Check logs | `tail -f logs/veyra.log` | live |
 | Deploy local | Already running | — |
 | Deploy cloud | Docker + Render/Railway | 30 min |
 

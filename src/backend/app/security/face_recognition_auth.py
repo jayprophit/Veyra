@@ -1,5 +1,5 @@
 """
-Face Recognition Authentication Module for Financial Master
+Face Recognition Authentication Module for Veyra
 
 Implements:
 - Face embedding generation

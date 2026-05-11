@@ -40,7 +40,7 @@ class ScheduledTask:
     max_retries: int = 3
 
 class TaskScheduler:
-    """Central task scheduler for Financial Master."""
+    """Central task scheduler for Veyra."""
     
     def __init__(self):
         self.tasks: Dict[str, ScheduledTask] = {}
@@ -159,7 +159,7 @@ class TaskScheduler:
             self.tasks[task_name].enabled = False
             schedule.clear(task_name)
 
-# Pre-defined tasks for Financial Master
+# Pre-defined tasks for Veyra
 
 async def update_market_data():
     """Update market prices from Yahoo Finance."""
@@ -205,7 +205,6 @@ def generate_daily_report():
 
 def cleanup_old_logs():
     """Clean up log files older than 30 days."""
-    import os
     from pathlib import Path
     
     log_dir = Path("./logs")
@@ -238,7 +237,7 @@ def check_system_health():
         logger.warning(f"System health issues detected: {results}")
 
 def create_default_scheduler() -> TaskScheduler:
-    """Create scheduler with default Financial Master tasks."""
+    """Create scheduler with default Veyra tasks."""
     scheduler = TaskScheduler()
     
     # Market data update every 15 minutes during trading hours

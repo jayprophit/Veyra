@@ -1,5 +1,5 @@
 """
-Quart-OpenAPI Integration for Financial Master
+Quart-OpenAPI Integration for Veyra
 
 This module provides integration with Quart-OpenAPI for:
 - Modern async API infrastructure
@@ -70,7 +70,7 @@ class APISchema:
 
 
 class QuartOpenAPIIntegration:
-    """Main Quart-OpenAPI integration class for Financial Master"""
+    """Main Quart-OpenAPI integration class for Veyra"""
     
     def __init__(self, config: Dict[str, Any]):
         self.config = config
@@ -90,12 +90,12 @@ class QuartOpenAPIIntegration:
             
             # Configure OpenAPI
             self.openapi = OpenAPI(
-                title="Financial Master API",
+                title="Veyra API",
                 version="2.0.0",
                 description="Institutional-grade financial data and analytics API",
                 contact={
-                    "name": "Financial Master Team",
-                    "email": "api@financialmaster.com"
+                    "name": "Veyra Team",
+                    "email": "api@veyra.com"
                 },
                 license={
                     "name": "MIT License",
@@ -248,7 +248,6 @@ class QuartOpenAPIIntegration:
                     }), HTTPStatus.BAD_REQUEST.value
                 
                 # Get real-time data
-                from .financial_intelligence_layer import get_financial_intelligence_layer
                 financial_intelligence = get_financial_intelligence_layer(self.config)
                 
                 real_time_data = await financial_intelligence.get_real_time_data(symbols)
@@ -358,7 +357,6 @@ class QuartOpenAPIIntegration:
                 confidence_levels = [float(x) for x in confidence_levels_str.split(',')]
                 
                 # Get risk metrics
-                from .enterprise_sdk_integration import get_factset_sdk
                 factset_sdk = get_factset_sdk(self.config)
                 
                 # Get portfolio holdings first
@@ -489,7 +487,6 @@ class QuartOpenAPIIntegration:
                     }), HTTPStatus.BAD_REQUEST.value
                 
                 # Get entity mapping
-                from .enterprise_sdk_integration import get_factset_sdk
                 factset_sdk = get_factset_sdk(self.config)
                 
                 entity_mapping = await factset_sdk.get_entity_mapping(symbols)
@@ -536,7 +533,6 @@ class QuartOpenAPIIntegration:
         async def get_analytics_engines():
             """Get available analytics engines"""
             try:
-                from .analytics_engines_integration import get_analytics_engines
                 analytics_engines = get_analytics_engines(self.config)
                 
                 engines = await analytics_engines.get_available_engines()
@@ -622,7 +618,7 @@ class QuartOpenAPIIntegration:
     def run_app(self, host: str = '0.0.0.0', port: int = 8000, debug: bool = False):
         """Run the Quart application"""
         if self.app:
-            logger.info(f"Starting Financial Master API on {host}:{port}")
+            logger.info(f"Starting Veyra API on {host}:{port}")
             return self.app.run(host=host, port=port, debug=debug)
         else:
             logger.error("Quart app not initialized")

@@ -65,7 +65,7 @@ const ProfileSettings: React.FC = () => (
         <label className="block text-sm font-medium text-gray-700">Email</label>
         <input
           type="email"
-          defaultValue="admin@financialmaster.com"
+          defaultValue="admin@veyra.com"
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
         />
       </div>

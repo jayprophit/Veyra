@@ -1,5 +1,5 @@
 """
-Demo Portals for Financial Master Widgets
+Demo Portals for Veyra Widgets
 FactSet-inspired demo portals using free data sources
 """
 

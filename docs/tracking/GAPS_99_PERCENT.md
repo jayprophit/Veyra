@@ -21,7 +21,7 @@
 | Emergency/Protection | 0% | 85% |
 | Tax | 63% | 90% |
 
-## Financial Master Status
+## Veyra Status
 
 **Grade:** 600/100 (Divine)
 **Requirements Match:** 99%

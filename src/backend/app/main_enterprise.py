@@ -1,5 +1,5 @@
 """
-Financial Master - Enterprise Production Application
+Veyra - Enterprise Production Application
 ==================================================
 Production-ready FastAPI application with enterprise-grade features:
 - Structured logging & monitoring
@@ -32,7 +32,7 @@ from app.auth.auth_service import AuthService, AuthConfig
 # Initialize structured logging
 setup_logging(
     log_level="INFO",
-    log_file="logs/financial_master.log",
+    log_file="logs/veyra.log",
     enable_json=True
 )
 logger = get_logger(__name__)
@@ -41,7 +41,7 @@ logger = get_logger(__name__)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Application lifespan manager for startup/shutdown."""
-    logger.info("Starting Financial Master Enterprise Application")
+    logger.info("Starting Veyra Enterprise Application")
     
     # Initialize Redis client
     redis_client = aioredis.from_url("redis://localhost:6379/0", decode_responses=True)
@@ -87,7 +87,7 @@ async def lifespan(app: FastAPI):
 
 # Create FastAPI application
 app = FastAPI(
-    title="Financial Master Enterprise API",
+    title="Veyra Enterprise API",
     description="Enterprise-grade financial trading and analysis platform",
     version="1.0.0",
     docs_url="/docs",
@@ -107,7 +107,7 @@ app.add_middleware(
 # CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://financialmaster.com", "https://api.financialmaster.com"],
+    allow_origins=["https://veyra.com", "https://api.veyra.com"],
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
@@ -287,7 +287,7 @@ async def get_market_data(symbol: str, request: Request):
 async def root():
     """Root endpoint with API information."""
     return JSONResponse({
-        "name": "Financial Master Enterprise API",
+        "name": "Veyra Enterprise API",
         "version": "1.0.0",
         "status": "running",
         "timestamp": datetime.utcnow().isoformat(),
@@ -326,7 +326,7 @@ async def global_exception_handler(request: Request, exc: Exception):
 if __name__ == "__main__":
     import uvicorn
     
-    logger.info("Starting Financial Master Enterprise Server")
+    logger.info("Starting Veyra Enterprise Server")
     
     uvicorn.run(
         "main_enterprise:app",
