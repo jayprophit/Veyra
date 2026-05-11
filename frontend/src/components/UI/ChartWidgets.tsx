@@ -228,6 +228,8 @@ interface PieChartProps {
   data: { label: string; value: number; color: string }[];
   title?: string;
   height?: number;
+  size?: number;
+  showLegend?: boolean;
 }
 
 export const PieChart: React.FC<PieChartProps> = ({
@@ -306,19 +308,27 @@ export const PieChart: React.FC<PieChartProps> = ({
 
 // Stat card with trend indicator
 interface StatCardProps {
+  title?: string;
   value: string | number;
-  label: string;
+  label?: string;
   subtext?: string;
   trend?: 'up' | 'down' | 'neutral';
   trendValue?: string;
+  format?: string;
+  icon?: React.ReactNode;
+  color?: string;
 }
 
 export const StatCard: React.FC<StatCardProps> = ({
+  title,
   value,
   label,
   subtext,
   trend,
   trendValue,
+  format,
+  icon,
+  color,
 }) => {
   const getTrendColor = () => {
     if (trend === 'up') return 'var(--ds-success)';
@@ -333,11 +343,19 @@ export const StatCard: React.FC<StatCardProps> = ({
   };
 
   return (
-    <div className="ds-stat-card">
-      <div className="ds-stat-value">{value}</div>
-      <div className="ds-stat-label">{label}</div>
+    <div className="ds-stat-card" style={{ borderLeft: color ? `4px solid ${color}` : undefined }}>
+      <div className="ds-stat-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+        {title && <div className="ds-stat-title" style={{ fontSize: '0.875rem', fontWeight: '500' }}>{title}</div>}
+        {icon && <div className="ds-stat-icon">{icon}</div>}
+      </div>
+      <div className="ds-stat-value" style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '4px' }}>
+        {format ? (typeof value === 'number' ? value.toLocaleString() : value) : value}
+      </div>
+      <div className="ds-stat-label" style={{ fontSize: '0.875rem', color: 'var(--ds-text-muted)', marginBottom: '8px' }}>
+        {label || title}
+      </div>
       {(subtext || trend) && (
-        <div className="ds-stat-sub" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+        <div className="ds-stat-sub" style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.75rem' }}>
           {trend && (
             <span style={{ color: getTrendColor() }}>
               {getTrendIcon()} {trendValue}

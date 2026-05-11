@@ -300,18 +300,300 @@ class VisualLearningAI:
     # ============== PRIVATE METHODS ==============
     
     async def _extract_key_frames(self, video_url: str) -> List[Any]:
-        """Extract important frames from video"""
-        # Implementation using OpenCV/ffmpeg
-        return []
+        """Extract important frames from video using computer vision"""
+        try:
+            import cv2
+            import numpy as np
+            
+            # Open video stream
+            cap = cv2.VideoCapture(video_url)
+            frames = []
+            frame_count = 0
+            fps = cap.get(cv2.CAP_PROP_FPS)
+            total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+            
+            # Extract 1 frame every 5 seconds
+            sample_interval = int(fps * 5)
+            
+            while cap.isOpened() and frame_count < total_frames:
+                ret, frame = cap.read()
+                if not ret:
+                    break
+                
+                if frame_count % sample_interval == 0:
+                    # Convert to grayscale for analysis
+                    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+                    
+                    # Check if frame contains potential charts (look for grid patterns)
+                    if self._has_chart_like_features(gray):
+                        frames.append({
+                            'frame': frame,
+                            'timestamp': frame_count / fps,
+                            'frame_number': frame_count
+                        })
+                
+                frame_count += 1
+            
+            cap.release()
+            return frames
+            
+        except Exception as e:
+            logger.error(f"Frame extraction failed: {e}")
+            return []
+    
+    def _has_chart_like_features(self, gray_frame: np.ndarray) -> bool:
+        """Detect if frame contains chart-like features"""
+        try:
+            # Look for horizontal and vertical lines (grid patterns)
+            edges = cv2.Canny(gray_frame, 50, 150, apertureSize=3)
+            
+            # Detect lines
+            lines_h = cv2.HoughLinesP(edges, 1, np.pi/2, threshold=50, minLineLength=100)
+            lines_v = cv2.HoughLinesP(edges, 1, 0, threshold=50, minLineLength=100)
+            
+            # Count horizontal and vertical lines
+            h_count = len(lines_h) if lines_h is not None else 0
+            v_count = len(lines_v) if lines_v is not None else 0
+            
+            # Chart typically has both horizontal and vertical lines
+            return h_count > 5 and v_count > 5
+            
+        except Exception:
+            return False
     
     def _detect_charts_in_frames(self, frames: List[Any]) -> List[Dict]:
         """Use computer vision to detect chart regions"""
-        # YOLO or similar object detection for charts
-        return []
+        try:
+            import cv2
+            import numpy as np
+            
+            charts = []
+            
+            for frame_data in frames:
+                frame = frame_data['frame']
+                gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+                
+                # Find chart boundaries using contour detection
+                edges = cv2.Canny(gray, 50, 150)
+                contours, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+                
+                for contour in contours:
+                    # Filter for rectangular shapes (charts)
+                    area = cv2.contourArea(contour)
+                    if area < 10000:  # Too small
+                        continue
+                    
+                    # Get bounding rectangle
+                    x, y, w, h = cv2.boundingRect(contour)
+                    aspect_ratio = w / h
+                    
+                    # Charts typically have aspect ratios between 0.5 and 2.0
+                    if 0.5 <= aspect_ratio <= 2.0:
+                        chart_region = frame[y:y+h, x:x+w]
+                        
+                        charts.append({
+                            'region': (x, y, w, h),
+                            'image': chart_region,
+                            'timestamp': frame_data['timestamp'],
+                            'frame_number': frame_data['frame_number'],
+                            'aspect_ratio': aspect_ratio,
+                            'area': area
+                        })
+            
+            return charts
+            
+        except Exception as e:
+            logger.error(f"Chart detection failed: {e}")
+            return []
     
     def _extract_technical_data(self, charts: List[Dict]) -> Dict:
-        """Extract price, volume, indicators from chart images"""
-        return {"patterns": [], "indicators": {}}
+        """Extract price, volume, indicators from chart images using OCR and CV"""
+        try:
+            import cv2
+            import numpy as np
+            from PIL import Image
+            import pytesseract
+            
+            extracted_data = {
+                'price_levels': [],
+                'volume_data': [],
+                'indicators': {},
+                'patterns': [],
+                'timestamps': []
+            }
+            
+            for chart in charts:
+                chart_image = chart['image']
+                
+                # Extract text using OCR
+                text = pytesseract.image_to_string(chart_image)
+                
+                # Parse price levels from text
+                price_matches = self._extract_prices_from_text(text)
+                extracted_data['price_levels'].extend(price_matches)
+                
+                # Detect candlestick patterns
+                candlesticks = self._detect_candlestick_patterns(chart_image)
+                if candlesticks:
+                    extracted_data['patterns'].extend(candlesticks)
+                
+                # Extract volume bars
+                volume_data = self._extract_volume_bars(chart_image)
+                if volume_data:
+                    extracted_data['volume_data'].append({
+                        'timestamp': chart['timestamp'],
+                        'volume': volume_data
+                    })
+                
+                # Detect technical indicators (RSI, MACD, etc.)
+                indicators = self._detect_technical_indicators(chart_image)
+                extracted_data['indicators'].update(indicators)
+            
+            return extracted_data
+            
+        except Exception as e:
+            logger.error(f"Technical data extraction failed: {e}")
+            return {}
+    
+    def _extract_prices_from_text(self, text: str) -> List[float]:
+        """Extract price values from OCR text"""
+        import re
+        
+        prices = []
+        # Look for price patterns (e.g., $150.25, 1,234.56)
+        price_patterns = [
+            r'\$\d{1,3}(?:,\d{3})*(?:\.\d{2})',
+            r'\b\d{1,3}(?:,\d{3})*(?:\.\d{2})\b'
+        ]
+        
+        for pattern in price_patterns:
+            matches = re.findall(pattern, text)
+            for match in matches:
+                try:
+                    price = float(match.replace('$', '').replace(',', ''))
+                    if 0.01 < price < 10000:  # Reasonable price range
+                        prices.append(price)
+                except ValueError:
+                    continue
+        
+        return prices
+    
+    def _detect_candlestick_patterns(self, chart_image: np.ndarray) -> List[Dict]:
+        """Detect candlestick patterns in chart image"""
+        try:
+            import cv2
+            import numpy as np
+            
+            gray = cv2.cvtColor(chart_image, cv2.COLOR_BGR2GRAY)
+            
+            # Look for vertical lines with different colors (red/green candles)
+            # This is simplified - real implementation would use more sophisticated analysis
+            
+            patterns = []
+            
+            # Sample implementation - detect basic candlestick shapes
+            contours, _ = cv2.findContours(gray, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            
+            for contour in contours:
+                area = cv2.contourArea(contour)
+                if area < 50:  # Too small
+                    continue
+                
+                x, y, w, h = cv2.boundingRect(contour)
+                aspect_ratio = h / w
+                
+                # Candlesticks are typically tall and thin
+                if aspect_ratio > 2 and aspect_ratio < 10:
+                    patterns.append({
+                        'type': 'candlestick',
+                        'position': (x, y, w, h),
+                        'aspect_ratio': aspect_ratio,
+                        'size': area
+                    })
+            
+            return patterns
+            
+        except Exception as e:
+            logger.error(f"Candlestick detection failed: {e}")
+            return []
+    
+    def _extract_volume_bars(self, chart_image: np.ndarray) -> Optional[float]:
+        """Extract volume data from chart bars"""
+        try:
+            import cv2
+            import numpy as np
+            
+            # Look for horizontal bars at bottom of chart (volume indicators)
+            gray = cv2.cvtColor(chart_image, cv2.COLOR_BGR2GRAY)
+            height, width = gray.shape
+            
+            # Focus on bottom 20% of image where volume bars typically appear
+            volume_region = gray[int(height * 0.8):, :]
+            
+            # Count non-zero pixels as proxy for volume
+            volume_pixels = cv2.countNonZero(volume_region)
+            total_pixels = volume_region.shape[0] * volume_region.shape[1]
+            
+            if total_pixels > 0:
+                volume_intensity = volume_pixels / total_pixels
+                return volume_intensity
+            
+            return None
+            
+        except Exception:
+            return None
+    
+    def _detect_technical_indicators(self, chart_image: np.ndarray) -> Dict:
+        """Detect technical indicators like RSI, MACD, moving averages"""
+        try:
+            import cv2
+            import numpy as np
+            import pytesseract
+            
+            indicators = {}
+            
+            # OCR to find indicator labels
+            text = pytesseract.image_to_string(chart_image)
+            
+            # Look for common indicator names
+            indicator_keywords = {
+                'RSI': 'rsi',
+                'MACD': 'macd',
+                'SMA': 'sma',
+                'EMA': 'ema',
+                'BB': 'bollinger',
+                'VWAP': 'vwap'
+            }
+            
+            for keyword, key in indicator_keywords.items():
+                if keyword in text.upper():
+                    # Try to extract values near the keyword
+                    values = self._extract_indicator_values(text, keyword)
+                    if values:
+                        indicators[key] = values
+            
+            return indicators
+            
+        except Exception as e:
+            logger.error(f"Indicator detection failed: {e}")
+            return {}
+    
+    def _extract_indicator_values(self, text: str, indicator: str) -> List[float]:
+        """Extract numerical values for specific indicators"""
+        import re
+        
+        # Look for numbers near the indicator name
+        pattern = f'{indicator}\\s*[:=]?\\s*([0-9]+(?:\\.[0-9]+)?)'
+        matches = re.findall(pattern, text, re.IGNORECASE)
+        
+        values = []
+        for match in matches:
+            try:
+                values.append(float(match))
+            except ValueError:
+                continue
+        
+        return values
     
     async def _transcribe_video(self, video_url: str) -> str:
         """Speech-to-text conversion"""

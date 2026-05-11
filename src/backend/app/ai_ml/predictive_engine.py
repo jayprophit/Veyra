@@ -95,12 +95,31 @@ class PredictiveEngine:
         # Calculate technical indicators as features
         feature_vector = self._create_feature_vector(features)
         
-        # Mock prediction (replace with actual model inference)
-        trend_probabilities = {
-            "bullish": 0.45,
-            "bearish": 0.30,
-            "neutral": 0.25
-        }
+        # Real ML model inference
+        if not hasattr(self, 'trend_model'):
+            self.trend_model = GradientBoostingClassifier(
+                n_estimators=100,
+                learning_rate=0.1,
+                max_depth=3,
+                random_state=42
+            )
+            self.trend_model_fitted = False
+        
+        # Prepare training data if model not fitted
+        if not self.trend_model_fitted:
+            self._train_trend_model(features)
+        
+        # Make prediction
+        try:
+            prediction_proba = self.trend_model.predict_proba(feature_vector)
+            classes = self.trend_model.classes_
+            trend_probabilities = {
+                classes[i]: float(prediction_proba[0][i]) 
+                for i in range(len(classes))
+            }
+        except Exception as e:
+            # Fallback to technical analysis if model fails
+            trend_probabilities = self._technical_analysis_prediction(features)
         
         # Determine dominant trend
         max_prob = max(trend_probabilities.values())
@@ -129,17 +148,43 @@ class PredictiveEngine:
         returns = historical_data['close'].pct_change().dropna()
         hist_vol = returns.std() * np.sqrt(252)  # Annualized
         
-        # GARCH-like prediction (simplified)
+        # Real volatility prediction using GARCH-like model
         recent_vol = returns.tail(window).std() * np.sqrt(252)
         
-        # Trend in volatility
-        vol_trend = "increasing" if recent_vol > hist_vol else "decreasing"
+        # GARCH(1,1) parameters estimation
+        omega, alpha, beta = self._estimate_garch_parameters(returns)
+        
+        # Predict future volatility
+        predicted_vol = np.sqrt(omega + alpha * returns.iloc[-1]**2 + beta * recent_vol**2)
+        
+        # Volatility trend analysis
+        vol_ma_short = returns.tail(10).std() * np.sqrt(252)
+        vol_ma_long = returns.tail(30).std() * np.sqrt(252)
+        vol_trend = "increasing" if vol_ma_short > vol_ma_long * 1.1 else "decreasing" if vol_ma_short < vol_ma_long * 0.9 else "stable"
+        
+        # Risk level based on volatility percentiles
+        vol_percentile = self._calculate_volatility_percentile(predicted_vol, returns)
+        if vol_percentile > 80:
+            risk_level = "extreme"
+        elif vol_percentile > 60:
+            risk_level = "high"
+        elif vol_percentile > 40:
+            risk_level = "medium"
+        else:
+            risk_level = "low"
         
         prediction = {
             "current_volatility": float(hist_vol),
-            "predicted_volatility": float(recent_vol * 1.1),  # Slight increase assumption
+            "predicted_volatility": float(predicted_vol),
+            "volatility_change_pct": float((predicted_vol - hist_vol) / hist_vol * 100),
             "trend": vol_trend,
-            "risk_level": "high" if recent_vol > 0.4 else "medium" if recent_vol > 0.2 else "low"
+            "risk_level": risk_level,
+            "volatility_percentile": float(vol_percentile),
+            "garch_parameters": {
+                "omega": float(omega),
+                "alpha": float(alpha),
+                "beta": float(beta)
+            }
         }
         
         return PredictionResult(
@@ -407,6 +452,131 @@ class PredictiveEngine:
             recommendations.append("Portfolio shows good diversification with low correlations")
         
         return recommendations
+    
+    def _train_trend_model(self, features: pd.DataFrame) -> None:
+        """Train trend prediction model using historical features"""
+        try:
+            # Create labels based on future price movement
+            returns = features['returns'].dropna()
+            
+            # Create labels: 1 for bullish (up > 2%), -1 for bearish (down > 2%), 0 for neutral
+            labels = []
+            for ret in returns:
+                if ret > 0.02:
+                    labels.append("bullish")
+                elif ret < -0.02:
+                    labels.append("bearish")
+                else:
+                    labels.append("neutral")
+            
+            # Use features shifted back to avoid lookahead bias
+            X = features.dropna().iloc[:-1].drop('returns', axis=1)
+            y = labels[1:]  # Shift labels to match features
+            
+            if len(X) > 50:  # Minimum data requirement
+                self.trend_model.fit(X, y)
+                self.trend_model_fitted = True
+                print(f"Trend model trained on {len(X)} samples")
+        except Exception as e:
+            print(f"Failed to train trend model: {e}")
+            self.trend_model_fitted = False
+    
+    def _technical_analysis_prediction(self, features: pd.DataFrame) -> Dict[str, float]:
+        """Fallback prediction using technical analysis"""
+        latest = features.iloc[-1]
+        
+        # RSI-based prediction
+        rsi = latest.get('rsi', 50)
+        if rsi > 70:
+            rsi_signal = {"bearish": 0.6, "neutral": 0.3, "bullish": 0.1}
+        elif rsi < 30:
+            rsi_signal = {"bullish": 0.6, "neutral": 0.3, "bearish": 0.1}
+        else:
+            rsi_signal = {"neutral": 0.5, "bullish": 0.25, "bearish": 0.25}
+        
+        # Moving average convergence
+        sma_20 = latest.get('sma_20', latest.get('close', 0))
+        sma_50 = latest.get('sma_50', latest.get('close', 0))
+        current_price = latest.get('close', 0)
+        
+        if current_price > sma_20 > sma_50:
+            ma_signal = {"bullish": 0.7, "neutral": 0.2, "bearish": 0.1}
+        elif current_price < sma_20 < sma_50:
+            ma_signal = {"bearish": 0.7, "neutral": 0.2, "bullish": 0.1}
+        else:
+            ma_signal = {"neutral": 0.6, "bullish": 0.2, "bearish": 0.2}
+        
+        # Volume confirmation
+        volume_ratio = latest.get('volume_ratio', 1.0)
+        if volume_ratio > 1.5:
+            volume_weight = 1.2
+        elif volume_ratio < 0.5:
+            volume_weight = 0.8
+        else:
+            volume_weight = 1.0
+        
+        # Combine signals
+        combined = {
+            "bullish": (rsi_signal["bullish"] + ma_signal["bullish"]) / 2 * volume_weight,
+            "bearish": (rsi_signal["bearish"] + ma_signal["bearish"]) / 2 * volume_weight,
+            "neutral": (rsi_signal["neutral"] + ma_signal["neutral"]) / 2
+        }
+        
+        # Normalize to sum to 1
+        total = sum(combined.values())
+        return {k: v/total for k, v in combined.items()}
+    
+    def _estimate_garch_parameters(self, returns: pd.Series, initial_params: Tuple[float, float, float] = (0.1, 0.1, 0.8)) -> Tuple[float, float, float]:
+        """Estimate GARCH(1,1) parameters using maximum likelihood"""
+        try:
+            from scipy.optimize import minimize
+            
+            def garch_log_likelihood(params, returns):
+                omega, alpha, beta = params
+                
+                # Ensure parameters are valid
+                if omega <= 0 or alpha < 0 or beta < 0 or alpha + beta >= 1:
+                    return 1e10
+                
+                # Calculate conditional variances
+                n = len(returns)
+                variance = np.zeros(n)
+                variance[0] = returns.var()  # Initial variance
+                
+                for t in range(1, n):
+                    variance[t] = omega + alpha * returns.iloc[t-1]**2 + beta * variance[t-1]
+                
+                # Log likelihood
+                log_likelihood = -0.5 * np.sum(np.log(2 * np.pi * variance) + returns.values**2 / variance)
+                return -log_likelihood
+            
+            # Optimize parameters
+            result = minimize(garch_log_likelihood, initial_params, args=(returns,), 
+                            method='L-BFGS-B', bounds=[(1e-6, None), (0, 1), (0, 0.999)])
+            
+            if result.success:
+                return tuple(result.x)
+            else:
+                # Fallback to default parameters
+                return initial_params
+                
+        except ImportError:
+            # Fallback if scipy not available
+            return initial_params
+        except Exception:
+            return initial_params
+    
+    def _calculate_volatility_percentile(self, predicted_vol: float, returns: pd.Series) -> float:
+        """Calculate percentile of predicted volatility relative to historical distribution"""
+        try:
+            # Calculate rolling volatilities
+            rolling_vols = returns.rolling(window=30).std().dropna() * np.sqrt(252)
+            
+            # Calculate percentile
+            percentile = (rolling_vols < predicted_vol).mean() * 100
+            return float(percentile)
+        except Exception:
+            return 50.0  # Default to median
     
     async def generate_ai_insights(
         self,

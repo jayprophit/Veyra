@@ -86,9 +86,11 @@ interface DetailModalProps<T> {
   onClose: () => void;
   data: T | null;
   title?: string;
-  renderDetails: (data: T) => React.ReactNode;
+  renderDetails?: (data: T) => React.ReactNode;
+  renderField?: (key: string, value: any) => React.ReactNode;
   onExport?: (data: T) => void;
   onDelete?: (data: T) => void;
+  actions?: Array<{ label: string; action: () => void }>;
 }
 
 export function DetailModal<T>({
@@ -97,8 +99,10 @@ export function DetailModal<T>({
   data,
   title = 'Record Details',
   renderDetails,
+  renderField,
   onExport,
   onDelete,
+  actions,
 }: DetailModalProps<T>) {
   if (!data) return null;
 
@@ -122,20 +126,42 @@ export function DetailModal<T>({
             <button
               className="ds-btn ds-btn-danger ds-btn-sm"
               onClick={() => {
-                onDelete(data);
-                onClose();
+                // Use a safer confirmation approach
+                const isConfirmed = window.confirm && window.confirm('Are you sure you want to delete this record?');
+                if (isConfirmed) {
+                  onDelete(data);
+                  onClose();
+                }
               }}
             >
               🗑️ Delete
             </button>
           )}
+          {actions && actions.map((action, index) => (
+            <button
+              key={index}
+              className="ds-btn ds-btn-secondary ds-btn-sm"
+              onClick={action.action}
+            >
+              {action.label}
+            </button>
+          ))}
           <button className="ds-btn ds-btn-secondary ds-btn-sm" onClick={onClose}>
             ✕ Close
           </button>
         </>
       }
     >
-      {renderDetails(data)}
+      {renderDetails ? renderDetails(data) : (
+        <div className="ds-detail-content">
+          {renderField && Object.entries(data as any).map(([key, value]) => (
+            <div key={key} className="ds-detail-field">
+              <div className="ds-detail-label">{key}</div>
+              <div className="ds-detail-value">{renderField(key, value)}</div>
+            </div>
+          ))}
+        </div>
+      )}
     </Modal>
   );
 }
