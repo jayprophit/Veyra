@@ -5,7 +5,7 @@ import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src', 'backend'))
 
 print("=" * 70)
-print("FINANCIAL MASTER - COMPLETE MODULE VERIFICATION")
+print("VEYRA - FINAL VERIFICATION")
 print("=" * 70)
 
 passed = []
@@ -69,5 +69,5 @@ if failed:
     for name, err in failed:
         print(f"  - {name}")
 else:
-    print("\n*** ALL MODULES VERIFIED SUCCESSFULLY! ***")
+    print("VEYRA - QUICK TEST SUITE SUCCESSFULLY! ***")
 print("=" * 70)

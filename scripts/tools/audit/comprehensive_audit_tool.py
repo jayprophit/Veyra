@@ -545,7 +545,7 @@ def main():
     total_warnings = sum(result['warnings'] for result in results.values())
     
     print(f"\n{'='*60}")
-    print("FINANCIAL MASTER - COMPREHENSIVE AUDIT RESULTS")
+    print("VEYRA - COMPREHENSIVE AUDIT RESULTS")
     print(f"{'='*60}")
     print(f"Total Errors: {total_errors}")
     print(f"Total Warnings: {total_warnings}")

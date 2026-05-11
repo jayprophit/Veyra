@@ -5,7 +5,7 @@ import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src', 'backend'))
 
 print("=" * 60)
-print("FINANCIAL MASTER - QUICK TEST SUITE")
+print("VEYRA - QUICK TEST SUITE")
 print("=" * 60)
 
 passed = 0

@@ -37,7 +37,7 @@ class ZeroCostSetupScripts:
         """Create account setup script"""
         script_content = '''#!/bin/bash
 # Zero-Cost Account Setup Script
-echo "FINANCIAL MASTER - ZERO-COST ACCOUNT SETUP"
+echo "VEYRA - ZERO-COST ACCOUNT SETUP"
 echo "=============================================="
 
 # Create accounts directory
@@ -144,7 +144,7 @@ echo "Next step: Run local-setup.sh"
         """Create local setup script"""
         script_content = '''#!/bin/bash
 # Local Development Setup Script
-echo "FINANCIAL MASTER - LOCAL DEVELOPMENT SETUP"
+echo "VEYRA - LOCAL DEVELOPMENT SETUP"
 echo "=============================================="
 
 # Check if required tools are installed
@@ -580,7 +580,7 @@ echo "Next step: Run github-setup.sh"
         """Create GitHub setup script"""
         script_content = '''#!/bin/bash
 # GitHub Repository Setup Script
-echo "FINANCIAL MASTER - GITHUB SETUP"
+echo "VEYRA - GITHUB SETUP"
 echo "=================================="
 
 # Navigate to project directory
@@ -708,7 +708,8 @@ echo "Next step: Run cloud-setup.sh"
         """Create cloud services setup script"""
         script_content = '''#!/bin/bash
 # Cloud Services Setup Script
-echo "FINANCIAL MASTER - CLOUD SERVICES SETUP"
+echo ""
+echo "VEYRA - CLOUD SERVICES SETUP")
 echo "==========================================="
 
 echo ""
@@ -913,7 +914,8 @@ echo "Next step: Run deployment.sh"
         """Create deployment script"""
         script_content = '''#!/bin/bash
 # Deployment Script
-echo "FINANCIAL MASTER - DEPLOYMENT"
+echo ""
+echo "VEYRA - DEPLOYMENT")
 echo "==============================="
 
 cd ~/veyra
@@ -1090,7 +1092,8 @@ echo "Next step: Run verification.sh"
         """Create verification script"""
         script_content = '''#!/bin/bash
 # Verification Script
-echo "FINANCIAL MASTER - VERIFICATION"
+echo ""
+echo "VEYRA - VERIFICATION")
 echo "================================="
 
 echo ""
@@ -1218,7 +1221,8 @@ echo "Congratulations on deploying your zero-cost multi-cloud financial platform
         """Create update workflow script"""
         script_content = '''#!/bin/bash
 # Update Workflow Script
-echo "FINANCIAL MASTER - UPDATE WORKFLOW"
+echo ""
+echo " VEYRA - UPDATE WORKFLOW")
 echo "===================================="
 
 echo ""
@@ -1325,7 +1329,8 @@ echo "Happy coding!"
         """Create master setup script"""
         script_content = '''#!/bin/bash
 # Master Setup Script - Run Everything
-echo "FINANCIAL MASTER - COMPLETE ZERO-COST SETUP"
+echo ""
+echo " VEYRA - COMPLETE ZERO-COST SETUP")
 echo "============================================="
 
 echo ""

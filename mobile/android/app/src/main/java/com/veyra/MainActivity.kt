@@ -18,7 +18,7 @@ import androidx.navigation.compose.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.veyra.ui.theme.FinancialMasterTheme
+import com.veyra.ui.theme.VeyraTheme
 import com.veyra.ui.navigation.BottomNavigationBar
 import com.veyra.ui.screens.LoginScreen
 import com.veyra.ui.screens.PortfolioScreen
@@ -36,15 +36,15 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            FinancialMasterTheme {
-                FinancialMasterApp()
+            VeyraTheme {
+                VeyraApp()
             }
         }
     }
 }
 
 @Composable
-fun FinancialMasterApp() {
+fun VeyraApp() {
     val navController = rememberNavController()
     val authViewModel: AuthenticationViewModel = viewModel()
     val portfolioViewModel: PortfolioViewModel = viewModel()

@@ -5,7 +5,7 @@ import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src', 'backend'))
 
 print("=" * 70)
-print("FINANCIAL MASTER - COMPREHENSIVE TEST CYCLE 1")
+print("VEYRA - COMPREHENSIVE TEST CYCLE 2")
 print("=" * 70)
 
 passed = []
