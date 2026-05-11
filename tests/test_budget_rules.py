@@ -171,10 +171,10 @@ class TestBudgetRulesEngine:
             BudgetRuleType.FIFTY_THIRTY_TWENTY, income, spending
         )
         
-        assert analysis.years_to_financial_independence is not None
-        assert analysis.years_to_financial_independence > 0
+        assert analysis.years_to_veyra_independence is not None
+        assert analysis.years_to_veyra_independence > 0
         # With 40% savings rate, should be around 20-25 years
-        assert analysis.years_to_financial_independence < 30
+        assert analysis.years_to_veyra_independence < 30
     
     def test_rule_flexibility_levels(self, engine):
         """Test that rules have different flexibility levels"""

@@ -37,7 +37,7 @@ class TestDatabaseManager:
         
         # Check tables exist
         cursor = db.conn.execute(
-            "SELECT name FROM sqlite_master WHERE type='table'"
+            "SELECT name FROM veyra_master WHERE type='table'"
         )
         tables = [row[0] for row in cursor.fetchall()]
         

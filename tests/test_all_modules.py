@@ -54,7 +54,7 @@ test("Cleaning", lambda: __import__('app.cleaning_services.cleaning_tracker', fr
 test("Pet Services", lambda: __import__('app.pet_services.veterinary_tracker', fromlist=['PetServicesTracker']))
 test("Event Planning", lambda: __import__('app.events_entertainment.event_tracker', fromlist=['EventTracker']))
 
-print("\n[3] CORE FINANCIAL MODULES:")
+print("\n[3] CORE VEYRA MODULES:")
 
 test("Core Portfolio", lambda: __import__('app.core.portfolio', fromlist=['Portfolio']))
 test("Alternative Investments", lambda: __import__('app.alternative_investments.commodity_tracker', fromlist=['CommodityTracker']))

@@ -1,5 +1,5 @@
 """
-Master Orchestrator
+Veyra Orchestrator
 ===================
 Central system controller that coordinates all modules:
 - Event routing between components
@@ -87,7 +87,7 @@ class EventBus:
             logger.error(f"Event handler error: {e}")
 
 
-class MasterOrchestrator:
+class VeyraOrchestrator:
     """
     Central orchestrator for Veyra system.
     Coordinates all modules and manages system state.
@@ -131,7 +131,7 @@ class MasterOrchestrator:
     
     async def start(self):
         """Start the orchestrator and all modules."""
-        logger.info("Starting Master Orchestrator...")
+        logger.info("Starting Veyra Orchestrator...")
         self._running = True
         
         # Start modules in dependency order
@@ -145,7 +145,7 @@ class MasterOrchestrator:
         self._health_check_task = asyncio.create_task(self._health_check_loop())
         
         await self.event_bus.publish("system.started", {"modules": list(self.modules.keys())})
-        logger.info("Master Orchestrator started successfully")
+        logger.info("Veyra Orchestrator started successfully")
     
     async def _start_module_recursive(self, name: str, started: set):
         """Start module and its dependencies."""
@@ -178,7 +178,7 @@ class MasterOrchestrator:
     
     async def stop(self):
         """Stop all modules."""
-        logger.info("Stopping Master Orchestrator...")
+        logger.info("Stopping Veyra Orchestrator...")
         self._running = False
         
         if self._health_check_task:
@@ -192,7 +192,7 @@ class MasterOrchestrator:
                 logger.info(f"Stopped module: {name}")
         
         await self.event_bus.publish("system.stopped", {})
-        logger.info("Master Orchestrator stopped")
+        logger.info("Veyra Orchestrator stopped")
     
     async def _health_check_loop(self):
         """Periodic health check of all modules."""
@@ -274,14 +274,13 @@ class MasterOrchestrator:
 
 
 # Global orchestrator instance
-_orchestrator: Optional[MasterOrchestrator] = None
+_orchestrator: Optional[VeyraOrchestrator] = None
 
-
-def get_orchestrator() -> MasterOrchestrator:
+def get_orchestrator() -> VeyraOrchestrator:
     """Get or create global orchestrator instance."""
     global _orchestrator
     if _orchestrator is None:
-        _orchestrator = MasterOrchestrator()
+        _orchestrator = VeyraOrchestrator()
     return _orchestrator
 
 

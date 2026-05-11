@@ -79,7 +79,7 @@ class TestDatabaseManager:
         
         for i in range(3):
             with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as f:
-                f.write(f"Financial report {i} content")
+                f.write(f"Veyra report {i} content")
                 test_path = f.name
             
             db_file = db.add_file(test_path, tags=["2024", f"Q{i+1}"])
@@ -87,7 +87,7 @@ class TestDatabaseManager:
             Path(test_path).unlink(missing_ok=True)
         
         # Search by query
-        results = db.search_files(query="Financial")
+        results = db.search_files(query="Veyra")
         assert len(results) == 3
         
         # Search by type
@@ -273,14 +273,14 @@ class TestFileIndexer:
         """Test file indexing and search"""
         # Create and add text file
         with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as f:
-            f.write("Financial analysis report for Q1 2024")
+            f.write("Veyra analysis report for Q1 2024")
             test_path = f.name
         
         try:
             db_file = db_with_indexer.add_file(test_path, tags=["finance"])
             
             # Search via indexer
-            results = db_with_indexer.file_indexer.search("Financial")
+            results = db_with_indexer.file_indexer.search("Veyra")
             assert len(results) >= 1
             
             # Search for specific word

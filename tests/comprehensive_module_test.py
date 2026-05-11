@@ -5,7 +5,7 @@ import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src', 'backend'))
 
 print("=" * 70)
-print("FINANCIAL MASTER - COMPREHENSIVE MODULE TEST")
+print("VEYRA - COMPREHENSIVE MODULE TEST")
 print("Testing ALL modules without API keys")
 print("=" * 70)
 
@@ -238,7 +238,7 @@ test("Event Planning", test_events)
 # ============================================
 # CATEGORY 3: Core Financial Modules
 # ============================================
-print("\n[3] CORE FINANCIAL MODULES:")
+print("\n[3] CORE VEYRA MODULES:")
 
 def test_core_portfolio():
     from app.core.portfolio import Portfolio

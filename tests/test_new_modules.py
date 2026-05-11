@@ -12,7 +12,7 @@ from datetime import datetime, timedelta
 from decimal import Decimal
 
 # Import modules to test
-from src.backend.app.core.master_orchestrator import MasterOrchestrator, get_orchestrator
+from src.backend.app.core.veyra_orchestrator import VeyraOrchestrator, get_orchestrator
 from src.backend.app.core.websocket_manager import WebSocketManager, get_websocket_manager
 from src.backend.app.ai.earnings_analyzer import EarningsAnalyzer
 from src.backend.app.ai.biometric_monitor import BiometricMonitor
@@ -25,16 +25,16 @@ from src.backend.app.portfolio.advanced_optimizer import AdvancedPortfolioOptimi
 
 
 # ============================================================================
-# Master Orchestrator Tests
+# Veyra Orchestrator Tests
 # ============================================================================
 
-class TestMasterOrchestrator:
-    """Test master orchestrator functionality."""
+class TestVeyraOrchestrator:
+    """Test Veyra orchestrator functionality."""
     
     @pytest.fixture
     async def orchestrator(self):
         """Create orchestrator fixture."""
-        orch = MasterOrchestrator()
+        orch = VeyraOrchestrator()
         yield orch
         await orch.stop()
     
