@@ -1,0 +1,890 @@
+# Advanced Auto-scaling and Load Balancing Configuration
+# Production-ready Kubernetes configurations for Veyra Platform
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: veyra
+  labels:
+    name: veyra
+    environment: production
+
+---
+# Horizontal Pod Autoscaler for API Services
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: veyra-api-hpa
+  namespace: veyra
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: veyra-api
+  minReplicas: 3
+  maxReplicas: 50
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+  - type: Pods
+    pods:
+      metric:
+        name: http_requests_per_second
+      target:
+        type: AverageValue
+        averageValue: "100"
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+      - type: Percent
+        value: 10
+        periodSeconds: 60
+      - type: Pods
+        value: 2
+        periodSeconds: 60
+      selectPolicy: Min
+    scaleUp:
+      stabilizationWindowSeconds: 60
+      policies:
+      - type: Percent
+        value: 50
+        periodSeconds: 60
+      - type: Pods
+        value: 5
+        periodSeconds: 60
+      selectPolicy: Max
+
+---
+# Vertical Pod Autoscaler for Resource Optimization
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: veyra-api-vpa
+  namespace: veyra
+spec:
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: veyra-api
+  updatePolicy:
+    updateMode: "Auto"
+  resourcePolicy:
+    containerPolicies:
+    - containerName: veyra-api
+      minAllowed:
+        cpu: 100m
+        memory: 128Mi
+      maxAllowed:
+        cpu: 2000m
+        memory: 4Gi
+      controlledResources: ["cpu", "memory"]
+
+---
+# Custom Metrics for Advanced Scaling
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-adapter-config
+  namespace: monitoring
+data:
+  config.yaml: |
+    rules:
+    - seriesQuery: 'http_requests_total{namespace!="",pod!=""}'
+      resources:
+        overrides:
+          namespace: {resource: "namespace"}
+          pod: {resource: "pod"}
+      name:
+        matches: "^http_requests_total_(.*)_total"
+        as: "http_requests_per_second"
+      metricsQuery: 'sum(rate(http_requests_total{<<.LabelMatchers>>}[2m])) by (<<.GroupBy>>)'
+    - seriesQuery: 'container_memory_working_set_bytes{namespace!="",pod!=""}'
+      resources:
+        overrides:
+          namespace: {resource: "namespace"}
+          pod: {resource: "pod"}
+      name:
+        as: "memory_usage_bytes"
+      metricsQuery: 'sum(container_memory_working_set_bytes{<<.LabelMatchers>>}) by (<<.GroupBy>>)'
+
+---
+# Pod Disruption Budget for High Availability
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: veyra-api-pdb
+  namespace: veyra
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: veyra-api
+
+---
+# Advanced Load Balancer Configuration
+apiVersion: v1
+kind: Service
+metadata:
+  name: veyra-api-loadbalancer
+  namespace: veyra
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
+    service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: "Environment=production,Project=veyra"
+spec:
+  type: LoadBalancer
+  selector:
+    app: veyra-api
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8000
+    protocol: TCP
+  - name: https
+    port: 443
+    targetPort: 8443
+    protocol: TCP
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 3600
+
+---
+# Ingress Controller with Advanced Routing
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: veyra-ingress
+  namespace: veyra
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rate-limit: "100"
+    nginx.ingress.kubernetes.io/rate-limit-window: "1m"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, PUT, DELETE, OPTIONS"
+    nginx.ingress.kubernetes.io/cors-allow-headers: "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_set_headers "X-Frame-Options: DENY";
+      more_set_headers "X-Content-Type-Options: nosniff";
+      more_set_headers "X-XSS-Protection: 1; mode=block";
+      more_set_headers "Strict-Transport-Security: max-age=31536000; includeSubDomains; preload";
+spec:
+  tls:
+  - hosts:
+    - api.veyra.com
+    - app.veyra.com
+    secretName: veyra-tls
+  rules:
+  - host: api.veyra.com
+    http:
+      paths:
+      - path: /api/v1/(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: veyra-api
+            port:
+              number: 8000
+  - host: app.veyra.com
+    http:
+      paths:
+      - path: /(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: veyra-frontend
+            port:
+              number: 3000
+
+---
+# Network Policy for Security
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: veyra-network-policy
+  namespace: veyra
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: ingress-nginx
+    - namespaceSelector:
+        matchLabels:
+          name: monitoring
+    ports:
+    - protocol: TCP
+      port: 8000
+    - protocol: TCP
+      port: 8443
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: kube-system
+  - to: []
+    ports:
+    - protocol: TCP
+      port: 53
+    - protocol: UDP
+      port: 53
+    - protocol: TCP
+      port: 443
+    - protocol: TCP
+      port: 80
+
+---
+# Resource Quota for Namespace
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: veyra-resource-quota
+  namespace: veyra
+spec:
+  hard:
+    requests.cpu: "10"
+    requests.memory: 20Gi
+    limits.cpu: "20"
+    limits.memory: 40Gi
+    persistentvolumeclaims: "10"
+    services: "10"
+    secrets: "20"
+    configmaps: "20"
+    count/deployments.apps: "10"
+    count/replicasets.apps: "20"
+
+---
+# Limit Range for Pod Resources
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: veyra-limit-range
+  namespace: veyra
+spec:
+  limits:
+  - default:
+      cpu: 500m
+      memory: 512Mi
+    defaultRequest:
+      cpu: 100m
+      memory: 128Mi
+    type: Container
+  - max:
+      cpu: 2000m
+      memory: 4Gi
+    min:
+      cpu: 50m
+      memory: 64Mi
+    type: Container
+
+---
+# Priority Class for Critical Workloads
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: veyra-critical
+value: 1000000
+globalDefault: false
+description: "Critical priority class for Veyra core services"
+
+---
+# Priority Class for Normal Workloads
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: veyra-normal
+value: 1000
+globalDefault: true
+description: "Normal priority class for Veyra services"
+
+---
+# Advanced Deployment with Anti-Affinity
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: veyra-api
+  namespace: veyra
+  labels:
+    app: veyra-api
+    tier: backend
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  selector:
+    matchLabels:
+      app: veyra-api
+  template:
+    metadata:
+      labels:
+        app: veyra-api
+        tier: backend
+    spec:
+      priorityClassName: veyra-normal
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - veyra-api
+              topologyKey: kubernetes.io/hostname
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 80
+            preference:
+              matchExpressions:
+              - key: node-type
+                operator: In
+                values:
+                - compute-optimized
+              - key: zone
+                operator: In
+                values:
+                - us-east-1a
+                - us-east-1b
+                - us-east-1c
+      containers:
+      - name: veyra-api
+        image: veyra/api:latest
+        ports:
+        - containerPort: 8000
+          name: http
+        - containerPort: 8443
+          name: https
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: veyra-secrets
+              key: database-url
+        - name: REDIS_URL
+          valueFrom:
+            secretKeyRef:
+              name: veyra-secrets
+              key: redis-url
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: veyra-secrets
+              key: jwt-secret
+        resources:
+          requests:
+            cpu: 200m
+            memory: 256Mi
+          limits:
+            cpu: 1000m
+            memory: 1Gi
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+        - name: cache
+          mountPath: /app/cache
+      volumes:
+      - name: tmp
+        emptyDir: {}
+      - name: cache
+        emptyDir: {}
+      terminationGracePeriodSeconds: 30
+
+---
+# StatefulSet for Database with Persistent Storage
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: veyra-database
+  namespace: veyra
+spec:
+  serviceName: veyra-database
+  replicas: 1
+  selector:
+    matchLabels:
+      app: veyra-database
+  template:
+    metadata:
+      labels:
+        app: veyra-database
+    spec:
+      priorityClassName: veyra-critical
+      containers:
+      - name: postgres
+        image: postgres:15
+        env:
+        - name: POSTGRES_DB
+          value: veyra
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: veyra-secrets
+              key: postgres-user
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: veyra-secrets
+              key: postgres-password
+        ports:
+        - containerPort: 5432
+        resources:
+          requests:
+            cpu: 500m
+            memory: 1Gi
+          limits:
+            cpu: 2000m
+            memory: 4Gi
+        volumeMounts:
+        - name: postgres-storage
+          mountPath: /var/lib/postgresql/data
+        - name: postgres-config
+          mountPath: /etc/postgresql/postgresql.conf
+          subPath: postgresql.conf
+      volumes:
+      - name: postgres-config
+        configMap:
+          name: postgres-config
+  volumeClaimTemplates:
+  - metadata:
+      name: postgres-storage
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: "gp2-encrypted"
+      resources:
+        requests:
+          storage: 100Gi
+
+---
+# Redis Cluster Configuration
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: veyra-redis
+  namespace: veyra
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: veyra-redis
+  template:
+    metadata:
+      labels:
+        app: veyra-redis
+    spec:
+      containers:
+      - name: redis
+        image: redis:7-alpine
+        ports:
+        - containerPort: 6379
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+        command:
+        - redis-server
+        - --appendonly
+        - "yes"
+        - --cluster-enabled
+        - "yes"
+        volumeMounts:
+        - name: redis-storage
+          mountPath: /data
+      volumes:
+      - name: redis-storage
+        emptyDir: {}
+
+---
+# Monitoring Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: veyra-monitoring
+  namespace: veyra
+  labels:
+    app: veyra-monitoring
+spec:
+  selector:
+    app: veyra-api
+  ports:
+  - name: metrics
+    port: 9090
+    targetPort: 9090
+  type: ClusterIP
+
+---
+# Service Monitor for Prometheus
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: veyra-api-monitor
+  namespace: veyra
+  labels:
+    app: veyra-api
+spec:
+  selector:
+    matchLabels:
+      app: veyra-api
+  endpoints:
+  - port: metrics
+    interval: 30s
+    path: /metrics
+
+---
+# Cluster Autoscaler Configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-autoscaler-status
+  namespace: kube-system
+data:
+  nodes.max: "100"
+  nodes.min: "3"
+  scale-down-delay-after-add: "10m"
+  scale-down-unneeded-time: "10m"
+
+---
+# Cluster Autoscaler Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cluster-autoscaler
+  namespace: kube-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cluster-autoscaler
+  template:
+    metadata:
+      labels:
+        app: cluster-autoscaler
+    spec:
+      containers:
+      - image: k8s.gcr.io/autoscaling/cluster-autoscaler:v1.21.0
+        name: cluster-autoscaler
+        resources:
+          limits:
+            cpu: 100m
+            memory: 300Mi
+          requests:
+            cpu: 100m
+            memory: 300Mi
+        command:
+        - ./cluster-autoscaler
+        - --v=4
+        - --stderrthreshold=info
+        - --cloud-provider=aws
+        - --skip-nodes-with-local-storage=false
+        - --expander=least-waste
+        - --node-group-auto-discovery=asg:tag:k8s.io/cluster-autoscaler/enabled,k8s.io/cluster-autoscaler/veyra
+        - --balance-similar-node-groups
+        - --skip-nodes-with-system-pods=false
+
+---
+# Custom Resource Definitions for Advanced Scaling
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: scaledobjects.keda.sh
+spec:
+  group: keda.sh
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
+    schema:
+      openAPIV3Schema:
+        type: object
+  scope: Namespaced
+  names:
+    plural: scaledobjects
+    singular: scaledobject
+    kind: ScaledObject
+
+---
+# KEDA Scaled Object for Event-Based Scaling
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: veyra-api-scaledobject
+  namespace: veyra
+spec:
+  scaleTargetRef:
+    name: veyra-api
+  pollingInterval: 30
+  cooldownPeriod: 300
+  minReplicaCount: 3
+  maxReplicaCount: 50
+  triggers:
+  - type: prometheus
+    metadata:
+      serverAddress: http://prometheus.monitoring.svc.cluster.local:9090
+      query: sum(rate(http_requests_total{deployment="veyra-api"}[2m]))
+      threshold: "100"
+  - type: redis
+    metadata:
+      address: veyra-redis:6379
+      listName: veyra:queue
+      listLength: "5"
+  - type: kafka
+    metadata:
+      bootstrapServers: kafka:9092
+      topic: veyra-events
+      consumerGroup: veyra-api
+      lagThreshold: "1000"
+
+---
+# Advanced Network Policy for Microservices
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: veyra-microservices-network-policy
+  namespace: veyra
+spec:
+  podSelector:
+    matchLabels:
+      tier: backend
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          tier: frontend
+    - podSelector:
+        matchLabels:
+          tier: backend
+    - namespaceSelector:
+        matchLabels:
+          name: ingress-nginx
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          tier: backend
+    - podSelector:
+        matchLabels:
+          app: veyra-database
+    - podSelector:
+        matchLabels:
+          app: veyra-redis
+
+---
+# Pod Security Policy
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: veyra-psp
+  namespace: veyra
+spec:
+  privileged: false
+  allowPrivilegeEscalation: false
+  requiredDropCapabilities:
+    - ALL
+  volumes:
+    - 'configMap'
+    - 'emptyDir'
+    - 'projected'
+    - 'secret'
+    - 'downwardAPI'
+    - 'persistentVolumeClaim'
+  runAsUser:
+    rule: 'MustRunAsNonRoot'
+  seLinux:
+    rule: 'RunAsAny'
+  fsGroup:
+    rule: 'RunAsAny'
+
+---
+# Advanced RBAC Configuration
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: veyra
+  name: veyra-operator
+rules:
+- apiGroups: [""]
+  resources: ["pods", "services", "endpoints"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["apps"]
+  resources: ["deployments", "replicasets"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["autoscaling"]
+  resources: ["horizontalpodautoscalers"]
+  verbs: ["get", "list", "watch", "update", "patch"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: veyra-operator-binding
+  namespace: veyra
+subjects:
+- kind: ServiceAccount
+  name: veyra-operator
+  namespace: veyra
+roleRef:
+  kind: Role
+  name: veyra-operator
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: veyra-operator
+  namespace: veyra
+
+---
+# Advanced Configuration for Load Testing
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: load-testing-config
+  namespace: veyra
+data:
+  locustfile.py: |
+    from locust import HttpUser, task, between
+    import random
+    
+    class VeyraUser(HttpUser):
+        wait_time = between(1, 3)
+        host = "https://api.veyra.com"
+        
+        @task(3)
+        def view_portfolio(self):
+            self.client.get("/api/v1/portfolio")
+        
+        @task(2)
+        def get_market_data(self):
+            symbols = ["AAPL", "GOOGL", "MSFT", "TSLA"]
+            symbol = random.choice(symbols)
+            self.client.get(f"/api/v1/market/{symbol}")
+        
+        @task(1)
+        def place_trade(self):
+            self.client.post("/api/v1/trade", json={
+                "symbol": "AAPL",
+                "quantity": 100,
+                "type": "market",
+                "side": "buy"
+            })
+        
+        @task(1)
+        def get_analytics(self):
+            self.client.get("/api/v1/analytics/predictions")
+
+---
+# Load Testing Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: veyra-load-test
+  namespace: veyra
+  labels:
+    app: veyra-load-test
+spec:
+  selector:
+    app: veyra-load-test
+  ports:
+  - port: 8089
+    targetPort: 8089
+  type: ClusterIP
+
+---
+# Load Testing Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: veyra-load-test
+  namespace: veyra
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: veyra-load-test
+  template:
+    metadata:
+      labels:
+        app: veyra-load-test
+    spec:
+      containers:
+      - name: locust
+        image: locustio/locust:latest
+        ports:
+        - containerPort: 8089
+        command:
+        - locust
+        - --host=https://api.veyra.com
+        - --users=100
+        - --spawn-rate=10
+        - --headless
+        - --html=/locust/report.html
+        volumeMounts:
+        - name: locust-config
+          mountPath: /locust
+      volumes:
+      - name: locust-config
+        configMap:
+          name: load-testing-config
+      resources:
+        requests:
+          cpu: 200m
+          memory: 256Mi
+        limits:
+          cpu: 500m
+          memory: 512Mi
