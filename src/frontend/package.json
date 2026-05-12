@@ -18,7 +18,11 @@
     "react-chartjs-2": "^5.2.0",
     "date-fns": "^2.29.0",
     "clsx": "^1.2.0",
-    "lucide-react": "^0.263.0"
+    "lucide-react": "^0.263.0",
+    "i18next": "^23.7.0",
+    "react-i18next": "^13.5.0",
+    "i18next-browser-languagedetector": "^7.2.0",
+    "i18next-http-backend": "^2.4.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
