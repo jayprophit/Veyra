@@ -639,6 +639,387 @@ Partner Ecosystem
     └── Data Licensing
 ```
 
+### 11. Customer Support
+
+**Current Status**: Basic email support
+**Impact**: Poor user experience and retention
+**Missing Features**:
+- 24/7 live support
+- Phone support for premium users
+- Dedicated account managers for institutional clients
+- Advanced ticketing system
+- Knowledge base and FAQ
+- Proactive customer success
+
+**Implementation Priority**: **MEDIUM**
+**Estimated Effort**: 4-6 weeks
+**Support System Architecture**:
+```python
+# Customer Support System
+from fastapi import FastAPI, WebSocket
+from typing import List, Optional
+import asyncio
+
+class SupportSystem:
+    def __init__(self):
+        self.support_agents = {}
+        self.active_tickets = {}
+        self.knowledge_base = {}
+        
+    async def create_support_ticket(self, user_id: str, issue: str, priority: str):
+        """Create a new support ticket"""
+        ticket_id = generate_ticket_id()
+        ticket = {
+            'id': ticket_id,
+            'user_id': user_id,
+            'issue': issue,
+            'priority': priority,
+            'status': 'open',
+            'created_at': datetime.now(),
+            'assigned_agent': None
+        }
+        
+        self.active_tickets[ticket_id] = ticket
+        
+        # Auto-assign based on priority and availability
+        agent = await self.assign_agent(ticket)
+        if agent:
+            ticket['assigned_agent'] = agent
+            await self.notify_agent(agent, ticket)
+        
+        return ticket_id
+    
+    async def live_chat_session(self, websocket: WebSocket, user_id: str):
+        """Handle live chat session"""
+        await websocket.accept()
+        
+        # Find available agent
+        agent = await self.find_available_agent()
+        if not agent:
+            await websocket.send_text("All agents are currently busy. Please leave a message.")
+            return
+        
+        # Connect user to agent
+        await self.connect_chat_session(websocket, agent, user_id)
+    
+    def search_knowledge_base(self, query: str) -> List[dict]:
+        """Search knowledge base for solutions"""
+        # Implementation for knowledge base search
+        pass
+    
+    async def escalate_ticket(self, ticket_id: str, reason: str):
+        """Escalate ticket to higher priority"""
+        if ticket_id in self.active_tickets:
+            ticket = self.active_tickets[ticket_id]
+            ticket['priority'] = 'high'
+            ticket['escalation_reason'] = reason
+            
+            # Notify management
+            await self.notify_management(ticket)
+```
+
+### 12. Regulatory Licensing
+
+**Current Status**: No financial licenses
+**Impact**: Cannot operate legally in regulated markets
+**Missing Features**:
+- SEC registration for investment advisors
+- FCA authorization in UK
+- ASIC licensing in Australia
+- KYC/AML compliance systems
+- Regulatory reporting automation
+- Audit trail maintenance
+
+**Implementation Priority**: **HIGH**
+**Estimated Effort**: 8-12 weeks
+**Compliance Framework**:
+```python
+# Regulatory Compliance System
+import hashlib
+import json
+from datetime import datetime
+from cryptography.fernet import Fernet
+
+class ComplianceManager:
+    def __init__(self):
+        self.encryption_key = Fernet.generate_key()
+        self.cipher = Fernet(self.encryption_key)
+        self.audit_log = []
+        
+    async def perform_kyc_check(self, user_data: dict) -> dict:
+        """Perform Know Your Customer verification"""
+        # Verify identity documents
+        identity_verified = await self.verify_identity_documents(user_data)
+        
+        # Check against sanctions lists
+        sanctions_check = await self.check_sanctions_lists(user_data)
+        
+        # Risk assessment
+        risk_score = await self.calculate_risk_score(user_data)
+        
+        kyc_result = {
+            'user_id': user_data['user_id'],
+            'identity_verified': identity_verified,
+            'sanctions_clear': sanctions_check,
+            'risk_score': risk_score,
+            'approved': identity_verified and sanctions_check and risk_score < 0.7,
+            'timestamp': datetime.now()
+        }
+        
+        # Log for audit
+        await self.log_audit_event('kyc_check', kyc_result)
+        
+        return kyc_result
+    
+    async def perform_aml_monitoring(self, transaction: dict) -> dict:
+        """Perform Anti-Money Laundering monitoring"""
+        # Pattern analysis
+        suspicious_patterns = await self.detect_suspicious_patterns(transaction)
+        
+        # Transaction velocity check
+        velocity_alert = await self.check_transaction_velocity(transaction)
+        
+        # Amount threshold check
+        threshold_alert = transaction['amount'] > self.get_threshold_limit(transaction['currency'])
+        
+        aml_result = {
+            'transaction_id': transaction['id'],
+            'suspicious_patterns': suspicious_patterns,
+            'velocity_alert': velocity_alert,
+            'threshold_alert': threshold_alert,
+            'requires_review': any([suspicious_patterns, velocity_alert, threshold_alert]),
+            'timestamp': datetime.now()
+        }
+        
+        if aml_result['requires_review']:
+            await self.flag_for_review(transaction, aml_result)
+        
+        return aml_result
+    
+    async def generate_regulatory_report(self, jurisdiction: str, period: str) -> dict:
+        """Generate regulatory reports for specified jurisdiction"""
+        # Implementation for regulatory reporting
+        pass
+    
+    async def log_audit_event(self, event_type: str, data: dict):
+        """Log event for audit trail"""
+        audit_entry = {
+            'timestamp': datetime.now(),
+            'event_type': event_type,
+            'data': data,
+            'hash': hashlib.sha256(json.dumps(data, sort_keys=True).encode()).hexdigest()
+        }
+        
+        self.audit_log.append(audit_entry)
+        
+        # Encrypt and store
+        encrypted_entry = self.cipher.encrypt(json.dumps(audit_entry).encode())
+        await self.store_encrypted_log(encrypted_entry)
+```
+
+### 13. Advanced Order Types
+
+**Current Status**: Basic market and limit orders
+**Impact**: Limited trading strategies and risk management
+**Missing Features**:
+- Conditional orders (if-then orders)
+- Bracket orders (entry + stop loss + take profit)
+- OCO (One Cancels Other) orders
+- Trailing stop orders
+- Iceberg orders
+- Time-weighted average price (TWAP) orders
+
+**Implementation Priority**: **HIGH**
+**Estimated Effort**: 4-6 weeks
+**Advanced Order Engine**:
+```python
+# Advanced Order Management System
+from enum import Enum
+from datetime import datetime
+import asyncio
+
+class OrderType(Enum):
+    MARKET = "market"
+    LIMIT = "limit"
+    STOP = "stop"
+    STOP_LIMIT = "stop_limit"
+    TRAILING_STOP = "trailing_stop"
+    BRACKET = "bracket"
+    OCO = "oco"
+    CONDITIONAL = "conditional"
+    ICEBERG = "iceberg"
+    TWAP = "twap"
+
+class AdvancedOrderManager:
+    def __init__(self):
+        self.active_orders = {}
+        self.order_templates = {}
+        
+    async def create_bracket_order(self, symbol: str, entry_price: float, 
+                                 stop_loss: float, take_profit: float, quantity: int):
+        """Create a bracket order with entry, stop loss, and take profit"""
+        order_id = generate_order_id()
+        
+        bracket_order = {
+            'id': order_id,
+            'type': OrderType.BRACKET,
+            'symbol': symbol,
+            'entry_order': {
+                'price': entry_price,
+                'quantity': quantity,
+                'status': 'pending'
+            },
+            'stop_loss': {
+                'price': stop_loss,
+                'quantity': quantity,
+                'status': 'pending'
+            },
+            'take_profit': {
+                'price': take_profit,
+                'quantity': quantity,
+                'status': 'pending'
+            },
+            'created_at': datetime.now()
+        }
+        
+        self.active_orders[order_id] = bracket_order
+        
+        # Monitor and execute
+        asyncio.create_task(self.monitor_bracket_order(order_id))
+        
+        return order_id
+    
+    async def create_oco_order(self, symbol: str, orders: List[dict]):
+        """Create One Cancels Other order"""
+        order_id = generate_order_id()
+        
+        oco_order = {
+            'id': order_id,
+            'type': OrderType.OCO,
+            'symbol': symbol,
+            'orders': orders,  # List of orders where if one executes, others cancel
+            'status': 'active',
+            'created_at': datetime.now()
+        }
+        
+        self.active_orders[order_id] = oco_order
+        
+        # Monitor OCO execution
+        asyncio.create_task(self.monitor_oco_order(order_id))
+        
+        return order_id
+    
+    async def create_trailing_stop(self, symbol: str, quantity: int, 
+                                 trail_percent: float, activation_price: float = None):
+        """Create trailing stop order"""
+        order_id = generate_order_id()
+        
+        trailing_stop = {
+            'id': order_id,
+            'type': OrderType.TRAILING_STOP,
+            'symbol': symbol,
+            'quantity': quantity,
+            'trail_percent': trail_percent,
+            'highest_price': activation_price or await self.get_current_price(symbol),
+            'stop_price': None,
+            'status': 'active',
+            'created_at': datetime.now()
+        }
+        
+        self.active_orders[order_id] = trailing_stop
+        
+        # Monitor price and adjust stop
+        asyncio.create_task(self.monitor_trailing_stop(order_id))
+        
+        return order_id
+    
+    async def monitor_bracket_order(self, order_id: str):
+        """Monitor bracket order execution"""
+        order = self.active_orders[order_id]
+        
+        while order['entry_order']['status'] == 'pending':
+            current_price = await self.get_current_price(order['symbol'])
+            
+            # Check if entry condition met
+            if self.check_entry_condition(order, current_price):
+                await self.execute_order(order['entry_order'])
+                order['entry_order']['status'] = 'executed'
+                break
+            
+            await asyncio.sleep(1)  # Check every second
+        
+        # Once entry executed, monitor stop loss and take profit
+        if order['entry_order']['status'] == 'executed':
+            while True:
+                current_price = await self.get_current_price(order['symbol'])
+                
+                # Check stop loss
+                if current_price <= order['stop_loss']['price']:
+                    await self.execute_order(order['stop_loss'])
+                    order['stop_loss']['status'] = 'executed'
+                    # Cancel take profit
+                    order['take_profit']['status'] = 'cancelled'
+                    break
+                
+                # Check take profit
+                elif current_price >= order['take_profit']['price']:
+                    await self.execute_order(order['take_profit'])
+                    order['take_profit']['status'] = 'executed'
+                    # Cancel stop loss
+                    order['stop_loss']['status'] = 'cancelled'
+                    break
+                
+                await asyncio.sleep(1)
+    
+    async def monitor_oco_order(self, order_id: str):
+        """Monitor OCO order execution"""
+        order = self.active_orders[order_id]
+        
+        while order['status'] == 'active':
+            for oco_order in order['orders']:
+                if oco_order['status'] == 'pending':
+                    current_price = await self.get_current_price(order['symbol'])
+                    
+                    if self.check_order_condition(oco_order, current_price):
+                        await self.execute_order(oco_order)
+                        oco_order['status'] = 'executed'
+                        
+                        # Cancel other orders
+                        for other_order in order['orders']:
+                            if other_order != oco_order and other_order['status'] == 'pending':
+                                other_order['status'] = 'cancelled'
+                        
+                        order['status'] = 'completed'
+                        break
+            
+            await asyncio.sleep(1)
+    
+    async def monitor_trailing_stop(self, order_id: str):
+        """Monitor trailing stop order"""
+        order = self.active_orders[order_id]
+        
+        while order['status'] == 'active':
+            current_price = await self.get_current_price(order['symbol'])
+            
+            # Update highest price if trailing up
+            if current_price > order['highest_price']:
+                order['highest_price'] = current_price
+                order['stop_price'] = current_price * (1 - order['trail_percent'] / 100)
+            
+            # Check if stop price hit
+            elif current_price <= order['stop_price']:
+                await self.execute_order({
+                    'symbol': order['symbol'],
+                    'quantity': order['quantity'],
+                    'price': order['stop_price'],
+                    'side': 'sell'  # Assuming long position
+                })
+                order['status'] = 'executed'
+                break
+            
+            await asyncio.sleep(1)
+```
+
 ---
 
 ## 🎯 Strategic Missing Elements
@@ -800,9 +1181,445 @@ class BlockchainIntegration:
         return balances
 ```
 
+### 14. Alternative Data Sources
+
+**Current Status**: Traditional financial data only
+**Impact**: Missing competitive edge from non-traditional signals
+**Missing Features**:
+- Satellite imagery analysis for crop yields and economic indicators
+- Credit card transaction data for consumer spending insights
+- Mobile location data for foot traffic and mobility patterns
+- Social media sentiment analysis
+- Web scraping for news and corporate filings
+- IoT sensor data integration
+
+**Implementation Priority**: **MEDIUM**
+**Estimated Effort**: 6-8 weeks
+**Alternative Data Pipeline**:
+```python
+# Alternative Data Integration System
+import requests
+import pandas as pd
+from datetime import datetime, timedelta
+import asyncio
+from typing import Dict, List
+
+class AlternativeDataManager:
+    def __init__(self):
+        self.data_sources = {
+            'satellite': SatelliteDataProvider(),
+            'credit_card': CreditCardDataProvider(),
+            'mobile_location': MobileLocationProvider(),
+            'social_media': SocialMediaSentiment(),
+            'web_scraping': WebScrapingEngine()
+        }
+        self.data_cache = {}
+        
+    async def collect_satellite_data(self, region: str, indicator: str) -> pd.DataFrame:
+        """Collect satellite imagery data for economic indicators"""
+        provider = self.data_sources['satellite']
+        
+        # Request satellite imagery analysis
+        data = await provider.get_imagery_analysis(region, indicator)
+        
+        # Process for trading signals
+        processed_data = await self.process_satellite_signals(data, indicator)
+        
+        return processed_data
+    
+    async def collect_credit_card_data(self, sector: str) -> pd.DataFrame:
+        """Collect anonymized credit card transaction data"""
+        provider = self.data_sources['credit_card']
+        
+        # Get spending data by sector
+        spending_data = await provider.get_sector_spending(sector)
+        
+        # Calculate spending velocity and trends
+        trends = await self.analyze_spending_trends(spending_data)
+        
+        return trends
+    
+    async def collect_mobile_location_data(self, location: str) -> pd.DataFrame:
+        """Collect mobile location data for foot traffic analysis"""
+        provider = self.data_sources['mobile_location']
+        
+        # Get foot traffic patterns
+        traffic_data = await provider.get_foot_traffic(location)
+        
+        # Analyze mobility patterns
+        patterns = await self.analyze_mobility_patterns(traffic_data)
+        
+        return patterns
+    
+    async def collect_social_sentiment(self, symbol: str) -> dict:
+        """Collect social media sentiment for trading symbols"""
+        provider = self.data_sources['social_media']
+        
+        # Get sentiment analysis
+        sentiment = await provider.get_symbol_sentiment(symbol)
+        
+        # Calculate sentiment score
+        score = await self.calculate_sentiment_score(sentiment)
+        
+        return {
+            'symbol': symbol,
+            'sentiment_score': score,
+            'confidence': sentiment['confidence'],
+            'volume': sentiment['mentions_count'],
+            'timestamp': datetime.now()
+        }
+    
+    async def web_scraping_pipeline(self, sources: List[str]) -> List[dict]:
+        """Scrape web sources for market-moving information"""
+        provider = self.data_sources['web_scraping']
+        
+        scraped_data = []
+        for source in sources:
+            data = await provider.scrape_source(source)
+            processed_data = await self.process_scraped_content(data)
+            scraped_data.extend(processed_data)
+        
+        return scraped_data
+    
+    async def generate_trading_signals(self, data_type: str, symbol: str) -> dict:
+        """Generate trading signals from alternative data"""
+        # Collect relevant data
+        if data_type == 'satellite':
+            data = await self.collect_satellite_data(symbol, 'economic_indicator')
+        elif data_type == 'credit_card':
+            data = await self.collect_credit_card_data(symbol)
+        elif data_type == 'mobile':
+            data = await self.collect_mobile_location_data(symbol)
+        elif data_type == 'sentiment':
+            data = await self.collect_social_sentiment(symbol)
+        
+        # Apply ML models to generate signals
+        signal = await self.apply_ml_model(data, symbol)
+        
+        return {
+            'symbol': symbol,
+            'signal': signal['direction'],  # 'buy', 'sell', 'hold'
+            'confidence': signal['confidence'],
+            'data_type': data_type,
+            'timestamp': datetime.now()
+        }
+    
+    async def apply_ml_model(self, data: pd.DataFrame, symbol: str) -> dict:
+        """Apply machine learning model to alternative data"""
+        # Implementation for ML signal generation
+        pass
+    
+    async def process_satellite_signals(self, raw_data: dict, indicator: str) -> pd.DataFrame:
+        """Process satellite data into trading signals"""
+        # Implementation for satellite data processing
+        pass
+    
+    async def analyze_spending_trends(self, spending_data: pd.DataFrame) -> pd.DataFrame:
+        """Analyze credit card spending trends"""
+        # Implementation for spending analysis
+        pass
+    
+    async def analyze_mobility_patterns(self, traffic_data: pd.DataFrame) -> pd.DataFrame:
+        """Analyze mobile location patterns"""
+        # Implementation for mobility analysis
+        pass
+    
+    async def calculate_sentiment_score(self, sentiment_data: dict) -> float:
+        """Calculate normalized sentiment score"""
+        # Implementation for sentiment scoring
+        pass
+    
+    async def process_scraped_content(self, raw_content: str) -> List[dict]:
+        """Process scraped web content for market insights"""
+        # Implementation for content processing
+        pass
+```
+
+### 15. Quantitative Research Tools
+
+**Current Status**: No systematic strategy development tools
+**Impact**: Cannot develop and test trading strategies quantitatively
+**Missing Features**:
+- Historical backtesting engine
+- Strategy builder with visual interface
+- Performance analytics and attribution
+- Risk metrics calculation
+- Strategy optimization tools
+- Walk-forward analysis
+
+**Implementation Priority**: **HIGH**
+**Estimated Effort**: 8-10 weeks
+**Quantitative Research Platform**:
+```python
+# Quantitative Research and Backtesting Platform
+import pandas as pd
+import numpy as np
+from datetime import datetime, timedelta
+import matplotlib.pyplot as plt
+from typing import Dict, List, Callable
+import asyncio
+
+class BacktestingEngine:
+    def __init__(self, initial_capital: float = 100000):
+        self.initial_capital = initial_capital
+        self.commission = 0.001  # 0.1% commission
+        self.slippage = 0.0005   # 0.05% slippage
+        
+    async def run_backtest(self, strategy: Callable, data: pd.DataFrame, 
+                          start_date: datetime, end_date: datetime) -> dict:
+        """Run backtest for a trading strategy"""
+        # Filter data by date range
+        mask = (data['timestamp'] >= start_date) & (data['timestamp'] <= end_date)
+        test_data = data[mask].copy()
+        
+        # Initialize portfolio
+        portfolio = Portfolio(self.initial_capital)
+        
+        # Run strategy
+        signals = []
+        for idx, row in test_data.iterrows():
+            signal = await strategy(row, portfolio)
+            if signal:
+                signals.append(signal)
+                
+                # Execute signal
+                await self.execute_signal(signal, portfolio, row)
+        
+        # Calculate performance metrics
+        performance = await self.calculate_performance_metrics(portfolio, test_data)
+        
+        return {
+            'portfolio_value': portfolio.current_value,
+            'returns': portfolio.returns,
+            'trades': portfolio.trades,
+            'performance_metrics': performance,
+            'signals': signals
+        }
+    
+    async def execute_signal(self, signal: dict, portfolio: 'Portfolio', market_data: pd.Series):
+        """Execute trading signal"""
+        symbol = signal['symbol']
+        side = signal['side']  # 'buy' or 'sell'
+        quantity = signal['quantity']
+        price = market_data['close'] * (1 + self.slippage if side == 'buy' else 1 - self.slippage)
+        
+        # Calculate commission
+        commission = price * quantity * self.commission
+        
+        # Execute trade
+        trade = {
+            'symbol': symbol,
+            'side': side,
+            'quantity': quantity,
+            'price': price,
+            'commission': commission,
+            'timestamp': market_data['timestamp']
+        }
+        
+        portfolio.add_trade(trade)
+    
+    async def calculate_performance_metrics(self, portfolio: 'Portfolio', data: pd.DataFrame) -> dict:
+        """Calculate comprehensive performance metrics"""
+        returns = portfolio.returns
+        
+        # Basic metrics
+        total_return = (portfolio.current_value - self.initial_capital) / self.initial_capital
+        annualized_return = self._annualize_returns(returns)
+        volatility = returns.std() * np.sqrt(252)  # Annualized volatility
+        
+        # Risk metrics
+        sharpe_ratio = annualized_return / volatility if volatility > 0 else 0
+        max_drawdown = self._calculate_max_drawdown(portfolio.portfolio_values)
+        sortino_ratio = self._calculate_sortino_ratio(returns)
+        
+        # Trading metrics
+        total_trades = len(portfolio.trades)
+        winning_trades = len([t for t in portfolio.trades if t['pnl'] > 0])
+        win_rate = winning_trades / total_trades if total_trades > 0 else 0
+        
+        profit_factor = self._calculate_profit_factor(portfolio.trades)
+        
+        return {
+            'total_return': total_return,
+            'annualized_return': annualized_return,
+            'volatility': volatility,
+            'sharpe_ratio': sharpe_ratio,
+            'max_drawdown': max_drawdown,
+            'sortino_ratio': sortino_ratio,
+            'total_trades': total_trades,
+            'win_rate': win_rate,
+            'profit_factor': profit_factor
+        }
+    
+    def _annualize_returns(self, returns: pd.Series) -> float:
+        """Annualize returns"""
+        if len(returns) < 2:
+            return 0
+        
+        total_return = (1 + returns).prod() - 1
+        years = len(returns) / 252  # Assuming daily data
+        
+        return (1 + total_return) ** (1 / years) - 1
+    
+    def _calculate_max_drawdown(self, portfolio_values: List[float]) -> float:
+        """Calculate maximum drawdown"""
+        peak = portfolio_values[0]
+        max_drawdown = 0
+        
+        for value in portfolio_values:
+            if value > peak:
+                peak = value
+            drawdown = (peak - value) / peak
+            max_drawdown = max(max_drawdown, drawdown)
+        
+        return max_drawdown
+    
+    def _calculate_sortino_ratio(self, returns: pd.Series) -> float:
+        """Calculate Sortino ratio"""
+        downside_returns = returns[returns < 0]
+        downside_deviation = downside_returns.std() * np.sqrt(252)
+        
+        annualized_return = self._annualize_returns(returns)
+        
+        return annualized_return / downside_deviation if downside_deviation > 0 else 0
+    
+    def _calculate_profit_factor(self, trades: List[dict]) -> float:
+        """Calculate profit factor"""
+        gross_profit = sum(t['pnl'] for t in trades if t['pnl'] > 0)
+        gross_loss = abs(sum(t['pnl'] for t in trades if t['pnl'] < 0))
+        
+        return gross_profit / gross_loss if gross_loss > 0 else float('inf')
+
+class StrategyBuilder:
+    def __init__(self):
+        self.indicators = {}
+        self.conditions = []
+        
+    def add_indicator(self, name: str, indicator_func: Callable, params: dict):
+        """Add technical indicator"""
+        self.indicators[name] = {
+            'function': indicator_func,
+            'params': params
+        }
+    
+    def add_condition(self, condition: str):
+        """Add entry/exit condition"""
+        self.conditions.append(condition)
+    
+    def build_strategy(self) -> Callable:
+        """Build executable strategy function"""
+        async def strategy(market_data: pd.Series, portfolio: 'Portfolio') -> dict:
+            # Calculate indicators
+            indicator_values = {}
+            for name, indicator in self.indicators.items():
+                indicator_values[name] = await indicator['function'](market_data, **indicator['params'])
+            
+            # Evaluate conditions
+            entry_signal = await self.evaluate_conditions(self.conditions, indicator_values, market_data)
+            
+            if entry_signal:
+                return {
+                    'symbol': market_data['symbol'],
+                    'side': entry_signal['side'],
+                    'quantity': entry_signal['quantity'],
+                    'reason': entry_signal['reason']
+                }
+            
+            return None
+        
+        return strategy
+    
+    async def evaluate_conditions(self, conditions: List[str], indicators: dict, data: pd.Series) -> dict:
+        """Evaluate strategy conditions"""
+        # Implementation for condition evaluation
+        pass
+
+class Portfolio:
+    def __init__(self, initial_capital: float):
+        self.initial_capital = initial_capital
+        self.current_value = initial_capital
+        self.cash = initial_capital
+        self.positions = {}
+        self.trades = []
+        self.portfolio_values = [initial_capital]
+        self.returns = []
+        
+    def add_trade(self, trade: dict):
+        """Add trade to portfolio"""
+        symbol = trade['symbol']
+        side = trade['side']
+        quantity = trade['quantity']
+        price = trade['price']
+        commission = trade['commission']
+        
+        # Calculate trade value
+        trade_value = price * quantity
+        
+        if side == 'buy':
+            # Check if sufficient cash
+            total_cost = trade_value + commission
+            if self.cash >= total_cost:
+                self.cash -= total_cost
+                
+                # Add position
+                if symbol not in self.positions:
+                    self.positions[symbol] = {'quantity': 0, 'avg_price': 0}
+                
+                # Update position
+                current_qty = self.positions[symbol]['quantity']
+                current_avg = self.positions[symbol]['avg_price']
+                
+                new_qty = current_qty + quantity
+                new_avg = ((current_qty * current_avg) + (quantity * price)) / new_qty
+                
+                self.positions[symbol]['quantity'] = new_qty
+                self.positions[symbol]['avg_price'] = new_avg
+                
+        elif side == 'sell':
+            # Check if sufficient position
+            if symbol in self.positions and self.positions[symbol]['quantity'] >= quantity:
+                # Calculate P&L
+                avg_price = self.positions[symbol]['avg_price']
+                pnl = (price - avg_price) * quantity - commission
+                
+                self.cash += trade_value - commission
+                
+                # Update position
+                self.positions[symbol]['quantity'] -= quantity
+                
+                # Remove position if zero
+                if self.positions[symbol]['quantity'] == 0:
+                    del self.positions[symbol]
+                
+                trade['pnl'] = pnl
+        
+        # Update portfolio value
+        self._update_portfolio_value()
+        
+        self.trades.append(trade)
+    
+    def _update_portfolio_value(self):
+        """Update current portfolio value"""
+        position_value = 0
+        
+        # Calculate position values (simplified - would need current prices)
+        for symbol, position in self.positions.items():
+            # In real implementation, get current price
+            current_price = position['avg_price']  # Placeholder
+            position_value += current_price * position['quantity']
+        
+        self.current_value = self.cash + position_value
+        self.portfolio_values.append(self.current_value)
+        
+        # Calculate return
+        if len(self.portfolio_values) > 1:
+            daily_return = (self.current_value - self.portfolio_values[-2]) / self.portfolio_values[-2]
+            self.returns.append(daily_return)
+```
+
 ---
 
-## 📊 Implementation Priority Matrix
+## 🌍 Global Expansion Gaps
 
 | Component | Priority | Impact | Effort | Timeline |
 |-----------|----------|---------|--------|----------|
