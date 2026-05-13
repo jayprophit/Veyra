@@ -169,10 +169,9 @@ cd setup-scripts
 
 ## 🚀 What's New (May 2026) 🆕
 
-### 🌟 Dual Deployment Strategies
+### 🌟 Zero-Cost Deployment
 
 - ✅ **Zero-Cost Multi-Cloud**: Complete platform for $0/month
-- ✅ **Comprehensive Multi-Cloud**: Enterprise-grade deployment
 - ✅ **Automated Setup Scripts**: 30-minute deployment
 - ✅ **Step-by-Step Guides**: Complete documentation
 - ✅ **Multi-Device Sync**: Desktop + Mobile + Tablet + Smart Devices
@@ -187,15 +186,6 @@ cd setup-scripts
 - ✅ **Auth0**: 7,000 MAU authentication
 - ✅ **Free APIs**: Alpha Vantage, Hugging Face, OpenAI
 - ✅ **Monitoring**: Grafana + Prometheus + Uptime Robot
-
-### 💰 Comprehensive Multi-Cloud Platform
-
-- ✅ **AWS + Azure + GCP**: 120+ cloud services
-- ✅ **8 Specialized Systems**: Financial trading, blockchain, quantum computing
-- ✅ **60+ Asset Classes**: From traditional to space economy
-- ✅ **150 AI Models**: Classical to quantum ML
-- ✅ **100 Security Layers**: Post-quantum cryptography
-- ✅ **99.99% Test Coverage**: Production-ready certification
 
 ### Visual Learning AI (Production-Ready)
 
@@ -360,8 +350,6 @@ python -m src.backend.app.api_server
 |----------|-------------|
 | [Zero-Cost Step-by-Step Guide](ZERO_COST_STEP_BY_STEP_GUIDE.md) | Complete zero-cost setup from CPU to cloud |
 | [Zero-Cost Multi-Cloud Guide](ZERO_COST_MULTI_CLOUD_GUIDE.md) | Free-tier multi-cloud deployment strategy |
-| [Comprehensive Multi-Cloud Guide](COMPREHENSIVE_MULTI_CLOUD_GUIDE.md) | Enterprise-grade multi-cloud deployment |
-| [Multi-Cloud Deployment Guide](MULTI_CLOUD_DEPLOYMENT_GUIDE.md) | AWS + Azure + GCP deployment strategy |
 | [Cloud Deployment Guide](CLOUD_DEPLOYMENT_GUIDE.md) | General cloud deployment instructions |
 
 ### 📋 Analysis & Architecture
@@ -654,27 +642,21 @@ docker-compose up -d
 # - Prometheus: http://localhost:9090
 ```
 
-#### 2. Kubernetes (Production)
+#### 2. Zero-Cost Cloud Deployment
 
 ```bash
-# Deploy with Helm (recommended)
-helm install veyra ./helm/veyra \
-  --namespace veyra \
-  --create-namespace \
-  --set global.environment=production
-
-# Or use raw manifests
-kubectl apply -f k8s/
+# Automated zero-cost deployment
+cd setup-scripts
+./setup-all.sh
 ```
-
-#### 3. Cloud Platforms
 
 | Platform | Cost | Best For |
 |----------|------|----------|
-| **Render** | Free tier | Quick cloud deployment |
+| **Render** | Free tier | Python backend hosting |
+| **Cloudflare Pages** | Free tier | Frontend/documentation |
 | **Cloudflare Workers** | Free tier | Edge API gateway |
-| **AWS/GCP/Azure** | Pay per use | Production scale |
-| **Self-hosted K8s** | Hardware cost | Full control |
+| **Neon** | Free tier | PostgreSQL database |
+| **GitHub** | Free | Code hosting & CI/CD |
 
 ### CI/CD Pipeline
 
