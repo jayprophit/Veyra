@@ -9,7 +9,7 @@ Veyra is a modular autonomous intelligence platform designed for self-hosting, s
 **Current State:**
 - ✅ 5-Layer System Architecture - Core Intelligence, Memory, Self-Improvement, Agent Orchestration, Frontend
 - ✅ Self-Hosted AI Infrastructure - Ollama-based with external API fallbacks
-- ✅ Multi-Platform Support - Web, mobile, and desktop applications
+- ✅ Multi-Platform Support - Web, mobile, desktop, tablet, smart TV, smart watch, smart glasses, smart devices
 - ✅ Service-Oriented Architecture - Modular microservices
 - ✅ Event-Driven Design - Decoupled, scalable communication
 - ✅ Replaceable Components - Models, databases, brokers, infrastructure
@@ -22,9 +22,14 @@ Veyra follows a monorepo architecture with clear separation of concerns:
 
 ```
 apps/
-  web/          # React web application
-  mobile/       # Mobile application
-  desktop/      # Desktop application
+  web/            # React web application (control panel)
+  mobile/         # Mobile application (control panel)
+  desktop/        # Desktop application (control panel)
+  tablet/         # Tablet application (control panel)
+  smart-tv/       # Smart TV application
+  smart-watch/    # Smart watch application
+  smart-glasses/  # Smart glasses application
+  smart-devices/  # Other smart devices
 
 services/
   api-gateway/      # API gateway and routing

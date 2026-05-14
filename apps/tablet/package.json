@@ -1,0 +1,23 @@
+{
+  "name": "@veyra/tablet",
+  "version": "1.0.0",
+  "description": "Veyra Tablet Application",
+  "main": "index.js",
+  "scripts": {
+    "dev": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "build": "expo build"
+  },
+  "dependencies": {
+    "expo": "~50.0.0",
+    "react": "18.2.0",
+    "react-native": "0.73.0",
+    "react-navigation": "^6.0.0",
+    "react-native-gesture-handler": "^2.14.0"
+  },
+  "devDependencies": {
+    "@expo/config": "~8.0.0",
+    "@expo/cli": "~6.0.0"
+  }
+}

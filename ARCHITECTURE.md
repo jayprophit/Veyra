@@ -212,12 +212,54 @@ Control panel, visualization, and user interaction layer.
 - iOS and Android support
 - Push notifications
 - Biometric authentication
+- Offline support
 
 **Desktop Application** (apps/desktop)
 - Electron-based
 - Native OS integration
 - Advanced charting
 - Keyboard shortcuts
+- Multi-monitor support
+
+**Tablet Application** (apps/tablet)
+- React Native
+- iPad and Android tablets
+- Tablet-optimized UI
+- Touch gestures
+- Split-screen support
+- Stylus support
+
+**Smart TV Application** (apps/smart-tv)
+- React Native TV
+- Android TV and Apple TV
+- TV-optimized UI
+- Remote control support
+- Voice commands
+- 10-foot UI
+
+**Smart Watch Application** (apps/smart-watch)
+- React Native
+- Apple Watch and Wear OS
+- Watch-optimized UI
+- Quick actions
+- Health data integration
+- Battery optimization
+
+**Smart Glasses Application** (apps/smart-glasses)
+- React Native
+- Vision Pro, Quest, XREAL
+- AR capabilities
+- Voice commands
+- Head-up display
+- Gesture controls
+
+**Smart Devices Application** (apps/smart-devices)
+- React Native
+- Smart speakers, displays, automotive
+- Device-specific UI
+- Voice commands
+- Multi-device sync
+- Home automation
 
 ### Design Principle
 
@@ -233,9 +275,14 @@ The frontend is only the control panel. The real platform is:
 
 ```
 apps/
-  web/          # React web application (control panel)
-  mobile/       # Mobile application (control panel)
-  desktop/      # Desktop application (control panel)
+  web/            # React web application (control panel)
+  mobile/         # Mobile application (control panel)
+  desktop/        # Desktop application (control panel)
+  tablet/         # Tablet application (control panel)
+  smart-tv/       # Smart TV application
+  smart-watch/    # Smart watch application
+  smart-glasses/  # Smart glasses application
+  smart-devices/  # Other smart devices
 
 services/
   api-gateway/      # API gateway and routing

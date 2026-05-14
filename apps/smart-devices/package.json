@@ -1,0 +1,22 @@
+{
+  "name": "@veyra/smart-devices",
+  "version": "1.0.0",
+  "description": "Veyra Smart Devices Application",
+  "main": "index.js",
+  "scripts": {
+    "dev": "expo start",
+    "android": "expo start --android",
+    "build": "expo build"
+  },
+  "dependencies": {
+    "expo": "~50.0.0",
+    "react": "18.2.0",
+    "react-native": "0.73.0",
+    "react-navigation": "^6.0.0",
+    "react-native-voice": "^1.0.0"
+  },
+  "devDependencies": {
+    "@expo/config": "~8.0.0",
+    "@expo/cli": "~6.0.0"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "@veyra/smart-glasses",
+  "version": "1.0.0",
+  "description": "Veyra Smart Glasses Application",
+  "main": "index.js",
+  "scripts": {
+    "dev": "expo start",
+    "ios": "expo start --ios",
+    "android": "expo start --android",
+    "build": "expo build"
+  },
+  "dependencies": {
+    "expo": "~50.0.0",
+    "react": "18.2.0",
+    "react-native": "0.73.0",
+    "three": "^0.160.0",
+    "react-three-fiber": "^8.15.0",
+    "react-navigation": "^6.0.0"
+  },
+  "devDependencies": {
+    "@expo/config": "~8.0.0",
+    "@expo/cli": "~6.0.0"
+  }
+}
