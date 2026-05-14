@@ -676,7 +676,8 @@ class StrategyBuilder:
                 code_lines.append(f"        conditions.append(dataframe['ema_{block.config.get('fast_period', 12)}'].shift(1) <= dataframe['ema_{block.config.get('slow_period', 26)}'].shift(1))")
             elif 'price above' in block.name.lower():
                 code_lines.append(f"        # {block.name}")
-                code_lines.append(f"        conditions.append(dataframe['close'] > {block.config.get('level', 'dataframe[\'sma_20\']')})")
+                level = block.config.get('level', "dataframe['sma_20']")
+                code_lines.append(f"        conditions.append(dataframe['close'] > {level})")
         
         # Add AND logic if multiple conditions
         logic_blocks = [b for b in strategy.blocks if b.type == BlockType.LOGICAL]

@@ -141,7 +141,8 @@ class WSL2Manager:
         """Copy file from WSL to Windows."""
         # Convert Windows path to WSL mount path
         drive = windows_path[0].lower()
-        wsl_windows_path = f"/mnt/{drive}/{windows_path[3:].replace('\\', '/')}"
+        normalized_windows_path = windows_path[3:].replace('\\', '/')
+        wsl_windows_path = f"/mnt/{drive}/{normalized_windows_path}"
         
         success, _, err = self.run_command(f"cp '{wsl_path}' '{wsl_windows_path}'")
         
