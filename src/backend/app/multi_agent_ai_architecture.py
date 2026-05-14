@@ -1,5 +1,5 @@
 """
-Veyra Multi-Agent AI Architecture
+Financial Master Multi-Agent AI Architecture
 Autonomous Specialized Agents for Complete System Management
 Version: 2.0 | Multi-Agent Orchestration Layer
 
@@ -21,10 +21,11 @@ import aiohttp
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional, Tuple, Any
 from dataclasses import dataclass, field
-from enum import Enum
+from .shared_types import AgentType, AgentDecision, SystemState
 import hashlib
 import re
 from abc import ABC, abstractmethod
+from .ai.enhanced_autonomous_ai import EnhancedAutonomousAI
 import pandas as pd
 import numpy as np
 
@@ -34,62 +35,15 @@ logging.basicConfig(
 )
 logger = logging.getLogger('Multi_Agent_Architecture')
 
-
-class AgentType(Enum):
-    ACCOUNTANT = "ai_accountant"
-    LAWYER = "ai_lawyer"
-    GOVERNANCE = "ai_governance"
-    REGULATIONS = "ai_regulations"
-    PROTOCOLS = "ai_protocols"
-    CYBER_SECURITY = "ai_cyber_security"
-    BLOCKCHAIN = "ai_blockchain"
-    ANALYST = "ai_analyst"
-
-
-@dataclass
-class AgentDecision:
-    """Standardized decision format from any agent"""
-    agent_type: AgentType
-    timestamp: datetime
-    decision_id: str
-    category: str
-    priority: str  # CRITICAL, HIGH, MEDIUM, LOW
-    title: str
-    description: str
-    recommended_action: str
-    confidence_score: float  # 0.0 - 1.0
-    supporting_data: Dict
-    requires_approval: bool
-    auto_executable: bool
-    estimated_impact_gbp: Optional[float] = None
-    compliance_check_passed: bool = True
-    risk_level: str = "MEDIUM"
-
-
-@dataclass
-class SystemState:
-    """Global system state shared across all agents"""
-    timestamp: datetime
-    portfolio_value: float
-    cash_position: float
-    active_positions: Dict[str, Dict]
-    open_orders: List[Dict]
-    pending_decisions: List[AgentDecision]
-    alerts: List[Dict]
-    phase: str
-    risk_metrics: Dict
-    compliance_status: Dict
-    last_audit: datetime
-
-
 class BaseAgent(ABC):
     """Abstract base class for all specialized agents"""
     
-    def __init__(self, agent_type: AgentType, config: Dict):
+    def __init__(self, agent_type: AgentType, config: Dict, ai_module: Optional[EnhancedAutonomousAI] = None):
         self.agent_type = agent_type
         self.config = config
         self.memory = []  # Decision history
         self.knowledge_base = {}
+        self.ai_module = ai_module
         self.is_active = True
         self.last_run = None
         self.logger = logging.getLogger(f"Agent.{agent_type.value}")
@@ -131,8 +85,8 @@ class AIAccountant(BaseAgent):
     - Allowance optimization
     """
     
-    def __init__(self, config: Dict):
-        super().__init__(AgentType.ACCOUNTANT, config)
+    def __init__(self, config: Dict, ai_module: Optional[EnhancedAutonomousAI] = None):
+        super().__init__(AgentType.ACCOUNTANT, config, ai_module=ai_module)
         self.tax_year_start = datetime(2025, 4, 6)
         self.allowances = {
             'cgt': 3000,
@@ -152,7 +106,40 @@ class AIAccountant(BaseAgent):
     
     async def analyze(self, system_state: SystemState) -> List[AgentDecision]:
         """Analyze for tax optimization opportunities"""
+        if self.ai_module is None:
+            self.logger.warning("AI module not initialized for AIAccountant. Using default analysis.")
+            return await super().analyze(system_state)
+
+        # Integrate AI/ML for risk assessment to inform tax decisions
+        risk_assessment = await self.ai_module.assess_portfolio_risk({"portfolio": system_state.active_positions})
         decisions = []
+
+        if risk_assessment.get("status") == "success":
+            # Use risk metrics to adjust tax optimization strategy or priority
+            self.logger.info(f"AI/ML Risk Assessment for Accountant: {risk_assessment['metrics']}")
+            
+            decisions.append(AgentDecision(
+                agent_type=self.agent_type,
+                timestamp=datetime.now(),
+                decision_id=self.generate_decision_id("risk_assessment"),
+                category="Risk Management",
+                priority="HIGH" if risk_assessment["metrics"].get("VaR_95", 0) > 0.03 else "MEDIUM",
+                title="AI/ML Risk Assessment",
+                description=f"Portfolio risk assessment completed. VaR_95: {risk_assessment['metrics'].get('VaR_95', 0):.2f}, Sharpe Ratio: {risk_assessment['metrics'].get('sharpe_ratio', 0):.2f}.",
+                recommended_action="Review portfolio risk metrics and consider rebalancing if necessary.",
+                confidence_score=0.95,
+                supporting_data=risk_assessment["metrics"],
+                requires_approval=True,
+                auto_executable=False,
+                estimated_impact_gbp=None,
+                compliance_check_passed=True,
+                risk_level="HIGH" if risk_assessment["metrics"].get("VaR_95", 0) > 0.03 else "LOW"
+            ))
+
+            # Example: If high risk, prioritize tax loss harvesting
+            if risk_assessment["metrics"].get("VaR_95", 0) > 0.03:
+                self.logger.info("High VaR detected, prioritizing tax loss harvesting.")
+                # Reorder or add specific decisions based on AI insight
         
         # Check CGT allowance utilization
         cgt_decision = await self._analyze_cgt_allowance(system_state)
@@ -385,6 +372,7 @@ class AIAccountant(BaseAgent):
     def _get_used_isa_allowance(self) -> float:
         """Get used ISA allowance"""
         # Query database for current tax year ISA contributions
+        from datetime import date
         current_year = date.today().year
         
         # Simulate database query
@@ -833,7 +821,7 @@ class AIProtocols(BaseAgent):
         decisions = []
         
         # Assess protocol risks for any DeFi positions
-        for symbol, position in state.active_positions.items():
+        for symbol, position in system_state.active_positions.items():
             if position.get('type') == 'defi':
                 risk_assessment = await self._assess_protocol_risk(symbol, position)
                 if risk_assessment:
@@ -1253,6 +1241,7 @@ class AIBlockchain(BaseAgent):
         """Get historical gas price data"""
         try:
             # Mock historical data - would fetch from API
+            import random
             history = []
             base_time = datetime.now() - timedelta(days=7)
             
@@ -1337,34 +1326,95 @@ class AIAnalyst(BaseAgent):
     - Peer comparison
     """
     
-    def __init__(self, config: Dict):
-        super().__init__(AgentType.ANALYST, config)
+    def __init__(self, config: Dict, ai_module: Optional[EnhancedAutonomousAI] = None):
+        super().__init__(AgentType.ANALYST, config, ai_module=ai_module)
         self.research_queue = []
         self.market_outlook = {}
+        self.ai_module = ai_module
     
     async def analyze(self, system_state: SystemState) -> List[AgentDecision]:
-        """Market analysis and research"""
+        """Market analysis and research using EnhancedAutonomousAI"""
         decisions = []
-        
-        # Market opportunity analysis
-        opportunities = await self._identify_opportunities(system_state)
-        decisions.extend(opportunities)
-        
-        # Portfolio correlation check
-        correlation_check = await self._check_correlations(system_state)
-        if correlation_check:
-            decisions.append(correlation_check)
-        
-        # Sentiment analysis
-        sentiment = await self._analyze_sentiment()
-        if sentiment:
-            decisions.append(sentiment)
-        
-        # Macroeconomic alerts
-        macro = await self._check_macro_conditions()
-        if macro:
-            decisions.append(macro)
-        
+
+        if self.ai_module is None:
+            self.logger.warning("AI module not initialized for AIAnalyst. Using default analysis.")
+            # Fallback to existing methods if ai_module is not available
+            opportunities = await self._identify_opportunities(system_state)
+            decisions.extend(opportunities)
+            correlation_check = await self._check_correlations(system_state)
+            if correlation_check:
+                decisions.append(correlation_check)
+            sentiment = await self._analyze_sentiment()
+            if sentiment:
+                decisions.append(sentiment)
+            macro = await self._check_macro_conditions()
+            if macro:
+                decisions.append(macro)
+            return decisions
+
+        # Use EnhancedAutonomousAI for financial forecasting and sentiment analysis
+        # For demonstration, let's assume we want to analyze a specific symbol, e.g., from active_positions
+        target_symbol = "AAPL" # This should ideally come from system_state or a task
+        if system_state.active_positions:
+            # Pick the first symbol in active positions for analysis if available
+            target_symbol = next(iter(system_state.active_positions))
+
+        # Financial Forecast
+        forecast_result = await self.ai_module.get_financial_forecast(target_symbol)
+        if forecast_result.get("status") == "success":
+            decisions.append(AgentDecision(
+                agent_type=self.agent_type,
+                timestamp=datetime.now(),
+                decision_id=self.generate_decision_id(f"forecast_{target_symbol}"),
+                category="Market Analysis",
+                priority="HIGH",
+                title=f"Financial Forecast for {target_symbol}",
+                description=f"AI/ML forecast for {target_symbol}: {forecast_result['forecast'][-1]['yhat']:.2f} by end of period. Model: {forecast_result['model']}",
+                recommended_action=f"Review {target_symbol} forecast and consider trading strategy adjustments.",
+                confidence_score=0.85,
+                supporting_data=forecast_result,
+                requires_approval=True,
+                auto_executable=False,
+                estimated_impact_gbp=None,
+                compliance_check_passed=True,
+                risk_level="MEDIUM"
+            ))
+
+        # Advanced Sentiment Analysis (requires news articles, which are not directly in system_state)
+        # For now, we'll use a placeholder or assume news data can be fetched.
+        # In a real scenario, the orchestrator would provide relevant news.
+        mock_news_articles = [
+            {"id": "mock1", "title": f"Positive news for {target_symbol}", "text": f"{target_symbol} shares expected to rise due to strong market performance."},
+            {"id": "mock2", "title": f"Analyst upgrades {target_symbol}", "text": f"Leading analysts have upgraded {target_symbol} stock, citing strong fundamentals."}
+        ]
+        sentiment_results = await self.ai_module.analyze_news_sentiment_advanced(mock_news_articles)
+        if sentiment_results:
+            positive_count = sum(1 for s in sentiment_results if s["sentiment"] == "positive")
+            negative_count = sum(1 for s in sentiment_results if s["sentiment"] == "negative")
+            overall_sentiment = "positive" if positive_count > negative_count else ("negative" if negative_count > positive_count else "neutral")
+
+            decisions.append(AgentDecision(
+                agent_type=self.agent_type,
+                timestamp=datetime.now(),
+                decision_id=self.generate_decision_id(f"sentiment_{target_symbol}"),
+                category="Market Analysis",
+                priority="MEDIUM",
+                title=f"Sentiment Analysis for {target_symbol}",
+                description=f"Overall sentiment for {target_symbol} is {overall_sentiment} based on recent news. ({positive_count} positive, {negative_count} negative).",
+                recommended_action=f"Consider {target_symbol} sentiment in trading decisions.",
+                confidence_score=0.70,
+                supporting_data=sentiment_results,
+                requires_approval=True,
+                auto_executable=False,
+                estimated_impact_gbp=None,
+                compliance_check_passed=True,
+                risk_level="LOW"
+            ))
+
+        # Existing analysis methods can still be called if needed or for additional insights
+        # opportunities = await self._identify_opportunities(system_state)
+        # decisions.extend(opportunities)
+
         return decisions
     
     async def _identify_opportunities(self, state: SystemState) -> List[AgentDecision]:
@@ -1429,6 +1479,7 @@ class MultiAgentOrchestrator:
     
     def __init__(self, config: Dict):
         self.config = config
+        self.enhanced_ai_module = EnhancedAutonomousAI(config=self.config) # Initialize the enhanced AI module
         self.agents = self._initialize_agents()
         self.decision_queue = []
         self.execution_history = []
@@ -1438,14 +1489,14 @@ class MultiAgentOrchestrator:
     def _initialize_agents(self) -> Dict[AgentType, BaseAgent]:
         """Initialize all agents"""
         return {
-            AgentType.ACCOUNTANT: AIAccountant(self.config),
+            AgentType.ACCOUNTANT: AIAccountant(self.config, ai_module=self.enhanced_ai_module),
             AgentType.LAWYER: AILawyer(self.config),
             AgentType.GOVERNANCE: AIGovernance(self.config),
             AgentType.REGULATIONS: AIRegulations(self.config),
             AgentType.PROTOCOLS: AIProtocols(self.config),
             AgentType.CYBER_SECURITY: AICyberSecurity(self.config),
             AgentType.BLOCKCHAIN: AIBlockchain(self.config),
-            AgentType.ANALYST: AIAnalyst(self.config)
+            AgentType.ANALYST: AIAnalyst(self.config, ai_module=self.enhanced_ai_module)
         }
     
     async def run_analysis_cycle(self, system_state: SystemState) -> Dict:
