@@ -57,18 +57,165 @@ AI Router
    │   ├── Automation Model (Qwen 7B fine-tuned)
    │   └── Vision Model (Llava 7B fine-tuned)
    ├── External APIs (Fallback/Acceleration)
-   │   ├── Groq (fast cloud inference)
-   │   ├── OpenAI (premium models)
-   │   └── Cloudflare AI (edge inference)
+   │   ├── Free Open Source Models
+   │   │   ├── Ollama (local/private)
+   │   │   ├── Hugging Face Inference API
+   │   │   ├── Replicate
+   │   │   └── Together AI (free tier)
+   │   ├── Free Closed Source Models
+   │   │   ├── Groq (free tier)
+   │   │   ├── Cohere (free tier)
+   │   │   ├── Perplexity (free tier)
+   │   │   └── DeepSeek (free tier)
+   │   ├── Paid Open Source Models
+   │   │   ├── Together AI (paid)
+   │   │   ├── Fireworks AI
+   │   │   ├── Anyscale
+   │   │   └── Modal
+   │   ├── Paid Closed Source Models
+   │   │   ├── OpenAI (GPT-4, GPT-4 Turbo)
+   │   │   ├── Anthropic (Claude 3 Opus, Sonnet)
+   │   │   ├── Google (Gemini Pro, Ultra)
+   │   │   ├── Azure OpenAI
+   │   │   ├── AWS Bedrock
+   │   │   └── Cloudflare AI (Workers AI)
    └── Agents
        ├── Planning Agent
        ├── Memory Agent
        └── Execution Agent
 ```
 
-## Providers
+## AI Providers
 
-### Ollama
+### Free Open Source Models
+
+**Ollama**
+- Local/private inference
+- Models: Llama 3, Qwen, Mistral, Phi, DeepSeek, Gemma
+- Cost: Free (self-hosted)
+- Use: Local development, offline capability, privacy
+
+**Hugging Face Inference API**
+- Cloud inference for open models
+- Models: All Hugging Face models
+- Cost: Free tier available
+- Use: Quick testing, prototyping
+
+**Replicate**
+- Cloud inference for open models
+- Models: Stable Diffusion, Llama, Whisper
+- Cost: Pay-per-use with free credits
+- Use: Image generation, audio processing
+
+**Together AI (Free Tier)**
+- Optimized inference for open models
+- Models: Llama, Mistral, Qwen, Mixtral
+- Cost: Free tier with rate limits
+- Use: Fast inference, production scaling
+
+### Free Closed Source Models
+
+**Groq**
+- Ultra-fast cloud inference
+- Models: Llama 3, Mixtral, Gemma
+- Cost: Generous free tier
+- Use: Production inference, low latency
+
+**Cohere (Free Tier)**
+- Text generation and embeddings
+- Models: Command, Embed
+- Cost: Free tier available
+- Use: Text generation, RAG
+
+**Perplexity (Free Tier)**
+- AI-powered search and generation
+- Models: Proprietary
+- Cost: Free tier available
+- Use: Research, knowledge retrieval
+
+**DeepSeek (Free Tier)**
+- Open-source models with cloud API
+- Models: DeepSeek Coder, DeepSeek V2
+- Cost: Free tier available
+- Use: Coding, general purpose
+
+### Paid Open Source Models
+
+**Together AI (Paid)**
+- Optimized inference for open models
+- Models: Llama, Mistral, Qwen, Mixtral
+- Cost: Pay-per-use
+- Use: Production inference, scaling
+
+**Fireworks AI**
+- Fast inference for open models
+- Models: Llama, Mixtral, CodeLlama
+- Cost: Pay-per-use
+- Use: Production inference, low latency
+
+**Anyscale**
+- Distributed inference for open models
+- Models: Llama, Mistral, Qwen
+- Cost: Pay-per-use
+- Use: Large-scale inference
+
+**Modal**
+- Serverless inference for open models
+- Models: Custom and open models
+- Cost: Pay-per-use
+- Use: Flexible deployment, scaling
+
+### Paid Closed Source Models
+
+**OpenAI**
+- Industry-leading models
+- Models: GPT-4, GPT-4 Turbo, GPT-3.5
+- Cost: Pay-per-use
+- Use: General purpose, coding, reasoning
+
+**Anthropic**
+- Safe and capable models
+- Models: Claude 3 Opus, Sonnet, Haiku
+- Cost: Pay-per-use
+- Use: General purpose, analysis, coding
+
+**Google (Gemini)**
+- Multimodal models
+- Models: Gemini Pro, Gemini Ultra
+- Cost: Pay-per-use
+- Use: Multimodal, general purpose
+
+**Azure OpenAI**
+- OpenAI models on Azure
+- Models: GPT-4, GPT-3.5, DALL-E
+- Cost: Pay-per-use
+- Use: Enterprise, Azure integration
+
+**AWS Bedrock**
+- Multiple model providers
+- Models: Anthropic, Cohere, AI21, Meta
+- Cost: Pay-per-use
+- Use: Enterprise, AWS integration
+
+**Cloudflare AI (Workers AI)**
+- Edge inference
+- Models: Llama, Mistral, Stable Diffusion
+- Cost: Pay-per-use
+- Use: Edge deployment, low latency
+
+## Provider Selection Strategy
+
+**Primary**: Self-hosted models (Ollama) for sovereignty and cost control
+
+**Fallback**: Free tier providers (Groq, Cohere) for reliability
+
+**Premium**: Paid providers (OpenAI, Anthropic) for advanced features
+
+**Edge**: Cloudflare AI for edge deployment
+
+**Cost Optimization**: Use free tiers for development, paid for production
+
+**Performance**: Use Groq for speed, OpenAI for quality, Ollama for privacy
 
 **Use Cases:**
 - Local development
