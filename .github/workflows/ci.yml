@@ -1,80 +1,25 @@
+
 name: CI
 
 on:
   push:
-    branches: [ main, develop ]
   pull_request:
-    branches: [ main ]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ['3.9', '3.10', '3.11', '3.12']
 
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.python-version }}
-    
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install pytest pytest-asyncio pytest-cov flake8 black
-    
-    - name: Add project to Python path
-      run: |
-        echo "PYTHONPATH=$PYTHONPATH:$(pwd)/src/backend" >> $GITHUB_ENV
-    
-    - name: Lint with flake8 (critical only)
-      run: |
-        flake8 src/backend/app --count --select=E9,F63,F7,F82 --show-source --statistics || true
-    
-    - name: Check formatting with black
-      run: |
-        black --check src/backend/app || echo "Black formatting issues found (non-blocking)"
-    
-    - name: Run tests
-      run: |
-        python -m pytest tests/ -v --tb=short --ignore=tests/e2e || python -m pytest tests/unit -v --tb=short || echo "Tests completed with warnings"
-      continue-on-error: true
-    
-    - name: Generate coverage report
-      run: |
-        python -m pytest tests/unit -v --cov=src/backend/app --cov-report=xml --cov-report=term || echo "Coverage report generated"
-      continue-on-error: true
-    
-    - name: Upload coverage
-      uses: codecov/codecov-action@v3
-      with:
-        file: ./coverage.xml
-        fail_ci_if_error: false
-      continue-on-error: true
+      - uses: actions/checkout@v4
 
-  security:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Security audit
-      run: |
-        python -m pip install bandit safety
-        bandit -r src/backend/app -f json -o bandit-report.json -ll || echo "Bandit scan completed"
-        safety check || echo "Safety check completed"
-      continue-on-error: true
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 10
 
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Markdown lint check
-      uses: DavidAnson/markdownlint-cli2-action@v14
-      with:
-        globs: "**/*.md"
-        continue-on-error: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: npm install -g pnpm
+      - run: pnpm install
+      - run: pnpm build
