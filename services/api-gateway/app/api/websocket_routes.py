@@ -7,15 +7,15 @@ WebSocket endpoints for real-time communication.
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect, Depends, HTTPException
 from typing import Optional
 import logging
+from datetime import datetime
 
-from websocket_manager import (
+from src.backend.app.websocket_manager import (
     manager, 
     websocket_endpoint, 
     WebSocketMessage, 
     WebSocketEventType,
     WebSocketIntegration
 )
-from database_layer import DatabaseManager
 
 logger = logging.getLogger(__name__)
 
@@ -91,16 +91,23 @@ async def websocket_portfolio(websocket: WebSocket, user_id: str):
     await manager.connect(websocket, user_id=user_id)
     
     try:
-        # Send initial portfolio data
-        db = DatabaseManager()
-        holdings = db.get_holdings()
+        # Send initial portfolio data (mock for now)
+        portfolio_data = {
+            "total_value": 100000.00,
+            "day_pnl": 1250.50,
+            "day_pnl_pct": 1.25,
+            "positions": [
+                {"symbol": "AAPL", "quantity": 50, "price": 175.50, "value": 8775.00},
+                {"symbol": "MSFT", "quantity": 30, "price": 380.25, "value": 11407.50}
+            ]
+        }
         
         await manager.send_personal_message(
             websocket,
             WebSocketMessage(
                 type=WebSocketEventType.PORTFOLIO_UPDATE.value,
                 timestamp=datetime.now().isoformat(),
-                data={"holdings": holdings},
+                data=portfolio_data,
                 user_id=user_id
             )
         )
@@ -114,9 +121,6 @@ async def websocket_portfolio(websocket: WebSocket, user_id: str):
     except Exception as e:
         logger.error(f"Portfolio WebSocket error: {e}")
         manager.disconnect(websocket)
-
-
-from datetime import datetime
 
 
 @router.get("/ws/stats")
@@ -135,7 +139,7 @@ async def broadcast_message(message: dict, admin_token: str):
     """
     Broadcast message to all connected clients (admin only).
     """
-    # Verify admin token
+    # Verify admin token (simple check for now)
     if admin_token != "admin_secret":
         raise HTTPException(status_code=403, detail="Unauthorized")
     
