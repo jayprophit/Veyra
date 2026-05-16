@@ -1,0 +1,116 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: veyra-app
+  namespace: default
+  labels:
+    app: veyra
+    component: app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: veyra
+      component: app
+  template:
+    metadata:
+      labels:
+        app: veyra
+        component: app
+    spec:
+      containers:
+      - name: veyra-app
+        image: veyra:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
+          name: web
+          protocol: TCP
+        - containerPort: 3001
+          name: api-gateway
+          protocol: TCP
+        - containerPort: 3002
+          name: ai-engine
+          protocol: TCP
+        env:
+        - name: NODE_ENV
+          value: "production"
+        - name: AI_PROVIDER
+          value: "ollama"
+        - name: AI_MODEL
+          value: "llama3"
+        - name: OLLAMA_HOST
+          value: "http://veyra-ollama:11434"
+        - name: REDIS_URL
+          value: "redis://veyra-redis:6379"
+        - name: POSTGRES_URL
+          valueFrom:
+            secretKeyRef:
+              name: veyra-db-secret
+              key: postgres-url
+        - name: QDRANT_HOST
+          value: "http://veyra-qdrant:6333"
+        - name: QDRANT_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: veyra-qdrant-secret
+              key: api-key
+        resources:
+          requests:
+            cpu: 500m
+            memory: 512Mi
+          limits:
+            cpu: 2000m
+            memory: 2Gi
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 3000
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 2
+        volumeMounts:
+        - name: app-volume
+          mountPath: /app
+      volumes:
+      - name: app-volume
+        emptyDir: {}
+      restartPolicy: Always
+      imagePullSecrets: []
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: veyra-app
+  namespace: default
+  labels:
+    app: veyra
+    component: app
+spec:
+  type: ClusterIP
+  selector:
+    app: veyra
+    component: app
+  ports:
+  - name: web
+    port: 3000
+    targetPort: 3000
+    protocol: TCP
+  - name: api-gateway
+    port: 3001
+    targetPort: 3001
+    protocol: TCP
+  - name: ai-engine
+    port: 3002
+    targetPort: 3002
+    protocol: TCP

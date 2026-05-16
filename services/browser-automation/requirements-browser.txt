@@ -1,0 +1,6 @@
+# Optional browser automation dependencies.
+# Install these only when the richer browser workstream is needed.
+# Pin exact versions after the browser stack is selected and tested together.
+playwright
+crawl4ai
+browser-use

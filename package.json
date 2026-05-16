@@ -3,16 +3,26 @@
   "private": true,
   "packageManager": "pnpm@10.0.0",
   "workspaces": [
-    "apps/*",
-    "services/*",
+    "apps/web",
+    "services/api-gateway",
     "packages/*"
   ],
   "scripts": {
-    "dev": "turbo run dev",
-    "lint": "turbo run lint",
-    "test": "turbo run test"
+    "dev": "pnpm --parallel --filter @veyra/web --filter @veyra/api-gateway dev",
+    "local:start": "powershell -ExecutionPolicy Bypass -File tools/scripts/start-local.ps1",
+    "local:stop": "powershell -ExecutionPolicy Bypass -File tools/scripts/stop-local.ps1",
+    "local:status": "powershell -ExecutionPolicy Bypass -File tools/scripts/status-local.ps1",
+    "build": "pnpm --filter @veyra/web build",
+    "start": "pnpm --filter @veyra/web start",
+    "lint": "pnpm --filter @veyra/web lint && pnpm --filter @veyra/api-gateway lint",
+    "typecheck": "pnpm --filter @veyra/web typecheck && pnpm --filter @veyra/api-gateway typecheck && python -m py_compile services/visual-learning/pipeline.py services/ai-engine/ollama_client.py services/crawler/crawler.py services/crawler/pagination.py services/browser-automation/automation.py",
+    "test": "pnpm --filter @veyra/web test && pnpm --filter @veyra/api-gateway test && python -m pytest services/visual-learning/tests services/crawler/tests services/ai-engine/tests"
   },
-  "devDependencies": {
-    "turbo": "^2.0.0"
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@google/genai",
+      "esbuild",
+      "protobufjs"
+    ]
   }
 }

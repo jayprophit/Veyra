@@ -16,23 +16,28 @@ import {
 const faqs = [
   {
     category: "PROTOCOL",
-    q: "How does Veyra achieve 2.4ms execution latency?",
-    a: "Veyra utilizes a proprietary node-mesh architecture that bypasses standard RPC routing, establishing direct peer-to-peer tunnels with liquidity kernels globally."
+    q: "What is stable in the current private build?",
+    a: "The active foundation is the local API gateway, web app, market normalizer, portfolio mocks, and paper-trading mocks."
   },
   {
     category: "ASSETS",
-    q: "What are 'Mirror Assets' and how are they collateralized?",
-    a: "Mirror Assets are synthetic representations of traditional equities and bonds, backed 1:1 by Veyra Protocol's decentralized reserve pool (DRP) and verified via real-time proof-of-reserve oracles."
+    q: "Are broker execution and live assets enabled?",
+    a: "No. The active trading endpoints are paper-mode only. Broker execution is planned privately before public launch, but it still needs sandboxing, reconciliation, approval, and audit controls."
+  },
+  {
+    category: "ROADMAP",
+    q: "Will AI agents, mobile, smart devices, Web3, and quantum work happen before public release?",
+    a: "Yes. They are private pre-public tracks, each with its own canonical home and release gate. Enterprise deployment comes after the public-release hardening gate."
   },
   {
     category: "SECURITY",
-    q: "Is my data encrypted during cross-node migration?",
-    a: "Yes. All packet transmission uses the Veyra_Protocol_v12 standard, featuring AES-256-GCM quantum-resistant encryption and hardware-level isolation."
+    q: "Can I deploy this publicly now?",
+    a: "Not yet. Public deployment should wait for real auth hardening, audit logging, secret management, backups, and observability."
   },
   {
     category: "FEES",
-    q: "What is the fee structure for the Professional Terminal?",
-    a: "Standard tier users enjoy 0% maker fees. Taker fees are scaled based on VRA token holdings, with a maximum cap of 0.05% per execution cycle."
+    q: "What should I run first?",
+    a: "Run the FastAPI gateway and the web app locally, then verify health, status, OpenAPI, and market quote endpoints."
   }
 ];
 
@@ -50,13 +55,13 @@ export function VeyraSupport() {
          <div className="relative z-10 max-w-2xl">
             <h2 className="text-4xl md:text-6xl font-black italic tracking-tighter uppercase text-white mb-6">Knowledge_Base</h2>
             <p className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-10 leading-relaxed italic">
-               Access the Veyra Protocol documentation, technical specifications, and node troubleshooting manuals.
+               Access private foundation documentation, technical notes, and local troubleshooting guides.
             </p>
             <div className="relative">
                <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-600" size={20} />
                <input 
                  type="text" 
-                 placeholder="Search protocols, fees, or architecture..." 
+                 placeholder="Search setup, API, or architecture..."
                  className="w-full bg-black border border-white/10 rounded-2xl py-6 pl-16 pr-8 text-white font-mono text-sm focus:border-indigo-500 transition-all outline-none"
                  value={search}
                  onChange={e => setSearch(e.target.value)}
@@ -70,10 +75,10 @@ export function VeyraSupport() {
         <div className="lg:col-span-4 space-y-6">
            <h5 className="text-[10px] font-black uppercase text-slate-500 tracking-[0.4em] mb-4">Support_Modules</h5>
            {[
-             { title: "Technical Whitepaper", icon: Book, sub: "V12.0_REVISION" },
-             { title: "Terminal User Guide", icon: Terminal, sub: "PRO_VERSION_3" },
-             { title: "Node Setup Manual", icon: Zap, sub: "FEDERATED_GRID" },
-             { title: "Risk Management", icon: ShieldAlert, sub: "SAFE_EXECUTION" },
+             { title: "Foundation Guide", icon: Book, sub: "LOCAL_CORE" },
+             { title: "API User Guide", icon: Terminal, sub: "FASTAPI_0_1" },
+             { title: "Setup Manual", icon: Zap, sub: "LOCAL_DEV" },
+             { title: "Risk Management", icon: ShieldAlert, sub: "PAPER_MODE" },
            ].map((g, i) => (
              <button key={i} className="w-full flex items-center justify-between p-6 bg-white/5 border border-white/10 rounded-[2rem] hover:bg-white/10 transition-all group">
                 <div className="flex items-center gap-4">
@@ -95,7 +100,7 @@ export function VeyraSupport() {
               </div>
               <h5 className="text-xl font-black italic tracking-tighter uppercase mb-4">Direct Sync</h5>
               <p className="text-[10px] font-bold text-indigo-100 uppercase mb-8">
-                 Need immediate node assistance? Connect with a protocol specialist in the encrypted bridge.
+                 Need implementation notes? Open the support workspace and capture the issue context.
               </p>
               <button className="w-full py-4 bg-white text-indigo-600 rounded-2xl font-black uppercase tracking-widest text-[10px]">
                  Open_Support_Link

@@ -1,0 +1,113 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: veyra-qdrant-secret
+  namespace: default
+type: Opaque
+stringData:
+  api-key: "qdrant_key_123"
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: qdrant-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: veyra-qdrant
+  namespace: default
+  labels:
+    app: veyra
+    component: vector-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: veyra
+      component: vector-db
+  template:
+    metadata:
+      labels:
+        app: veyra
+        component: vector-db
+    spec:
+      containers:
+      - name: qdrant
+        image: qdrant/qdrant:latest
+        ports:
+        - containerPort: 6333
+          name: http
+          protocol: TCP
+        - containerPort: 6334
+          name: grpc
+          protocol: TCP
+        env:
+        - name: QDRANT_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: veyra-qdrant-secret
+              key: api-key
+        resources:
+          requests:
+            cpu: 500m
+            memory: 512Mi
+          limits:
+            cpu: 2000m
+            memory: 2Gi
+        volumeMounts:
+        - name: qdrant-storage
+          mountPath: /qdrant/storage
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 6333
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 6333
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 2
+      volumes:
+      - name: qdrant-storage
+        persistentVolumeClaim:
+          claimName: qdrant-pvc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: veyra-qdrant
+  namespace: default
+  labels:
+    app: veyra
+    component: vector-db
+spec:
+  type: ClusterIP
+  selector:
+    app: veyra
+    component: vector-db
+  ports:
+  - name: http
+    port: 6333
+    targetPort: 6333
+    protocol: TCP
+  - name: grpc
+    port: 6334
+    targetPort: 6334
+    protocol: TCP

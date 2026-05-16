@@ -1,9 +1,57 @@
-node_modules
-.next
-dist
-build
+# Environment and secrets
 .env
 .env.*
+!.env.example
 *.pem
 *.key
-coverage
+*.p12
+*.pfx
+secrets/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+*.db
+*.sqlite
+*.sqlite3
+data/*.db
+data/logs/
+data/runtime/
+
+# Node / frontend
+node_modules/
+.next/
+dist/
+build/
+coverage/
+.turbo/
+.vite/
+*.tsbuildinfo
+
+# Logs and local runtime state
+logs/
+*.log
+*.pid
+.cache/
+tmp/
+temp/
+
+# Editors and OS files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Local deliverables
+_deliverables/
+*.zip

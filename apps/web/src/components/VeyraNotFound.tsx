@@ -90,7 +90,7 @@ export function VeyraNotFound({ onReturn }: NotFoundProps) {
 
       <div className="absolute bottom-10 right-10 flex items-center gap-4 text-slate-500 opacity-50">
         <Search size={16} />
-        <span className="text-xs uppercase tracking-[0.3em]">Quantum Search Fail</span>
+        <span className="text-xs uppercase tracking-[0.3em]">Search Miss</span>
       </div>
 
       <style dangerouslySetInnerHTML={{ __html: `

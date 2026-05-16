@@ -42,12 +42,12 @@ const plans: Plan[] = [
     color: "indigo"
   },
   {
-    id: "transcendent",
-    name: "Transcendent_Alpha",
+    id: "foundation",
+    name: "Private_Alpha",
     price: "$9,999",
     nodeLimit: "Unlimited Nodes",
     latency: "0.2ms",
-    features: ["Quantum-Secured Tunneling", "Unlimited Bot Forge Slots", "Raw Oracle Feed Access", "Dedicated Sovereign Engineer"],
+    features: ["Encrypted Workspace", "Bot Forge Slots", "Local Feed Access", "Dedicated Build Notes"],
     color: "emerald"
   }
 ];
@@ -77,7 +77,7 @@ export function VeyraMonetization() {
                : 'bg-[#0a0a0a] border-white/5 hover:border-white/10'
              }`}
            >
-              {plan.id === 'transcendent' && (
+              {plan.id === 'foundation' && (
                 <div className="absolute top-0 right-0 p-8 text-emerald-500/10">
                    <Zap size={160} />
                 </div>

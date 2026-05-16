@@ -40,7 +40,7 @@ export function VeyraSettings() {
     email: user?.email || "jprophit@gmail.com",
     walletAddress: "0x71C7656EC7ab88b098defB751B7401B5f6d8976F",
     protocolId: "VRA_ALPHA_001_X",
-    accountTier: "Transcendent"
+    accountTier: "Foundation"
   });
 
   const toggleSetting = (key: keyof typeof toggles) => {

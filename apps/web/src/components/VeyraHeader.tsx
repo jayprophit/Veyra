@@ -86,19 +86,14 @@ export function VeyraHeader({ onMenuToggle, onViewChange, currentView }: HeaderP
   }, []);
 
   const searchResults = [
-    { id: "dashboard", label: "Markets Overview", group: "Trading" },
-    { id: "trading", label: "Trading Engine", group: "Execution" },
-    { id: "terminal", label: "Professional Terminal", group: "Execution" },
-    { id: "bots", label: "Alpha Bot Settings", group: "Automation" },
-    { id: "vault", label: "DeFi Lockdown", group: "Automation" },
-    { id: "extraction", label: "Mining Modules", group: "Automation" },
-    { id: "monetization", label: "Revenue Portals", group: "Business" },
-    { id: "diagnostics", label: "Deep System Audit", group: "Diagnostics" },
-    { id: "forge", label: "Neural Forge", group: "Intelligence" },
-    { id: "intelligence", label: "Neural Signals", group: "Intelligence" },
+    { id: "dashboard", label: "Overview", group: "Foundation" },
+    { id: "markets", label: "Market Data", group: "Foundation" },
+    { id: "trading", label: "Paper Trading", group: "Execution" },
+    { id: "portfolio", label: "Portfolio", group: "Foundation" },
+    { id: "diagnostics", label: "Health Checks", group: "Operations" },
+    { id: "account", label: "Account Settings", group: "System" },
     { id: "support", label: "Knowledge Base", group: "Help" },
-    { id: "legal", label: "Protocol Compliance", group: "Legal" },
-    { id: "infrastructure", label: "Cluster Deployment", group: "Audit" },
+    { id: "legal", label: "Risk Notes", group: "Legal" },
   ].filter(r => r.label.toLowerCase().includes(searchValue.toLowerCase()));
 
   return (
@@ -229,14 +224,14 @@ export function VeyraHeader({ onMenuToggle, onViewChange, currentView }: HeaderP
                    className="absolute right-0 mt-4 w-80 bg-zinc-950 border border-white/10 rounded-3xl shadow-2xl p-6 space-y-6"
                  >
                     <div className="flex items-center justify-between">
-                       <h5 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Protocol Alerts</h5>
+                       <h5 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Local Alerts</h5>
                        <span className="text-[10px] text-indigo-400 cursor-pointer">Mark all read</span>
                     </div>
                     <div className="space-y-4">
                        {[
-                         { title: "VRA_SIGNAL", msg: "Contrarian engine detected 92% reversal.", time: "2m", alert: true },
-                         { title: "MINT_COMP", msg: "Level 12 identity mark forged.", time: "1h", alert: false },
-                         { title: "INFRA_VAL", msg: "Multicloud node sync complete.", time: "3h", alert: false },
+                         { title: "API_HEALTH", msg: "Gateway health check is responding.", time: "2m", alert: false },
+                         { title: "PAPER_ORDER", msg: "One paper order is ready for review.", time: "1h", alert: true },
+                         { title: "MARKET_CACHE", msg: "Local market snapshot refreshed.", time: "3h", alert: false },
                        ].map((n, i) => (
                          <div key={i} className="flex gap-4 p-3 hover:bg-white/5 rounded-2xl transition-colors cursor-pointer border border-transparent hover:border-white/5">
                             <div className={`w-2 h-2 mt-1.5 rounded-full ${n.alert ? 'bg-rose-500' : 'bg-slate-700'}`}></div>
@@ -263,17 +258,17 @@ export function VeyraHeader({ onMenuToggle, onViewChange, currentView }: HeaderP
              <div className="absolute right-0 mt-4 w-96 bg-zinc-950 border border-white/10 rounded-[2.5rem] shadow-2xl opacity-0 translate-y-4 pointer-events-none group-hover/notify:opacity-100 group-hover/notify:translate-y-0 group-hover/notify:pointer-events-auto transition-all p-2 z-[100] backdrop-blur-2xl">
                 <div className="p-6 border-b border-white/5 flex items-center justify-between">
                    <div>
-                      <h6 className="text-white font-black italic uppercase tracking-tighter text-lg">Signal_Feed</h6>
-                      <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest">3 New Critical Alerts</p>
+                      <h6 className="text-white font-black italic uppercase tracking-tighter text-lg">Activity_Feed</h6>
+                      <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest">3 Recent Local Events</p>
                    </div>
                    <button className="text-[9px] font-black text-indigo-400 uppercase tracking-widest hover:text-white transition-colors">Mark_Read</button>
                 </div>
                 
                 <div className="max-h-96 overflow-y-auto p-2 space-y-2 scrollbar-hide">
                    {[
-                     { title: "Protocol Sync", desc: "Node Alpha-12 successfully handoff to GCP cluster.", time: "2m ago", type: "info" },
-                     { title: "Liquidity Alert", desc: "VRA/USDT depth increased by 24% in last 12s.", time: "5m ago", type: "success" },
-                     { title: "Security Breach", desc: "Brute force blocked from 182.xx node kernel.", time: "12m ago", type: "error" },
+                     { title: "API Ready", desc: "Gateway health endpoint returned successfully.", time: "2m ago", type: "success" },
+                     { title: "Market Refresh", desc: "Canonical quote cache updated for tracked symbols.", time: "5m ago", type: "info" },
+                     { title: "Paper Review", desc: "Pending paper order requires confirmation.", time: "12m ago", type: "error" },
                    ].map((n, i) => (
                      <div key={i} className="p-4 bg-white/[0.02] border border-transparent hover:border-white/5 hover:bg-white/5 rounded-3xl transition-all cursor-pointer group/n">
                         <div className="flex justify-between items-start mb-2">
@@ -291,7 +286,7 @@ export function VeyraHeader({ onMenuToggle, onViewChange, currentView }: HeaderP
 
                 <div className="p-4 pt-2">
                    <button className="w-full py-4 bg-white/5 border border-white/5 rounded-[1.8rem] text-[9px] font-black uppercase text-slate-400 tracking-widest hover:bg-white transition-all hover:text-black">
-                      View_All_Telemtry
+                      View_All_Activity
                    </button>
                 </div>
              </div>
@@ -343,10 +338,9 @@ export function VeyraHeader({ onMenuToggle, onViewChange, currentView }: HeaderP
                 </div>
                 <div className="space-y-1">
                    {[
-                     { label: "Security Console", id: "account", icon: ShieldCheck },
-                     { label: "Infrastructure Hub", id: "infrastructure", icon: Layers },
-                     { label: "Protocol Settings", id: "account", icon: Settings },
-                     { label: "Identity Studio", id: "identity", icon: User }
+                     { label: "Account Settings", id: "account", icon: Settings },
+                     { label: "Health Checks", id: "diagnostics", icon: ShieldCheck },
+                     { label: "Knowledge Base", id: "support", icon: Layers }
                    ].map((item, i) => (
                      <button 
                         key={i}
@@ -368,7 +362,7 @@ export function VeyraHeader({ onMenuToggle, onViewChange, currentView }: HeaderP
                      onClick={() => logout()}
                      className="w-full py-5 bg-rose-500/5 border border-rose-500/10 rounded-[2rem] text-[9px] font-black uppercase text-rose-500/80 tracking-[0.3em] hover:bg-rose-500/10 hover:text-rose-500 transition-all"
                    >
-                      Terminate_Node_Session
+                      Sign_Out
                    </button>
                 </div>
              </div>
@@ -399,7 +393,7 @@ export function VeyraHeader({ onMenuToggle, onViewChange, currentView }: HeaderP
                     <Search className="text-indigo-400" size={24} />
                     <input 
                       autoFocus
-                      placeholder="Search protocol, assets, or systems..."
+                      placeholder="Search foundation views..."
                       value={searchValue}
                       onChange={(e) => setSearchValue(e.target.value)}
                       className="flex-1 bg-transparent border-none text-2xl font-bold tracking-tighter text-white placeholder-slate-800 outline-none italic"
@@ -449,7 +443,7 @@ export function VeyraHeader({ onMenuToggle, onViewChange, currentView }: HeaderP
                        <span>to navigate</span>
                     </div>
                  </div>
-                 <div className="text-[9px] text-slate-700 font-mono uppercase tracking-[0.3em]">Protocol_V12_Query_Node</div>
+                 <div className="text-[9px] text-slate-700 font-mono uppercase tracking-[0.3em]">Foundation_Search</div>
               </div>
             </motion.div>
           </div>

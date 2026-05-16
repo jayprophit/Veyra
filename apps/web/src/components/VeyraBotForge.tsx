@@ -35,7 +35,7 @@ interface BotStrategy {
 const INITIAL_STRATEGIES: BotStrategy[] = [
   { 
     id: 'S1', 
-    name: 'Quantum_Momentum', 
+    name: 'Momentum_Core',
     type: 'momentum', 
     riskLevel: 'high', 
     description: 'Transformer-based trend identification with high-leverage execution.',
@@ -104,7 +104,7 @@ export function VeyraBotForge() {
     },
     { 
       id: "V-12", 
-      name: "Transcendent_Node", 
+      name: "Private_Node",
       status: "OPTIMIZING", 
       strategyId: 'S3',
       allocation: 5000,
@@ -735,7 +735,7 @@ export function VeyraBotForge() {
                  <Database size={16} className="text-indigo-400" />
                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Global Compute Cluster</span>
                </div>
-               <h3 className="text-4xl font-black italic tracking-tighter mb-4 uppercase text-white">Transcendent Training</h3>
+               <h3 className="text-4xl font-black italic tracking-tighter mb-4 uppercase text-white">Strategy Training</h3>
                <p className="text-slate-400 text-sm leading-relaxed mb-8 max-w-lg">
                  Our agents are trained in a distributed GPU mesh across 12 global regions, utilizing real-time order-book telemetry to optimize hyper-parameters in sub-second intervals.
                </p>

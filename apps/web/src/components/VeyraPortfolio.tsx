@@ -35,7 +35,7 @@ const portfolioData = [
   { name: 'Bonds', value: 15, color: '#f59e0b' },
   { name: 'Crytpo', value: 20, color: '#10b981' },
   { name: 'Mining', value: 10, color: '#ef4444' },
-  { name: 'NFTs', value: 10, color: '#a855f7' },
+  { name: 'Alternatives', value: 10, color: '#a855f7' },
 ];
 
 const performanceData = [

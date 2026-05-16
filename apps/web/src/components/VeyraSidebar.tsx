@@ -7,29 +7,21 @@ import { motion, AnimatePresence } from "motion/react";
 import { 
   Layout, 
   Landmark, 
-  Coins, 
-  Cpu, 
-  Pickaxe, 
-  Zap, 
-  Brain,
   ShieldCheck, 
-  Layers, 
   ChevronRight,
   ChevronDown, 
   Settings, 
-  Users,
   Briefcase,
   Activity,
   HelpCircle,
   Bell,
   Search,
   Menu,
-  Globe,
   Gavel,
-  Compass,
   X,
   MessageCircle,
-  FileText
+  FileText,
+  BookOpen
 } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
@@ -44,7 +36,7 @@ interface SidebarProps {
 
 export function VeyraSidebar({ currentView, onViewChange, isOpen, onToggle }: SidebarProps) {
   const { user } = useAuth();
-  const [expandedGroups, setExpandedGroups] = useState<string[]>(["Markets", "Automation", "Intelligence"]);
+  const [expandedGroups, setExpandedGroups] = useState<string[]>(["Foundation", "Operations"]);
 
   const toggleGroup = (group: string) => {
     setExpandedGroups(prev => 
@@ -105,42 +97,21 @@ export function VeyraSidebar({ currentView, onViewChange, isOpen, onToggle }: Si
 
   const menuGroups = [
     {
-      name: "Markets",
+      name: "Foundation",
       icon: Landmark,
       items: [
-        { id: "dashboard", label: "Global Overview", icon: Layout },
-        { id: "trading", label: "Lite Engine", icon: Activity },
-        { id: "terminal", label: "Professional Terminal", icon: Zap },
-        { id: "converter", label: "Currency Oracle", icon: Globe },
-        { id: "markets", label: "Stocks & Bonds", icon: Briefcase },
+        { id: "dashboard", label: "Overview", icon: Layout },
+        { id: "markets", label: "Market Data", icon: Briefcase },
+        { id: "trading", label: "Paper Trading", icon: Activity },
         { id: "portfolio", label: "My Portfolio", icon: Landmark },
+        { id: "research", label: "Research Reader", icon: BookOpen },
       ]
     },
     {
-      name: "Automation",
-      icon: Cpu,
+      name: "Operations",
+      icon: Activity,
       items: [
-        { id: "bots", label: "AI Bot Forge", icon: Cpu },
-        { id: "extraction", label: "Mining Utilities", icon: Pickaxe },
-        { id: "vault", label: "DeFi Lockdown", icon: Coins },
-      ]
-    },
-    {
-      name: "Intelligence",
-      icon: Zap,
-      items: [
-        { id: "intelligence", label: "Neural Signals", icon: Zap },
-        { id: "forge", label: "Neural Forge", icon: Brain },
-        { id: "community", label: "Divine Network", icon: Users },
-        { id: "monetization", label: "Revenue Portals", icon: Coins },
-      ]
-    },
-    {
-      name: "Internal_Audit",
-      icon: ShieldCheck,
-      items: [
-        { id: "diagnostics", label: "System Deep-Scan", icon: Activity },
-        { id: "infrastructure", label: "Node Deployment", icon: Layers },
+        { id: "diagnostics", label: "Health Checks", icon: Activity },
       ]
     }
   ];
@@ -150,8 +121,7 @@ export function VeyraSidebar({ currentView, onViewChange, isOpen, onToggle }: Si
       name: "System",
       icon: Settings,
       items: [
-        { id: "identity", label: "Identity Studio", icon: ShieldCheck },
-        { id: "account", label: "Security & Protocols", icon: Settings },
+        { id: "account", label: "Account Settings", icon: Settings },
       ]
     },
     {
@@ -188,8 +158,8 @@ export function VeyraSidebar({ currentView, onViewChange, isOpen, onToggle }: Si
           <div className="flex items-center gap-4">
              <VeyraLogo size="sm" />
              <div>
-                <h1 className="font-bold tracking-tight text-white uppercase italic">Veyra_Hub</h1>
-                <p className="text-[10px] text-slate-500 font-mono font-bold tracking-widest uppercase italic">Kernel.V12.4</p>
+                <h1 className="font-bold tracking-tight text-white uppercase italic">Veyra_Foundation</h1>
+                <p className="text-[10px] text-slate-500 font-mono font-bold tracking-widest uppercase italic">Local.Core.0.1</p>
              </div>
           </div>
           <button onClick={onToggle} className="lg:hidden p-2 text-slate-500 hover:text-white">

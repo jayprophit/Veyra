@@ -348,7 +348,7 @@ export function VeyraModelTraining() {
               </div>
               <h5 className="text-xl font-black italic tracking-tighter uppercase mb-2">Neural_Compute</h5>
               <p className="text-[10px] font-bold text-indigo-100 uppercase italic mb-8">
-                Your current cycle is utilizing 0.2% of the Veyra Transcendent Grid.
+                Your current cycle is utilizing 0.2% of the Veyra private training grid.
               </p>
               <div className="h-px bg-white/20 mb-8" />
               <div className="flex justify-between items-center">

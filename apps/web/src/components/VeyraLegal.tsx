@@ -20,7 +20,7 @@ export function VeyraLegal() {
          <div className="relative z-10 max-w-3xl">
             <div className="flex items-center gap-3 mb-6">
                <ShieldCheck size={24} className="text-emerald-500" />
-               <p className="text-[10px] font-black text-emerald-500 uppercase tracking-[0.4em]">Protocol Verification v12.0</p>
+               <p className="text-[10px] font-black text-emerald-500 uppercase tracking-[0.4em]">Foundation Verification 0.1.0</p>
             </div>
             <h2 className="text-5xl md:text-7xl font-black italic tracking-tighter uppercase text-white mb-8">Legal_Framework</h2>
             <p className="text-base font-bold text-slate-500 leading-relaxed italic uppercase tracking-widest border-l-2 border-indigo-500/30 pl-8">

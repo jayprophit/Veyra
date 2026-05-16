@@ -78,7 +78,7 @@ export function VeyraExtractionLab() {
              <h2 className="text-4xl font-black italic tracking-tighter text-white">1,240,490,221</h2>
              <div className="flex justify-center gap-2 mt-4">
                <span className="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 text-[8px] font-bold border border-emerald-500/20 rounded uppercase">Minting Enabled</span>
-               <span className="px-2 py-0.5 bg-indigo-500/10 text-indigo-400 text-[8px] font-bold border border-indigo-500/20 rounded uppercase">Transcendent Tier</span>
+               <span className="px-2 py-0.5 bg-indigo-500/10 text-indigo-400 text-[8px] font-bold border border-indigo-500/20 rounded uppercase">Private Foundation</span>
              </div>
           </div>
 

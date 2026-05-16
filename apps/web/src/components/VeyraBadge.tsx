@@ -4,7 +4,7 @@
  */
 
 import { motion } from "motion/react";
-import { Shield, Zap, Sparkles, Globe, Cpu, Infinity, Triangle } from "lucide-react";
+import { Shield, Zap, Sparkles, Globe, Cpu, Infinity as InfinityIcon, Triangle, type LucideIcon } from "lucide-react";
 
 export type TierType = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | "404";
 
@@ -13,7 +13,7 @@ interface BadgeProps {
   size?: "sm" | "md" | "lg";
 }
 
-const tierMeta = {
+const tierMeta: Record<TierType, { name: string; color: string; icon: LucideIcon }> = {
   1: { name: "Foundation", color: "from-slate-400 to-slate-600", icon: Shield },
   2: { name: "Builder", color: "from-blue-400 to-blue-600", icon: Zap },
   3: { name: "Architect", color: "from-cyan-400 to-cyan-600", icon: Globe },
@@ -23,9 +23,9 @@ const tierMeta = {
   7: { name: "Master", color: "from-indigo-400 to-indigo-600", icon: Sparkles },
   8: { name: "Elite", color: "from-rose-400 to-rose-600", icon: Shield },
   9: { name: "Visionary", color: "from-amber-400 to-amber-600", icon: Cpu },
-  10: { name: "Transcendent", color: "from-violet-500 via-fuchsia-500 to-indigo-500", icon: Infinity },
+  10: { name: "Foundation", color: "from-violet-500 via-fuchsia-500 to-indigo-500", icon: InfinityIcon },
   11: { name: "Divine", color: "from-yellow-200 via-amber-400 to-yellow-500", icon: Sparkles },
-  12: { name: "Final", color: "from-zinc-900 via-slate-800 to-black", icon: Infinity },
+  12: { name: "Final", color: "from-zinc-900 via-slate-800 to-black", icon: InfinityIcon },
   "404": { name: "Lost in Void", color: "from-red-500 to-red-800", icon: Triangle },
 };
 

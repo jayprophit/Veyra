@@ -1,37 +1,20 @@
-# Veyra Mobile Applications
-=====================================
-Enterprise-grade mobile applications for iOS and Android
+# Mobile App
 
-## Overview
-Veyra mobile applications provide full-featured financial management, trading, and portfolio tracking capabilities with enterprise-grade security and real-time synchronization.
+Private pre-public mobile workstream.
 
-## Features
-- Real-time trading and portfolio management
-- Advanced charting and technical analysis
-- Biometric authentication and security
-- Offline mode with synchronization
-- Push notifications and alerts
-- Multi-language support
-- Dark/light theme
-- Accessibility features
-- Performance optimization
+## Current State
 
-## Architecture
-- **iOS**: Swift + SwiftUI + Combine
-- **Android**: Kotlin + Jetpack Compose + Coroutines
-- **Cross-platform**: React Native + TypeScript
-- **Backend**: FastAPI + WebSocket
-- **Database**: SQLite + Cloud sync
+This directory contains the canonical early React Native scaffold. It is not yet part of the active Phase 1 runtime.
 
-## Security
-- End-to-end encryption
-- Biometric authentication
-- Hardware security module integration
-- Zero-trust architecture
-- Regulatory compliance
+The previous duplicate Flutter scaffold was moved to `archive/mobile_flutter_legacy/`.
 
-## Installation
-See platform-specific installation guides in respective directories.
+## Required Before Public Release
 
-## Support
-For support and documentation, visit: https://docs.veyra.com/mobile
+- authenticated read-only portfolio and market views
+- offline cache and recovery behavior
+- push notifications
+- reduced-bandwidth streaming
+- battery-aware sync
+- explicit separation between paper-trading and any future live-trading action
+
+Native iOS and Android specializations can be added after the API contract is stable.

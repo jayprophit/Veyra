@@ -49,7 +49,7 @@ We aim to respond within 48 hours and provide a fix within 7 days for critical v
 - Review your account activity regularly
 - Use secure connections (HTTPS)
 
-## Security Architecture
+## Target Security Architecture
 
 ### Authentication
 

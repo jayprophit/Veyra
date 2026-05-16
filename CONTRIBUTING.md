@@ -36,7 +36,7 @@ pnpm dev
 
 ### Branching Strategy
 
-- `main` - Production-ready code
+- `main` - stable integration branch
 - `develop` - Integration branch for features
 - `feature/*` - New features
 - `bugfix/*` - Bug fixes

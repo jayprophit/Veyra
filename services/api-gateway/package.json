@@ -1,0 +1,13 @@
+{
+  "name": "@veyra/api-gateway",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Local-first FastAPI gateway for Veyra",
+  "scripts": {
+    "dev": "python -m uvicorn main:app --reload --host 127.0.0.1 --port 8000",
+    "start": "python -m uvicorn main:app --host 0.0.0.0 --port 8000",
+    "lint": "python -m py_compile main.py app/database.py ../market-data/models.py ../market-data/normalizer.py",
+    "typecheck": "python -m py_compile main.py app/application.py app/database.py ../market-data/models.py ../market-data/normalizer.py",
+    "test": "python -m pytest tests"
+  }
+}

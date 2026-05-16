@@ -333,7 +333,7 @@ export function VeyraTradingTerminal() {
                           <span className={`text-lg font-black italic uppercase ${side === 'buy' ? 'text-emerald-400' : 'text-rose-400'}`}>{side === 'buy' ? 'LONG_EXEC' : 'SHORT_EXEC'}</span>
                        </div>
                        <div className="flex justify-between items-center py-4 border-b border-white/5">
-                          <span className="text-[10px] font-black uppercase text-slate-600 tracking-widest">Quantum_Size</span>
+                          <span className="text-[10px] font-black uppercase text-slate-600 tracking-widest">Order_Size</span>
                           <span className="text-lg font-black italic">{amount} USDT</span>
                        </div>
                        <div className="flex justify-between items-center py-4">

@@ -1,0 +1,150 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/web.Dockerfile
+      target: production
+      args:
+        VITE_API_BASE_URL: http://localhost:8000
+    container_name: veyra-web
+    environment:
+      VITE_API_BASE_URL: http://localhost:8000
+    cpus: 1.0
+    mem_limit: 768m
+    ports:
+      - "3000:3000"
+    depends_on:
+      api:
+        condition: service_healthy
+    networks:
+      - veyra-network
+    restart: unless-stopped
+
+  api:
+    build:
+      context: .
+      dockerfile: services/api-gateway/Dockerfile
+    container_name: veyra-api
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-veyra}:${POSTGRES_PASSWORD:-veyra-local}@postgres:5432/${POSTGRES_DB:-veyra_dev}
+      REDIS_URL: redis://redis:6379
+      QDRANT_HOST: http://qdrant:6333
+      OLLAMA_HOST: ${OLLAMA_HOST:-http://host.docker.internal:11434}
+      AI_MODEL: ${AI_MODEL:-llama3.2:3b}
+      VEYRA_DEV_EMAIL: ${VEYRA_DEV_EMAIL:-local@veyra.dev}
+      VEYRA_DEV_PASSWORD: ${VEYRA_DEV_PASSWORD:-change-me}
+    cpus: 1.0
+    mem_limit: 768m
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - veyra-network
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: veyra-postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-veyra}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-veyra-local}
+      POSTGRES_DB: ${POSTGRES_DB:-veyra_dev}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    cpus: 0.75
+    mem_limit: 512m
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USER:-veyra} -d ${POSTGRES_DB:-veyra_dev}",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - veyra-network
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: veyra-redis
+    command: redis-server --appendonly yes --save 60 1000
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    cpus: 0.50
+    mem_limit: 256m
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    networks:
+      - veyra-network
+    restart: unless-stopped
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: veyra-qdrant
+    volumes:
+      - qdrant_data:/qdrant/storage
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    cpus: 0.75
+    mem_limit: 512m
+    networks:
+      - veyra-network
+    restart: unless-stopped
+    profiles:
+      - vector
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: veyra-ollama
+    environment:
+      OLLAMA_HOST: 0.0.0.0:11434
+    volumes:
+      - ollama_data:/root/.ollama
+    ports:
+      - "11434:11434"
+    networks:
+      - veyra-network
+    restart: unless-stopped
+    profiles:
+      - ai
+
+  adminer:
+    image: adminer:latest
+    container_name: veyra-adminer
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - veyra-network
+    restart: unless-stopped
+    profiles:
+      - tools
+
+volumes:
+  postgres_data:
+  redis_data:
+  qdrant_data:
+  ollama_data:
+
+networks:
+  veyra-network:
+    driver: bridge

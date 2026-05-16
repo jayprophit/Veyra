@@ -31,7 +31,7 @@ export function VeyraShield({ label, value, color }: ShieldProps) {
 
 export function VeyraREADMEAssets() {
   const [copied, setCopied] = useState(false);
-  const markdown = `[![Veyra License](https://img.shields.io/badge/License-Apache_2.0-red.svg)](LICENSE)\n[![Tier Achievement](https://img.shields.io/badge/Tier-Transcendent-blueviolet.svg)](#tiers)`;
+  const markdown = `[![Veyra License](https://img.shields.io/badge/License-Apache_2.0-red.svg)](LICENSE)\n[![Project Status](https://img.shields.io/badge/Status-Private_Foundation-blueviolet.svg)](#status)`;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(markdown);
@@ -47,7 +47,7 @@ export function VeyraREADMEAssets() {
         <VeyraShield label="License" value="Apache-2.0" color="#D22" />
         <VeyraShield label="Build" value="Passing" color="#4c1" />
         <VeyraShield label="Version" value="12.4.0-Final" color="#007ec6" />
-        <VeyraShield label="Tier" value="Transcendent" color="#9c27b0" />
+        <VeyraShield label="Status" value="Foundation" color="#9c27b0" />
       </div>
 
       <div className="bg-black/60 rounded-xl p-4 border border-white/5 relative group">

@@ -1,245 +1,174 @@
-# 🌟 Veyra → VRA
+# Veyra
 
-**Modular Autonomous Intelligence Platform for Financial Operations**
+Veyra is a private, local-first financial intelligence platform in active development. The current goal is to build the core privately, then add the advanced capabilities you actually want before any public launch.
 
-## Overview
+## Current Focus
 
-Veyra is a modular autonomous intelligence platform designed for self-hosting, self-improvement, and independence from external AI vendors. Built as a 5-layer system architecture for complete intellectual property ownership and long-term sovereignty.
+- FastAPI gateway for local development
+- Canonical market data normalization
+- React web control panel
+- Portfolio endpoints and database-backed paper trading
+- Local Ollama-backed chat endpoints
+- Readable web crawling with paginated research documents
+- Bounded browser research automation with multi-page crawling
+- PostgreSQL-backed local persistence plus Redis infrastructure
+- Basic CI checks for the web app, API, and secret scanning
 
-**Current State:**
-- ✅ 5-Layer System Architecture - Core Intelligence, Memory, Self-Improvement, Agent Orchestration, Frontend
-- ✅ Self-Hosted AI Infrastructure - Ollama-based with external API fallbacks
-- ✅ Multi-Platform Support - Web, mobile, desktop, tablet, smart TV, smart watch, smart glasses, smart devices
-- ✅ Service-Oriented Architecture - Modular microservices
-- ✅ Event-Driven Design - Decoupled, scalable communication
-- ✅ Replaceable Components - Models, databases, brokers, infrastructure
-- ✅ Development Ready - CI/CD pipelines and testing infrastructure
----
+## Repository Layout
 
-## Architecture
-
-Veyra follows a monorepo architecture with clear separation of concerns:
-
-```
+```text
 apps/
-  web/            # React web application (control panel)
-  mobile/         # Mobile application (control panel)
-  desktop/        # Desktop application (control panel)
-  tablet/         # Tablet application (control panel)
-  smart-tv/       # Smart TV application
-  smart-watch/    # Smart watch application
-  smart-glasses/  # Smart glasses application
-  smart-devices/  # Other smart devices
-
+  web/                  Active React/Vite web application
+  mobile/               Private pre-public mobile workstream
+  desktop/              Private pre-public desktop workstream
 services/
-  api-gateway/      # API gateway and routing
-  market-data/      # Market data service
-  analytics/        # Analytics service
-  auth/             # Authentication service
-  alerts/           # Alerts service
-  portfolio/        # Portfolio management
-  ai-engine/        # AI/ML engine (custom LLM support)
-  backtesting/      # Backtesting service
-  execution/        # Trade execution
-
-packages/
-  ui/              # Shared UI components
-  types/           # Shared TypeScript types
-  sdk/             # Client SDK
-  shared-utils/    # Shared utilities
-  config/          # Shared configuration
-
+  api-gateway/          Active local-first FastAPI gateway
+  market-data/          Canonical market event model and provider normalizers
+  ai-engine/            Active Ollama integration boundary
+  crawler/              Active readable-content crawler and paginator
+  browser-automation/   Optional Playwright, Crawl4AI, and browser-use adapters
+  agents/               Private pre-public AI agent workstream
+  ai-broker/            Model routing, policy, and validation workstream
+  execution/            Broker and order-execution workstream
+  trading/              Paper-trading domain boundary
+  news/                 Planned news-ingestion boundary
+  mcp-gateway/          Planned policy-enforced tool boundary
+  asset-intelligence/   Broader wealth-domain workstream
+  visual-learning/      Visual observation ingestion starter
+  device-hub/           Smart-device integration workstream
+  web3-gateway/         Web3 integration workstream
+research/
+  model-lab/            Model evaluation and training research
+  quantum-lab/          Experimental quantum research track
 infrastructure/
-  docker/          # Docker configurations
-  kubernetes/      # Kubernetes manifests
-  terraform/       # Terraform configurations
-  cloudflare/      # Cloudflare Workers
-
+  docker/               Canonical Docker assets
+  cloudflare/           Canonical Cloudflare assets
+  enterprise/           Enterprise deployment workstream, last in sequence
 tools/
-  scripts/         # Utility scripts
-  devops/          # DevOps automation
-
-tests/
-  integration/     # Integration tests
-  e2e/            # End-to-end tests
-  performance/    # Performance tests
-  security/       # Security tests
+  scripts/              Local helpers
+  devops/               Reusable operational automation
+archive/
+  api_app_legacy/       Historical backend prototype catalog, not active runtime
+docs/
+  architecture/         Workstream ownership and boundaries
+  guides/               Setup and private-foundation guidance
+  roadmap/              Private pre-public roadmap
+  deployment/           Low-cost deployment notes
 ```
 
-For detailed architecture documentation, see [ARCHITECTURE.md](ARCHITECTURE.md).
+## Local Setup
 
----
-
-## Quick Start
-
-### Prerequisites
-
-- Node.js 22+
-- pnpm 10+
-- Docker (optional, for containerized development)
-
-### Installation
+Install Node.js 22+, Python 3.11+, and pnpm 10.
 
 ```bash
-# Install dependencies
 pnpm install
-
-# Start development
-pnpm dev
-
-# Run tests
-pnpm test
-
-# Build for production
-pnpm build
+python -m pip install -r services/api-gateway/requirements.txt
 ```
 
-### Development
+For the normal private desktop-style workflow, start the host runtime with:
 
 ```bash
-# Start all services in development mode
-pnpm dev
+pnpm local:start
+```
 
-# Start specific app
+That command starts:
+
+- the web app on `http://127.0.0.1:3000`
+- the API on `http://127.0.0.1:8000`
+- persistent local SQLite storage in `data/veyra_local.db`
+- the configured local Ollama connection, defaulting to `http://127.0.0.1:11434`
+
+If Ollama is installed but not already serving, the local runner starts `ollama serve` for the session and stops that managed process when you run `pnpm local:stop`.
+
+Useful local commands:
+
+```bash
+pnpm local:status
+pnpm local:stop
+```
+
+The direct host runtime is the recommended path for private solo development. Docker remains optional integration infrastructure.
+
+Start the web app:
+
+```bash
 pnpm --filter @veyra/web dev
-
-# Start specific service
-pnpm --filter @veyra/api-gateway dev
 ```
 
----
-
-## AI/ML Integration
-
-Veyra supports custom AI/ML models with complete intellectual property ownership:
-
-**Custom LLM Support:**
-- Built-from-scratch LLM models (Ollama-based)
-- Fine-tuned models for financial analysis
-- Hugging Face integration (optional)
-- Custom model training pipelines
-- Complete IP ownership of all models
-
-**AI Services:**
-- Market analysis and prediction
-- Portfolio optimization
-- Risk assessment
-- Sentiment analysis
-- Automated trading strategies
-
-**Note:** Third-party LLM APIs (OpenAI, Claude, etc.) are optional. The platform is designed to work primarily with custom, self-hosted models for maximum IP control and cost efficiency.
-
----
-
-## Deployment
-
-### Development
+Start the API:
 
 ```bash
-pnpm dev
+cd services/api-gateway
+python -m uvicorn main:app --reload --host 127.0.0.1 --port 8000
 ```
 
-### Production
+The local API exposes:
 
-```bash
-pnpm build
-pnpm start
+- `GET /health`
+- `GET /status`
+- `POST /auth/login`
+- `POST /auth/refresh`
+- `GET /api/markets/*`
+- `GET /api/portfolio/*`
+- `POST/GET/DELETE /api/trading/*`
+- `GET /api/ai/status`
+- `GET /api/ai/models`
+- `POST /api/ai/chat`
+- `POST /api/research/crawl`
+- `GET /api/research/documents/*`
+- `GET /api/browser/providers`
+- `POST /api/browser/plan`
+- `POST /api/browser/research`
+
+Default local auth credentials are:
+
+```text
+email: local@veyra.dev
+password: change-me
 ```
 
-### Docker
+Override them with `VEYRA_DEV_EMAIL` and `VEYRA_DEV_PASSWORD`.
+
+## Private Pre-Public Plan
+
+The intended order is:
+
+1. foundation
+2. data, auth, and reliability
+3. AI broker and AI agents
+4. broker execution
+5. mobile and smart-device clients
+6. visual learning and broader asset intelligence
+7. Web3 and quantum research tracks
+8. public release hardening
+9. enterprise deployment
+
+See `docs/roadmap/PRIVATE_PHASE_ROADMAP.md`, `docs/architecture/PRE_PUBLIC_WORKSTREAMS.md`, and `docs/reports/FOUNDATION_DIAGNOSTIC_REPORT.md`.
+Database choices are documented in `docs/architecture/DATABASE_STRATEGY.md`.
+
+## Optional Docker Infrastructure
+
+The root `docker-compose.yml` starts PostgreSQL, Redis, the API gateway, and the web app for local integration testing.
 
 ```bash
-docker-compose up
+docker compose up --build
 ```
 
-### Cloud Deployment
+The API uses PostgreSQL in Docker for refresh tokens, paper orders, and research documents. Outside Docker it defaults to persistent local SQLite at `data/veyra_local.db` unless you set `DATABASE_URL`.
 
-See [infrastructure/](infrastructure/) for deployment configurations:
-- Docker configurations
-- Kubernetes manifests
-- Terraform scripts
-- Cloudflare Workers
+The API will use a local Ollama runtime when `OLLAMA_HOST` is reachable. For direct host execution, the default is `http://127.0.0.1:11434`. In Docker, `docker-compose.yml` defaults the API to `http://host.docker.internal:11434` so it can use the Ollama instance already installed on the host. Override `OLLAMA_HOST=http://ollama:11434` if you explicitly start the optional Compose Ollama profile instead.
 
----
+The default Compose stack is intentionally lean. Qdrant and Adminer are optional profiles, and `docs/guides/LOW_CPU_DOCKER.md` covers the low-CPU workflow when Docker Desktop Kubernetes is not needed.
 
-## Testing
+## Checks
 
 ```bash
-# Run all tests
+pnpm typecheck
 pnpm test
-
-# Run integration tests
-pnpm --filter @veyra/tests-integration test
-
-# Run E2E tests
-pnpm --filter @veyra/tests-e2e test
-
-# Run performance tests
-pnpm --filter @veyra/tests-performance test
-
-# Run security tests
-pnpm --filter @veyra/tests-security test
+pnpm build
+python -m pytest services/api-gateway/tests services/visual-learning/tests services/crawler/tests services/ai-engine/tests
 ```
-
----
 
 ## Security
 
-- **Environment Variables:** Never commit `.env` files
-- **Secret Management:** Use proper secret management in production
-- **API Keys:** Rotate keys regularly and use environment-specific configurations
-- **Authentication:** Implement proper authentication and authorization
-
-See [SECURITY.md](SECURITY.md) for security guidelines.
-
----
-
-## Roadmap
-
-### Current Phase (Development)
-- ✅ Monorepo structure
-- ✅ Basic service architecture
-- ✅ Web application
-- ✅ Testing infrastructure
-- 🔄 API gateway implementation
-- 🔄 Market data service
-- 🔄 Authentication service
-
-### Next Phase (Production Hardening)
-- ⏳ Observability (OpenTelemetry, Prometheus, Grafana)
-- ⏳ Security hardening
-- ⏳ Rate limiting
-- ⏳ Audit logging
-- ⏳ RBAC implementation
-- ⏳ Backup and failover systems
-
-### Future Phase (Financial Infrastructure)
-- ⏳ Market data layer
-- ⏳ Streaming engine
-- ⏳ Risk engine
-- ⏳ Portfolio engine
-- ⏳ Strategy framework
-- ⏳ Backtesting engine
-- ⏳ AI infrastructure optimization
-
----
-
-## Contributing
-
-Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
----
-
-## License
-
-MIT License - See [LICENSE](LICENSE) for details.
-
----
-
-## Documentation
-
-- [Architecture](ARCHITECTURE.md)
-- [Security](SECURITY.md)
-- [API Documentation](docs/api/)
-- [Deployment Guide](docs/deployment/)
-- [Development Guide](docs/development/)
+Do not commit real `.env` files or credentials. Use `.env.example` files for placeholders only, rotate any credentials that were ever committed, and run secret scanning before publishing changes.

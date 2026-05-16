@@ -1,10 +1,10 @@
-import { CheckCircle2, Circle, Clock, ArrowUpRight, Zap, Target, Shield, Brain, Layers, Info } from "lucide-react";
+import { CheckCircle2, Circle, Clock, ArrowUpRight, Zap, Target, Shield, Info } from "lucide-react";
 import { motion } from "motion/react";
 import { VeyraInfoBox } from "./VeyraInfoBox";
 
 interface TodoItem {
   id: string;
-  category: "CORE" | "TRADING" | "AI" | "DEFI";
+  category: "FOUNDATION" | "CORE" | "PRIVATE" | "RELEASE";
   task: string;
   status: "completed" | "in-progress" | "backlog";
   description: string;
@@ -14,105 +14,63 @@ export function VeyraProjectStatus() {
   const todos: TodoItem[] = [
     {
       id: "1",
-      category: "CORE",
-      task: "Universal Navigation Shell",
+      category: "FOUNDATION",
+      task: "Runnable Local Core",
       status: "completed",
-      description: "High-performance sidebar with multi-view state management and active node search."
+      description: "Web app, API gateway, market normalization, portfolio endpoints, and paper-trading endpoints are wired for local development."
     },
     {
       id: "2",
-      category: "TRADING",
-      task: "Execution Terminal v1",
-      status: "completed",
-      description: "Advanced charting with multi-timeframe overlays and synthetic data generation kernel."
+      category: "CORE",
+      task: "Data, Auth, And Reliability",
+      status: "in-progress",
+      description: "Add durable models, migrations, auth hardening, replay tests, observability, and backup discipline."
     },
     {
       id: "3",
-      category: "AI",
-      task: "Neural Bot Forge",
-      status: "completed",
-      description: "Agent deployment engine with allocation presets and advanced risk parameterization."
+      category: "PRIVATE",
+      task: "AI Broker And Agents",
+      status: "backlog",
+      description: "Build model routing, policy enforcement, memory, bounded agents, and human approval for sensitive actions."
     },
     {
       id: "4",
-      category: "AI",
-      task: "Strategy Constructor",
-      status: "completed",
-      description: "Dynamic heuristic definition engine with entry/exit thresholds and volatility caps."
+      category: "PRIVATE",
+      task: "Broker Execution",
+      status: "backlog",
+      description: "Progress from paper ledger to sandbox adapters, then human-approved live execution with reconciliation."
     },
     {
       id: "5",
-      category: "TRADING",
-      task: "Order Security Protocol",
-      status: "completed",
-      description: "Multi-layered confirmation modals for buy/sell execution to prevent fat-finger errors."
+      category: "PRIVATE",
+      task: "Mobile And Smart Devices",
+      status: "backlog",
+      description: "Ship stable mobile and companion-device clients after the API contract is reliable."
     },
     {
       id: "6",
-      category: "CORE",
-      task: "Per-Instance Telemetry",
-      status: "completed",
-      description: "Real-time execution logs and efficiency metrics for deep-dive logic auditing."
+      category: "PRIVATE",
+      task: "Web3 And Quantum Tracks",
+      status: "backlog",
+      description: "Keep Web3 isolated and read-only first; keep quantum work benchmarked against classical baselines."
     },
     {
       id: "7",
-      category: "AI",
-      task: "Sentiment Intelligence",
-      status: "completed",
-      description: "Integrating NLP modules to ingest social 'heat' and adjust trade confidence thresholds."
+      category: "RELEASE",
+      task: "Public Release Gate",
+      status: "backlog",
+      description: "Require security review, recovery drills, load tests, support process, and honest public documentation."
     },
     {
       id: "8",
-      category: "TRADING",
-      task: "HFT WebSocket Node",
-      status: "completed",
-      description: "Transitioning to sub-millisecond price streams from global centralized exchanges."
-    },
-    {
-      id: "9",
-      category: "DEFI",
-      task: "Multi-Chain Liquidity Vault",
-      status: "completed",
-      description: "Cross-chain asset bridging and automated yield-rebalacing across L2 networks."
-    },
-    {
-      id: "10",
-      category: "CORE",
-      task: "Identity Hardening",
-      status: "completed",
-      description: "Biometric and hardware wallet authentication for high-value execution cycles."
-    },
-    {
-      id: "11",
-      category: "TRADING",
-      task: "Professional Terminal",
-      status: "completed",
-      description: "Ultra-high performance trading interface with mirrored asset feeds and instant node execution."
-    },
-    {
-      id: "12",
-      category: "DEFI",
-      task: "Universal Oracle",
-      status: "completed",
-      description: "Real-time cross-currency conversion matrix supporting 10+ fiat and crypto assets."
-    },
-    {
-      id: "13",
-      category: "CORE",
-      task: "Industrial UI Re-Skin",
-      status: "completed",
-      description: "Mass-adoption design overhaul involving high-fidelity charts, bento grids, and pro-tier shadows."
-    },
-    {
-      id: "14",
-      category: "CORE",
-      task: "Governance & Legal Shell",
-      status: "completed",
-      description: "Comprehensive risk disclosure, terms of service, and knowledge base integration."
+      category: "RELEASE",
+      task: "Enterprise Deployment",
+      status: "backlog",
+      description: "Add tenant isolation, SSO, managed secrets, compliance evidence, and multi-environment operations last."
     }
   ];
 
-  const completedCount = todos.filter(t => t.status === 'completed').length;
+  const completedCount = todos.filter(t => t.status === "completed").length;
   const progressPercent = Math.round((completedCount / todos.length) * 100);
 
   const getStatusIcon = (status: TodoItem["status"]) => {
@@ -125,10 +83,10 @@ export function VeyraProjectStatus() {
 
   const getCategoryColor = (cat: TodoItem["category"]) => {
     switch (cat) {
-      case "CORE": return "text-blue-400 bg-blue-400/10";
-      case "TRADING": return "text-emerald-400 bg-emerald-400/10";
-      case "AI": return "text-indigo-400 bg-indigo-400/10";
-      case "DEFI": return "text-rose-400 bg-rose-400/10";
+      case "FOUNDATION": return "text-blue-400 bg-blue-400/10";
+      case "CORE": return "text-emerald-400 bg-emerald-400/10";
+      case "PRIVATE": return "text-indigo-400 bg-indigo-400/10";
+      case "RELEASE": return "text-rose-400 bg-rose-400/10";
     }
   };
 
@@ -136,12 +94,12 @@ export function VeyraProjectStatus() {
     <div className="space-y-8">
       <div className="flex items-end justify-between">
         <div>
-           <h3 className="text-3xl font-black italic tracking-tighter uppercase text-white mb-2">Protocol_Roadmap</h3>
-           <p className="text-slate-500 text-sm font-mono uppercase tracking-[0.2em]">Development Status & Task Backlog</p>
+           <h3 className="text-3xl font-black italic tracking-tighter uppercase text-white mb-2">Private_Roadmap</h3>
+           <p className="text-slate-500 text-sm font-mono uppercase tracking-[0.2em]">Foundation To Public Release Sequence</p>
         </div>
         <div className="text-right">
            <div className="text-4xl font-black italic tracking-tighter text-white mb-1">{progressPercent}%</div>
-           <div className="text-[10px] font-black uppercase text-slate-500 tracking-widest">Protocol Completion</div>
+           <div className="text-[10px] font-black uppercase text-slate-500 tracking-widest">Tracked Completion</div>
         </div>
       </div>
 
@@ -160,7 +118,7 @@ export function VeyraProjectStatus() {
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: idx * 0.05 }}
-            className={`group p-6 rounded-[2rem] border transition-all ${todo.status === 'completed' ? 'bg-white/5 border-white/5' : 'bg-black border-white/10 hover:border-white/20'}`}
+            className={`group p-6 rounded-[2rem] border transition-all ${todo.status === "completed" ? "bg-white/5 border-white/5" : "bg-black border-white/10 hover:border-white/20"}`}
           >
             <div className="flex gap-6 items-start">
               <div className="pt-1">
@@ -171,7 +129,7 @@ export function VeyraProjectStatus() {
                   <span className={`px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest ${getCategoryColor(todo.category)}`}>
                     {todo.category}
                   </span>
-                  <h4 className={`text-sm font-bold uppercase tracking-tight ${todo.status === 'completed' ? 'text-slate-400 line-through' : 'text-white'}`}>
+                  <h4 className={`text-sm font-bold uppercase tracking-tight ${todo.status === "completed" ? "text-slate-400 line-through" : "text-white"}`}>
                     {todo.task}
                   </h4>
                 </div>
@@ -179,9 +137,9 @@ export function VeyraProjectStatus() {
                     label="Task_Metadata" 
                     value={todo.task} 
                     details={[
-                      { label: "Assigned", value: "Neural_Link_01" },
-                      { label: "Priority", value: "CRITICAL" },
-                      { label: "Branch", value: "master_v12" }
+                      { label: "Mode", value: todo.category === "FOUNDATION" ? "ACTIVE" : "PRIVATE" },
+                      { label: "Status", value: todo.status.toUpperCase() },
+                      { label: "Branch", value: "foundation" }
                     ]}
                   >
                     <p className="text-xs text-slate-500 leading-relaxed max-w-2xl italic flex items-center gap-2 cursor-help group-hover:text-indigo-400 transition-colors">
@@ -202,17 +160,17 @@ export function VeyraProjectStatus() {
          <div className="p-8 bg-zinc-950 border border-white/5 rounded-[2.5rem]">
             <Zap className="text-amber-500 mb-6" size={32} />
             <h5 className="text-xl font-black italic tracking-tighter uppercase text-white mb-2">Next_Sprint</h5>
-            <p className="text-[10px] text-slate-600 font-mono leading-relaxed uppercase">Activating real-time node synchronization kernels.</p>
+            <p className="text-[10px] text-slate-600 font-mono leading-relaxed uppercase">Durable data, auth, replay tests, and observability starter.</p>
          </div>
          <div className="p-8 bg-zinc-950 border border-white/5 rounded-[2.5rem]">
             <Shield className="text-rose-500 mb-6" size={32} />
-            <h5 className="text-xl font-black italic tracking-tighter uppercase text-white mb-2">Sec_Audit</h5>
-            <p className="text-[10px] text-slate-600 font-mono leading-relaxed uppercase">Firebase security rules penetration testing phase.</p>
+            <h5 className="text-xl font-black italic tracking-tighter uppercase text-white mb-2">Policy_Gate</h5>
+            <p className="text-[10px] text-slate-600 font-mono leading-relaxed uppercase">Agents and execution stay private until approval and audit controls exist.</p>
          </div>
          <div className="p-8 bg-zinc-950 border border-white/5 rounded-[2.5rem]">
             <Target className="text-indigo-500 mb-6" size={32} />
-            <h5 className="text-xl font-black italic tracking-tighter uppercase text-white mb-2">Phase_Final</h5>
-            <p className="text-[10px] text-slate-600 font-mono leading-relaxed uppercase">Full infrastructure deployment across multichain endpoints.</p>
+            <h5 className="text-xl font-black italic tracking-tighter uppercase text-white mb-2">Release_Order</h5>
+            <p className="text-[10px] text-slate-600 font-mono leading-relaxed uppercase">Private capability first, public launch second, enterprise deployment last.</p>
          </div>
       </div>
     </div>

@@ -11,7 +11,7 @@ export function VeyraCommunity() {
   const [messages] = useState([
     { user: "Alpha_Node", text: "VRA accumulation signal triggered at depth 001. Check the contrarian engine.", tier: 12 },
     { user: "Beta_Scout", text: "Oracle sync delay detected on XAU feed. 0.003ms spike. Investigating.", tier: 10 },
-    { user: "V_Architect", text: "New identity marks for Level 11 are live in the Asset Studio. Transcendent status verified.", tier: 11 },
+    { user: "V_Architect", text: "New identity marks for Level 11 are live in the Asset Studio. Foundation status verified.", tier: 11 },
   ]);
 
   return (

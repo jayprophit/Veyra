@@ -5,17 +5,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { 
-  ShieldCheck, 
-  Terminal, 
-  Cpu, 
-  Globe, 
-  ArrowRight, 
-  Zap,
-  CheckCircle2,
-  ChevronRight,
-  Sparkles
-} from "lucide-react";
+import { ShieldCheck, Terminal, Globe, Zap, ChevronRight } from "lucide-react";
 import { VeyraLogo } from "./VeyraLogo";
 
 interface Step {
@@ -27,34 +17,30 @@ interface Step {
 
 const steps: Step[] = [
   {
-    title: "Kernel_Initialization",
-    description: "Welcome to Veyra Labs. Your identity kernel is now synchronized with the global extraction grid.",
+    title: "Local_Foundation",
+    description: "Welcome to the private foundation build. Start with the local API gateway, web app, and market normalizer.",
     icon: ShieldCheck,
     color: "text-indigo-400"
   },
   {
-    title: "Protocol_Extraction",
-    description: "Our high-latency extraction labs allow you to mine liquidity across 12 unique tiers of neural depth.",
-    icon: Pickaxe,
+    title: "Canonical_Data",
+    description: "Normalize every provider into one market-event shape before it reaches charts, AI, or portfolio logic.",
+    icon: Zap,
     color: "text-emerald-400"
   },
   {
-    title: "Neural_Trading",
-    description: "Access the terminal to execute trades with sub-millisecond precision using the forged assets.",
+    title: "Paper_Trading",
+    description: "Use paper-mode execution first. Live broker actions come later behind approval, reconciliation, and audit controls.",
     icon: Terminal,
     color: "text-amber-400"
   },
   {
-    title: "Network_Status",
-    description: "Monitor your cluster status and manage your Transcendent tier identity from the manifest.",
+    title: "Private_Roadmap",
+    description: "Build AI agents, AI broker, execution, mobile, devices, Web3, and quantum tracks privately before any public launch.",
     icon: Globe,
     color: "text-violet-400"
   }
 ];
-
-function Pickaxe(props: any) {
-  return <Zap {...props} />; // Using alternative icon for variety
-}
 
 export function VeyraOnboarding({ onComplete }: { onComplete: () => void }) {
   const [currentStep, setCurrentStep] = useState(0);
@@ -92,7 +78,7 @@ export function VeyraOnboarding({ onComplete }: { onComplete: () => void }) {
                 <VeyraLogo size="lg" />
                 <div className="h-12 w-px bg-white/10 hidden sm:block" />
                 <div>
-                   <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1 italic">Protocol_Onboarding_Step_{currentStep + 1}</p>
+                   <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1 italic">Foundation_Onboarding_Step_{currentStep + 1}</p>
                    <h2 className="text-3xl font-black italic text-white uppercase tracking-tighter">
                      {steps[currentStep].title}
                    </h2>
@@ -130,7 +116,7 @@ export function VeyraOnboarding({ onComplete }: { onComplete: () => void }) {
                 onClick={nextStep}
                 className="flex items-center gap-4 px-10 py-4 bg-white text-black rounded-2xl font-black uppercase text-[10px] tracking-widest hover:scale-105 transition-all shadow-2xl"
               >
-                {currentStep === steps.length - 1 ? 'Enter_The_Void' : 'Next_Phase'}
+                {currentStep === steps.length - 1 ? 'Enter_Workspace' : 'Next_Phase'}
                 <ChevronRight size={16} />
               </button>
             </footer>

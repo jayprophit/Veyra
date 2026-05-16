@@ -20,7 +20,7 @@ export const currencies: Currency[] = [
 interface CurrencyContextType {
   selectedCurrency: Currency;
   setSelectedCurrency: (currency: Currency) => void;
-  formatValue: (usdValue: number) => string;
+  formatValue: (usdValue: number, options?: Intl.NumberFormatOptions) => string;
 }
 
 const CurrencyContext = createContext<CurrencyContextType | undefined>(undefined);

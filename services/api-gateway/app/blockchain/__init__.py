@@ -1,1 +1,0 @@
-# Veyra - blockchain module
